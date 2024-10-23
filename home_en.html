@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Aurel - Personal Portfolio</title>
+    <link rel="icon" href="img/pic-square.png" type="image/png">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-X8DZQC5PBF"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-X8DZQC5PBF');
+    </script>
+
+    <link rel="stylesheet" href="styles/style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+          
+    <script src="https://kit.fontawesome.com/f56155cbc5.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <!-- Navbar -->
+    <header class="header">
+        <a class="logo" href="#">.aur<span>a</span>dev</a>
+
+        <nav class="navbar">
+            <a href="#home" class="active">Home</a>
+            <a href="#about">About</a>
+            <a href="#works">Projects</a>
+            <a href="#compet">Profile</a>
+            <a href="https://auradev.hashnode.dev/" target="_blank">Blog</a>
+            <a href="#contacts">Contacts</a>
+            
+            <select name="lang" id="lang" onchange="changeLanguage(this)">
+                <option value="en" selected>En</option>
+                <option value="fr">Fr</option>
+            </select>
+        </nav>
+
+        <div class="menu-toggle" id="menu-toggle">
+            &#9776; <!-- Code HTML pour les trois traits superposés -->
+        </div>
+
+    </header>
+
+
+    <!-- Home -->
+    <section class="home" id="home">
+        <div class="home-content">
+            
+            <h1>Hello, I'm Aurel</h1>
+            
+            <h2>2nd Year Master in Economics</h2>
+            
+            <p>As a Master's student in Economics, I am passionate about using data to solve complex economic and social challenges. I enjoy exploring methods such as machine learning and statistics to provide practical solutions.<br />
+                Let’s build <b>amazing together</b> ! 🎉
+            </p>
+
+            <div class="bulles">
+                <a href="#contacts" class="about-home">Get in touch</a>
+                
+                <div class="bulle-contact">
+                    <a href="https://www.linkedin.com/in/loua-aurel-vehi-29887a290/" target="_blank"><i class='bx bxl-linkedin-square'></i></a>
+                    <a href="https://github.com/aurvl" target="_blank"><i class='bx bxl-github' ></i></a>
+                    <a href="https://hashnode.com/@aurvl" target="_blank"><i class="fa-brands fa-hashnode"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="pic-home">
+            <img src="img/cropped_image.png" alt="pp" width="auto" height="100%">
+        </div>
+        
+    </section>
+
+    <!-- About me -->
+    <section class="about" id="about">
+        <div class="pic-about">
+            <img class="ppc" src="img/about.png" alt="about-me-pict" max-width="800px" max-height="450px">            
+        </div>
+
+        <div class="about-content">
+            <h2>ABOUT ME</h2>
+
+            <h1>Who Am I ?</h1>
+
+            <p>
+                I am Aurel VEHI, an Economics student at the Université Côte d'Azur. My background in economic data expertise and analysis has provided me with a strong foundation in economics, complemented by skills in programming, data analysis, and machine learning. This knowledge has allowed me to carry out innovative projects and solve complex problems. Through my experiences in finance and teaching, I have strengthened my adaptability, teamwork, and problem-solving abilities.
+                <br/>
+                <br/>
+                Driven by ambition and a passion for economic and social sciences, I aim to contribute to impactful research and propose solutions that are both equitable and sustainable. I am always eager to collaborate, learn, and offer innovative perspectives to those around me.
+            </p>
+
+            <div class="btn-about">
+                <a class="b1" href="mailto:aurelvehi@outlook.fr">Hire me</a>
+                <a class="b2" href="down/cv.pdf" download="aurel_vehi_cv.pdf">Download my CV</a>
+            </div>
+        </div>
+    </section>
+    
+
+    <!-- Portfolio -->
+    <section class="works" id="works">
+        <div class="works-content">
+            <h2>PORTFOLIO</h2>
+            <h1>My projects and case studies</h1>
+            <p>Here are some of my projects and case studies that demonstrate my skills and experience.</p>
+        </div>
+
+        <div class="wk-grid">
+            <div class="main-wk-item">
+                <div class="main-img-wk">
+                    <img src="img/p1.jpg" alt="project1">
+                </div>
+
+                <div  class="main-content-wk">
+                    <h2><a href="https://github.com/aurvl/Projects/blob/main/IAE%20Trends/IAE%20Trends.md" class="hover-link">Analysis of the Environmental Attention Index (EAI) in Preferential Trade Agreements (PTAs)</a></h2>
+                    <p>📅 Sept, 2024</p>
+                    <p>The objective of this work is to measure the importance given to environmental issues in Preferential Trade Agreements (PTAs) using the Environmental Attention Index (EAI). This indicator is calculated from data provided by the Trade & Environment Database (TREND), the most comprehensive database to date on environmental clauses in international trade agreements.</p>
+                </div>
+            </div>
+
+            <div class="wk-items">
+                <div class="box">
+                    <div class="img-wk">
+                        <img src="img/p2.webp" alt="project2">
+                    </div>
+
+                    <div class="tdd">
+                        <h2><a href="https://github.com/aurvl/Projects/blob/main/Overweight/Overweight.md" class="hover-link">Classification Models for Family History of Overweight</a></h2>
+                        <p>📅 April, 2024</p>
+                        <p>This project explores the use of various classification models to predict whether an individual has a family history of overweight. Three different machine learning algorithms are implemented and evaluated: Logistic Regression, Random Forest Classifier, and XGBoost Classifier.</p>
+                    </div>
+                </div>
+
+                <div class="box">
+                    <div class="img-wk">
+                        <img src="img/p3.jpg" alt="project3">
+                    </div>
+
+                    <div class="tdd">
+                        <h2><a href="https://github.com/aurvl/Projects/blob/main/Scraping%20Allocine/Scraping%20Allocine.md" class="hover-link">AlloCiné TV Series Scraping Project</a></h2>
+                        <p>📅 Oct, 2024</p>
+                        <p>Ever wondered how you can extract and analyze TV series data straight from the web? This project is all about scraping TV series data from AlloCiné, organizing it into a structured format, and conducting cool analyses! We scraped data like the series title, period, duration, genre, ratings, and more to create a comprehensive dataset.</p>
+                    </div>
+                </div>
+
+                <div class="box">
+                    <div class="img-wk">
+                        <img src="img/p4.jpg" alt="project4">
+                    </div>
+
+                    <div class="tdd">
+                        <h2><a href="https://github.com/aurvl/Projects/blob/main/Famd/Famd.md" class="hover-link">Factorial Analysis of Mixed Data (FAMD)</a></h2>
+                        <p>📅 Dec, 2023</p>
+                        <p>This activity focuses on applying Factorial Analysis of Mixed Data (FAMD) to the "adult" dataset from the UCI Machine Learning Repository. FAMD is a dimension reduction technique that allows for the simultaneous analysis of both quantitative and qualitative variables.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="wk-items">
+                <div class="box">
+                    <div class="img-wk">
+                        <img src="img/p5.jpg" alt="project5">
+                    </div>
+
+                    <div class="tdd">
+                        <h2><a href="https://github.com/aurvl/Projects/blob/main/Stock%20previsions/Stock%20Previsions.md" class="hover-link">Analysis of Belgian Exports and Imports (1995-2023)</a></h2>
+                        <p>📅 April, 2024</p>
+                        <p>The study examines the time series of Belgian foreign trade to understand historical trends, assess the relationships between variables, and provide forecasts over a period of 10 quarters. The report is divided into two main parts: a univariate time series analysis to explore individual characteristics and a multivariate analysis to examine the interactions between the different series.</p>
+                    </div>
+                </div>
+
+                <div class="box">
+                    <div class="img-wk">
+                        <img src="img/p6.webp" alt="project6">
+                    </div>
+
+                    <div class="tdd">
+                        <h2><a href="https://github.com/aurvl/Projects/blob/main/Okun%20Law/Okun%20Law.md" class="hover-link">Analysis of Economic Indicators: Okun's Law</a></h2>
+                        <p>📅 Dec, 2023</p>
+                        <p>This analysis focuses on analyzing economic indicators, specifically GDP and unemployment rates, using data from Eurostat. The primary goal is to understand the relationships between GDP growth and unemployment rates through the lens of Okun's Law.</p>
+                    </div>
+                </div>
+
+                <div class="box">
+                    <div class="img-wk">
+                        <img src="img/p7.jpg" alt="project7">
+                    </div>
+
+                    <div class="tdd">
+                        <h2><a href="https://github.com/aurvl/Projects/blob/main/Unemployment/Unemployment.md" class="hover-link">Phillips Curve Analysis and Policy Guidance for Europe 2024</a></h2>
+                        <p>📅 Nov, 2023</p>
+                        <p>This Python project involves an econometric analysis of inflation and unemployment rates for five European countries (France, Germany, Italy, Netherlands, United Kingdom) for the year 2023, with projections for 2024.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="see-more">
+            <a href="https://github.com/aurvl/Projects/blob/main/README.md" target="_blank">See More Works</a>
+        </div>
+    </section>
+
+
+    <!-- Skills & Exp  -->
+    <section class="compet" id="compet">
+        <div class="sk-content">
+            <h2>MY SKILLS & EXPERIENCES</h2>
+            <h1>What are my technical and analytical skills?</h1>
+            <p>Here’s an overview of my technical and analytical skills, developed through my studies and projects, that allow me to transform data into actionable solutions.</p>
+        </div>
+
+        <div class="sk-element">
+            <div class="exp-cert">
+
+                <div class="cctx">
+                    <p class="ttl-exp">Experiences</p>
+                    <div class="exp-col">
+                        <div class="exp-box">
+                            <img src="img/csm-logo.png" alt="img" title="Centre Scientifique de Monaco">
+                            <div class="exp-box-content">
+                                <h2>Environmental Economics Project Manager</h2>
+                                <p>Oct 2024 - Present&nbsp; • &nbsp;<b>Contract</b></p>
+                                <p>Monaco</p>    
+                            </div>
+                        </div>
+
+                        <div class="exp-box">
+                            <img src="img/fsn.jpg" alt="img" title="Family Sphere">
+                            <div class="exp-box-content">
+                                <h2>Private Math Tutor</h2>
+                                <p>Mar 2023 - Jun 2024&nbsp; • &nbsp;<b>Contract</b></p>
+                                <p>Nice, France</p>    
+                            </div>
+                        </div>
+
+                        <div class="exp-box">
+                            <img src="img/fsn.jpg" alt="img" title="Family Sphere">
+                            <div class="exp-box-content">
+                                <h2>Finance and Data Analysis</h2>
+                                <p>Jul - Aug 2023&nbsp; • &nbsp;<b>Intern</b></p>
+                                <p>Nice, France</p>    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="cert">
+                    <p class="ttl-exp">Certifications</p>
+                    <div class="cert-col">
+                        <a href="https://openbadgefactory.com/v1/assertion/e6fc9dcc549b9b9f4ab73df5ab9bb77f052dfa44" target="_blank" class="cert-box">
+                            <img src="img/ct1.png" alt="ct1">
+    
+                            <div class="cert-box-content">
+                                <h2>Introduction à la statistique avec R</h2>
+                                <p>Sept, 2024</p>
+                            </div>
+                        </a>
+    
+                        <a href="#" class="cert-box">
+                            <img src="img/ct2.png" alt="ct2">
+    
+                            <div class="cert-box-content">
+                                <h2>Certificat Pix (P-MB9CBR3X)</h2>
+                                <p>Mar, 2023</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="skillys">
+                <div class="ttl-exp">Skills</div>
+
+                <div class="skills-grid">
+                    <div class="skill-box">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" />
+                        <span class="tooltip-text">Python</span>
+                    </div>
+    
+                    <div class="skill-box" title="R">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/rstudio/rstudio-original.svg" />
+                        <span class="tooltip-text">R Language</span>
+                    </div>
+    
+                    <div class="skill-box" title="MySQL">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original-wordmark.svg" />
+                        <span class="tooltip-text">MySQL</span>
+                    </div>
+    
+                    <div class="skill-box">
+                        <img src="img/pbi.png" width="auto" height="100%" />
+                        <span class="tooltip-text">Power BI</span>
+                    </div>
+                    
+                    <div class="skill-box">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jupyter/jupyter-original-wordmark.svg" />
+                        <span class="tooltip-text">Jupyter Notebook</span>
+                    </div>
+    
+                    <div class="skill-box">
+                        <img width="auto" height="100%" src="https://img.icons8.com/fluency/48/microsoft-365.png" />
+                        <span class="tooltip-text">Microsoft Office</span>
+                    </div>
+    
+                    <div class="skill-box" title="HTML">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original-wordmark.svg" />
+                        <span class="tooltip-text">HTML</span>
+                    </div>
+    
+                    <div class="skill-box">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original-wordmark.svg" />
+                        <span class="tooltip-text">CSS</span>
+                    </div>
+
+                    <div class="skill-box">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/julia/julia-original.svg" />
+                        <span class="tooltip-text">Julia</span>
+                    </div>
+                    
+                    <div class="skill-box">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/githubcodespaces/githubcodespaces-original.svg" />
+                        <span class="tooltip-text">Ghitub Codespace</span>
+                    </div>
+
+                    <div class="skill-box">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" />
+                        <span class="tooltip-text">Git</span>
+                    </div>
+                </div>
+    
+                <div class="list">
+                    <ul>
+                        <li>Data Cleaning and Manipulation</li>
+                        <li>Modelisation and Forecasting</li>
+                        <li>Machine Learning Model Development</li>
+                        <li>Proficiency in Statistical Analysis</li>
+                        <li>Expertise in Time Series Analysis</li>
+                    </ul>
+    
+                    <ul>
+                        <li>Creative Problem-Solving</li>
+                        <li>Interactive Data Visualization</li>
+                        <li>Financial Reporting</li>
+                        <li>Budget Planning</li>
+                        <li>Team Collaboration and Communication</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Contacts -->
+    <section class="contacts" id="contacts">
+        <div class="contacts-content">
+            <h2>CONTACTS</h2>
+            <h1>Get in touch with me</h1>
+            <p>Feel free to contact me for any questions or collaborations.</p>
+            
+            <div class="location">
+                <p><i class="fa-solid fa-location-dot"></i></p>
+                <p>Nice, France.</p>
+            </div>
+
+            <div class="link-contact">
+                <a href="https://www.linkedin.com/in/loua-aurel-vehi-29887a290/" target="_blank"><i class='bx bxl-linkedin-square'></i></a>
+                <a href="https://github.com/aurvl" target="_blank"><i class='bx bxl-github' ></i></a>
+                <a href="https://hashnode.com/@aurvl" target="_blank"><i class="fa-brands fa-hashnode"></i></a>
+            </div>
+        </div>
+
+        <div class="form-contact">
+            <form id="myForm" action="https://formspree.io/f/xgvewzqo" method="POST" target="_blank">
+                <label for="name">Name</label>
+                <input type="name" name="name" placeholder="e.g John Doe">
+                
+                <label for="email">Email</label>
+                <input type="email" name="email" placeholder="e.g john.doe@example.com">  
+
+                <label for="messg">Message</label>
+                <textarea name="message" placeholder="Write your message..." required></textarea>
+
+                <input type="hidden" name="_next" value="https://formspree.io/thanks?language=en">
+
+                <button type="submit">SEND</button>
+            </form>
+        </div>
+    </section>
+    
+
+    <!-- Footer -->
+    <footer class="footer">
+        <a class="logo" href="#">.aur<span>a</span>dev</a>
+
+        <div class="copyright">
+            &copy; 2024 <span>auradev</span>. All rights reserved
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
