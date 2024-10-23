@@ -39,7 +39,7 @@ function changeLanguage(select) {
     
     // Vérifier la langue sélectionnée et rediriger vers la bonne page
     if (selectedLanguage === 'en') {
-        window.location.href = 'home_en.html';  // Page en anglais
+        window.location.href = 'index.html';  // Page en anglais
     } else if (selectedLanguage === 'fr') {
         window.location.href = 'home_fr.html';  // Page en français
     }
@@ -52,7 +52,7 @@ function changeLanguage(select) {
     localStorage.setItem('selectedLanguage', selectedLanguage);
 
     if (selectedLanguage === 'en') {
-        window.location.href = 'home_en.html';
+        window.location.href = 'index.html';
     } else if (selectedLanguage === 'fr') {
         window.location.href = 'home_fr.html';
     }
