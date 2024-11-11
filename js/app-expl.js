@@ -33,46 +33,38 @@ menuToggle.addEventListener('click', () => {
     navbar.classList.toggle('active');
 });
 
-// Fonction de changement de langue avec sauvegarde dans localStorage
+
+function changeLanguage(select) {
+    const selectedLanguage = select.value;
+    
+    // Vérifier la langue sélectionnée et rediriger vers la bonne page
+    if (selectedLanguage === 'en') {
+        window.location.href = 'explore-projects.html';  // Page en anglais
+    } else if (selectedLanguage === 'fr') {
+        window.location.href = 'explore-projects_fr.html';  // Page en français
+    }
+}
+
+
+// Sauvegarder la langue choisie
 function changeLanguage(select) {
     const selectedLanguage = select.value;
     localStorage.setItem('selectedLanguage', selectedLanguage);
 
-    // Redirection en fonction de la langue choisie
     if (selectedLanguage === 'en') {
-        window.location.href = 'index.html';
+        window.location.href = 'explore-projects.html';
     } else if (selectedLanguage === 'fr') {
-        window.location.href = 'home_fr.html';
+        window.location.href = 'explore-projects_fr.html';
     }
 }
 
-// Charger la langue sauvegardée au chargement de la page
+// Charger la langue sauvegardée
 window.onload = function() {
     const savedLanguage = localStorage.getItem('selectedLanguage');
-    const languageSelect = document.getElementById('lang');
-
     if (savedLanguage) {
-        languageSelect.value = savedLanguage;
-        // Redirige vers la version de langue sauvegardée si elle ne correspond pas à la page actuelle
-        if (savedLanguage === 'fr' && !window.location.href.includes('home_fr.html')) {
-            window.location.href = 'home_fr.html';
-        } else if (savedLanguage === 'en' && !window.location.href.includes('index.html')) {
-            window.location.href = 'index.html';
-        }
+        document.getElementById('lang').value = savedLanguage;
     }
 };
-
-// Formulaire de contact avec reset après envoi
-const form = document.getElementById('myForm');
-
-form.addEventListener('submit', function(e) {
-    // Laisser le formulaire se soumettre normalement (en ouvrant un nouvel onglet)
-    
-    setTimeout(function() {
-        // Réinitialiser le formulaire après un court délai
-        form.reset();
-    }, 1000); // Attendre une seconde avant de réinitialiser pour laisser le formulaire se soumettre
-});
 
 const themeToggleBtn = document.getElementById('theme-toggle');
 const body = document.body;
