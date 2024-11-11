@@ -2,18 +2,18 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Aurel - Portfolio Personnel</title>
     <link rel="icon" href="img/pic-square.png" type="image/png">
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZWFBL963P0"></script>
+   <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8FKVJTTKSH"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
     
-      gtag('config', 'G-ZWFBL963P0');
+      gtag('config', 'G-8FKVJTTKSH');
     </script>
 
     <link rel="stylesheet" href="styles/style.css">
@@ -25,22 +25,26 @@
 </head>
 
 <body>
-    <!-- Barre de navigation -->
+    <!-- Navbar -->
     <header class="header">
-        <a class="logo" href="#">.aur<span>a</span>dev</a>
+        <a class="logo" href="#">.l<span>a</span>dev</a>
 
         <nav class="navbar">
             <a href="#home" class="active">Accueil</a>
-            <a href="#about">Bio</a>
+            <a href="#about">Profil</a>
             <a href="#works">Projets</a>
-            <a href="#compet">Profil</a>
+            <a href="#compet">Compétences</a>
             <a href="https://auradev.hashnode.dev/" target="_blank">Blog</a>
             <a href="#contacts">Contacts</a>
             
             <select name="lang" id="lang" onchange="changeLanguage(this)">
-                <option value="fr" selected>Fr</option>
                 <option value="en">En</option>
+                <option value="fr" selected>Fr</option>
             </select>
+
+            <div id="theme-toggle" class="theme-toggle">
+                <span class="toggle-slider">🌞</span>
+            </div>
         </nav>
 
         <div class="menu-toggle" id="menu-toggle">
@@ -56,20 +60,19 @@
             
             <h1>Bonjour, je suis Aurel</h1>
             
-            <h2>Etudiant en Master 2 en Economie</h2>
+            <h2>Étudiant en 2e année de Master en Économie</h2>
             
-            <p>En tant qu'étudiant en Master en Économie, je suis passionné par l'utilisation des données pour résoudre des défis économiques et sociaux complexes. J'aime explorer des méthodes comme le machine learning et les statistiques pour apporter des solutions concrètes.<br />
-                Construisons ensemble des <b>choses incroyables</b> ! 🎉
+            <p>En tant qu'étudiant en Master d'Économie, je suis passionné par l'utilisation des données pour résoudre des défis économiques et sociaux complexes. J'aime explorer des méthodes comme le machine learning et les statistiques pour apporter des solutions concrètes et pratiques.<br />
+                Construisons <b>des choses incroyables ensemble</b> ! 🎉
             </p>
 
             <div class="bulles">
                 <a href="#contacts" class="about-home">Me contacter</a>
                 
                 <div class="bulle-contact">
-                    <a href="https://www.linkedin.com/in/loua-aurel-vehi-29887a290/" target="_blank"><i class='bx bxl-linkedin-square'></i></a>
+                    <a href="https://www.linkedin.com/in/aurel-vehi-29887a290/" target="_blank"><i class='bx bxl-linkedin-square'></i></a>
                     <a href="https://github.com/aurvl" target="_blank"><i class='bx bxl-github' ></i></a>
                     <a href="https://hashnode.com/@aurvl" target="_blank"><i class="fa-brands fa-hashnode"></i></a>
-                
                 </div>
             </div>
         </div>
@@ -80,27 +83,27 @@
         
     </section>
 
-    <!-- A propos de moi -->
+    <!-- À propos de moi -->
     <section class="about" id="about">
         <div class="pic-about">
-            <img class="ppc" src="img/about.png" alt="photo-moi" max-width="800px" max-height="450px">            
+            <img class="ppc" src="img/about.png" alt="à-propos-de-moi" max-width="800px" max-height="450px">            
         </div>
 
         <div class="about-content">
-            <h2>A PROPOS DE MOI</h2>
+            <h2>À PROPOS</h2>
 
             <h1>Qui suis-je ?</h1>
 
             <p>
-                Je suis Aurel VEHI, étudiant en Économie à l'Université Côte d'Azur. Mon parcours en expertise et analyse de données économiques m'a permis de développer des bases solides en économie, complétées par des compétences en programmation, en analyse de données et en machine learning. Ces connaissances m'ont permis de réaliser des projets innovants et de résoudre des problématiques complexes. Grâce à mes expériences en finance et dans l'enseignement, j'ai renforcé mes capacités d'adaptabilité, de travail collaboratif et de résolution de problèmes.
+                Je suis Aurel VEHI, étudiant en Économie à l'Université Côte d'Azur. Mon parcours en expertise et analyse de données économiques m'a permis de développer une solide base en économie, complétée par des compétences en programmation, analyse de données et machine learning. Ces connaissances m'ont permis de mener des projets innovants et de résoudre des problèmes complexes.
                 <br/>
                 <br/>
-                Animé par l'ambition et une passion pour les sciences économiques et sociales, je souhaite contribuer à des recherches percutantes et proposer des solutions à la fois équitables et durables. Je suis toujours prêt à collaborer, à apprendre et à offrir des perspectives novatrices aux gens qui m'entourent.
+                Ambitieux et animé par une passion les sciences économiques et sociales, je souhaite contribuer à des travaux de recherche impactants et proposer des solutions à la fois équitables et durables. Je suis toujours prêt à collaborer, à apprendre et à offrir des perspectives novatrices aux gens qui m'entourent.
             </p>
 
             <div class="btn-about">
                 <a class="b1" href="mailto:aurelvehi@outlook.fr">Recrutez-moi</a>
-                <a class="b2" href="down/cv_av_fr.pdf" download="aurel_vehi_cv.pdf">Télécharger mon CV</a>
+                <a class="b2" href="down/cv_av.pdf" download="aurel_vehi_cv.pdf">Télécharger mon CV</a>
             </div>
         </div>
     </section>
@@ -111,7 +114,7 @@
         <div class="works-content">
             <h2>PORTFOLIO</h2>
             <h1>Mes projets et études de cas</h1>
-            <p>Voici quelques-uns de mes projets et études de cas qui démontrent mes compétences et mon expérience.</p>
+            <p>Voici quelques-uns de mes projets et études de cas qui illustrent mes compétences et mon expérience.</p>
         </div>
 
         <div class="wk-grid">
@@ -119,93 +122,120 @@
                 <div class="main-img-wk">
                     <img src="img/p1.jpg" alt="projet1">
                 </div>
-        
-                <div class="main-content-wk">
-                    <h2><a href="https://github.com/aurvl/Projects/blob/main/IAE%20Trends/IAE%20Trends.md" class="hover-link">Analyse de l'Indice d'Attention à l'Environnement (IAE) dans les Accords Commerciaux Préférentiels (ACP)</a></h2>
+
+                <div  class="main-content-wk">
+                    <h2><a href="https://github.com/aurvl/Projects/blob/main/IAE%20Trends/dashboard/resultats.md" class="hover-link" target="_blank">Analyse de l'Indice d'Attention Environnementale (IAE) dans les Accords Commerciaux Préférentiels (ACP)</a></h2>
                     <p>📅 Sept, 2024</p>
-                    <p>L'objectif de ce travail est de mesurer l'importance accordée aux questions environnementales dans les Accords Commerciaux Préférentiels (ACP) en utilisant l'Indice d'Attention à l'Environnement (IAE). Cet indicateur est calculé à partir des données fournies par la base de données Trade & Environment Database (TREND), la plus complète à ce jour sur les clauses environnementales dans les accords commerciaux internationaux.</p>
+                    <div class="tools-used">
+                        <p>Python</p>
+                        <p>Excel</p>
+                        <p>Power BI</p>
+                    </div>
+                    <p>L'objectif de ce travail est de mesurer l'importance accordée aux questions environnementales dans les Accords Commerciaux Préférentiels (ACP) en utilisant l'Indice d'Attention Environnementale (IAE). Cet indicateur est calculé à partir des données fournies par la base de données Trade & Environment Database (TREND), la plus complète à ce jour sur les clauses environnementales dans les accords commerciaux internationaux.</p>
                 </div>
             </div>
-        
+
             <div class="wk-items">
                 <div class="box">
                     <div class="img-wk">
-                        <img src="img/p2.webp" alt="projet2">
+                        <img src="img/p8.jpg" alt="projet8">
                     </div>
-        
+
                     <div class="tdd">
-                        <h2><a href="https://github.com/aurvl/Projects/blob/main/Overweight/Overweight.md" class="hover-link">Modèles de Classification pour l'Histoire Familiale de Surpoids</a></h2>
-                        <p>📅 Avril, 2024</p>
-                        <p>Ce projet explore l'utilisation de différents modèles de classification pour prédire si un individu a des antécédents familiaux de surpoids. Trois algorithmes d'apprentissage automatique sont implémentés et évalués : la Régression Logistique, le Classificateur Random Forest et XGBoost.</p>
+                        <h2><a href="https://auradev.hashnode.dev/house-prices-prediction" class="hover-link" target="_blank">Prédiction des Prix de l'Immobilier aux États-Unis</a></h2>
+                        <p>📅 Jan, 2024</p>
+                        <div class="tools-used">
+                            <p>Python</p>
+                            <p>Machine Learning</p>
+                        </div>
+                        <p>Ce projet applique des techniques de machine learning pour prédire les prix de l'immobilier en fonction d'un ensemble de caractéristiques liées aux logements et à la démographie. L'objectif est de construire un modèle de régression linéaire et d'évaluer sa performance dans l'estimation des prix.</p>
                     </div>
                 </div>
-        
+
                 <div class="box">
                     <div class="img-wk">
                         <img src="img/p3.jpg" alt="projet3">
                     </div>
-        
+
                     <div class="tdd">
-                        <h2><a href="https://github.com/aurvl/Projects/blob/main/Scraping%20Allocine/Scraping%20Allocine.md" class="hover-link">Projet de Scraping des Séries TV sur AlloCiné</a></h2>
+                        <h2><a href="https://github.com/aurvl/DE_projects/blob/main/Scraping%20Allocine/scraping_series.ipynb" class="hover-link" target="_blank">Scraping des Séries TV d'AlloCiné</a></h2>
                         <p>📅 Oct, 2024</p>
-                        <p>Vous vous êtes déjà demandé comment extraire et analyser des données sur les séries TV directement depuis le web ? Ce projet consiste à scraper les données des séries TV sur AlloCiné, les organiser dans un format structuré, et réaliser des analyses intéressantes ! Nous avons extrait des données comme le titre de la série, la période, la durée, le genre, les notes, et plus encore pour créer un ensemble de données complet.</p>
+                        <div class="tools-used">
+                            <p>Python</p>
+                            <p>SQL</p>
+                        </div>
+                        <p>Ce projet consiste à extraire et analyser des données de séries TV directement depuis le web. Nous avons collecté des informations telles que le titre, la période, la durée, le genre et les notes pour créer un ensemble de données complet.</p>
                     </div>
                 </div>
-        
+
                 <div class="box">
                     <div class="img-wk">
                         <img src="img/p4.jpg" alt="projet4">
                     </div>
-        
+
                     <div class="tdd">
-                        <h2><a href="https://github.com/aurvl/Projects/blob/main/Famd/Famd.md" class="hover-link">Analyse Factorielle des Données Mixtes (AFDM)</a></h2>
+                        <h2><a href="https://aurvl.github.io/NotebookSites/famd/Famd.html" class="hover-link" target="_blank">Analyse Factorielle des Données Mixtes (AFDM)</a></h2>
                         <p>📅 Déc, 2023</p>
-                        <p>Cette activité se concentre sur l'application de l'Analyse Factorielle des Données Mixtes (AFDM) à l'ensemble de données "adult" du UCI Machine Learning Repository. L'AFDM est une technique de réduction dimensionnelle qui permet l'analyse simultanée des variables quantitatives et qualitatives.</p>
+                        <div class="tools-used">
+                            <p>R</p>
+                            <p>Analyse Factorielle</p>
+                        </div>
+                        <p>Cette activité se concentre sur l'application de l'Analyse Factorielle des Données Mixtes (AFDM) au jeu de données "adult" de la UCI Machine Learning Repository. L'AFDM est une technique de réduction de dimension permettant d'analyser simultanément des variables quantitatives et qualitatives.</p>
                     </div>
                 </div>
             </div>
-        
+
             <div class="wk-items">
                 <div class="box">
                     <div class="img-wk">
                         <img src="img/p5.jpg" alt="projet5">
                     </div>
-        
+
                     <div class="tdd">
-                        <h2><a href="https://github.com/aurvl/Projects/blob/main/Stock%20previsions/Stock%20Previsions.md" class="hover-link">Analyse des Exportations et Importations Belges (1995-2023)</a></h2>
+                        <h2><a href="https://github.com/aurvl/Projects/blob/main/Stock%20previsions/time%20series%20analysis.pdf" class="hover-link" target="_blank">Analyse des Exportations et Importations Belges (1995-2023)</a></h2>
                         <p>📅 Avril, 2024</p>
-                        <p>Cette étude examine les séries temporelles du commerce extérieur belge pour comprendre les tendances historiques, évaluer les relations entre les variables et fournir des prévisions sur une période de 10 trimestres. Le rapport est divisé en deux parties principales : une analyse univariée des séries temporelles pour explorer leurs caractéristiques individuelles et une analyse multivariée pour examiner les interactions entre les différentes séries.</p>
+                        <div class="tools-used">
+                            <p>Eviews</p>
+                            <p>R</p>
+                        </div>
+                        <p>L'étude examine la série temporelle du commerce extérieur belge pour comprendre les tendances historiques, évaluer les relations entre variables, et fournir des prévisions sur une période de 10 trimestres. Le rapport est divisé en deux parties principales : une analyse univariée et une analyse multivariée.</p>
                     </div>
                 </div>
-        
+
                 <div class="box">
                     <div class="img-wk">
                         <img src="img/p6.webp" alt="projet6">
                     </div>
-        
+
                     <div class="tdd">
-                        <h2><a href="https://github.com/aurvl/Projects/blob/main/Okun%20Law/Okun%20Law.md" class="hover-link">Analyse des Indicateurs Économiques : Loi d'Okun</a></h2>
+                        <h2><a href="https://aurvl.github.io/NotebookSites/okun/Report.html" class="hover-link" target="_blank">Analyse des Indicateurs Économiques : Loi d'Okun</a></h2>
                         <p>📅 Déc, 2023</p>
-                        <p>Cette analyse se concentre sur l'analyse des indicateurs économiques, notamment le PIB et les taux de chômage, à partir des données d'Eurostat. L'objectif principal est de comprendre les relations entre la croissance du PIB et les taux de chômage à travers la loi d'Okun.</p>
+                        <div class="tools-used">
+                            <p>R</p>
+                        </div>
+                        <p>Cette analyse se concentre sur les indicateurs économiques, en particulier le PIB et les taux de chômage, en utilisant des données d'Eurostat. Le principal objectif est de comprendre la relation entre la croissance du PIB et les taux de chômage à travers la loi d'Okun.</p>
                     </div>
                 </div>
-        
+
                 <div class="box">
                     <div class="img-wk">
                         <img src="img/p7.jpg" alt="projet7">
                     </div>
-        
+
                     <div class="tdd">
-                        <h2><a href="https://github.com/aurvl/Projects/blob/main/Unemployment/Unemployment.md" class="hover-link">Analyse de la Courbe de Phillips et Orientation Politique pour l'Europe 2024</a></h2>
+                        <h2><a href="https://github.com/aurvl/Projects/blob/main/Unemployment/Unemployment.md" class="hover-link" target="_blank">Analyse de la Courbe de Phillips et Recommandations pour l'Europe 2024</a></h2>
                         <p>📅 Nov, 2023</p>
-                        <p>Ce projet Python implique une analyse économétrique des taux d'inflation et de chômage pour cinq pays européens (France, Allemagne, Italie, Pays-Bas, Royaume-Uni) pour l'année 2023, avec des projections pour 2024.</p>
+                        <div class="tools-used">
+                            <p>Python</p>
+                        </div>
+                        <p>Ce projet en Python implique une analyse économétrique de l'inflation et des taux de chômage pour cinq pays européens (France, Allemagne, Italie, Pays-Bas, Royaume-Uni) pour l'année 2023, avec des projections pour 2024.</p>
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <div class="see-more">
-            <a href="https://github.com/aurvl/Projects/blob/main/README.md" target="_blank">Voir plus de projets</a>
+            <a href="explore-projects_fr.html">Voir plus de Projets</a>
         </div>
     </section>
 
@@ -213,9 +243,9 @@
     <!-- Compétences et Expérience -->
     <section class="compet" id="compet">
         <div class="sk-content">
-            <h2>MES COMPETENCES & EXPERIENCES</h2>
+            <h2>MES COMPÉTENCES ET EXPÉRIENCES</h2>
             <h1>Quelles sont mes compétences techniques et analytiques ?</h1>
-            <p>Voici un aperçu de mes compétences techniques et analytiques, développées au cours de mes études et projets, qui m'ont permis de transformer des données en solutions concrètes.</p>
+            <p>Voici un aperçu de mes compétences techniques et analytiques, développées à travers mes études et projets, qui me permettent de transformer des données en solutions exploitables.</p>
         </div>
 
         <div class="sk-element">
@@ -223,60 +253,62 @@
 
                 <div class="cctx">
                     <p class="ttl-exp">Expériences</p>
-                    <div class="exp-box">
-                        <img src="img/csm-logo.png" alt="img" title="Centre Scientifique de Monaco">
-                        <div class="exp-box-content">
-                            <h2>Chargé de Mission en Economie Environnementale</h2>
-                            <p>Oct 2024 - Aujourd'hui&nbsp; • &nbsp;<b>Contrat</b></p>
-                            <p>Monaco</p>    
-                        </div>
-                    </div>
-
-                    <div class="exp-box">
-                        <img src="img/fsn.jpg" alt="img" title="Family Sphere">
-                        <div class="exp-box-content">
-                            <h2>Tuteur Privé de Mathématiques</h2>
-                            <p>Mar 2023 - Juin 2024&nbsp; • &nbsp;<b>Contrat</b></p>
-                            <p>Nice, France</p>    
-                        </div>
-                    </div>
-
                     <div class="exp-col">
+                        <div class="exp-box">
+                            <img src="img/csm-logo.png" alt="img" title="Centre Scientifique de Monaco">
+                            <div class="exp-box-content">
+                                <h2>Chargé de mission en Économie Environnementale</h2>
+                                <p>Oct - Dec 2024&nbsp; • &nbsp;<b>Contrat</b></p>
+                                <p>Monaco</p>    
+                            </div>
+                        </div>
+
+                        <div class="exp-box">
+                            <img src="img/fsn.jpg" alt="img" title="Family Sphere">
+                            <div class="exp-box-content">
+                                <h2>Tuteur Privé de Mathématiques</h2>
+                                <p>Mar 2023 - Juin 2024&nbsp; • &nbsp;<b>Contrat</b></p>
+                                <p>Nice, France</p>    
+                            </div>
+                        </div>
+
                         <div class="exp-box">
                             <img src="img/fsn.jpg" alt="img" title="Family Sphere">
                             <div class="exp-box-content">
                                 <h2>Finance et Analyse de Données</h2>
-                                <p>Juil - Août 2023&nbsp; • &nbsp;<b>Stagiaire</b></p>
-                                <p>Nice, France</p>    
+                                <p>Juil - Août 2023&nbsp; • &nbsp;<b>Stage</b></p>
+                                <p>Nice, France</p>
                             </div>
                         </div>
-                   </div>
+                    </div>
                 </div>
-
+    
                 <div class="cert">
                     <p class="ttl-exp">Certifications</p>
                     <div class="cert-col">
                         <a href="https://openbadgefactory.com/v1/assertion/e6fc9dcc549b9b9f4ab73df5ab9bb77f052dfa44" target="_blank" class="cert-box">
                             <img src="img/ct1.png" alt="ct1">
-
+    
                             <div class="cert-box-content">
                                 <h2>Introduction à la Statistique avec R</h2>
-                                <p>Septembre, 2024</p>
+                                <p>Sept, 2024</p>
                             </div>
                         </a>
-
+    
                         <a href="#" class="cert-box">
                             <img src="img/ct2.png" alt="ct2">
-
+    
                             <div class="cert-box-content">
-                                <h2>Certificat Pix (P-MB9CBR3X)</h2>
-                                <p>Mars, 2023</p>
+                                <h2>Certificat Pix <br>
+                                    (N° P-MB9CBR3X)
+                                </h2>
+                                <p>Mar, 2023</p>
                             </div>
                         </a>
                     </div>
                 </div>
             </div>
-
+    
             <div class="skillys">
                 <div class="ttl-exp">Compétences</div>
 
@@ -285,37 +317,37 @@
                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" />
                         <span class="tooltip-text">Python</span>
                     </div>
-
+    
                     <div class="skill-box" title="R">
                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/rstudio/rstudio-original.svg" />
                         <span class="tooltip-text">Langage R</span>
                     </div>
-
+    
                     <div class="skill-box" title="MySQL">
                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original-wordmark.svg" />
                         <span class="tooltip-text">MySQL</span>
                     </div>
-
+    
                     <div class="skill-box">
                         <img src="img/pbi.png" width="auto" height="100%" />
                         <span class="tooltip-text">Power BI</span>
                     </div>
-
+                    
                     <div class="skill-box">
                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jupyter/jupyter-original-wordmark.svg" />
                         <span class="tooltip-text">Jupyter Notebook</span>
                     </div>
-
+    
                     <div class="skill-box">
                         <img width="auto" height="100%" src="https://img.icons8.com/fluency/48/microsoft-365.png" />
                         <span class="tooltip-text">Microsoft Office</span>
                     </div>
-
+    
                     <div class="skill-box" title="HTML">
                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original-wordmark.svg" />
                         <span class="tooltip-text">HTML</span>
                     </div>
-
+    
                     <div class="skill-box">
                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original-wordmark.svg" />
                         <span class="tooltip-text">CSS</span>
@@ -325,10 +357,10 @@
                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/julia/julia-original.svg" />
                         <span class="tooltip-text">Julia</span>
                     </div>
-
+                    
                     <div class="skill-box">
                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/githubcodespaces/githubcodespaces-original.svg" />
-                        <span class="tooltip-text">Github Codespace</span>
+                        <span class="tooltip-text">GitHub Codespaces</span>
                     </div>
 
                     <div class="skill-box">
@@ -336,22 +368,22 @@
                         <span class="tooltip-text">Git</span>
                     </div>
                 </div>
-
+    
                 <div class="list">
                     <ul>
-                        <li>Nettoyage et Manipulation de Données</li>
-                        <li>Modélisation et Prévisions</li>
-                        <li>Développement de Modèles de Machine Learning</li>
-                        <li>Analyse Statistique</li>
-                        <li>Analyse de Séries Chronologiques</li>
+                        <li>Nettoyage et manipulation des données</li>
+                        <li>Modélisation et prévision</li>
+                        <li>Développement de modèles de Machine Learning</li>
+                        <li>Avancé en analyse statistique</li>
+                        <li>Analyse de séries temporelles</li>
                     </ul>
-
+    
                     <ul>
-                        <li>Résolution Créative de Problèmes</li>
-                        <li>Visualisation Interactive de Données</li>
-                        <li>Reporting Financier</li>
-                        <li>Planification Budgétaire</li>
-                        <li>Collaboration et Communication en Equipe</li>
+                        <li>Résolution créative de problèmes</li>
+                        <li>Visualisation de données</li>
+                        <li>Etablissement de rapport financier</li>
+                        <li>Planification budgétaire</li>
+                        <li>Collaboration en équipe et communication</li>
                     </ul>
                 </div>
             </div>
@@ -372,22 +404,22 @@
             </div>
 
             <div class="link-contact">
-                <a href="https://www.linkedin.com/in/loua-aurel-vehi-29887a290/" target="_blank"><i class='bx bxl-linkedin-square'></i></a>
-                <a href="https://github.com/aurvl" target="_blank"><i class='bx bxl-github' ></i></a>
-                <a href="https://hashnode.com/@aurvl" target="_blank"><i class="fa-brands fa-hashnode"></i></a>
+                <p><a href="https://www.linkedin.com/in/aurel-vehi-29887a290/" target="_blank"><i class='bx bxl-linkedin-square'></i></a><span>LinkedIn</span></p>
+                <p><a href="https://github.com/aurvl" target="_blank"><i class='bx bxl-github' ></i></a><span>GitHub</span></p>
+                <p><a href="https://hashnode.com/@aurvl" target="_blank"><i class="fa-brands fa-hashnode"></i></a><span>Hashnode</span></p>
             </div>
         </div>
 
         <div class="form-contact">
             <form id="myForm" action="https://formspree.io/f/xgvewzqo" method="POST" target="_blank">
                 <label for="name">Nom</label>
-                <input type="name" name="name" placeholder="e.g Jean Dupont">
+                <input type="name" name="name" placeholder="ex : John Doe">
                 
-                <label for="email">Email</label>
-                <input type="email" name="email" placeholder="e.g jean.dupont@example.com">
-                
-                <label for="message">Méssage</label>
-                <textarea name="message" placeholder="Ecrivez votre message..." required></textarea>
+                <label for="email">E-mail</label>
+                <input type="email" name="email" placeholder="ex : john.doe@example.com">  
+
+                <label for="messg">Message</label>
+                <textarea name="message" placeholder="Écrivez votre message..." required></textarea>
 
                 <input type="hidden" name="_next" value="https://formspree.io/thanks?language=fr">
 
@@ -395,14 +427,14 @@
             </form>
         </div>
     </section>
-    
 
-    <!-- Pied de page -->
+
+    <!-- Footer -->
     <footer class="footer">
-        <a class="logo" href="#">.aur<span>a</span>dev</a>
+        <a class="logo" href="#">.l<span>a</span>dev</a>
 
         <div class="copyright">
-            &copy; 2024 <span>auradev</span>. Tous droits réservés
+            &copy; 2024 <span>ladev</span>. Tous droits réservés.
         </div>
     </footer>
 
