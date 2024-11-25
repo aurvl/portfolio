@@ -94,3 +94,17 @@ themeToggleBtn.addEventListener('click', () => {
         localStorage.setItem('theme', 'dark');
     }
 });
+
+// To top button
+window.addEventListener('scroll', function() {
+    const toTopButton = document.querySelector('.to-top');
+    const welcomeSection = document.querySelector('#home');
+    const rect = welcomeSection.getBoundingClientRect();
+
+    // Si la section "welcome" est complètement visible à l'écran, on cache le bouton
+    if (rect.bottom <= 0) {
+        toTopButton.style.display = 'block';  // Afficher le bouton
+    } else {
+        toTopButton.style.display = 'none';   // Masquer le bouton
+    }
+});

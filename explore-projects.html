@@ -60,10 +60,32 @@
         </div>
     </section>
     
+    <!-- Statistiques -->
+    <section class="stats" id="stats">
+        <div class="total-projects">
+            <h2 id="projectNumber"></h2>
+            <p>projects</p>
+        </div>
+
+        <div class="total-tools">
+            <h2 id="toolsNumber"></h2>
+            <p>tools used</p>
+        </div>
+
+        <div class="date-selector">
+            <label for="time">Period</label>
+            <select id="time" name="time">
+                <option value="all" selected>All</option>
+                <option value="2023">2023</option>
+                <option value="2024">2024</option>
+            </select>
+        </div>
+    </section>
+
     <!-- Portfolio -->
     <section class="works" id="works">
         <div class="wk-grid">
-                <div class="box">
+                <div class="box" date="2024-09-01">
                     <div class="img-wk">
                         <img src="img/p1.jpg" alt="project1">
                     </div>
@@ -81,7 +103,7 @@
                     </div>
                 </div>
 
-                <div class="box">
+                <div class="box" date="2024-04-01">
                     <div class="img-wk">
                         <img src="img/p2.webp" alt="project2">
                     </div>
@@ -98,7 +120,7 @@
                     </div>
                 </div>
 
-                <div class="box">
+                <div class="box" date="2024-10-01">
                     <div class="img-wk">
                         <img src="img/p3.jpg" alt="project3">
                     </div>
@@ -109,13 +131,14 @@
                         <div class="tools-used">
                             <p>Python</p>
                             <p>SQL</p>
+                            <p>Web Scraping</p>
                         </div>
                         <p>Ever wondered how you can extract and analyze TV series data straight from the web? This project is all about scraping TV series data from AlloCiné, organizing it into a structured format, and conducting cool analyses! We scraped data like the series title, period, duration, genre, ratings, and more to create a comprehensive dataset.</p>
                         <a href="https://github.com/aurvl/DE_projects/blob/main/Scraping%20Allocine/Scraping%20Allocine.md" class="rm" target="_blank">Read more ➜</a>
                     </div>
                 </div>
 
-                <div class="box">
+                <div class="box" date="2023-12-01">
                     <div class="img-wk">
                         <img src="img/p4.jpg" alt="project4">
                     </div>
@@ -132,7 +155,7 @@
                     </div>
                 </div>
 
-                <div class="box">
+                <div class="box" date="2024-04-01">
                     <div class="img-wk">
                         <img src="img/p5.jpg" alt="project5">
                     </div>
@@ -143,13 +166,14 @@
                         <div class="tools-used">
                             <p>Eviews</p>
                             <p>R</p>
+                            <p>Time Series</p>
                         </div>
                         <p>The study examines the time series of Belgian foreign trade to understand historical trends, assess the relationships between variables, and provide forecasts over a period of 10 quarters. The report is divided into two main parts: a univariate time series analysis to explore individual characteristics and a multivariate analysis to examine the interactions between the different series.</p>
                         <a href="https://github.com/aurvl/Projects/blob/main/Stock%20previsions/Stock%20Previsions.md" class="rm" target="_blank">Read more ➜</a>
                     </div>
                 </div>
 
-                <div class="box">
+                <div class="box" date="2023-12-01">
                     <div class="img-wk">
                         <img src="img/p6.webp" alt="project6">
                     </div>
@@ -159,13 +183,14 @@
                         <p>📅 Dec, 2023</p>
                         <div class="tools-used">
                             <p>R</p>
+                            <p>Econometrics</p>
                         </div>
                         <p>This analysis focuses on analyzing economic indicators, specifically GDP and unemployment rates, using data from Eurostat. The primary goal is to understand the relationships between GDP growth and unemployment rates through the lens of Okun's Law.</p>
                         <a href="https://github.com/aurvl/Projects/blob/main/Okun%20Law/Okun%20Law.md" class="rm" target="_blank">Read more ➜</a>
                     </div>
                 </div>
 
-                <div class="box">
+                <div class="box" date="2023-11-01">
                     <div class="img-wk">
                         <img src="img/p7.jpg" alt="project7">
                     </div>
@@ -175,13 +200,14 @@
                         <p>📅 Nov, 2023</p>
                         <div class="tools-used">
                             <p>Python</p>
+                            <p>Policy analysis</p>
                         </div>
                         <p>This Python project involves an econometric analysis of inflation and unemployment rates for five European countries (France, Germany, Italy, Netherlands, United Kingdom) for the year 2023, with projections for 2024.</p>
                         <a href="https://github.com/aurvl/Projects/blob/main/Unemployment/Unemployment.md" class="rm" target="_blank">Read more ➜</a>
                     </div>
                 </div>
 
-                <div class="box">
+                <div class="box" date="2024-01-01">
                     <div class="img-wk">
                         <img src="img/p8.jpg" alt="project8">
                     </div>
@@ -198,7 +224,7 @@
                     </div>
                 </div>
 
-                <div class="box">
+                <div class="box" date="2024-12-01">
                     <div class="img-wk">
                         <img src="img/p9.jpg" alt="project8">
                     </div>
@@ -216,7 +242,7 @@
                     </div>
                 </div>
                 
-                <div class="box">
+                <div class="box" date="2024-08-01">
                     <div class="img-wk">
                         <img src="img/p10.png" alt="project10">
                     </div>
@@ -235,7 +261,7 @@
                     </div>
                 </div>
 
-                <div class="box">
+                <div class="box" date="2024-11-01">
                     <div class="img-wk">
                         <img src="img/p11.webp" alt="project11">
                     </div>
@@ -253,32 +279,29 @@
                     </div>
                 </div>
 
+                <!-- More projects -->
 
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Contacts -->
-    <section class="contacts" id="contacts">
-        <div class="contacts-content">
-            <h2>Contacts</h2>
-            <div class="link-contact">
-                <p><a href="https://www.linkedin.com/in/aurel-vehi-29887a290/" target="_blank"><i class='bx bxl-linkedin-square'></i></a><span>LinkedIn</span></p>
-                <p><a href="https://github.com/aurvl" target="_blank"><i class='bx bxl-github' ></i></a><span>Github</span></p>
-                <p><a href="https://hashnode.com/@aurvl" target="_blank"><i class="fa-brands fa-hashnode"></i></a><span>Hashnode</span></p>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
-        <a class="logo" href="#">Au<span>rel VEHI</span></a>
+        <div class="link-contact">
+            <p>Contacts :</p>
+            <p><a href="https://www.linkedin.com/in/aurel-vehi-29887a290/" target="_blank">LinkedIn</a></p>
+            <p><a href="https://github.com/aurvl" target="_blank">Github</a></p>
+            <p><a href="https://hashnode.com/@aurvl" target="_blank">Hashnode</a></p>
+        </div>
 
         <div class="copyright">
             &copy; 2024 <span>ladev</span>. All rights reserved
         </div>
     </footer>
+
+    <a class="to-top" href="#welcome">
+        <i class="fas fa-long-arrow-up"></i>
+    </a>
 
     <script src="js/app-expl.js"></script>
 </body>
