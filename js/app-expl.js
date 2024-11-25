@@ -86,3 +86,112 @@ themeToggleBtn.addEventListener('click', () => {
         localStorage.setItem('theme', 'dark');
     }
 });
+
+// Calcul des stats
+document.addEventListener("DOMContentLoaded", function() {
+    var projectBoxes = document.querySelectorAll(".box").length;
+    document.getElementById("projectNumber").textContent = projectBoxes;
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    // Sélectionne toutes les divs avec la classe "tools-used"
+    const toolDivs = document.querySelectorAll(".tools-used");
+    
+    // Initialiser un compteur pour toutes les balises <p>
+    let totalPCount = 0;
+
+    // Parcourt chaque div.tools-used pour compter les balises <p>
+    toolDivs.forEach(div => {
+        totalPCount += div.querySelectorAll("p").length;
+    });
+
+    // Met à jour le contenu de la div avec l'id "tools-count"
+    const toolsCountDiv = document.getElementById("toolsNumber");
+    toolsCountDiv.textContent += ` ${totalPCount}`;
+});
+
+// Date selector
+// document.addEventListener("DOMContentLoaded", function () {
+//     const selector = document.getElementById("time"); // Menu déroulant
+//     const projects = document.querySelectorAll(".box"); // Tous les projets
+
+//     // Fonction pour afficher les projets de l'année sélectionnée
+//     const filterProjects = () => {
+//         const selectedYear = selector.value; // Année choisie
+
+//         // Parcourt tous les projets
+//         projects.forEach(project => {
+//             const projectYear = project.getAttribute("year"); // Année du projet
+//             if (selectedYear === "all" || selectedYear === projectYear) {
+//                 project.style.display = "block"; // Affiche le projet
+//             } else {
+//                 project.style.display = "none"; // Cache le projet
+//             }
+//         });
+//     };
+
+//     // Événement pour changer les projets affichés selon l'année
+//     selector.addEventListener("change", filterProjects);
+
+//     // Afficher tous les projets au chargement
+//     filterProjects();
+// });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const selector = document.getElementById("time"); // Menu déroulant
+    const projectGrid = document.querySelector(".wk-grid"); // Conteneur des projets
+    const projects = Array.from(document.querySelectorAll(".box")); // Tous les projets sous forme de tableau
+
+    // Fonction pour trier les projets par date (décroissant)
+    const sortProjectsByDate = () => {
+        projects.sort((a, b) => {
+            const dateA = new Date(a.getAttribute("date"));
+            const dateB = new Date(b.getAttribute("date"));
+            return dateB - dateA; // Tri décroissant
+        });
+
+        // Réorganiser les projets dans le DOM
+        projects.forEach(project => {
+            projectGrid.appendChild(project);
+        });
+    };
+
+    // Fonction pour filtrer les projets selon l'année sélectionnée
+    const filterProjects = () => {
+        const selectedYear = selector.value; // Année choisie
+
+        projects.forEach(project => {
+            const projectDate = new Date(project.getAttribute("date"));
+            const projectYear = projectDate.getFullYear(); // Extraire l'année
+
+            if (selectedYear === "all" || parseInt(selectedYear) === projectYear) {
+                project.style.display = "block"; // Afficher
+            } else {
+                project.style.display = "none"; // Masquer
+            }
+        });
+
+        // Réorganiser les projets affichés
+        sortProjectsByDate();
+    };
+
+    // Tri initial et affichage
+    sortProjectsByDate();
+
+    // Mise à jour lors du changement d'année
+    selector.addEventListener("change", filterProjects);
+});
+
+// To top button
+window.addEventListener('scroll', function() {
+    const toTopButton = document.querySelector('.to-top');
+    const welcomeSection = document.querySelector('#welcome');
+    const rect = welcomeSection.getBoundingClientRect();
+
+    // Si la section "welcome" est complètement visible à l'écran, on cache le bouton
+    if (rect.bottom <= 0) {
+        toTopButton.style.display = 'block';  // Afficher le bouton
+    } else {
+        toTopButton.style.display = 'none';   // Masquer le bouton
+    }
+});

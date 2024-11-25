@@ -6,6 +6,7 @@
     --text-color: #FFFFFF;
     --text2-col: #9E9D9D; /* Dark theme text */
     --tool-col: #323D4D;
+    --skill-col: #ced3f9cc;
 }
 
 .light-theme {
@@ -14,6 +15,7 @@
     --text-color: #1F1F1F; /* Light theme text */
     --text2-col: #585353;
     --tool-col: #ced3f9;
+    --skill-col: #323D4D;
 }
 
 .dark-theme {
@@ -22,6 +24,7 @@
     --text-color: #FFFFFF;
     --text2-col: #9E9D9D;
     --tool-col: #323D4D;
+    --skill-col: #ced3f9cc;
 }
 
 *{
@@ -924,6 +927,7 @@ section {
     justify-content: center;
     align-items: center;
     padding: 10px;
+    max-width: 1000px;
 }
 
 .skill-box {
@@ -931,7 +935,7 @@ section {
     align-items: center;
     justify-content: center;
     text-align: center;
-    background-color: var(--text-color) ; /* 303030; 1A202C*/
+    background-color: var(--skill-col); /* 303030; 1A202C*/
     width: 85px;
     height: 85px;
     border-radius: 10px;
@@ -1044,7 +1048,8 @@ section {
     font-size: 15px;
     margin-left: 5px;
     border: var(--bg-color) solid;
-    color: var(--tool-col);
+    color: var(--skill-col);
+    text-decoration: var(--skill-col) underline;
 }
 
 .link-contact a {
@@ -1152,6 +1157,33 @@ button:hover {
 
 .copyright span {
     color: #0067B1;
+}
+
+.to-top {
+    position: fixed;
+    display: block;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    bottom: 90px;
+    right: 20px;
+    background-color: var(--skill-col);
+    justify-items: center;
+    align-content: center;
+    text-align: center;
+    padding: 5px;
+    overflow: hidden;
+    transition: background-color .5s ease;
+    display: none;
+}
+
+.to-top:hover {
+    background-color: #fb5607;
+    opacity: .5;
+}
+
+.to-top i {
+    color: #fafafa;
 }
 
 

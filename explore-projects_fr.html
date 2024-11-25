@@ -59,11 +59,33 @@
             <h2>Bienvenue sur mon portfolio, où je présente une sélection de mes projets et études de cas. Vous y trouverez des informations détaillées sur mon travail, mettant en valeur mes compétences et mon expertise dans divers domaines.</h2>            
         </div>
     </section>
+
+    <!-- Statistiques -->
+    <section class="stats" id="stats">
+        <div class="total-projects">
+            <h2 id="projectNumber"></h2>
+            <p>projets réalisés</p>
+        </div>
+
+        <div class="total-tools">
+            <h2 id="toolsNumber"></h2>
+            <p>outils utilisés</p>
+        </div>
+
+        <div class="date-selector">
+            <label for="time">Période</label>
+            <select id="time" name="time">
+                <option value="all" selected>Tout</option>
+                <option value="2023">2023</option>
+                <option value="2024">2024</option>
+            </select>
+        </div>
+    </section>    
     
     <!-- Portfolio -->
     <section class="works" id="works">
         <div class="wk-grid">
-                <div class="box">
+                <div class="box" date="2024-09-01">
                     <div class="img-wk">
                         <img src="img/p1.jpg" alt="projet1">
                     </div>
@@ -81,7 +103,7 @@
                     </div>
                 </div>
 
-                <div class="box">
+                <div class="box" date="2024-04-01">
                     <div class="img-wk">
                         <img src="img/p2.webp" alt="projet2">
                     </div>
@@ -98,7 +120,7 @@
                     </div>
                 </div>
 
-                <div class="box">
+                <div class="box" date="2024-10-01">
                     <div class="img-wk">
                         <img src="img/p3.jpg" alt="projet3">
                     </div>
@@ -109,13 +131,14 @@
                         <div class="tools-used">
                             <p>Python</p>
                             <p>SQL</p>
+                            <p>Web Scraping</p>
                         </div>
                         <p>Ce projet consiste à scraper les données des séries TV sur AlloCiné, à les organiser dans un format structuré et à réaliser des analyses. Nous avons collecté des informations telles que le titre de la série, la période, la durée, le genre, les évaluations, et bien plus pour créer un ensemble de données complet.</p>
                         <a href="https://github.com/aurvl/DE_projects/blob/main/Scraping%20Allocine/Scraping%20Allocine.md" class="rm" target="_blank">Lire la suite ➜</a>
                     </div>
                 </div>
 
-                <div class="box">
+                <div class="box" date="2023-12-01">
                     <div class="img-wk">
                         <img src="img/p4.jpg" alt="projet4">
                     </div>
@@ -132,7 +155,7 @@
                     </div>
                 </div>
 
-                <div class="box">
+                <div class="box" date="2024-04-01">
                     <div class="img-wk">
                         <img src="img/p5.jpg" alt="projet5">
                     </div>
@@ -143,13 +166,14 @@
                         <div class="tools-used">
                             <p>Eviews</p>
                             <p>R</p>
+                            <p>Séries temporelles</p>
                         </div>
                         <p>L'étude examine la série temporelle du commerce extérieur belge pour comprendre les tendances historiques, évaluer les relations entre les variables et fournir des prévisions sur une période de 10 trimestres. Le rapport est divisé en deux parties principales : une analyse univariée et une analyse multivariée.</p>
                         <a href="https://github.com/aurvl/Projects/blob/main/Stock%20previsions/Stock%20Previsions.md" class="rm" target="_blank">Lire la suite ➜</a>
                     </div>
                 </div>
 
-                <div class="box">
+                <div class="box" date="2023-12-01">
                     <div class="img-wk">
                         <img src="img/p6.webp" alt="projet6">
                     </div>
@@ -159,13 +183,14 @@
                         <p>📅 Déc, 2023</p>
                         <div class="tools-used">
                             <p>R</p>
+                            <p>Econométrie</p>
                         </div>
                         <p>Cette analyse se concentre sur les indicateurs économiques, en particulier le PIB et les taux de chômage, en utilisant des données d'Eurostat. Le principal objectif est de comprendre la relation entre la croissance du PIB et les taux de chômage à travers la loi d'Okun.</p>
                         <a href="https://github.com/aurvl/Projects/blob/main/Okun%20Law/Okun%20Law.md" class="rm" target="_blank">Lire la suite ➜</a>
                     </div>
                 </div>
 
-                <div class="box">
+                <div class="box" date="2023-11-01">
                     <div class="img-wk">
                         <img src="img/p7.jpg" alt="projet7">
                     </div>
@@ -175,13 +200,14 @@
                         <p>📅 Nov, 2023</p>
                         <div class="tools-used">
                             <p>Python</p>
+                            <p>Analyse de politique</p>
                         </div>
                         <p>Ce projet en Python implique une analyse économétrique de l'inflation et des taux de chômage pour cinq pays européens (France, Allemagne, Italie, Pays-Bas, Royaume-Uni) pour l'année 2023, avec des projections pour 2024.</p>
                         <a href="https://github.com/aurvl/Projects/blob/main/Unemployment/Unemployment.md" class="rm" target="_blank">Lire la suite ➜</a>
                     </div>
                 </div>
 
-                <div class="box">
+                <div class="box" date="2024-01-01">
                     <div class="img-wk">
                         <img src="img/p8.jpg" alt="projet8">
                     </div>
@@ -198,7 +224,7 @@
                     </div>
                 </div>
 
-                <div class="box">
+                <div class="box" date="2024-11-01">
                     <div class="img-wk">
                         <img src="img/p9.jpg" alt="projet9">
                     </div>
@@ -216,7 +242,7 @@
                     </div>
                 </div>
                 
-                <div class="box">
+                <div class="box" date="2024-08-01">
                     <div class="img-wk">
                         <img src="img/p10.png" alt="projet10">
                     </div>
@@ -235,7 +261,7 @@
                     </div>
                 </div>
 
-                <div class="box">
+                <div class="box" date="2024-11-01">
                     <div class="img-wk">
                         <img src="img/p11.webp" alt="project11">
                     </div>
@@ -253,32 +279,29 @@
                     </div>
                 </div>
 
+                <!-- More projects -->
 
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Contacts -->
-    <section class="contacts" id="contacts">
-        <div class="contacts-content">
-            <h2>Contacts</h2>
-            <div class="link-contact">
-                <p><a href="https://www.linkedin.com/in/aurel-vehi-29887a290/" target="_blank"><i class='bx bxl-linkedin-square'></i></a><span>LinkedIn</span></p>
-                <p><a href="https://github.com/aurvl" target="_blank"><i class='bx bxl-github' ></i></a><span>Github</span></p>
-                <p><a href="https://hashnode.com/@aurvl" target="_blank"><i class="fa-brands fa-hashnode"></i></a><span>Hashnode</span></p>
             </div>
         </div>
     </section>
     
     <!-- Footer -->
     <footer class="footer">
-        <a class="logo" href="#">Au<span>rel VEHI</span></a>
+        <div class="link-contact">
+            <p>Contacts :</p>
+            <p><a href="https://www.linkedin.com/in/aurel-vehi-29887a290/" target="_blank">LinkedIn</a></p>
+            <p><a href="https://github.com/aurvl" target="_blank">Github</a></p>
+            <p><a href="https://hashnode.com/@aurvl" target="_blank">Hashnode</a></p>
+        </div>
 
         <div class="copyright">
             &copy; 2024 <span>ladev</span>. Tous droits réservés
         </div>
     </footer>
+
+    <a class="to-top" href="#welcome">
+        <i class="fas fa-long-arrow-up"></i>
+    </a>
 
     <script src="js/app-expl.js"></script>
 </body>
