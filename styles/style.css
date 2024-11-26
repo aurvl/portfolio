@@ -1035,7 +1035,8 @@ section {
 }
 
 .link-contact {
-    display: block;
+    display: flex;
+    justify-content: center;
 }
 
 .link-contact p {
