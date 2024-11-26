@@ -1053,6 +1053,10 @@ section {
     text-decoration: var(--skill-col) underline;
 }
 
+.link-contact p span:hover {
+    color: #0067B1;
+}
+
 .link-contact a {
     text-decoration: none;
     padding: 5px;
