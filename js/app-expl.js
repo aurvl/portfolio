@@ -87,99 +87,106 @@ themeToggleBtn.addEventListener('click', () => {
     }
 });
 
-// Calcul des stats
-document.addEventListener("DOMContentLoaded", function() {
-    var projectBoxes = document.querySelectorAll(".box").length;
-    document.getElementById("projectNumber").textContent = projectBoxes;
-});
+document.addEventListener("DOMContentLoaded", async function () {
+    const isFrench = window.location.pathname.includes('_fr');
+    const jsonFile = isFrench ? 'projects_fr.json' : 'projects.json';
+    const selectorYear = document.getElementById("time");
+    const statsSection = document.querySelector('.stats');
+    const projectGrid = document.querySelector('.wk-grid');
+    const projectNumber = document.getElementById("projectNumber");
+    const toolsNumber = document.getElementById("toolsNumber");
+    const toolSet = new Set();
+    let projects = [];
 
-document.addEventListener("DOMContentLoaded", function() {
-    // Sélectionne toutes les divs avec la classe "tools-used"
-    const toolDivs = document.querySelectorAll(".tools-used");
-    
-    // Initialiser un compteur pour toutes les balises <p>
-    let totalPCount = 0;
+    try {
+        const response = await fetch(jsonFile);
+        projects = await response.json();
 
-    // Parcourt chaque div.tools-used pour compter les balises <p>
-    toolDivs.forEach(div => {
-        totalPCount += div.querySelectorAll("p").length;
-    });
+        // Compter projets et outils
+        projectNumber.textContent = projects.length;
+        const totalTools = projects.reduce((acc, p) => acc + p.tools.filter(t => t.trim() !== "").length, 0);
+        toolsNumber.textContent = totalTools;
 
-    // Met à jour le contenu de la div avec l'id "tools-count"
-    const toolsCountDiv = document.getElementById("toolsNumber");
-    toolsCountDiv.textContent += ` ${totalPCount}`;
-});
+        // Récupérer tous les outils uniques
+        projects.forEach(p => p.tools.forEach(t => {
+            if (t.trim() !== "") toolSet.add(t.trim());
+        }));
 
-// Date selector
-// document.addEventListener("DOMContentLoaded", function () {
-//     const selector = document.getElementById("time"); // Menu déroulant
-//     const projects = document.querySelectorAll(".box"); // Tous les projets
+        // Créer le filtre tools
+        createToolFilter(toolSet);
 
-//     // Fonction pour afficher les projets de l'année sélectionnée
-//     const filterProjects = () => {
-//         const selectedYear = selector.value; // Année choisie
+        // Initialiser affichage
+        updateProjects();
 
-//         // Parcourt tous les projets
-//         projects.forEach(project => {
-//             const projectYear = project.getAttribute("year"); // Année du projet
-//             if (selectedYear === "all" || selectedYear === projectYear) {
-//                 project.style.display = "block"; // Affiche le projet
-//             } else {
-//                 project.style.display = "none"; // Cache le projet
-//             }
-//         });
-//     };
+        // Listeners filtres
+        selectorYear.addEventListener("change", updateProjects);
+        document.getElementById('tool-filter').addEventListener("change", updateProjects);
 
-//     // Événement pour changer les projets affichés selon l'année
-//     selector.addEventListener("change", filterProjects);
+    } catch (error) {
+        console.error("Erreur JSON :", error);
 
-//     // Afficher tous les projets au chargement
-//     filterProjects();
-// });
+        // Fallback HTML si JSON échoue
+        const fallbackBoxes = document.querySelectorAll(".box");
+        projectNumber.textContent = fallbackBoxes.length;
+        let fallbackTools = 0;
+        fallbackBoxes.forEach(box => {
+            fallbackTools += box.querySelectorAll(".tools-used p").length;
+        });
+        toolsNumber.textContent = fallbackTools;
+    }
 
-document.addEventListener("DOMContentLoaded", function () {
-    const selector = document.getElementById("time"); // Menu déroulant
-    const projectGrid = document.querySelector(".wk-grid"); // Conteneur des projets
-    const projects = Array.from(document.querySelectorAll(".box")); // Tous les projets sous forme de tableau
+    function createToolFilter(toolSet) {
+        if (!document.querySelector('#tool-filter')) {
+            const filterSelect = document.createElement('select');
+            filterSelect.id = 'tool-filter';
+            filterSelect.innerHTML = `<option value="all">${isFrench ? 'Tous les outils' : 'All Tools'}</option>`;
+            Array.from(toolSet).sort().forEach(tool => {
+                const option = document.createElement('option');
+                option.value = tool;
+                option.textContent = tool;
+                filterSelect.appendChild(option);
+            });
+            statsSection.appendChild(filterSelect);
+        }
+    }
 
-    // Fonction pour trier les projets par date (décroissant)
-    const sortProjectsByDate = () => {
-        projects.sort((a, b) => {
-            const dateA = new Date(a.getAttribute("date"));
-            const dateB = new Date(b.getAttribute("date"));
-            return dateB - dateA; // Tri décroissant
+    function updateProjects() {
+        const year = selectorYear.value;
+        const tool = document.getElementById('tool-filter').value;
+
+        let filtered = projects.filter(p => {
+            const matchesYear = year === 'all' || new Date(p.date).getFullYear().toString() === year;
+            const matchesTool = tool === 'all' || p.tools.includes(tool);
+            return matchesYear && matchesTool;
         });
 
-        // Réorganiser les projets dans le DOM
-        projects.forEach(project => {
-            projectGrid.appendChild(project);
+        filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
+        renderProjects(filtered);
+    }
+
+    function renderProjects(projectList) {
+        projectGrid.innerHTML = "";
+        projectList.forEach(project => {
+            const toolsHTML = project.tools.filter(t => t).map(t => `<p>${t}</p>`).join('');
+            const box = document.createElement('div');
+            box.className = 'box';
+            box.setAttribute('date', project.date);
+
+            box.innerHTML = `
+                <div class="img-wk">
+                    <img src="img/${project.pic}" alt="project${project.n}">
+                </div>
+                <div class="tdd">
+                    <h2><a href="${project.link1}" class="hover-link" target="_blank">${project.title}</a></h2>
+                    <p>📅 ${project.monh}, ${project.year}</p>
+                    <div class="tools-used">${toolsHTML}</div>
+                    <p>${project.description}</p>
+                    <a href="${project.link2}" class="rm" target="_blank">${isFrench ? 'Lire plus ➜' : 'Read more ➜'}</a>
+                </div>
+            `;
+            projectGrid.appendChild(box);
         });
-    };
-
-    // Fonction pour filtrer les projets selon l'année sélectionnée
-    const filterProjects = () => {
-        const selectedYear = selector.value; // Année choisie
-
-        projects.forEach(project => {
-            const projectDate = new Date(project.getAttribute("date"));
-            const projectYear = projectDate.getFullYear(); // Extraire l'année
-
-            if (selectedYear === "all" || parseInt(selectedYear) === projectYear) {
-                project.style.display = "block"; // Afficher
-            } else {
-                project.style.display = "none"; // Masquer
-            }
-        });
-
-        // Réorganiser les projets affichés
-        sortProjectsByDate();
-    };
-
-    // Tri initial et affichage
-    sortProjectsByDate();
-
-    // Mise à jour lors du changement d'année
-    selector.addEventListener("change", filterProjects);
+    }
 });
 
 // To top button
@@ -187,11 +194,5 @@ window.addEventListener('scroll', function() {
     const toTopButton = document.querySelector('.to-top');
     const welcomeSection = document.querySelector('#welcome');
     const rect = welcomeSection.getBoundingClientRect();
-
-    // Si la section "welcome" est complètement visible à l'écran, on cache le bouton
-    if (rect.bottom <= 0) {
-        toTopButton.style.display = 'block';  // Afficher le bouton
-    } else {
-        toTopButton.style.display = 'none';   // Masquer le bouton
-    }
+    toTopButton.style.display = rect.bottom <= 0 ? 'block' : 'none';
 });

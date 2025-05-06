@@ -1,0 +1,224 @@
+[
+    {
+        "pic": "stock.jpg",
+        "n": "14",
+        "link1": "https://cw8-price-prediction.streamlit.app/",
+        "link2": "https://github.com/aurvl/Stocks-prices-Prediction",
+        "title": "Prédiction des prix des actions : MSCI World CW8",
+        "monh": "Avr",
+        "year": "2025",
+        "date": "2025-04-01",
+        "tools": [
+            "Séries temporelles",
+            "LSTM",
+            "Data Science",
+            ""
+        ],
+        "description": "Ce projet a pour objectif de prédire les prix des actions sur une période de 30 jours en utilisant un modèle LSTM (Long Short-Term Memory), spécialisé dans l’analyse des séries temporelles. L’application Streamlit propose une interface claire et intuitive qui permet de consulter les données historiques des marchés financiers et de visualiser les prédictions générées. Ce projet combine analyse de données, modélisation prédictive et visualisation pour offrir un outil accessible aux utilisateurs souhaitant mieux comprendre les tendances boursières."
+    },
+    {
+        "pic": "femunemp.webp",
+        "n": "13",
+        "link1": "https://auradev.hashnode.dev/inegalites-de-genre-et-technologie-ce-que-nous-apprend-leconometrie-spatiale",
+        "link2": "https://github.com/aurvl/SpatialEconometrics",
+        "title": "Technologie et inégalités de genre",
+        "monh": "Mar",
+        "year": "2025",
+        "date": "2025-03-15",
+        "tools": [
+            "Spatial Data",
+            "Econometrics",
+            "",
+            ""
+        ],
+        "description": "Ce projet explore l’impact du progrès technologique sur le chômage féminin en Europe, en s’appuyant sur des méthodes d’économétrie spatiale. À partir de données couvrant la France, l’Espagne, l’Italie, les Pays-Bas et la Belgique, il analyse comment l’emploi dans les secteurs technologiques, les qualifications en STEM et d’autres facteurs influencent le chômage des femmes, aussi bien localement qu’entre régions voisines."
+    },
+    {
+        "pic": "sal.webp",
+        "n": "12",
+        "link1": "",
+        "link2": "https://github.com/aurvl/ML_projects/blob/main/Salary/Readme.md",
+        "title": "Prédiction des Salaires",
+        "monh": "Fev",
+        "year": "2025",
+        "date": "2025-02-28",
+        "tools": [
+            "Python",
+            "Machine Learning",
+            "Pipeline"
+        ],
+        "description": "Ce projet vise à prédire les salaires en utilisant des modèles d’apprentissage automatique, notamment une régression linéaire (LR) et un Random Forest Regressor (RF). Le dépôt est organisé pour simplifier le prétraitement des données, l’entraînement des modèles, l’optimisation des hyperparamètres et la prédiction sur de nouvelles données."
+    },
+    {
+        "pic": "p1.jpg",
+        "n": "1",
+        "link1": "https://github.com/aurvl/Projects/blob/main/IAE%20Trends/dashboard/resultats.md",
+        "link2": "https://github.com/aurvl/Projects/blob/main/IAE%20Trends/IAE%20Trends.md",
+        "title": "Analyse de l'Indice d'Attention Environnementale (IAE) dans les Accords Commerciaux Préférentiels (ACP)",
+        "monh": "Sept",
+        "year": "2024",
+        "date": "2024-09-01",
+        "tools": [
+            "Python",
+            "Excel",
+            "Power BI"
+        ],
+        "description": "L'objectif de ce travail est de mesurer l'importance accordée aux questions environnementales dans les Accords Commerciaux Préférentiels (ACP) en utilisant l'Indice d'Attention Environnementale (IAE). Cet indicateur est calculé à partir des données fournies par la base de données Trade & Environment Database (TREND), la plus complète à ce jour sur les clauses environnementales dans les accords commerciaux internationaux."
+    },
+    {
+        "pic": "p2.webp",
+        "n": "2",
+        "link1": "https://aurvl.github.io/NotebookSites/ovwg/Ovwght.html",
+        "link2": "https://github.com/aurvl/Projects/blob/main/Overweight/Overweight.md",
+        "title": "Modèles de Classification pour les Antécédents Familiaux de Surpoids",
+        "monh": "Avril",
+        "year": "2024",
+        "date": "2024-04-01",
+        "tools": [
+            "R",
+            "Machine Learning"
+        ],
+        "description": "Ce projet explore l'utilisation de différents modèles de classification pour prédire si un individu a des antécédents familiaux de surpoids. Trois algorithmes de machine learning sont implémentés et évalués : régression logistique, Random Forest et XGBoost."
+    },
+    {
+        "pic": "p3.jpg",
+        "n": "3",
+        "link1": "https://github.com/aurvl/DE_projects/blob/main/Scraping%20Allocine/scraping_series.ipynb",
+        "link2": "https://github.com/aurvl/DE_projects/blob/main/Scraping%20Allocine/Scraping%20Allocine.md",
+        "title": "Projet de Scraping des Séries TV d'AlloCiné",
+        "monh": "Oct",
+        "year": "2024",
+        "date": "2024-10-01",
+        "tools": [
+            "Python",
+            "SQL",
+            "Web Scraping"
+        ],
+        "description": "Ce projet consiste à scraper les données des séries TV sur AlloCiné, à les organiser dans un format structuré et à réaliser des analyses. Nous avons collecté des informations telles que le titre de la série, la période, la durée, le genre, les évaluations, et bien plus pour créer un ensemble de données complet."
+    },
+    {
+        "pic": "p4.jpg",
+        "n": "4",
+        "link1": "https://aurvl.github.io/NotebookSites/famd/Famd.html",
+        "link2": "https://github.com/aurvl/ML_projects/blob/main/Famd/Famd.md",
+        "title": "Analyse Factorielle des Données Mixtes (AFDM)",
+        "monh": "Déc",
+        "year": "2023",
+        "date": "2023-12-01",
+        "tools": [
+            "R",
+            "Analyse Factorielle"
+        ],
+        "description": "Cette activité se concentre sur l'application de l'Analyse Factorielle des Données Mixtes (AFDM) au jeu de données \"adult\" de la UCI Machine Learning Repository. L'AFDM est une technique de réduction de dimension permettant d'analyser simultanément des variables quantitatives et qualitatives."
+    },
+    {
+        "pic": "p5.jpg",
+        "n": "5",
+        "link1": "https://github.com/aurvl/Projects/blob/main/Stock%20previsions/time%20series%20analysis.pdf",
+        "link2": "https://github.com/aurvl/Projects/blob/main/Stock%20previsions/Stock%20Previsions.md",
+        "title": "Analyse des Exportations et Importations Belges (1995-2023)",
+        "monh": "Avril",
+        "year": "2024",
+        "date": "2024-04-01",
+        "tools": [
+            "Eviews",
+            "R",
+            "Séries temporelles"
+        ],
+        "description": "L'étude examine la série temporelle du commerce extérieur belge pour comprendre les tendances historiques, évaluer les relations entre les variables et fournir des prévisions sur une période de 10 trimestres. Le rapport est divisé en deux parties principales : une analyse univariée et une analyse multivariée."
+    },
+    {
+        "pic": "p6.webp",
+        "n": "6",
+        "link1": "https://aurvl.github.io/NotebookSites/okun/Report.html",
+        "link2": "https://github.com/aurvl/Projects/blob/main/Okun%20Law/Okun%20Law.md",
+        "title": "Analyse des Indicateurs Économiques : Loi d'Okun",
+        "monh": "Déc",
+        "year": "2023",
+        "date": "2023-12-01",
+        "tools": [
+            "R",
+            "Econométrie"
+        ],
+        "description": "Cette analyse se concentre sur les indicateurs économiques, en particulier le PIB et les taux de chômage, en utilisant des données d'Eurostat. Le principal objectif est de comprendre la relation entre la croissance du PIB et les taux de chômage à travers la loi d'Okun."
+    },
+    {
+        "pic": "p7.jpg",
+        "n": "7",
+        "link1": "https://github.com/aurvl/Projects/blob/main/Unemployment/Unemployment.md",
+        "link2": "https://github.com/aurvl/Projects/blob/main/Unemployment/Unemployment.md",
+        "title": "Analyse de la Courbe de Phillips et Recommandations de Politique pour l'Europe 2024",
+        "monh": "Nov",
+        "year": "2023",
+        "date": "2023-11-01",
+        "tools": [
+            "Python",
+            "Analyse de politique"
+        ],
+        "description": "Ce projet en Python implique une analyse économétrique de l'inflation et des taux de chômage pour cinq pays européens (France, Allemagne, Italie, Pays-Bas, Royaume-Uni) pour l'année 2023, avec des projections pour 2024."
+    },
+    {
+        "pic": "p8.jpg",
+        "n": "8",
+        "link1": "https://auradev.hashnode.dev/house-prices-prediction",
+        "link2": "https://github.com/aurvl/ML_projects/blob/main/Housing/Housing.md",
+        "title": "Prédiction des Prix de l'Immobilier",
+        "monh": "Jan",
+        "year": "2024",
+        "date": "2024-01-01",
+        "tools": [
+            "Python",
+            "Machine Learning"
+        ],
+        "description": "Ce projet applique des techniques de machine learning pour prédire les prix de l'immobilier en fonction de différentes caractéristiques des logements et des données démographiques de la région. L'objectif est de construire un modèle de régression linéaire pour estimer les prix des logements."
+    },
+    {
+        "pic": "p9.jpg",
+        "n": "9",
+        "link1": "https://auradev.hashnode.dev/twitter-tweets-analysis",
+        "link2": "https://github.com/aurvl/DA_projects/blob/main/Twitter/Twitter.md",
+        "title": "Analyse de l'Activité Twitter des Députés Français",
+        "monh": "Nov",
+        "year": "2024",
+        "date": "2024-11-01",
+        "tools": [
+            "Python",
+            "Seaborn",
+            "NLP"
+        ],
+        "description": "Ce projet analyse les tweets des députés français pour comprendre leurs dynamiques et structure. Il inclut la collecte et l'enrichissement des données de tweets, l'analyse de leur distribution par parti politique, et la visualisation des tendances."
+    },
+    {
+        "pic": "p10.png",
+        "n": "10",
+        "link1": "https://github.com/aurvl/DE_projects/blob/main/SQL%20Bank%20Fraud/SQL%20Bank%20Fraud.md",
+        "link2": "https://github.com/aurvl/DE_projects/blob/main/SQL%20Bank%20Fraud/SQL%20Bank%20Fraud.md",
+        "title": "Collecte de Données sur la Fraude Bancaire",
+        "monh": "Août",
+        "year": "2024",
+        "date": "2024-08-01",
+        "tools": [
+            "HTML",
+            "JavaScript",
+            "PHP",
+            "SQL"
+        ],
+        "description": "Ce projet simule des transactions bancaires fictives et enregistre les réponses des utilisateurs concernant leur attitude face au risque et à l'argent. L'objectif est de collecter des données auprès des utilisateurs et de les stocker dans une base de données MySQL afin d'analyser les indicateurs potentiels de comportements frauduleux."
+    },
+    {
+        "pic": "p11.webp",
+        "n": "11",
+        "link1": "https://aurvl.github.io/NotebookSites/m2_exercices_py/allocine/allocine.html",
+        "link2": "https://github.com/aurvl/DA_projects/edit/main/Allocine/Allocine.md",
+        "title": "Data Visualization - Allociné",
+        "monh": "Nov",
+        "year": "2024",
+        "date": "2024-11-01",
+        "tools": [
+            "Python",
+            "Seaborn",
+            "Networkx"
+        ],
+        "description": "Ce projet vise à analyser un jeu de données d'Allociné, une base de données cinématographique (films & séries), afin de visualiser diverses informations clés et de comprendre les relations entre différents attributs."
+    }
+]

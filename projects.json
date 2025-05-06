@@ -1,0 +1,224 @@
+[
+    {
+        "pic": "stock.jpg",
+        "n": "14",
+        "link1": "https://cw8-price-prediction.streamlit.app/",
+        "link2": "https://github.com/aurvl/Stocks-prices-Prediction",
+        "title": "Stock Price Prediction : MSCI World CW8",
+        "monh": "Apr",
+        "year": "2025",
+        "date": "2025-04-01",
+        "tools": [
+            "Time Series",
+            "LSTM",
+            "Data Science",
+            ""
+        ],
+        "description": "This project aims to predict stock prices over a 30-day period using an LSTM (Long Short-Term Memory) model, designed for time series analysis. The Streamlit application offers a clear and intuitive interface to explore historical market data and visualize the predicted trends. This project combines data analysis, predictive modeling, and visualization to provide an accessible tool for users who want to better understand stock market movements."
+    },
+    {
+        "pic": "femunemp.webp",
+        "n": "13",
+        "link1": "https://auradev.hashnode.dev/inegalites-de-genre-et-technologie-ce-que-nous-apprend-leconometrie-spatiale",
+        "link2": "https://github.com/aurvl/SpatialEconometrics",
+        "title": "Technological employment and gender inequalities",
+        "monh": "Mar",
+        "year": "2025",
+        "date": "2025-03-15",
+        "tools": [
+            "Spatial Data",
+            "Econometrics",
+            "",
+            ""
+        ],
+        "description": "This project explores the impact of technological progress on female unemployment in Europe, using spatial econometric methods. Using data covering France, Spain, Italy, the Netherlands and Belgium, it analyzes how employment in technology sectors, STEM qualifications and other factors influence female unemployment, both locally and between neighboring regions."
+    },
+    {
+        "pic": "sal.webp",
+        "n": "12",
+        "link1": "",
+        "link2": "https://github.com/aurvl/ML_projects/blob/main/Salary/Readme.md",
+        "title": "Salary Prediction Project",
+        "monh": "Feb",
+        "year": "2025",
+        "date": "2025-02-28",
+        "tools": [
+            "Python",
+            "Machine Learning",
+            "Pipeline"
+        ],
+        "description": "This project aims to predict salaries using machine learning models, notably Linear Regression (LR) and Random Forest Regressor (RF). The repository is organized to simplify data preprocessing, model training, hyperparameter optimization, and making predictions on new data."
+    },
+    {
+        "pic": "p1.jpg",
+        "n": "1",
+        "link1": "https://github.com/aurvl/Projects/blob/main/IAE%20Trends/dashboard/resultats.md",
+        "link2": "https://github.com/aurvl/Projects/blob/main/IAE%20Trends/IAE%20Trends.md",
+        "title": "Analysis of the Environmental Attention Index (EAI) in Preferential Trade Agreements (PTAs)",
+        "monh": "Sept",
+        "year": "2024",
+        "date": "2024-09-01",
+        "tools": [
+            "Python",
+            "Excel",
+            "Power BI"
+        ],
+        "description": "The objective of this work is to measure the importance given to environmental issues in Preferential Trade Agreements (PTAs) using the Environmental Attention Index (EAI). This indicator is calculated from data provided by the Trade & Environment Database (TREND), the most comprehensive database to date on environmental clauses in international trade agreements."
+    },
+    {
+        "pic": "p2.webp",
+        "n": "2",
+        "link1": "https://aurvl.github.io/NotebookSites/ovwg/Ovwght.html",
+        "link2": "https://github.com/aurvl/Projects/blob/main/Overweight/Overweight.md",
+        "title": "Classification Models for Family History of Overweight",
+        "monh": "April",
+        "year": "2024",
+        "date": "2024-04-01",
+        "tools": [
+            "R",
+            "Machine Learning"
+        ],
+        "description": "This project explores the use of various classification models to predict whether an individual has a family history of overweight. Three different machine learning algorithms are implemented and evaluated: Logistic Regression, Random Forest, and XGBoost."
+    },
+    {
+        "pic": "p3.jpg",
+        "n": "3",
+        "link1": "https://github.com/aurvl/DE_projects/blob/main/Scraping%20Allocine/scraping_series.ipynb",
+        "link2": "https://github.com/aurvl/DE_projects/blob/main/Scraping%20Allocine/Scraping%20Allocine.md",
+        "title": "AlloCiné TV Series Scraping Project",
+        "monh": "Oct",
+        "year": "2024",
+        "date": "2024-10-01",
+        "tools": [
+            "Python",
+            "SQL",
+            "Web Scraping"
+        ],
+        "description": "This project scrapes TV series data from AlloCiné, organizes it into a structured format, and conducts analyses. We collected data like series title, period, duration, genre, ratings, and more to create a comprehensive dataset."
+    },
+    {
+        "pic": "p4.jpg",
+        "n": "4",
+        "link1": "https://aurvl.github.io/NotebookSites/famd/Famd.html",
+        "link2": "https://github.com/aurvl/ML_projects/blob/main/Famd/Famd.md",
+        "title": "Factorial Analysis of Mixed Data (FAMD)",
+        "monh": "Dec",
+        "year": "2023",
+        "date": "2023-12-01",
+        "tools": [
+            "R",
+            "Factor Analysis"
+        ],
+        "description": "This activity focuses on applying Factorial Analysis of Mixed Data (FAMD) to the 'adult' dataset from the UCI Machine Learning Repository. FAMD is a dimension reduction technique allowing simultaneous analysis of quantitative and qualitative variables."
+    },
+    {
+        "pic": "p5.jpg",
+        "n": "5",
+        "link1": "https://github.com/aurvl/Projects/blob/main/Stock%20previsions/time%20series%20analysis.pdf",
+        "link2": "https://github.com/aurvl/Projects/blob/main/Stock%20previsions/Stock%20Previsions.md",
+        "title": "Analysis of Belgian Exports and Imports (1995-2023)",
+        "monh": "April",
+        "year": "2024",
+        "date": "2024-04-01",
+        "tools": [
+            "Eviews",
+            "R",
+            "Time Series"
+        ],
+        "description": "The study examines Belgian foreign trade time series to understand historical trends, assess relationships between variables, and provide forecasts over 10 quarters. The report includes univariate and multivariate analysis."
+    },
+    {
+        "pic": "p6.webp",
+        "n": "6",
+        "link1": "https://aurvl.github.io/NotebookSites/okun/Report.html",
+        "link2": "https://github.com/aurvl/Projects/blob/main/Okun%20Law/Okun%20Law.md",
+        "title": "Analysis of Economic Indicators: Okun's Law",
+        "monh": "Dec",
+        "year": "2023",
+        "date": "2023-12-01",
+        "tools": [
+            "R",
+            "Econometrics"
+        ],
+        "description": "This analysis focuses on GDP and unemployment rates using Eurostat data. The primary goal is to understand the relationship between GDP growth and unemployment through Okun's Law."
+    },
+    {
+        "pic": "p7.jpg",
+        "n": "7",
+        "link1": "https://github.com/aurvl/Projects/blob/main/Unemployment/Unemployment.md",
+        "link2": "https://github.com/aurvl/Projects/blob/main/Unemployment/Unemployment.md",
+        "title": "Phillips Curve Analysis and Policy Guidance for Europe 2024",
+        "monh": "Nov",
+        "year": "2023",
+        "date": "2023-11-01",
+        "tools": [
+            "Python",
+            "Policy Analysis"
+        ],
+        "description": "This Python project involves econometric analysis of inflation and unemployment rates for five European countries (France, Germany, Italy, Netherlands, United Kingdom) for 2023, with projections for 2024."
+    },
+    {
+        "pic": "p8.jpg",
+        "n": "8",
+        "link1": "https://auradev.hashnode.dev/house-prices-prediction",
+        "link2": "https://github.com/aurvl/ML_projects/blob/main/Housing/Housing.md",
+        "title": "House Price Prediction",
+        "monh": "Jan",
+        "year": "2024",
+        "date": "2024-01-01",
+        "tools": [
+            "Python",
+            "Machine Learning"
+        ],
+        "description": "This project applies machine learning techniques to predict house prices using housing and area demographics data. The goal is to build a linear regression model to estimate prices."
+    },
+    {
+        "pic": "p9.jpg",
+        "n": "9",
+        "link1": "https://auradev.hashnode.dev/twitter-tweets-analysis",
+        "link2": "https://github.com/aurvl/DA_projects/blob/main/Twitter/Twitter.md",
+        "title": "Trends in Twitter Activity of French Deputies",
+        "monh": "Nov",
+        "year": "2024",
+        "date": "2024-11-01",
+        "tools": [
+            "Python",
+            "Seaborn",
+            "NLP"
+        ],
+        "description": "This project analyzes tweets from French deputies to understand their dynamics and structure, including data collection, enrichment, distribution analysis by political party, and trend visualization."
+    },
+    {
+        "pic": "p10.png",
+        "n": "10",
+        "link1": "https://github.com/aurvl/DE_projects/blob/main/SQL%20Bank%20Fraud/SQL%20Bank%20Fraud.md",
+        "link2": "https://github.com/aurvl/DE_projects/blob/main/SQL%20Bank%20Fraud/SQL%20Bank%20Fraud.md",
+        "title": "Banking Fraud Data Collection Project",
+        "monh": "Aug",
+        "year": "2024",
+        "date": "2024-08-01",
+        "tools": [
+            "HTML",
+            "JavaScript",
+            "PHP",
+            "SQL"
+        ],
+        "description": "This project simulates fictive banking transactions and records user responses regarding risk and money attitudes. Data is stored in a MySQL database for fraud indicator analysis."
+    },
+    {
+        "pic": "p11.webp",
+        "n": "11",
+        "link1": "https://aurvl.github.io/NotebookSites/m2_exercices_py/allocine/allocine.html",
+        "link2": "https://github.com/aurvl/DA_projects/edit/main/Allocine/Allocine.md",
+        "title": "Data Visualization - Allociné",
+        "monh": "Nov",
+        "year": "2024",
+        "date": "2024-11-01",
+        "tools": [
+            "Python",
+            "Seaborn",
+            "Networkx"
+        ],
+        "description": "This project analyzes a dataset from Allociné (movies & series) to visualize key information and understand relationships between different attributes."
+    }
+]
