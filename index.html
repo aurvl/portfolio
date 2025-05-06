@@ -34,7 +34,7 @@
             <a href="#about">About</a>
             <a href="#works">Projects</a>
             <a href="#compet">Profile</a>
-            <a href="https://auradev.hashnode.dev/" target="_blank">Blog</a>
+            <a href="#blog">Blog</a>
             <a href="#contacts">Contacts</a>
             
             <select name="lang" id="lang" onchange="changeLanguage(this)">
@@ -47,8 +47,15 @@
             </div>
         </nav>
 
-        <div class="menu-toggle" id="menu-toggle">
-            &#9776; <!-- Code HTML pour les trois traits superposés -->
+        <div class="mobile-nav" id="mobile-nav">
+            <div class="menu-toggle" id="menu-toggle">
+                &#9776; <!-- Code HTML pour les trois traits superposés -->
+            </div>
+
+            <select name="lang" id="lang-mobile" onchange="changeLanguage(this)">
+                <option value="en" selected>En</option>
+                <option value="fr">Fr</option>
+            </select>
         </div>
     </header>
 
@@ -56,11 +63,8 @@
     <!-- Home -->
     <section class="home" id="home">
         <div class="home-content">
-            
             <h1>Hello, I'm Aurel</h1>
-            
-            <h2>2nd Year Master in Economics</h2>
-            
+            <h2>Reasearch Assistant and Data Analyst/Scientist</h2>
             <p>As a Master's student in Economics, I am passionate about using data to solve complex economic and social challenges. I enjoy exploring methods such as machine learning and statistics to provide practical solutions.<br />
                 Let’s build <b>amazing together</b> ! 🎉
             </p>
@@ -77,7 +81,7 @@
         </div>
 
         <div class="pic-home">
-            <img src="img/cropped_image.png" alt="pp" width="auto" height="100%">
+            <img src="img/pp2.png" alt="pp" width="auto" height="100%">
         </div>
         
     </section>
@@ -141,7 +145,7 @@
                     </div>
 
                     <div class="tdd">
-                        <h2><a href="https://auradev.hashnode.dev/house-prices-prediction" class="hover-link" target="_blank">USAHouse Price Prediction</a></h2>
+                        <h2><a href="https://auradev.hashnode.dev/house-prices-prediction" class="hover-link" target="_blank">USA House Price Prediction</a></h2>
                         <p>📅 Jan, 2024</p>
                         <div class="tools-used">
                             <p>Python</p>
@@ -202,10 +206,22 @@
 
         <div class="sk-element">
             <div class="exp-cert">
+                <div class="filter-buttons">
+                    <button class="filt-btn active" cont-cat="exp" onclick="filterContent('exp')">Experiences</button>
+                    <button class="filt-btn" cont-cat="cert" onclick="filterContent('cert')">Certifications</button>
+                </div>
 
-                <div class="cctx">
-                    <p class="ttl-exp">Experiences</p>
+                <div class="exp">
                     <div class="exp-col">
+                        <div class="exp-box">
+                            <img src="img/eco.jpg" alt="img" title="Laboratoire ECOSEAS - Centre Scientifique de Monaco">
+                            <div class="exp-box-content">
+                                <h2>Research Assistant</h2>
+                                <p>Mar - Sept 2025&nbsp; • &nbsp;<b>Intern</b></p>
+                                <p>Nice (France) - Monaco</p>
+                            </div>
+                        </div>
+
                         <div class="exp-box">
                             <img src="img/csm-logo.png" alt="img" title="Centre Scientifique de Monaco">
                             <div class="exp-box-content">
@@ -234,9 +250,8 @@
                         </div>
                     </div>
                 </div>
-    
-                <div class="cert">
-                    <p class="ttl-exp">Certifications</p>
+
+                <div class="cert" style="display: none;">
                     <div class="cert-col">
                         <a href="https://openbadgefactory.com/v1/assertion/e6fc9dcc549b9b9f4ab73df5ab9bb77f052dfa44" target="_blank" class="cert-box">
                             <img src="img/ct1.png" alt="ct1">
@@ -252,7 +267,7 @@
     
                             <div class="cert-box-content">
                                 <h2>Certificat Pix <br>
-                                    (P-MB9CBR3X)
+                                    Verification Code: P-MB9CBR3X
                                 </h2>
                                 <p>Mar, 2023</p>
                             </div>
@@ -262,9 +277,12 @@
             </div>
     
             <div class="skillys">
-                <div class="ttl-exp">Skills</div>
-
-                <div class="skills-grid">
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-category="data" onclick="filterSkills('data')">Data & Programming</button>
+                    <button class="filter-btn" data-category="web" onclick="filterSkills('web')">Web & Viz</button>
+                </div>
+                
+                <div class="grid-data">
                     <div class="skill-box">
                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" />
                         <span class="tooltip-text">Python</span>
@@ -274,61 +292,40 @@
                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/rstudio/rstudio-original.svg" />
                         <span class="tooltip-text">R Language</span>
                     </div>
+
+                    <div class="skill-box">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/julia/julia-original.svg" />
+                        <span class="tooltip-text">Julia</span>
+                    </div>
     
                     <div class="skill-box" title="MySQL">
                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original-wordmark.svg" />
                         <span class="tooltip-text">MySQL</span>
+                    </div>
+                    
+                    <div class="skill-box">
+                        <img src="https://icon.icepanel.io/Technology/svg/Stata.svg" />
+                        <span class="tooltip-text">Stata</span>
                     </div>
 
                     <div class="skill-box">
                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg" />
                         <span class="tooltip-text">PostgreSQL</span>
                     </div>
-    
-                    <div class="skill-box">
-                        <img src="img/pbi.png" width="auto" height="100%" />
-                        <span class="tooltip-text">Power BI</span>
-                    </div>
-                    
+
                     <div class="skill-box">
                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jupyter/jupyter-original-wordmark.svg" />
                         <span class="tooltip-text">Jupyter Notebook</span>
                     </div>
-    
-                    <div class="skill-box">
-                        <img width="auto" height="100%" src="https://img.icons8.com/fluency/48/microsoft-365.png" />
-                        <span class="tooltip-text">Microsoft Office</span>
-                    </div>
-    
-                    <div class="skill-box" title="HTML">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original-wordmark.svg" />
-                        <span class="tooltip-text">HTML</span>
-                    </div>
-    
-                    <div class="skill-box">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original-wordmark.svg" />
-                        <span class="tooltip-text">CSS</span>
-                    </div>
 
-                    <div class="skill-box">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/julia/julia-original.svg" />
-                        <span class="tooltip-text">Julia</span>
-                    </div>
-                    
                     <div class="skill-box">
                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" />
                         <span class="tooltip-text">Git</span>
                     </div>
 
-                    <!-- dfs -->
                     <div class="skill-box">
                         <img src="https://icon.icepanel.io/Technology/svg/Visual-Studio-Code-%28VS-Code%29.svg" />
                         <span class="tooltip-text">Visual Studio Code</span>
-                    </div>
-
-                    <div class="skill-box">
-                        <img src="https://icon.icepanel.io/Technology/svg/Stata.svg" />
-                        <span class="tooltip-text">Stata</span>
                     </div>
 
                     <div class="skill-box">
@@ -346,9 +343,41 @@
                         <span class="tooltip-text">FastApi</span>
                     </div>
 
-                    <div class="skill-box">
+                    <!-- <div class="skill-box">
                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" />
                         <span class="tooltip-text">Docker</span>
+                    </div> -->
+                </div>
+                
+                <div class="grid-web" style="display: none;">
+                    <div class="skill-box" title="HTML">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original-wordmark.svg" />
+                        <span class="tooltip-text">HTML</span>
+                    </div>
+    
+                    <div class="skill-box">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original-wordmark.svg" />
+                        <span class="tooltip-text">CSS</span>
+                    </div>
+
+                    <div class="skill-box">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" />
+                        <span class="tooltip-text">JavaScript</span>
+                    </div>
+
+                    <div class="skill-box">
+                        <img src="img/pbi.png" width="auto" height="100%" />
+                        <span class="tooltip-text">Power BI</span>
+                    </div>
+                    
+                    <div class="skill-box">
+                        <img src="img/tabl.png" width="auto" height="100%" />
+                        <span class="tooltip-text">Tableau</span>
+                    </div>
+
+                    <div class="skill-box">
+                        <img width="auto" height="100%" src="https://img.icons8.com/fluency/48/microsoft-365.png" />
+                        <span class="tooltip-text">Microsoft Office</span>
                     </div>
 
                     <div class="skill-box">
@@ -357,37 +386,46 @@
                     </div>
 
                     <div class="skill-box">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azure/azure-original.svg" />
-                        <span class="tooltip-text">Azure</span>
-                    </div>
-
-                    <div class="skill-box">
                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/googlecloud/googlecloud-original.svg" />
                         <span class="tooltip-text">Google Cloud</span>
                     </div>
-                </div>
-    
-                <div class="list">
-                    <ul>
-                        <li>Data Cleaning and Manipulation</li>
-                        <li>Modelisation and Forecasting</li>
-                        <li>Machine Learning Model Development</li>
-                        <li>Proficiency in Statistical Analysis</li>
-                        <li>Expertise in Time Series Analysis</li>
-                    </ul>
-    
-                    <ul>
-                        <li>Creative Problem-Solving</li>
-                        <li>Interactive Data Visualization</li>
-                        <li>Financial Reporting</li>
-                        <li>Budget Planning</li>
-                        <li>Team Collaboration and Communication</li>
-                    </ul>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Blog -->
+    <section class="blog" id="blog">
+        <div class="sk-content">
+            <h2>ARTICLES & PUBLICATIONS</h2>
+            <h1>What have I written and published?</h1>
+            <p>A selection of my articles and publications showcasing my research and insights.</p>
+        </div>
+
+        <div class="posts">
+            <div class="poster">
+                <a href="https://auradev.hashnode.dev/inegalites-de-genre-et-technologie-ce-que-nous-apprend-leconometrie-spatiale">
+                    <img src="/img/blog/2.png" alt="Article 1">
+                </a>
+            </div>
+
+            <div class="poster">
+                <a href="https://auradev.hashnode.dev/house-prices-prediction">
+                    <img src="/img/blog/1.jpeg" alt="Article 2">
+                </a>
+            </div>
+
+            <div class="poster">
+                <a href="#">
+                    <img src="/img/blog/3.JPEG" alt="Article 3">
+                </a>
+            </div>
+        </div>
+
+        <div class="see-more">
+            <a href="https://auradev.hashnode.dev/">See More Articles</a>
+        </div>
+    </section>
 
     <!-- Contacts -->
     <section class="contacts" id="contacts">
@@ -449,7 +487,7 @@
         <a class="logo" href="#">.l<span>a</span>dev</a>
 
         <div class="copyright">
-            &copy; 2024 <span>ladev</span>. All rights reserved
+            &copy; 2025 <span>ladev</span>. All rights reserved
         </div>
     </footer>
 
