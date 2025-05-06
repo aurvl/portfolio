@@ -1496,7 +1496,6 @@ button:hover {
             height: 400px;
 
             .grid-data {
-                border: var(--text-color) solid;
                 margin: 0;
                 padding: 10px 0;
             }
