@@ -220,5 +220,24 @@
             "Networkx"
         ],
         "description": "This project analyzes a dataset from Allociné (movies & series) to visualize key information and understand relationships between different attributes."
+    },
+    {
+        "pic": "tsc.png",
+        "n": "12",
+        "link1": "",
+        "link2": "https://github.com/aurvl/TSC-Finance",
+        "title": "TSC Finance – Temporal Signal Classification",
+        "monh": "Jan",
+        "year": "2025",
+        "date": "2025-01-01",
+        "tools": [
+            "Python",
+            "Deep Learning",
+            "Time Series",
+            "PyTorch",
+            "Finance"
+        ],
+        "description": "This project introduces a Temporal Convolutional Pyramid Classifier (TCKPyramidClassifier) designed to predict high-quality trading entry points using multivariate financial time series. It includes synthetic data generation using geometric Brownian motion, model pre-training, asset-specific fine-tuning (S&P 500, FX, ETFs, BTC), and full long/cash backtesting."
     }
+
 ]
