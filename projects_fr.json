@@ -220,5 +220,23 @@
             "Networkx"
         ],
         "description": "Ce projet vise à analyser un jeu de données d'Allociné, une base de données cinématographique (films & séries), afin de visualiser diverses informations clés et de comprendre les relations entre différents attributs."
+    },
+    {
+        "pic": "tsc.png",
+        "n": "12",
+        "link1": "",
+        "link2": "https://github.com/aurvl/TSC-Finance",
+        "title": "TSC Finance – Classification de Signaux Temporels",
+        "monh": "Jan",
+        "year": "2025",
+        "date": "2025-01-01",
+        "tools": [
+            "Python",
+            "Deep Learning",
+            "Time Series",
+            "PyTorch",
+            "Finance"
+        ],
+        "description": "Ce projet présente un classifieur pyramidal à convolutions temporelles (TCKPyramidClassifier) permettant d’identifier les points d’entrée optimaux en bourse à partir de séries temporelles financières multivariables. Il inclut la génération de données synthétiques via mouvement brownien géométrique, le pré-entrainement du modèle, le fine-tuning sur différents actifs (S&P 500, devises, ETFs, BTC) ainsi qu'un backtesting complet long/cash."
     }
 ]
