@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Aurel - Personal Portfolio</title>
-    <link rel="icon" href="img/pic-square.png" type="image/png">
+    <meta name="description" content="Aurel VEHI website, Junior Data Analyst, Economic and Statistical Analyst. Blog, projects, skills and contacts.">
+    <title>Aurel VEHI — Junior Data Analyst | Website</title>
+    <link rel="icon" href="assets/img/pic-square.png" type="image/png">
 
    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-8FKVJTTKSH"></script>
@@ -16,7 +17,22 @@
       gtag('config', 'G-8FKVJTTKSH');
     </script>
 
-    <link rel="stylesheet" href="styles/style.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Aurel VEHI",
+      "url": "https://aurvl.github.io/portfolio/",
+      "sameAs": [
+        "https://github.com/aurvl",
+        "https://www.linkedin.com/in/aurel-vehi-29887a290/"
+      ],
+      "jobTitle": "Junior Data Analyst",
+      "description": "Aurel VEHI website, Junior Data Analyst, Economic and Statistical Analyst"
+    }
+    </script>
+
+    <link rel="stylesheet" href="css/style.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
           
@@ -25,6 +41,14 @@
 </head>
 
 <body>
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.className = savedTheme + '-theme';
+            document.body.className = savedTheme + '-theme';
+        })();
+    </script>
+
     <!-- Navbar -->
     <header class="header">
         <a class="logo" href="#">.l<span>a</span>dev</a>
@@ -43,7 +67,9 @@
             </select>
 
             <div id="theme-toggle" class="theme-toggle">
-                <span class="toggle-slider">🌞</span>
+                <i class="fas fa-sun"></i>
+                <i class="fas fa-moon"></i>
+                <span class="toggle-slider"></span>
             </div>
         </nav>
 
@@ -81,7 +107,7 @@
         </div>
 
         <div class="pic-home">
-            <img src="img/pp2.png" alt="pp" width="auto" height="100%">
+            <img src="assets/img/pp2.png" alt="pp" width="auto" height="100%">
         </div>
         
     </section>
@@ -89,7 +115,7 @@
     <!-- About me -->
     <section class="about" id="about">
         <div class="pic-about">
-            <img class="ppc" src="img/about.png" alt="about-me-pict" max-width="800px" max-height="450px">            
+            <img class="ppc" src="assets/img/about.png" alt="about-me-pict" max-width="800px" max-height="450px">            
         </div>
 
         <div class="about-content">
@@ -106,7 +132,7 @@
 
             <div class="btn-about">
                 <a class="b1" href="mailto:aurelvehi@outlook.fr">Hire me !</a>
-                <a class="b2" href="down/cv_av.pdf" download="aurel_vehi_cv.pdf">Download my CV</a>
+                <a class="b2" href="assets/downloads/cv_av.pdf" download="aurel_vehi_cv.pdf">Download my CV</a>
             </div>
         </div>
     </section>
@@ -123,7 +149,7 @@
         <div class="wk-grid">
             <div class="main-wk-item">
                 <div class="main-img-wk">
-                    <img src="img/p1.jpg" alt="project1">
+                    <img src="assets/img/p1.jpg" alt="project1">
                 </div>
 
                 <div  class="main-content-wk">
@@ -141,7 +167,7 @@
             <div class="wk-items">
                 <div class="box">
                     <div class="img-wk">
-                        <img src="img/p8.jpg" alt="project8">
+                        <img src="assets/img/p8.jpg" alt="project8">
                     </div>
 
                     <div class="tdd">
@@ -157,7 +183,7 @@
 
                 <div class="box">
                     <div class="img-wk">
-                        <img src="img/p3.jpg" alt="project3">
+                        <img src="assets/img/p3.jpg" alt="project3">
                     </div>
 
                     <div class="tdd">
@@ -174,7 +200,7 @@
 
                 <div class="box">
                     <div class="img-wk">
-                        <img src="img/p4.jpg" alt="project4">
+                        <img src="assets/img/p4.jpg" alt="project4">
                     </div>
 
                     <div class="tdd">
@@ -214,7 +240,7 @@
                 <div class="exp">
                     <div class="exp-col">
                         <div class="exp-box">
-                            <img src="img/eco.jpg" alt="img" title="Laboratoire ECOSEAS - Centre Scientifique de Monaco">
+                            <img src="assets/img/eco.jpg" alt="img" title="Laboratoire ECOSEAS - Centre Scientifique de Monaco">
                             <div class="exp-box-content">
                                 <h2>Research Assistant</h2>
                                 <p>Mar - Sept 2025&nbsp; • &nbsp;<b>Intern</b></p>
@@ -223,7 +249,7 @@
                         </div>
 
                         <div class="exp-box">
-                            <img src="img/csm-logo.png" alt="img" title="Centre Scientifique de Monaco">
+                            <img src="assets/img/csm-logo.png" alt="img" title="Centre Scientifique de Monaco">
                             <div class="exp-box-content">
                                 <h2>Environmental Economics Project Officer</h2>
                                 <p>Oct - Dec 2024&nbsp; • &nbsp;<b>Contract</b></p>
@@ -232,7 +258,7 @@
                         </div>
 
                         <div class="exp-box">
-                            <img src="img/fsn.jpg" alt="img" title="Family Sphere">
+                            <img src="assets/img/fsn.jpg" alt="img" title="Family Sphere">
                             <div class="exp-box-content">
                                 <h2>Private Math Tutor</h2>
                                 <p>Mar 2023 - Jun 2024&nbsp; • &nbsp;<b>Contract</b></p>
@@ -241,7 +267,7 @@
                         </div>
 
                         <div class="exp-box">
-                            <img src="img/fsn.jpg" alt="img" title="Family Sphere">
+                            <img src="assets/img/fsn.jpg" alt="img" title="Family Sphere">
                             <div class="exp-box-content">
                                 <h2>Finance and Data Analysis</h2>
                                 <p>Jul - Aug 2023&nbsp; • &nbsp;<b>Intern</b></p>
@@ -254,7 +280,7 @@
                 <div class="cert" style="display: none;">
                     <div class="cert-col">
                         <a href="https://openbadgefactory.com/v1/assertion/e6fc9dcc549b9b9f4ab73df5ab9bb77f052dfa44" target="_blank" class="cert-box">
-                            <img src="img/ct1.png" alt="ct1">
+                            <img src="assets/img/ct1.png" alt="ct1">
     
                             <div class="cert-box-content">
                                 <h2>Introduction à la statistique avec R</h2>
@@ -263,7 +289,7 @@
                         </a>
     
                         <a href="#" class="cert-box">
-                            <img src="img/ct2.png" alt="ct2">
+                            <img src="assets/img/ct2.png" alt="ct2">
     
                             <div class="cert-box-content">
                                 <h2>Certificat Pix <br>
@@ -366,12 +392,12 @@
                     </div>
 
                     <div class="skill-box">
-                        <img src="img/pbi.png" width="auto" height="100%" />
+                        <img src="assets/img/pbi.png" width="auto" height="100%" />
                         <span class="tooltip-text">Power BI</span>
                     </div>
                     
                     <div class="skill-box">
-                        <img src="img/tabl.png" width="auto" height="100%" />
+                        <img src="assets/img/tabl.png" width="auto" height="100%" />
                         <span class="tooltip-text">Tableau</span>
                     </div>
 
@@ -403,23 +429,47 @@
         </div>
 
         <div class="posts">
-            <div class="poster">
-                <a href="https://auradev.hashnode.dev/inegalites-de-genre-et-technologie-ce-que-nous-apprend-leconometrie-spatiale">
-                    <img src="img/blog/ele2.png" alt="Article 1">
-                </a>
-            </div>
+            <!-- Article 1 -->
+            <article class="blog-card">
+                <div class="blog-img">
+                    <a href="https://auradev.hashnode.dev/inegalites-de-genre-et-technologie-ce-que-nous-apprend-leconometrie-spatiale" target="_blank">
+                        <img src="assets/img/blog/ele2.png" alt="Gender Inequality and Technology">
+                    </a>
+                </div>
+                <div class="blog-content">
+                    <h3><a href="https://auradev.hashnode.dev/inegalites-de-genre-et-technologie-ce-que-nous-apprend-leconometrie-spatiale" target="_blank">Gender Inequality and Technology</a></h3>
+                    <p>What does spatial econometrics teach us about the digital divide?</p>
+                    <a href="https://auradev.hashnode.dev/inegalites-de-genre-et-technologie-ce-que-nous-apprend-leconometrie-spatiale" target="_blank" class="read-more">Read Article <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
 
-            <div class="poster">
-                <a href="https://auradev.hashnode.dev/house-prices-prediction">
-                    <img src="img/blog/ele1.jpeg" alt="Article 2">
-                </a>
-            </div>
+            <!-- Article 2 -->
+            <article class="blog-card">
+                <div class="blog-img">
+                    <a href="https://auradev.hashnode.dev/house-prices-prediction" target="_blank">
+                        <img src="assets/img/blog/ele1.jpeg" alt="USA House Price Prediction">
+                    </a>
+                </div>
+                <div class="blog-content">
+                    <h3><a href="https://auradev.hashnode.dev/house-prices-prediction" target="_blank">USA House Price Prediction</a></h3>
+                    <p>Predicting house prices using machine learning and regression analysis.</p>
+                    <a href="https://auradev.hashnode.dev/house-prices-prediction" target="_blank" class="read-more">Read Article <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
 
-            <div class="poster">
-                <a href="#">
-                    <img src="img/blog/ele3.jpeg" alt="Article 3">
-                </a>
-            </div>
+            <!-- Article 3 -->
+            <article class="blog-card">
+                <div class="blog-img">
+                    <a href="#">
+                        <img src="assets/img/blog/ele3.jpeg" alt="Upcoming Research">
+                    </a>
+                </div>
+                <div class="blog-content">
+                    <h3><a href="#">Upcoming Research</a></h3>
+                    <p>Stay tuned for my latest work on economic data analysis.</p>
+                    <a href="#" class="read-more">Read Article <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
         </div>
 
         <div class="see-more">
@@ -487,7 +537,7 @@
         <a class="logo" href="#">.l<span>a</span>dev</a>
 
         <div class="copyright">
-            &copy; 2025 <span>ladev</span>. All rights reserved
+            &copy; 2025 <span>Aurel VEHI</span>. All rights reserved
         </div>
     </footer>
 
