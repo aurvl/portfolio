@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Explorer les Projets</title>
-    <link rel="icon" href="img/pic-square.png" type="image/png">
+    <meta name="description" content="Découvrez les projets d'Aurel VEHI en analyse de données, recherche économique et machine learning.">
+    <title>Explorer les Projets | Aurel VEHI</title>
+    <link rel="icon" href="assets/img/pic-square.png" type="image/png">
 
    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-8FKVJTTKSH"></script>
@@ -16,7 +17,21 @@
       gtag('config', 'G-8FKVJTTKSH');
     </script>
 
-    <link rel="stylesheet" href="styles/style-expl.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "Projets - Aurel VEHI",
+      "url": "https://aurvl.github.io/portfolio/explore-projects_fr.html",
+      "description": "Découvrez les projets d'Aurel VEHI en analyse de données, recherche économique et machine learning.",
+      "author": {
+          "@type": "Person",
+          "name": "Aurel VEHI"
+      }
+    }
+    </script>
+
+    <link rel="stylesheet" href="css/style-expl.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
           
@@ -25,6 +40,14 @@
 </head>
 
 <body>
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.className = savedTheme + '-theme';
+            document.body.className = savedTheme + '-theme';
+        })();
+    </script>
+
     <!-- Navbar -->
     <header class="header">
         <a class="logo" href="#">Au<span>rel VEHI</span></a>
@@ -41,7 +64,9 @@
             </select>
 
             <div id="theme-toggle" class="theme-toggle">
-                <span class="toggle-slider">🌞</span>
+                <i class="fas fa-sun"></i>
+                <i class="fas fa-moon"></i>
+                <span class="toggle-slider"></span>
             </div>
         </nav>
 
