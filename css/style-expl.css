@@ -225,7 +225,7 @@ b {
 
 /* Thème Sombre (Défaut) */
 body.dark-theme .theme-toggle .toggle-slider {
-    transform: translate(26px, -50%); /* X move + Y center */
+    transform: translate(25px, -50%); /* Adjusted: 24px for symmetry */
     background-color: #FFFFFF;
 }
 

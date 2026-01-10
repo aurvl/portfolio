@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Aurel VEHI</title>
+    <link rel="icon" href="../assets/img/pic-square.png" type="image/png">
+    
+    <!-- Reuse Main CSS (Adjust path) -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/style-expl.css"> <!-- Reusing explore grid styles -->
+    <script src="https://kit.fontawesome.com/f56155cbc5.js" crossorigin="anonymous"></script>
+
+    <style>
+        /* Specific overrides for Blog Listing */
+        .navbar { gap: 0; }
+        .theme-toggle { margin-left: 30px; }
+        .header { box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .page-title { text-align: center; margin-top: 100px; margin-bottom: 40px; }
+        .page-title h1 { font-size: 2.5rem; color: var(--text-color); }
+        
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1050px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Ensure cards look good */
+        .blog-card {
+            background: var(--bg2-color);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .blog-card:hover { transform: translateY(-5px); }
+        .blog-img img { width: 100%; height: 200px; object-fit: cover; }
+        .blog-content { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
+        .blog-content h3 a { color: var(--text-color); text-decoration: none; font-size: 1.2rem; font-weight: 800; }
+        .blog-content p { color: var(--text2-col); font-size: 0.95rem; line-height: 1.5; margin: 10px 0 20px; flex-grow: 1; }
+        .read-more { margin-top: auto; color: #0067B1; font-weight: 600; text-decoration: none; }
+
+        /* Blog Controls (Search & Filters) */
+        .blog-controls {
+            max-width: 1050px;
+            margin: 0 auto 30px;
+            padding: 0 20px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center; /* Fix vertical alignment */
+        }
+
+        .search-bar {
+            flex: 2;
+            min-width: 250px;
+            position: relative;
+        }
+
+        .search-bar input {
+            width: 100%;
+            height: 48px; /* Fixed height for consistency */
+            padding: 0 20px; /* Use line-height/height for vertical centering */
+            border-radius: 25px;
+            border: 1px solid var(--tool-col);
+            background: var(--bg2-color);
+            color: var(--text-color);
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-bar input:focus {
+            border-color: #0067B1;
+            box-shadow: 0 0 0 2px rgba(0, 103, 177, 0.2);
+        }
+
+        .search-bar i {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text2-col);
+            pointer-events: none;
+        }
+
+        .filter-group {
+            flex: 1;
+            min-width: 150px;
+            position: relative;
+        }
+
+        .filter-group select {
+            width: 100%;
+            height: 48px; /* Fixed height for consistency */
+            padding: 0 20px;
+            border-radius: 25px;
+            border: 1px solid var(--tool-col);
+            background: var(--bg2-color);
+            color: var(--text-color);
+            font-size: 0.95rem;
+            cursor: pointer;
+            appearance: none;
+            outline: none;
+            /* Simple custom arrow icon */
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='gray' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 16px;
+        }
+
+        .filter-group select:focus {
+            border-color: #0067B1;
+        }
+
+        @media(max-width: 600px) {
+            .blog-controls {
+                flex-direction: column;
+            }
+            .search-bar, .filter-group {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.className = savedTheme + '-theme';
+            document.body.className = savedTheme + '-theme';
+        })();
+    </script>
+
+    <!-- Navbar (Simplified/Consistent) -->
+    <header class="header">
+        <a class="logo" href="../index.html">Au<span>rel VEHI</span></a>
+
+        <nav class="navbar">
+            <a href="../index.html">Home</a>
+            <a href="../explore-projects.html">Projects</a>
+            <a href="blog.html" class="active">Blog</a>
+            <a href="../index.html#contacts">Contacts</a>
+
+            <select name="lang" id="lang" onchange="if(this.value) window.location.href=this.value;">
+                <option value="blog.html" selected>En</option>
+                <option value="blog_fr.html">Fr</option>
+            </select>
+
+            <div class="theme-toggle" id="theme-toggle">
+                <i class="fa-solid fa-sun"></i>
+                <div class="toggle-slider"></div>
+                <i class="fa-solid fa-moon"></i>
+            </div>
+        </nav>
+        
+        <!-- Mobile Menu Logic could be added here if needed reusing app.js logic -->
+    </header>
+
+    <div class="page-title">
+        <h1>Latest Articles</h1>
+    </div>
+
+    <!-- Search & Filters -->
+    <div class="blog-controls">
+        <div class="search-bar">
+            <input type="text" id="search-input" placeholder="Search posts (title, content, tags)...">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+        
+        <div class="filter-group">
+            <select id="filter-year">
+                <option value="">All Years</option>
+                <!-- JS will populate -->
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <select id="filter-tag">
+                <option value="">All Topics</option>
+                <!-- JS will populate -->
+            </select>
+        </div>
+    </div>
+
+    <section class="blog-grid wk-grid">
+        <!-- Content injected by js/blog.js -->
+        <p>Loading posts...</p>
+    </section>
+
+    <!-- Scripts -->
+    <script src="../js/blog-shared.js"></script>
+    <script src="../js/blog.js"></script>
+    
+    <!-- Reuse theme toggle logic from main app, simplified inline for now or import -->
+    <script>
+        // Minimal Theme Toggle Reuse
+        const toggle = document.getElementById('theme-toggle');
+        const body = document.body;
+        
+        toggle.addEventListener('click', () => {
+             const isDark = body.classList.contains('dark-theme') || (!body.classList.contains('light-theme'));
+            if (isDark) {
+                body.classList.remove('dark-theme');
+                body.classList.add('light-theme');
+                document.documentElement.className = 'light-theme';
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.classList.remove('light-theme');
+                body.classList.add('dark-theme');
+                document.documentElement.className = 'dark-theme';
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+    </script>
+</body>
+</html>

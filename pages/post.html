@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post - Aurel VEHI</title>
+    <link rel="icon" href="../assets/img/pic-square.png" type="image/png">
+    
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://kit.fontawesome.com/f56155cbc5.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <style>
+        /* Fix Navbar spacing */
+        .navbar { gap: 0; }
+        .navbar a, .theme-toggle { margin-left: 30px; }
+
+        /* Single Post Styles */
+        .post-container {
+            max-width: 1200px;
+            margin: 100px auto 50px;
+            padding: 20px;
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+            position: relative;
+        }
+
+        .post-main {
+            flex: 1;
+            /* Ensure it doesn't overflow */
+            min-width: 0; 
+        }
+
+        .post-sidebar {
+            width: 220px;
+            position: sticky;
+            top: 100px;
+            display: none; /* Hidden by default on mobile */
+            /* Removed background/border for clean look */
+            padding: 0;
+            background: transparent;
+        }
+
+        @media (min-width: 900px) {
+            .post-sidebar {
+                display: block;
+            }
+        }
+
+        .post-toc-title {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: var(--text-color);
+            padding-left: 15px; /* Align with list items */
+        }
+
+        .post-toc ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            border-left: 2px solid var(--tool-col); /* Vertical line */
+        }
+
+        .post-toc li {
+            position: relative;
+        }
+
+        .post-toc a {
+            display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-decoration: none;
+            color: var(--text2-col);
+            font-size: 0.9rem;
+            transition: all 0.2s;
+            padding: 5px 0 5px 15px; 
+            border-left: 2px solid transparent; 
+            margin-left: -2px; /* Overlap parent border */
+        }
+
+        .post-toc a:hover {
+            color: #0067B1;
+            border-left-color: #0067B1;
+        }
+        
+        /* Sidebar Action Buttons */
+        .sidebar-actions {
+            margin-top: 30px;
+            padding-left: 15px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .action-btn {
+            background: var(--bg2-color);
+            color: var(--text-color);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid var(--tool-col);
+            font-size: 1rem;
+        }
+
+        .action-btn:hover {
+            background: #0067B1;
+            color: white;
+            border-color: #0067B1;
+            transform: translateY(-2px);
+        }
+
+        .post-header { text-align: center; margin-bottom: 40px; }
+        .post-title { font-size: 2.5rem; margin-bottom: 15px; color: var(--text-color); font-weight: 800; }
+        
+        .post-abstract {
+            background-color: var(--bg2-color);
+            border: 1px solid var(--tool-col);
+            border-left: 4px solid #0067B1;
+            border-radius: 10px;
+            padding: 15px 25px;
+            margin: 20px auto;
+            max-width: 90%;
+            font-style: italic;
+            color: var(--text2-col);
+            text-align: left;
+            line-height: 1.6;
+        }
+
+        /* Tags styling */
+        .post-meta { color: var(--text2-col); font-size: 0.9rem; margin-bottom: 20px; }
+        .post-meta .tags {
+            font-weight: bold;
+            color: #0067B1; /* Visible Color */
+            margin-left: 10px;
+        }
+        
+        .post-cover { width: 100%; height: auto; border-radius: 15px; margin-top: 20px; max-height: 400px; object-fit: cover; }
+
+        .post-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-color); }
+        .post-body h1, .post-body h2, .post-body h3 { 
+            color: #0067B1; 
+            font-weight: 800; /* Bold headings */
+            margin-top: 40px; 
+            margin-bottom: 20px;
+        }
+
+        /* Post Tables */
+        .post-body table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95em;
+            overflow-x: auto;
+            display: block; /* For responsive rolling if needed, or stick to default table behavior */
+        }
+        
+        /* Better responsive table */
+        .post-body table {
+            display: table;
+            overflow-x: auto;
+        }
+
+        .post-body th, .post-body td {
+            padding: 12px 15px;
+            border: 1px solid var(--tool-col);
+            text-align: left;
+        }
+
+        .post-body th {
+            background-color: var(--bg2-color);
+            color: #0067B1;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.5px;
+        }
+
+        .post-body tr:nth-child(even) {
+            background-color: rgba(255, 255, 255, 0.03);
+        }
+
+        .post-body tr:hover {
+            background-color: rgba(0, 103, 177, 0.1);
+        }
+
+        
+        /* Code Block Styling */
+        pre {
+            background: #2d2d2d;
+            padding: 15px;
+            border-radius: 10px;
+            overflow-x: auto;
+            margin-bottom: 20px;
+        }
+        code { font-family: 'Courier New', Courier, monospace; color: #f8f8f2; }
+
+        .btn { 
+            display: inline-block; 
+            padding: 10px 20px; 
+            background: var(--bg2-color); 
+            text-decoration: none; 
+            border-radius: 5px; 
+            margin-top: 30px; 
+            border: 1px solid var(--text-color);
+        }
+    </style>
+</head>
+<body>
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.className = savedTheme + '-theme';
+            document.body.className = savedTheme + '-theme';
+        })();
+    </script>
+
+    <header class="header">
+        <a class="logo" href="../index.html">Au<span>rel VEHI</span></a>
+        <nav class="navbar">
+            <a href="../index.html">Home</a>
+            <a href="blog.html">Blog</a>
+             <div class="theme-toggle" id="theme-toggle">
+                <i class="fa-solid fa-sun"></i>
+                <div class="toggle-slider"></div>
+                <i class="fa-solid fa-moon"></i>
+            </div>
+        </nav>
+    </header>
+
+    <article class="post-container">
+        <!-- Content Injected Here -->
+        <p>Loading post...</p>
+    </article>
+
+    <script src="../js/blog-shared.js"></script>
+    <script src="../js/post.js"></script>
+    <script>
+        // Minimal Theme Toggle Reuse
+        const toggle = document.getElementById('theme-toggle');
+        const body = document.body;
+        
+        toggle.addEventListener('click', () => {
+             const isDark = body.classList.contains('dark-theme') || (!body.classList.contains('light-theme'));
+            if (isDark) {
+                body.classList.remove('dark-theme');
+                body.classList.add('light-theme');
+                document.documentElement.className = 'light-theme';
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.classList.remove('light-theme');
+                body.classList.add('dark-theme');
+                document.documentElement.className = 'dark-theme';
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+    </script>
+</body>
+</html>
