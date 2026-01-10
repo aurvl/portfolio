@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog Admin - Generate JSON</title>
+    <script src="https://kit.fontawesome.com/f56155cbc5.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        body { font-family: sans-serif; padding: 20px; max-width: 1200px; margin: 0 auto; background: #f0f0f0; }
+        .container { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h1 { margin-top: 0; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, select, textarea { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        button { padding: 10px 20px; cursor: pointer; background: #007bff; color: white; border: none; border-radius: 4px; }
+        button:hover { background: #0056b3; }
+        
+        /* Editor Layout */
+        .editor-container {
+            display: flex;
+            gap: 20px;
+            height: 600px; /* Fixed height for editor area */
+        }
+        
+        .editor-pane, .preview-pane {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .editor-toolbar {
+            display: flex;
+            gap: 5px;
+            padding: 5px;
+            background: #eee;
+            border: 1px solid #ccc;
+            border-bottom: none;
+            border-radius: 4px 4px 0 0;
+            flex-wrap: wrap;
+        }
+
+        .tool-btn {
+            background: white;
+            color: #333;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        .tool-btn:hover { background: #e2e6ea; }
+
+        textarea#p-markdown {
+            flex: 1;
+            resize: none;
+            border-radius: 0 0 4px 4px;
+            font-family: monospace;
+            padding: 10px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .preview-pane {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background: white;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        
+        /* Preview Styles to match actual blog roughly */
+        .preview-pane h2 { color: #0067B1; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        .preview-pane code { background: #eee; padding: 2px 4px; border-radius: 3px; }
+        .preview-pane pre { background: #2d2d2d; color: #fff; padding: 10px; border-radius: 5px; overflow-x: auto; }
+        .preview-pane img { max-width: 100%; border-radius: 5px; }
+        .preview-pane blockquote { border-left: 4px solid #ccc; margin: 0; padding-left: 15px; color: #555; }
+
+        .output { width: 100%; height: 150px; font-family: monospace; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>New Post Generator & Preview</h1>
+        
+        <div class="form-group" style="display:flex; gap:20px;">
+            <div style="flex:1">
+                <label>ID / Slug</label>
+                <input type="text" id="p-id" placeholder="my-awesome-post">
+            </div>
+            <div style="flex:1">
+                 <label>Title</label>
+                 <input type="text" id="p-title" placeholder="Post Title">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Excerpt (Abstract)</label>
+            <textarea id="p-excerpt" rows="2" placeholder="Short summary displayed on blog list and detail header..."></textarea>
+        </div>
+
+        <div class="form-group">
+            <div style="display:flex; gap: 20px;">
+                <div style="flex:1">
+                    <label>Language</label>
+                    <select id="p-lang">
+                        <option value="en">English</option>
+                        <option value="fr">French</option>
+                    </select>
+                </div>
+                <div style="flex:1">
+                    <label>Date</label>
+                    <input type="datetime-local" id="p-date">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div style="display:flex; gap: 20px;">
+                <div style="flex:1">
+                    <label>Cover Image Path</label>
+                    <input type="text" id="p-cover" value="assets/img/blog/default.jpg">
+                </div>
+                <div style="flex:1">
+                     <label>Tags (comma separated)</label>
+                     <input type="text" id="p-tags" placeholder="Data, Python, AI">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Action Links (Optional - default #)</label>
+            <div style="display:flex; gap: 20px;">
+                <input type="text" id="p-link-code" placeholder="Code URL" style="flex:1">
+                <input type="text" id="p-link-download" placeholder="Download URL" style="flex:1">
+                <input type="text" id="p-link-share" placeholder="Share URL" style="flex:1">
+            </div>
+        </div>
+
+        <h3>Post Content (Markdown)</h3>
+        
+        <div class="editor-container">
+            <div class="editor-pane">
+                <div class="editor-toolbar">
+                    <button class="tool-btn" onclick="insertMD('**', '**')" title="Bold"><i class="fa-solid fa-bold"></i></button>
+                    <button class="tool-btn" onclick="insertMD('*', '*')" title="Italic"><i class="fa-solid fa-italic"></i></button>
+                    <button class="tool-btn" onclick="insertMD('## ', '')" title="H2 Heading"><i class="fa-solid fa-heading"></i></button>
+                    <button class="tool-btn" onclick="insertMD('> ', '')" title="Quote"><i class="fa-solid fa-quote-right"></i></button>
+                    <button class="tool-btn" onclick="insertMD('- ', '')" title="Bullet List"><i class="fa-solid fa-list-ul"></i></button>
+                    <button class="tool-btn" onclick="insertMD('1. ', '')" title="Numbered List"><i class="fa-solid fa-list-ol"></i></button>
+                    <button class="tool-btn" onclick="insertMD('`', '`')" title="Inline Code"><i class="fa-solid fa-code"></i></button>
+                    <button class="tool-btn" onclick="insertMD('```\\n', '\\n```')" title="Code Block"><i class="fa-regular fa-file-code"></i></button>
+                    <button class="tool-btn" onclick="insertMD('![Alt]', '(assets/img/blog/)')" title="Image"><i class="fa-regular fa-image"></i></button>
+                    <button class="tool-btn" onclick="insertMD('[Link Text]', '(url)')" title="Link"><i class="fa-solid fa-link"></i></button>
+                </div>
+                <textarea id="p-markdown" placeholder="Type your markdown content here... (Standard Markdown supported)" oninput="updatePreview()"></textarea>
+            </div>
+            <div class="preview-pane" id="md-preview">
+                <p style="color:#888; text-align:center; margin-top:50px;">Preview will appear here...</p>
+            </div>
+        </div>
+
+        <button onclick="generateJSON()" style="width:100%; background: #28a745; margin-top: 20px; font-weight:bold; font-size:1.1rem;">Generate JSON</button>
+
+        <div style="position: relative;">
+            <textarea id="json-output" class="output" readonly placeholder="JSON result will appear here..."></textarea>
+            <button onclick="copyToClipboard()" style="position:absolute; top: 10px; right: 10px; background: #007bff; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">Copy</button>
+        </div>
+    </div>
+
+    <script>
+        function copyToClipboard() {
+            const copyText = document.getElementById("json-output");
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); 
+            navigator.clipboard.writeText(copyText.value).then(() => {
+                const btn = document.querySelector('button[onclick="copyToClipboard()"]');
+                const originalText = btn.textContent;
+                btn.textContent = "Copied!";
+                setTimeout(() => btn.textContent = originalText, 2000);
+            });
+        }
+
+        // Init Preview
+        function updatePreview() {
+            const raw = document.getElementById('p-markdown').value;
+            const preview = document.getElementById('md-preview');
+            
+            // Allow FontAwesome and basic tags inside if necessary, but standard markdown mostly
+            // Helper: Convert newlines for basic preview if marked misbehaves
+            // But marked handles it well.
+            
+            preview.innerHTML = marked.parse(raw);
+        }
+
+        // Insert Markdown syntax at cursor position
+        function insertMD(start, end) {
+            const textarea = document.getElementById('p-markdown');
+            const selStart = textarea.selectionStart;
+            const selEnd = textarea.selectionEnd;
+            const fullText = textarea.value;
+            
+            const before = fullText.substring(0, selStart);
+            const selected = fullText.substring(selStart, selEnd);
+            const after = fullText.substring(selEnd);
+            
+            textarea.value = before + start + selected + end + after;
+            
+            // Restore focus and cursor
+            textarea.focus();
+            textarea.selectionStart = selStart + start.length;
+            textarea.selectionEnd = selEnd + start.length + selected.length; // Keep selection
+            
+            updatePreview();
+        }
+
+        function generateJSON() {
+            const rawContent = document.getElementById('p-markdown').value;
+            
+            const post = {
+                id: document.getElementById('p-id').value,
+                title: document.getElementById('p-title').value,
+                excerpt: document.getElementById('p-excerpt').value,
+                date: document.getElementById('p-date').value || new Date().toISOString(),
+                lang: document.getElementById('p-lang').value,
+                cover: document.getElementById('p-cover').value,
+                tags: document.getElementById('p-tags').value.split(',').map(s => s.trim()).filter(s => s),
+                link_code: document.getElementById('p-link-code').value || '#',
+                link_download: document.getElementById('p-link-download').value || '#',
+                link_share: document.getElementById('p-link-share').value || '#',
+                content: rawContent // Store as string for Markdown
+            };
+
+            const json = JSON.stringify(post, null, 4);
+            document.getElementById('json-output').value = ",\n" + json;
+        }
+        
+        // Init date
+        document.getElementById('p-date').value = new Date().toISOString().slice(0,16);
+    </script>
+</body>
+</html>
