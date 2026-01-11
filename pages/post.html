@@ -11,25 +11,36 @@
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
     <style>
-        /* Fix Navbar spacing */
-        .navbar { gap: 0; }
-        .navbar a, .theme-toggle { margin-left: 30px; }
+        /* Fix Navbar spacing (Desktop Only) */
+        @media (min-width: 1100px) {
+            .navbar { gap: 0; }
+            .navbar a, .theme-toggle { margin-left: 30px; }
+        }
 
         /* Single Post Styles */
         .post-container {
-            max-width: 1200px;
+            max-width: 1050px; /* Matched to .home standard */
+            width: 100%;       /* Ensure it fills available space */
             margin: 100px auto 50px;
-            padding: 20px;
+            padding: 0 20px;   /* Explicit horizontal padding */
+            box-sizing: border-box; /* Prevent padding from adding to width */
             display: flex;
             gap: 40px;
             align-items: flex-start;
             position: relative;
+            /* Removed overflow-x: hidden to allow sticky elements and fix root cause of overflow instead of masking it */
+        }
+        
+        /* Robust Reset for Post Content */
+        .post-container * {
+            box-sizing: border-box;
+            max-width: 100%; /* Safety net for all children */
         }
 
         .post-main {
             flex: 1;
-            /* Ensure it doesn't overflow */
             min-width: 0; 
+            max-width: 100%; /* Prevent flex child from expanding beyond container */
         }
 
         .post-sidebar {
@@ -118,8 +129,8 @@
             transform: translateY(-2px);
         }
 
-        .post-header { text-align: center; margin-bottom: 40px; }
-        .post-title { font-size: 2.5rem; margin-bottom: 15px; color: var(--text-color); font-weight: 800; }
+        .post-header { text-align: center; margin-bottom: 40px; word-wrap: break-word; overflow-wrap: anywhere; }
+        .post-title { font-size: 2.5rem; margin-bottom: 15px; color: var(--text-color); font-weight: 800; line-height: 1.2; }
         
         .post-abstract {
             background-color: var(--bg2-color);
@@ -136,21 +147,44 @@
         }
 
         /* Tags styling */
-        .post-meta { color: var(--text2-col); font-size: 0.9rem; margin-bottom: 20px; }
+        .post-meta { color: var(--text2-col); font-size: 0.9rem; margin-bottom: 20px; word-break: break-word; }
         .post-meta .tags {
             font-weight: bold;
             color: #0067B1; /* Visible Color */
             margin-left: 10px;
         }
         
-        .post-cover { width: 100%; height: auto; border-radius: 15px; margin-top: 20px; max-height: 400px; object-fit: cover; }
+        .post-cover { 
+            width: 100%; 
+            height: auto; 
+            aspect-ratio: 16/9; 
+            border-radius: 15px; 
+            margin-top: 20px; 
+            object-fit: cover;
+            display: block; 
+        }
 
-        .post-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-color); }
+        .post-body { 
+            font-size: 1.1rem; 
+            line-height: 1.8; 
+            color: var(--text-color);
+            overflow-wrap: anywhere; 
+        }
         .post-body h1, .post-body h2, .post-body h3 { 
             color: #0067B1; 
             font-weight: 800; /* Bold headings */
             margin-top: 40px; 
             margin-bottom: 20px;
+        }
+
+        /* Responsive Images */
+        .post-body img, .post-body video, .post-body svg, .post-body iframe {
+            max-width: 100% !important;
+            height: auto !important;
+            border-radius: 8px;
+            display: block;
+            margin: 20px auto;
+            box-sizing: border-box;
         }
 
         /* Post Tables */
@@ -159,14 +193,8 @@
             border-collapse: collapse;
             margin: 20px 0;
             font-size: 0.95em;
-            overflow-x: auto;
-            display: block; /* For responsive rolling if needed, or stick to default table behavior */
-        }
-        
-        /* Better responsive table */
-        .post-body table {
-            display: table;
-            overflow-x: auto;
+            display: block;      /* Enables scrolling on the table element itself */
+            overflow-x: auto;    /* Horizontal scroll for wide tables */
         }
 
         .post-body th, .post-body td {
@@ -197,8 +225,11 @@
         pre {
             background: #2d2d2d;
             padding: 15px;
+            box-sizing: border-box; /* Prevent padding from causing overflow */
             border-radius: 10px;
             overflow-x: auto;
+            width: 100%; /* Force width to match container */
+            max-width: 100%;
             margin-bottom: 20px;
         }
         code { font-family: 'Courier New', Courier, monospace; color: #f8f8f2; }
@@ -224,16 +255,36 @@
     </script>
 
     <header class="header">
-        <a class="logo" href="../index.html">Au<span>rel VEHI</span></a>
+        <a class="logo" href="../index.html">.l<span>a</span>dev</a>
+
         <nav class="navbar">
             <a href="../index.html">Home</a>
-            <a href="blog.html">Blog</a>
-             <div class="theme-toggle" id="theme-toggle">
+            <a href="../explore-projects.html">Projects</a>
+            <a href="blog.html" class="active">Blog</a>
+            <a href="../index.html#contacts">Contacts</a>
+
+            <select name="lang" id="lang" onchange="if(this.value) window.location.href=this.value;">
+                <option value="blog.html" selected>En</option>
+                <option value="blog_fr.html">Fr</option>
+            </select>
+
+            <div class="theme-toggle" id="theme-toggle">
                 <i class="fa-solid fa-sun"></i>
                 <div class="toggle-slider"></div>
                 <i class="fa-solid fa-moon"></i>
             </div>
         </nav>
+        
+        <div class="mobile-nav" id="mobile-nav">
+            <div class="menu-toggle" id="menu-toggle">
+                &#9776;
+            </div>
+
+            <select name="lang" id="lang-mobile" onchange="if(this.value) window.location.href=this.value;">
+                <option value="blog.html" selected>En</option>
+                <option value="blog_fr.html">Fr</option>
+            </select>
+        </div>
     </header>
 
     <article class="post-container">
@@ -241,27 +292,12 @@
         <p>Loading post...</p>
     </article>
 
+    <a class="to-top" href="#">
+        <i class="fas fa-long-arrow-up"></i>
+    </a>
+
     <script src="../js/blog-shared.js"></script>
     <script src="../js/post.js"></script>
-    <script>
-        // Minimal Theme Toggle Reuse
-        const toggle = document.getElementById('theme-toggle');
-        const body = document.body;
-        
-        toggle.addEventListener('click', () => {
-             const isDark = body.classList.contains('dark-theme') || (!body.classList.contains('light-theme'));
-            if (isDark) {
-                body.classList.remove('dark-theme');
-                body.classList.add('light-theme');
-                document.documentElement.className = 'light-theme';
-                localStorage.setItem('theme', 'light');
-            } else {
-                body.classList.remove('light-theme');
-                body.classList.add('dark-theme');
-                document.documentElement.className = 'dark-theme';
-                localStorage.setItem('theme', 'dark');
-            }
-        });
-    </script>
+    <script src="../js/ui-shared.js"></script>
 </body>
 </html>

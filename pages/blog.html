@@ -13,8 +13,9 @@
 
     <style>
         /* Specific overrides for Blog Listing */
-        .navbar { gap: 0; }
-        .theme-toggle { margin-left: 30px; }
+        @media (min-width: 1100px) {
+            .navbar { gap: 0; }
+        }
         .header { box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
         .page-title { text-align: center; margin-top: 100px; margin-bottom: 40px; }
         .page-title h1 { font-size: 2.5rem; color: var(--text-color); }
@@ -53,13 +54,13 @@
             display: flex;
             gap: 15px;
             flex-wrap: wrap;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center; /* Fix vertical alignment */
         }
 
         .search-bar {
             flex: 2;
-            min-width: 250px;
+            min-width: 200px;
             position: relative;
         }
 
@@ -92,7 +93,7 @@
 
         .filter-group {
             flex: 1;
-            min-width: 150px;
+            min-width: 120px;
             position: relative;
         }
 
@@ -119,7 +120,7 @@
             border-color: #0067B1;
         }
 
-        @media(max-width: 600px) {
+        @media(max-width: 500px) {
             .blog-controls {
                 flex-direction: column;
             }
@@ -161,6 +162,16 @@
         </nav>
         
         <!-- Mobile Menu Logic could be added here if needed reusing app.js logic -->
+        <div class="mobile-nav" id="mobile-nav">
+            <div class="menu-toggle" id="menu-toggle">
+                &#9776; <!-- Code HTML pour les trois traits superposés -->
+            </div>
+
+            <select name="lang" id="lang-mobile" onchange="if(this.value) window.location.href=this.value;">
+                <option value="blog.html" selected>En</option>
+                <option value="blog_fr.html">Fr</option>
+            </select>
+        </div>
     </header>
 
     <div class="page-title">
@@ -194,30 +205,13 @@
         <p>Loading posts...</p>
     </section>
 
+    <a class="to-top" href="#">
+        <i class="fas fa-long-arrow-up"></i>
+    </a>
+
     <!-- Scripts -->
     <script src="../js/blog-shared.js"></script>
     <script src="../js/blog.js"></script>
-    
-    <!-- Reuse theme toggle logic from main app, simplified inline for now or import -->
-    <script>
-        // Minimal Theme Toggle Reuse
-        const toggle = document.getElementById('theme-toggle');
-        const body = document.body;
-        
-        toggle.addEventListener('click', () => {
-             const isDark = body.classList.contains('dark-theme') || (!body.classList.contains('light-theme'));
-            if (isDark) {
-                body.classList.remove('dark-theme');
-                body.classList.add('light-theme');
-                document.documentElement.className = 'light-theme';
-                localStorage.setItem('theme', 'light');
-            } else {
-                body.classList.remove('light-theme');
-                body.classList.add('dark-theme');
-                document.documentElement.className = 'dark-theme';
-                localStorage.setItem('theme', 'dark');
-            }
-        });
-    </script>
+    <script src="../js/ui-shared.js"></script>
 </body>
 </html>

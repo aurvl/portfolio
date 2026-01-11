@@ -31,6 +31,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                     <span class="tags">${post.tags.map(t => `#${t}`).join(' ')}</span>
                 </div>
                 <img src="../${post.cover}" class="post-cover" alt="${post.title}">
+                
+                <!-- Mobile TOC Container -->
+                <div class="mobile-toc-container" id="mobile-toc">
+                    <div class="post-toc-title">${post.lang === 'fr' ? 'Sommaire' : 'On this page'}</div>
+                    <nav class="post-toc" id="mobile-toc-list"></nav>
+                </div>
             </div>
             <div class="post-body" id="post-body-content">
     `;
@@ -67,13 +73,28 @@ document.addEventListener('DOMContentLoaded', async () => {
         html += renderedHTML;
     }
 
+    // Sidebar with Table of Contents
+    const links = post.links || {};
+    
+    // Bottom Actions for Mobile
+    const bottomActionsHTML = `
+        <div class="sidebar-actions mobile-actions">
+            ${links.code ? `<a href="${links.code}" class="action-btn" title="View Code" target="_blank"><i class="fa-solid fa-code"></i></a>` : ''}
+            ${links.download ? `<a href="${links.download}" class="action-btn" title="Download File" target="_blank"><i class="fa-regular fa-file-pdf"></i></a>` : ''}
+            <a href="#" class="action-btn share-btn-class" title="Copy Link"><i class="fa-solid fa-link"></i></a>
+        </div>
+    `;
+
     html += `</div>`; // Close body
     
     // Previous/Back Link
     const backLink = post.lang === 'fr' ? 'blog_fr.html' : 'blog.html';
     const backText = post.lang === 'fr' ? '← Retour au Blog' : '← Back to Blog';
-    html += `<div class="post-footer"><a href="${backLink}" class="btn">${backText}</a></div>
-        </div>`; // Close post-main
+    
+    html += `
+        ${bottomActionsHTML}
+        <div class="post-footer"><a href="${backLink}" class="btn">${backText}</a></div>
+    </div>`; // Close post-main
 
     // Sidebar with Table of Contents
     html += `
@@ -82,9 +103,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             <nav class="post-toc" id="toc-list"></nav>
             
             <div class="sidebar-actions">
-                <a href="${post.link_code || '#'}" class="action-btn" title="View Code" target="${(post.link_code && post.link_code !== '#') ? '_blank' : '_self'}"><i class="fa-solid fa-code"></i></a>
-                <a href="${post.link_download || '#'}" class="action-btn" title="Download PDF" target="${(post.link_download && post.link_download !== '#') ? '_blank' : '_self'}"><i class="fa-regular fa-file-pdf"></i></a>
-                <a href="${post.link_share || '#'}" class="action-btn" title="Share Link" target="${(post.link_share && post.link_share !== '#') ? '_blank' : '_self'}"><i class="fa-solid fa-link"></i></a>
+                ${links.code ? `<a href="${links.code}" class="action-btn" title="View Code" target="_blank"><i class="fa-solid fa-code"></i></a>` : ''}
+                ${links.download ? `<a href="${links.download}" class="action-btn" title="Download File" target="_blank"><i class="fa-regular fa-file-pdf"></i></a>` : ''}
+                <a href="#" class="action-btn share-btn-class" title="Copy Link"><i class="fa-solid fa-link"></i></a>
             </div>
         </aside>
     `;
@@ -94,6 +115,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // --- Generate TOC and IDs ---
     const contentDiv = document.getElementById('post-body-content');
     const tocList = document.getElementById('toc-list');
+    const mobileTocList = document.getElementById('mobile-toc-list'); // New Mobile TOC List
     const headings = contentDiv.querySelectorAll('h2, h3');
 
     if (headings.length > 0) {
@@ -108,10 +130,37 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
         tocHTML += '</ul>';
         tocList.innerHTML = tocHTML;
+        mobileTocList.innerHTML = tocHTML; // Populate Mobile TOC
     } else {
         document.querySelector('.post-sidebar').style.display = 'none';
+        document.getElementById('mobile-toc').style.display = 'none'; // Hide Mobile TOC
         // Center content if no sidebar
         document.querySelector('.post-container').style.justifyContent = 'center'; 
         document.querySelector('.post-main').style.maxWidth = '800px'; 
     }
+
+    // Share Button Logic (Class-based for multiple buttons)
+    const shareBtns = document.querySelectorAll('.share-btn-class');
+    shareBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                const icon = btn.querySelector('i');
+                icon.className = 'fa-solid fa-check';
+                setTimeout(() => {
+                    icon.className = 'fa-solid fa-link';
+                }, 2000);
+            }).catch(err => console.error('Failed to copy', err));
+        });
+    });
 });
+
+// Menu Toggle Logic
+const menuToggle = document.querySelector('.menu-toggle');
+const navbar = document.querySelector('.navbar');
+
+if (menuToggle && navbar) {
+    menuToggle.addEventListener('click', () => {
+        navbar.classList.toggle('active');
+    });
+}
