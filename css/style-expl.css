@@ -692,7 +692,7 @@ section {
         background-color: var(--bg2-color);
         border: none;
         font-size: 15px;
-        width: auto;
+        width: 30%;
         color: var(--text2-color);
     }
     
@@ -830,7 +830,7 @@ section {
         background-color: var(--bg2-color);
         border: none;
         font-size: 15px;
-        width: 50%;
+        width: 30%;
         color: var(--text2-col);
     }
 
@@ -858,7 +858,7 @@ section {
         background-color: var(--bg2-color);
         border: none;
         font-size: 15px;
-        width: 50%;
+        width: 30%;
         color: var(--text2-col);
     }
 
@@ -917,4 +917,33 @@ section {
 
 html {
     scroll-behavior: smooth;
+}
+/* Mobile Theme Toggle Logic */
+@media (max-width: 1050px) {
+    /* Hide the duplicate toggle inside the dropdown navbar */
+    .navbar .theme-toggle {
+        display: none !important;
+    }
+
+    /* Ensure mobile nav aligns items correctly */
+    .mobile-nav {
+        display: flex; /* Ensure flex is on when visible */
+        align-items: center;
+        gap: 15px; 
+    }
+}
+
+/* Mobile Theme Toggle Logic */
+@media (max-width: 1050px) {
+    /* Hide the duplicate toggle inside the dropdown navbar */
+    .navbar .theme-toggle {
+        display: none !important;
+    }
+
+    /* Ensure mobile nav aligns items correctly */
+    .mobile-nav {
+        display: flex; /* Ensure flex is on when visible */
+        align-items: center;
+        gap: 15px; 
+    }
 }

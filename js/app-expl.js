@@ -74,23 +74,26 @@ const body = document.body;
 const savedTheme = localStorage.getItem('theme') || 'dark';
 
 // Toggle theme and save preference in localStorage
-themeToggleBtn.addEventListener('click', () => {
-    // Check if currently dark (fallback to dark if no class)
-    const isDark = body.classList.contains('dark-theme') || (!body.classList.contains('light-theme'));
+const themeToggleBtns = document.querySelectorAll('.theme-toggle');
+themeToggleBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        // Check if currently dark (fallback to dark if no class)
+        const isDark = body.classList.contains('dark-theme') || (!body.classList.contains('light-theme'));
 
-    if (isDark) {
-        // Switch to Light
-        body.classList.remove('dark-theme');
-        body.classList.add('light-theme');
-        document.documentElement.className = 'light-theme';
-        localStorage.setItem('theme', 'light');
-    } else {
-        // Switch to Dark
-        body.classList.remove('light-theme');
-        body.classList.add('dark-theme');
-        document.documentElement.className = 'dark-theme';
-        localStorage.setItem('theme', 'dark');
-    }
+        if (isDark) {
+            // Switch to Light
+            body.classList.remove('dark-theme');
+            body.classList.add('light-theme');
+            document.documentElement.className = 'light-theme';
+            localStorage.setItem('theme', 'light');
+        } else {
+            // Switch to Dark
+            body.classList.remove('light-theme');
+            body.classList.add('dark-theme');
+            document.documentElement.className = 'dark-theme';
+            localStorage.setItem('theme', 'dark');
+        }
+    });
 });
 
 document.addEventListener("DOMContentLoaded", async function () {
