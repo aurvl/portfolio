@@ -39,6 +39,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     searchInput.addEventListener('input', filterPosts);
     yearSelect.addEventListener('change', filterPosts);
     tagSelect.addEventListener('change', filterPosts);
+
+    // Mobile Menu Toggle
+    const menuToggle = document.getElementById('menu-toggle');
+    const navbar = document.querySelector('.navbar');
+
+    if (menuToggle && navbar) {
+        menuToggle.addEventListener('click', () => {
+            navbar.classList.toggle('active');
+        });
+    }
 });
 
 function initFilters(posts) {
