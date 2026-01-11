@@ -32,30 +32,32 @@ document.addEventListener('DOMContentLoaded', () => {
     // If inline scripts are removed, this will handle it.
     // Checks if the logic already ran to avoid double-toggling if inline script exists.
     // For now, I'll assume I replace the inline script with this.
-    const themeToggle = document.getElementById('theme-toggle');
+    const themeToggleBtns = document.querySelectorAll('.theme-toggle');
     const body = document.body;
     
     // Only attach if not already handled (simple check: does the element exist?)
-    if (themeToggle) {
+    if (themeToggleBtns.length > 0) {
         // Remove existing clones to be safe? No, just add listener. 
         // Note: multiple listeners might toggle twice if mixed with inline.
         // I will remove the inline script from blog pages.
         
-        themeToggle.addEventListener('click', (e) => {
-            e.preventDefault(); // Stop any default behavior
-            
-            const isDark = body.classList.contains('dark-theme') || (!body.classList.contains('light-theme'));
-            if (isDark) {
-                body.classList.remove('dark-theme');
-                body.classList.add('light-theme');
-                document.documentElement.className = 'light-theme';
-                localStorage.setItem('theme', 'light');
-            } else {
-                body.classList.remove('light-theme');
-                body.classList.add('dark-theme');
-                document.documentElement.className = 'dark-theme';
-                localStorage.setItem('theme', 'dark');
-            }
+        themeToggleBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault(); // Stop any default behavior
+                
+                const isDark = body.classList.contains('dark-theme') || (!body.classList.contains('light-theme'));
+                if (isDark) {
+                    body.classList.remove('dark-theme');
+                    body.classList.add('light-theme');
+                    document.documentElement.className = 'light-theme';
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    body.classList.remove('light-theme');
+                    body.classList.add('dark-theme');
+                    document.documentElement.className = 'dark-theme';
+                    localStorage.setItem('theme', 'dark');
+                }
+            });
         });
     }
 });

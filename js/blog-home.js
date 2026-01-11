@@ -47,4 +47,21 @@ document.addEventListener('DOMContentLoaded', async () => {
         
         blogContainer.appendChild(article);
     });
+
+    // --- Add CTA Card (4th slot) ---
+    const ctaCard = document.createElement('article');
+    ctaCard.className = 'blog-card cta-card';
+    const blogUrl = isFrench ? 'pages/blog_fr.html' : 'pages/blog.html';
+    const ctaText = isFrench ? 'Voir plus d’articles' : 'See more articles';
+    
+    ctaCard.innerHTML = `
+        <a href="${blogUrl}" class="cta-link-wrapper">
+            <div class="cta-content">
+                <h3>${ctaText}</h3>
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
+        </a>
+    `;
+    blogContainer.appendChild(ctaCard);
+
 });
