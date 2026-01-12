@@ -1,107 +1,57 @@
-# Project Roadmap – Portfolio Website
+# Project Roadmap – Portfolio Website (Updated Jan 2026)
 
-Tech stack:
-- HTML / CSS / Vanilla JavaScript
-- Static site (GitHub Pages)
-- No backend
-- JSON as data source
-
-General rules:
-- Do NOT introduce frameworks (React, Vue, etc.)
-- Do NOT break existing pages
-- Keep SEO files (robots.txt, sitemap.xml)
-- Prefer small, incremental changes
-- Always preserve responsive behavior (mobile/tablet)
+**Status Overview**: 
+- Core Features: ✅ Stable
+- Responsive Layouts: ✅ Validated (Mobile/Tablet/Desktop)
+- Blog System: ✅ JSON-driven & Active
+- UI Polish: 🟡 Ongoing Refinements
 
 ---
 
-## Task 0 – Setup & audit
-Goal:
-- Understand current structure
-- Identify layout constraints and global containers
+## ✅ COMPLETED TASKS
+
+### Phase 1: Core Structure & Branding
+- [x] Initial HTML/CSS Setup with no frameworks.
+- [x] Navbar & Footer logic.
+- [x] Multilingual support (index.html / home_fr.html).
+
+### Phase 2: Theme & UI
+- [x] **Theme Switch**: Light/Dark mode with `localStorage` persistence.
+- [x] **Glassmorphism**: Applied to cards and navbar.
+- [x] **Mobile Menu**: Burger menu refactor, positioned correctly outside the flow.
+
+### Phase 3: Blog System
+- [x] **JSON Architecture**: Articles load from `data/posts.json`.
+- [x] **Dynamic Injection**: `js/blog-home.js` fills the homepage grid.
+- [x] **Slug Navigation**: `pages/post.html?id=...` handles distinct articles.
+
+### Phase 4: Recent Stability Fixes (Critical)
+- [x] **Tablet Layout Fix (Blog)**: Implemented strict 2x2 grid for `750px-1050px` range.
+- [x] **Smart CTA Behavior**: 
+  - Desktop: 3 cards + Button below.
+  - Tablet: 4 cards (CTA component) + Button hidden.
+  - Mobile: Stacked + Button below.
+- [x] **Visual Consistency**: Unified `.cta-button` style across "Projects" and "Blog" sections.
 
 ---
 
-## Task 1 – Fix large screen layout bug
-Problem:
-- On large desktop screens, layout does not fill available width
-- Large empty space appears on the right
+## 🟡 CURRENT / ONGOING TASKS
 
-Expected outcome:
-- Layout is full-width on large screens (24–27")
-- No empty unused space
-
-Files involved:
-- index.html
-- styles/*.css
+### Phase 5: Deep Testing & Polish
+- [ ] **Explore Projects Page**: Verify responsive behavior matches the homepage quality.
+- [ ] **Blog Listing Page (`pages/blog.html`)**: Ensure grid layouts behave like the homepage (2 columns on tablet).
+- [ ] **Performance**: Check image loading strategies (lazy loading?).
+- [ ] **SEO**: Audit `sitemap.xml` and meta tags for new blog pages.
 
 ---
 
-## Task 2 – Update site title & navbar
-Goal:
-- Replace "Aurel Personal Portfolio" with new branding
-- Prepare navbar for Blog page
+## 🧪 FUTURE / IDEAS (Not Priority)
+- [ ] **Newsletter**: Placeholder exists, backend integration needed (Formspree or similar).
+- [ ] **Admin Dashboard**: `blog-admin.html` exists but is basic. Could be enhanced.
+- [ ] **Search**: Client-side search for blog articles using JS filter on JSON.
 
 ---
 
-## Task 3 – Theme switch (dark/light)
-Goal:
-- Improve existing theme toggle
-- Replace emoji with proper UI component
-- Persist theme with localStorage
-
-Constraints:
-- No SVG icons
-- Prefer font-based icons or CSS toggle
-
----
-
-## Task 4 – Footer responsive fix
-Goal:
-- Center footer content on small screens
-- Improve spacing and alignment
-
----
-
-## Task 5 – Skills refactor
-Changes:
-- Add PyTorch, MongoDB, Cypher
-- Remove TensorFlow, Jupyter, MySQL
-
----
-
-## Task 6 – Experience correction (CSM / ECOSEAS)
-Changes:
-- Replace title "Research Assistant"
-- Use "Econometrician – Illegal Fishing (IUU)"
-- Rewrite description accordingly
-
----
-
-## Task 7 – Blog system (JSON-based)
-Goal:
-- Create blog.html
-- Load articles from posts.json
-- Create post.html (slug-based)
-- Connect homepage "Articles" section to JSON
-
----
-
-## Task 8 – Blog admin page
-Goal:
-- Create blog-admin.html
-- Generate post objects for posts.json
-
----
-
-## Task 9 – Newsletter (optional)
-Goal:
-- Add newsletter UI
-- External service integration or placeholder
-
----
-
-## Task 10 – Global glassmorphism polish
-Goal:
-- Apply consistent glassmorphism style
-- Preserve readability in dark/light modes
+## 🔴 DEPRECATED / REMOVED
+- Frameworks (React, Vue) -> Strictly forbidden.
+- Complex Build Tools (Webpack, Vite) -> Keep it simple static.

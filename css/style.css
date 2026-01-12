@@ -785,7 +785,7 @@ section {
 }
 
 
-.see-more a {
+.see-more a, .cta-button {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -803,7 +803,7 @@ section {
     z-index: 1;
 }
 
-.see-more a:hover {
+.see-more a:hover, .cta-button:hover {
     background-color: #0067B1;
     color: var(--text-color);
 }
@@ -1618,14 +1618,8 @@ button:hover {
         }
     }
 
-    /* Blog Section */
-    .posts {
-        display: block;
-        
-        > *:not(:last-child) {
-            margin-bottom: 10px;
-        }
-    }
+    /* Blog Section definitions removed to prevent overriding Grid layout */
+
 
     /* Contacts Section */
     .contacts-content {
@@ -1907,14 +1901,8 @@ button:hover {
         }
     }
 
-    /* Blog Section */
-    .posts {
-        display: flex;
-        
-        > *:not(:last-child) {
-            margin-bottom: 10px;
-        }
-    }
+    /* Blog Section definitions removed to prevent overriding Grid layout */
+
 
     /* Contacts Section */
     .contacts-content {
@@ -2109,30 +2097,65 @@ html {
    Homepage 2x2 Blog Grid & CTA Card
    ========================================= */
 
-/* Force 2 columns on Tablet+ for the 3 posts + 1 CTA layout */
-@media (min-width: 700px) {
+/* Tablet (750px - 1050px): Show CTA (2x2 Grid), Hide "See more" button (ONLY for blog) */
+@media screen and (min-width: 750px) and (max-width: 1050px) {
     #blog .posts {
         grid-template-columns: repeat(2, 1fr) !important;
     }
+
+    /* Show the 4th card via Flexbox to act as CTA */
+    .blog-card.cta-card {
+        display: flex !important;
+    }
+
+    /* Hide the standard orange button, BUT ONLY inside the blog section */
+    #blog .see-more {
+        display: none !important;
+    }
 }
 
-/* CTA Card Styles */
+/* Desktop (> 1050px): Standard 3 cols, Hide CTA card, Show "See more" */
+@media screen and (min-width: 1051px) {
+    #blog .posts {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+
+    /* Hide the 4th card */
+    .blog-card.cta-card {
+        display: none !important;
+    }
+
+    /* Ensure blog button is visible on desktop */
+    #blog .see-more {
+        display: flex !important;
+    }
+}
+
+/* CTA Card Styles (Tablet 2x2 Grid) */
 .blog-card.cta-card {
-    background: transparent;
-    border: 2px dashed var(--text2-col); 
-    display: flex;
+    display: none; /* Default hidden (Mobile & base) */
+    
+    /* Match Orange CTA Button Style */
+    background-color: #fb5607;
+    border-radius: 7px; /* Same as .cta-button */
+    border: none;
+    box-shadow: none;
+    
+    /* Layout */
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 250px; /* Ensure visual height balance */
+    height: 100%; /* Fill grid cell */
+    text-align: center;
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: none;
+    transition: background-color 0.5s ease, transform 0.3s ease;
 }
 
+/* Hover State - Match Button Hover */
 .blog-card.cta-card:hover {
-    background: var(--bg2-color);
-    border-color: #0067B1;
+    background-color: #0067B1;
     transform: translateY(-5px);
+    border-color: transparent;
 }
 
 .cta-link-wrapper {
@@ -2143,27 +2166,28 @@ html {
     justify-content: center;
     text-decoration: none;
     padding: 20px;
+    color: var(--bg-color); /* Text color for button */
 }
 
 .cta-content {
     text-align: center;
-    color: var(--text-color);
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 15px;
+    color: inherit;
 }
 
 .cta-content h3 {
     font-size: 1.3rem;
     font-weight: 700;
     margin: 0;
-    color: var(--text-color);
+    color: var(--bg-color); /* Match button text color */
 }
 
 .cta-content i {
     font-size: 1.8rem;
-    color: #0067B1;
+    color: var(--bg-color); /* Icon white like text */
     transition: transform 0.3s ease;
 }
 
