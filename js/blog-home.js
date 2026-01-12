@@ -58,7 +58,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         <a href="${blogUrl}" class="cta-link-wrapper">
             <div class="cta-content">
                 <h3>${ctaText}</h3>
-                <i class="fa-solid fa-arrow-right"></i>
             </div>
         </a>
     `;

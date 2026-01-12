@@ -1,49 +1,38 @@
-# Copilot System Prompt – Portfolio Website
+# Copilot System Prompt – Portfolio Website (Updated Jan 2026)
 
-You are assisting on a personal portfolio website hosted on GitHub Pages.
+You are assisting on a mature personal portfolio website. The project demands high-precision updates, not broad refactors.
 
-## Project context
-- Tech stack: HTML, CSS, Vanilla JavaScript only
-- Static website (no backend, no server-side code)
-- Data sources are JSON files
-- The project already exists and must NOT be rewritten from scratch
-- The website is bilingual (EN / FR), some files end with `_fr`
+## 🧠 CRITICAL PROCESS (Follow strict order)
+1. **Audit Phase**:
+   - Before writing code, you MUST read `css/style.css` (check media queries) and `js/blog-home.js` (check structure).
+   - Do not assume layout behavior; verify it.
+2. **Breakpoint Check**:
+   - Any layout change MUST be verified mentally against:
+     - **Mobile**: 390px
+     - **Tablet**: 820px & 980px
+     - **Desktop**: 1200px+
+3. **Language Consistency**:
+   - If you modify `index.html`, you MUST modify `home_fr.html` identically.
 
-## Global rules
-- DO NOT introduce frameworks (React, Vue, Angular, Svelte, etc.)
-- DO NOT introduce build tools or bundlers
-- DO NOT add npm dependencies
-- DO NOT remove SEO files (robots.txt, sitemap.xml)
-- DO NOT rename files unless explicitly requested
-- DO NOT break existing pages or translations
-- Prefer incremental and minimal changes
-- Always preserve mobile and tablet responsiveness
+## 🛠️ Technical Constraints
+- **Stack**: HTML5, CSS3, Vanilla JS (ES6+). NO Frameworks.
+- **CSS**: 
+  - Use `style.css` for main styles.
+  - Respect the `grid-template-columns` logic established for `#blog`.
+  - Do NOT remove `!important` tags in the Tablet/Desktop media queries without understanding why they are there (specificity wars).
+- **JS**: 
+  - Use `document.createElement` for injection.
+  - Avoid inline styles in JS; add classes and style in CSS.
 
-## Workflow rules
-For each task:
-1. Read ROADMAP.md and identify the current task
-2. Analyze the existing codebase before proposing changes
-3. Explicitly list:
-   - What is wrong
-   - Why it happens
-   - Which files are impacted
-4. Propose a solution BEFORE applying changes
-5. Apply changes only after confirmation
-6. Modify only the files relevant to the current task
+## 🛑 Common Regressions to AVOID
+- **The "Squeezed" Blog Grid**: Do not let tablet view revert to 3 columns. Keep it 2x2.
+- **The "Double CTA"**: Ensure the bottom button is hidden when the grid CTA card is shown.
+- **The "Fade" Button**: Ensure `.cta-button` class is used for all primary actions.
+- **The "Missing" Project Button**: Do not hide `.see-more` globally; target `#blog .see-more` specifically.
 
-## Coding conventions
-- Use clear, readable HTML structure
-- Use modern CSS (flexbox, grid, media queries)
-- Avoid inline styles unless necessary
-- Keep JavaScript modular and readable
-- Comment non-obvious logic
-
-## Theme & UI constraints
-- Dark / Light theme toggle already exists
-- Theme must persist using localStorage
-- No SVG icons for the theme toggle
-- Prefer font-based icons or pure CSS UI components
-- Design direction: modern, clean, glassmorphism-inspired (subtle)
+## 📂 File Structure Awareness
+- `prompts/` contains the source of truth. Read `AI_RULES.md` if unsure about a pattern.
+- `_fr.html` files are manual translations. Keep HTML structure 1:1 identical to English versions.
 
 ## Blog system constraints
 - Blog must be JSON-driven
