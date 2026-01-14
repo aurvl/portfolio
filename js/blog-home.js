@@ -10,6 +10,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     const blogContainer = document.querySelector('.posts');
     if (!blogContainer) return;
 
+    // Homepage-only hook for CSS scoping
+    blogContainer.classList.add('posts--home');
+
     // Clear existing static content if any
     blogContainer.innerHTML = '';
 
@@ -23,22 +26,21 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     recentPosts.forEach(post => {
         const article = document.createElement('article');
-        article.className = 'blog-card';
+        article.className = 'blog-card blog-card--home';
         
         // Define paths relative to root since we are on index.html
         // Note: post.cover in JSON is "assets/img/..." which works fine from root
         
+        const locale = isFrench ? 'fr-FR' : 'en-US';
+        const displayDate = post.date ? formatDate(post.date, locale) : '';
+
         article.innerHTML = `
-            <div class="blog-img">
-                <a href="pages/post.html?id=${post.id}">
-                    <img src="${post.cover}" alt="${post.title}" onerror="this.style.display='none'">
-                </a>
-            </div>
             <div class="blog-content">
+                ${displayDate ? `<time class="blog-date" datetime="${post.date}">${displayDate}</time>` : ''}
                 <h3>
                     <a href="pages/post.html?id=${post.id}">${post.title}</a>
                 </h3>
-                <p>${post.excerpt}</p>
+                <p class="blog-excerpt">${post.excerpt}</p>
                 <a href="pages/post.html?id=${post.id}" class="read-more">
                     ${isFrench ? 'Lire plus' : 'Read more'} <i class="fa-solid fa-arrow-right"></i>
                 </a>
@@ -50,7 +52,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // --- Add CTA Card (4th slot) ---
     const ctaCard = document.createElement('article');
-    ctaCard.className = 'blog-card cta-card';
+    ctaCard.className = 'blog-card cta-card blog-card--home';
     const blogUrl = isFrench ? 'pages/blog_fr.html' : 'pages/blog.html';
     const ctaText = isFrench ? 'Voir plus d’articles' : 'See more articles';
     
