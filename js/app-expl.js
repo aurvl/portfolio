@@ -29,22 +29,11 @@ window.onscroll = () => {
 const menuToggle = document.getElementById('menu-toggle');
 const navbar = document.querySelector('.navbar');
 
-menuToggle.addEventListener('click', () => {
-    navbar.classList.toggle('active');
-});
-
-
-function changeLanguage(select) {
-    const selectedLanguage = select.value;
-    
-    // Vérifier la langue sélectionnée et rediriger vers la bonne page
-    if (selectedLanguage === 'en') {
-        window.location.href = 'explore-projects.html';  // Page en anglais
-    } else if (selectedLanguage === 'fr') {
-        window.location.href = 'explore-projects_fr.html';  // Page en français
-    }
+if (menuToggle && navbar) {
+    menuToggle.addEventListener('click', () => {
+        navbar.classList.toggle('active');
+    });
 }
-
 
 // Sauvegarder la langue choisie
 function changeLanguage(select) {
@@ -61,8 +50,19 @@ function changeLanguage(select) {
 // Charger la langue sauvegardée
 window.onload = function() {
     const savedLanguage = localStorage.getItem('selectedLanguage');
+    const langDesktop = document.getElementById('lang');
+    const langMobile = document.getElementById('lang-mobile');
+
     if (savedLanguage) {
-        document.getElementById('lang').value = savedLanguage;
+        if (langDesktop) langDesktop.value = savedLanguage;
+        if (langMobile) langMobile.value = savedLanguage;
+
+        const isFrenchPage = window.location.pathname.includes('_fr');
+        if (savedLanguage === 'fr' && !isFrenchPage) {
+            window.location.href = 'explore-projects_fr.html';
+        } else if (savedLanguage === 'en' && isFrenchPage) {
+            window.location.href = 'explore-projects.html';
+        }
     }
 };
 
@@ -107,14 +107,33 @@ document.addEventListener("DOMContentLoaded", async function () {
     const toolSet = new Set();
     let projects = [];
 
+    function getProjectYear(project) {
+        const date = new Date(project.date);
+        if (!Number.isNaN(date.getTime())) return date.getFullYear();
+
+        const yearFallback = parseInt(project.year, 10);
+        return Number.isFinite(yearFallback) ? yearFallback : null;
+    }
+
+    function getProjectTimestamp(project) {
+        const date = new Date(project.date);
+        if (!Number.isNaN(date.getTime())) return date.getTime();
+
+        const year = getProjectYear(project);
+        return year ? new Date(year, 0, 1).getTime() : 0;
+    }
+
+    function projectHasTool(project, tool) {
+        const tools = Array.isArray(project.tools) ? project.tools : [];
+        return tools.some(t => (t || '').trim() === tool);
+    }
+
     try {
         const response = await fetch(jsonFile);
         projects = await response.json();
 
-        // Compter projets et outils
-        projectNumber.textContent = projects.length;
-        const totalTools = projects.reduce((acc, p) => acc + p.tools.filter(t => t.trim() !== "").length, 0);
-        toolsNumber.textContent = totalTools;
+        // Populate year filter dynamically (min -> max) so new years appear automatically
+        populateYearFilter(projects, selectorYear);
 
         // Récupérer tous les outils uniques
         projects.forEach(p => p.tools.forEach(t => {
@@ -159,17 +178,81 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
     }
 
+    function populateYearFilter(projects, selector) {
+        if (!selector) return;
+
+        const years = projects
+            .map(p => {
+                return getProjectYear(p);
+            })
+            .filter(y => y !== null);
+
+        if (years.length === 0) return;
+
+        const minYear = Math.min(...years);
+        const maxYear = Math.max(...years);
+
+        // Preserve the existing first option (usually "All" / "Tout") if present
+        let allOption = selector.querySelector('option[value="all"]');
+        if (!allOption) {
+            allOption = document.createElement('option');
+            allOption.value = 'all';
+            allOption.textContent = isFrench ? 'Tout' : 'All';
+            selector.appendChild(allOption);
+        }
+
+        const previousValue = selector.value;
+
+        // Remove all options except the "all" option
+        Array.from(selector.querySelectorAll('option'))
+            .filter(opt => opt.value !== 'all')
+            .forEach(opt => opt.remove());
+
+        for (let y = minYear; y <= maxYear; y++) {
+            const option = document.createElement('option');
+            option.value = String(y);
+            option.textContent = String(y);
+            selector.appendChild(option);
+        }
+
+        // Restore selection if still valid
+        if (previousValue && selector.querySelector(`option[value="${CSS.escape(previousValue)}"]`)) {
+            selector.value = previousValue;
+        } else {
+            selector.value = 'all';
+        }
+    }
+
+    function updateCounters(projectList) {
+        if (!projectNumber || !toolsNumber) return;
+
+        projectNumber.textContent = projectList.length;
+
+        const uniqueTools = new Set();
+        projectList.forEach(p => {
+            (p.tools || []).forEach(t => {
+                const tool = (t || '').trim();
+                if (tool) uniqueTools.add(tool);
+            });
+        });
+
+        toolsNumber.textContent = uniqueTools.size;
+    }
+
     function updateProjects() {
-        const year = selectorYear.value;
-        const tool = document.getElementById('tool-filter').value;
+        const year = selectorYear ? selectorYear.value : 'all';
+        const toolSelect = document.getElementById('tool-filter');
+        const tool = toolSelect ? toolSelect.value : 'all';
 
         let filtered = projects.filter(p => {
-            const matchesYear = year === 'all' || new Date(p.date).getFullYear().toString() === year;
-            const matchesTool = tool === 'all' || p.tools.includes(tool);
+            const projectYear = getProjectYear(p);
+            const matchesYear = year === 'all' || (projectYear !== null && String(projectYear) === year);
+            const matchesTool = tool === 'all' || projectHasTool(p, tool);
             return matchesYear && matchesTool;
         });
 
-        filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
+        filtered.sort((a, b) => getProjectTimestamp(b) - getProjectTimestamp(a));
+        updateCounters(filtered);
         renderProjects(filtered);
     }
 
@@ -183,7 +266,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
             box.innerHTML = `
                 <div class="img-wk">
-                    <img src="img/${project.pic}" alt="project${project.n}">
+                    <img src="${project.pic}" alt="project${project.n}">
                 </div>
                 <div class="tdd">
                     <h2><a href="${project.link1}" class="hover-link" target="_blank">${project.title}</a></h2>
