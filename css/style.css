@@ -8,6 +8,16 @@
     --text2-col: #9E9D9D;
     --tool-col: #323D4D;
     --skill-col: #ced3f9cc;
+
+    /* Glassmorphism tokens (dark theme default) */
+    --glass-bg: rgba(48, 48, 48, 0.55);
+    --glass-bg-strong: rgba(48, 48, 48, 0.78);
+    --glass-bg-fallback: rgba(48, 48, 48, 0.88);
+    --glass-bg-strong-fallback: rgba(48, 48, 48, 0.92);
+    --glass-border: rgba(255, 255, 255, 0.10);
+    --glass-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    --glass-blur: 12px;
+    --glass-radius: 12px;
 }
 
 .light-theme {
@@ -17,6 +27,14 @@
     --text2-col: #585353;
     --tool-col: #ced3f9;
     --skill-col: #323D4D;
+
+    /* Glassmorphism tokens (light theme) */
+    --glass-bg: rgba(255, 255, 255, 0.55);
+    --glass-bg-strong: rgba(255, 255, 255, 0.78);
+    --glass-bg-fallback: rgba(255, 255, 255, 0.92);
+    --glass-bg-strong-fallback: rgba(255, 255, 255, 0.96);
+    --glass-border: rgba(31, 31, 31, 0.12);
+    --glass-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
 }
 
 .dark-theme {
@@ -26,6 +44,65 @@
     --text2-col: #9E9D9D;
     --tool-col: #323D4D;
     --skill-col: #ced3f9cc;
+
+    /* Glassmorphism tokens (explicit dark theme) */
+    --glass-bg: rgba(48, 48, 48, 0.55);
+    --glass-bg-strong: rgba(48, 48, 48, 0.78);
+    --glass-bg-fallback: rgba(48, 48, 48, 0.88);
+    --glass-bg-strong-fallback: rgba(48, 48, 48, 0.92);
+    --glass-border: rgba(255, 255, 255, 0.10);
+    --glass-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+/* -------------------------------------------------------------------------------------------------------------------- */
+/* Glassmorphism utilities (Design System) */
+.glass,
+.glass-card,
+.glass-chip,
+.glass-input,
+.glass-strong {
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+}
+
+.glass {
+    background: var(--glass-bg);
+    border-radius: var(--glass-radius);
+}
+
+.glass-strong {
+    background: var(--glass-bg-strong);
+    border-radius: var(--glass-radius);
+}
+
+.glass-card {
+    background: var(--glass-bg);
+    border-radius: var(--glass-radius);
+}
+
+.glass-chip {
+    background: var(--glass-bg);
+    border-radius: 999px;
+}
+
+.glass-input {
+    background: var(--glass-bg);
+    border-radius: 10px;
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .glass,
+    .glass-card,
+    .glass-chip,
+    .glass-input {
+        background: var(--glass-bg-fallback);
+    }
+
+    .glass-strong {
+        background: var(--glass-bg-strong-fallback);
+    }
 }
 
 *{
@@ -50,14 +127,17 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    background-color: var(--bg2-color);
+    background-color: var(--glass-bg-strong);
     height: 70px;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 20px 10%;
-    box-shadow: 0px 10px 20px -10px #00000033;
+    box-shadow: var(--glass-shadow);
+    border-bottom: 1px solid var(--glass-border);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
     z-index: 1000;
 }
 
@@ -475,23 +555,30 @@ section {
 .about {
     /* border: #FFFFFF solid; */
     display: flex;
+    flex-direction: row;
     max-width: 1050px;
     height: auto;
-    align-items:flex-start;
+    align-items: stretch;
     justify-content: center;
 }
 
 .pic-about {
-    justify-items: center;
+    display: flex;
+    align-self: stretch;
     align-items: center;
+    justify-content: center;
     margin-right: 50px;
 }
 
 .ppc {
     border-radius: 7px;
-    width: 350px;
     height: 100%;
-    align-items: center;
+    width: auto;
+    max-width: 350px;
+    display: block;
+    object-fit: contain;
+    transform: scale(1.1);
+    transform-origin: center;
 }
 
 .about-content {
@@ -643,6 +730,14 @@ section {
     display: flex;
     justify-content: space-between;
     gap: 10px;
+    padding: 12px;
+
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border-radius: 10px;
 
 }
 
@@ -709,18 +804,23 @@ section {
 .tools-used {
     display: flex;
     gap: 10px;
+    flex-wrap: wrap;
     /* border: #fb5607 solid; */
 }
 
 .tools-used p {
     border-radius: 20px;
-    background-color: var(--tool-col);
+    background-color: var(--glass-bg);
+    border: 1px solid var(--glass-border);
     color: #0067B1;
     min-width: 50px;
     text-align: center;
     font-size: 13px;
     font-weight: 600;
     padding: 0 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .wk-items {
@@ -739,6 +839,12 @@ section {
     margin-top: 5px;
     border-radius: 7px;
     transition: all .5s ease;
+
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
 }
 
 .box:hover {
@@ -863,6 +969,12 @@ section {
     width: 450px;
     height: 350px;
     margin-top: 0;
+
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
 }
 
 .exp-col {
@@ -878,6 +990,23 @@ section {
     align-items: center;
 }
 
+.exp-img {
+    position: relative;
+    display: inline-block;
+}
+
+/* Experience tooltips: north-east positioning + animated reveal (skills tooltips unchanged) */
+.exp-img .tooltip-text {
+    bottom: auto;
+    left: 100%;
+    top: 0;
+    transform: translate(10px, -10px) scale(0.96);
+    transform-origin: top left;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 180ms ease, transform 180ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
 .exp-box img {
     border-radius: 10px;
     height: 60px;
@@ -885,6 +1014,20 @@ section {
     align-items: center;
     justify-content: center;
     text-align: center;
+}
+
+/* Tooltip behavior for experience logos (same as skills tooltip) */
+.exp-img:hover .tooltip-text {
+    visibility: visible;
+    background-color: #0067B1;
+    opacity: 1;
+    transform: translate(10px, -10px) scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .exp-img .tooltip-text {
+        transition: none;
+    }
 }
 
 .exp-box-content {
@@ -917,6 +1060,12 @@ section {
     transition: all .5s ease;
     text-decoration: none;
     gap: 15px;
+
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
 }
 
 .cert-box:hover {
@@ -945,6 +1094,11 @@ section {
     font-size: 14px;
 }
 
+.cert-box-content h2 .cert-id {
+    color: var(--text-color);
+    font-weight: 700;
+}
+
 .skillys {
     display: block;
     justify-content: center;
@@ -962,7 +1116,11 @@ section {
     margin: 1px auto;
     width: fit-content;
     white-space: nowrap;
-    background-color: var(--bg2-color);
+    background-color: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
     padding: 5px;
     border-radius: 30px;
 }
@@ -987,6 +1145,47 @@ section {
     color: white;
 }
 
+/* Sliding pill indicator (Skills tabs only) */
+.skillys .filter-buttons {
+    position: relative;
+    overflow: hidden;
+}
+
+.skillys .filter-buttons .tab-indicator {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 0;
+    background-color: #0067B1;
+    border-radius: 30px;
+    transform: translateX(0);
+    transition: transform 280ms cubic-bezier(0.2, 0.8, 0.2, 1), width 280ms cubic-bezier(0.2, 0.8, 0.2, 1), height 280ms cubic-bezier(0.2, 0.8, 0.2, 1), top 280ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    will-change: transform, width, height, top;
+    z-index: 0;
+    opacity: 0;
+}
+
+.skillys .filter-btn {
+    position: relative;
+    z-index: 1;
+    background-color: transparent;
+}
+
+.skillys .filter-btn.active {
+    background-color: transparent;
+    color: white;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .skillys .filter-buttons .tab-indicator {
+        transition: none;
+    }
+    .skillys .filter-btn {
+        transition: none;
+    }
+}
+
 .filt-btn {
     color: var(--text-col);
     border: none;
@@ -1004,6 +1203,38 @@ section {
 
 .filt-btn.active {
     background-color: #0067B1;
+    color: white;
+}
+
+/* Sliding pill indicator (Experiences/Certifications only) */
+.exp-cert .filter-buttons {
+    position: relative;
+    overflow: hidden;
+}
+
+.exp-cert .filter-buttons .tab-indicator {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 0;
+    background-color: #0067B1;
+    border-radius: 30px;
+    transform: translateX(0);
+    transition: transform 280ms cubic-bezier(0.2, 0.8, 0.2, 1), width 280ms cubic-bezier(0.2, 0.8, 0.2, 1), height 280ms cubic-bezier(0.2, 0.8, 0.2, 1), top 280ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    will-change: transform, width, height, top;
+    z-index: 0;
+    opacity: 0;
+}
+
+.exp-cert .filt-btn {
+    position: relative;
+    z-index: 1;
+    background-color: transparent;
+}
+
+.exp-cert .filt-btn.active {
+    background-color: transparent;
     color: white;
 }
 
@@ -1033,6 +1264,15 @@ section {
     position: relative;
 }
 
+/* Invert skill-box colors between Light/Dark themes (skill-box only) */
+.light-theme .skill-box {
+    background-color: #ced3f9cc;
+}
+
+.dark-theme .skill-box {
+    background-color: #323D4D;
+}
+
 .tooltip-text {
     visibility: hidden;
     background-color: #0067B1; /* couleur de fond du tooltip */
@@ -1049,9 +1289,26 @@ section {
     font-size: 12px; /* taille du texte du tooltip */
 }
 
+/* Skill tooltips: animated reveal (positioning unchanged) */
+.skill-box .tooltip-text {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-50%) scale(0.96);
+    transform-origin: bottom center;
+    transition: opacity 180ms ease, transform 180ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
 .skill-box:hover .tooltip-text {
     visibility: visible;
     background-color: #0067B1; /* afficher le tooltip au survol */
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .skill-box .tooltip-text {
+        transition: none;
+    }
 }
 
 /* -------------------------------------------------------------------------------------------------------------------- */
@@ -1073,14 +1330,18 @@ section {
 }
 
 .blog-card {
-    background: var(--bg2-color);
+    background: var(--glass-bg);
     border-radius: 15px;
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: 1px solid rgba(255, 255, 255, 0.05); /* Subtle border for definition */
+    border: 1px solid var(--glass-border);
     display: flex;
     flex-direction: column;
     height: 100%;
+
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    box-shadow: var(--glass-shadow);
 }
 
 .blog-card:hover {
@@ -1249,10 +1510,13 @@ section {
 }
 
 .form-contact {
-    background-color: var(--bg2-color);
+    background-color: var(--glass-bg);
     padding: 15px;
     border-radius: 15px;
-    box-shadow: 0px 0px 30px #0c0f0a;
+    box-shadow: var(--glass-shadow);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
     max-width: 450px;
     margin: 5%;
 }
@@ -1271,8 +1535,10 @@ input, textarea {
     border-radius: 10px;
     margin-top: 2%;
     margin-bottom: 3%;
-    background-color: var(--bg-color);
-    border: var(--bg-color) solid;
+    background-color: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
     font-size: 15px;
 }
 
@@ -1316,14 +1582,35 @@ button:hover {
     display: flex;
     bottom: 0;
     left: 0;
-    background-color: var(--bg2-color);
+    background-color: var(--glass-bg-strong);
     height: 70px;
     margin: 0;
     width: 100%;
-    display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 20px 10%;
+
+    border-top: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+}
+
+/* Mobile Footer Fix (iPhone safe area) */
+@media screen and (max-width: 600px) {
+    .footer {
+        flex-direction: column;
+        height: auto;
+        padding: 20px 5%;
+        /* Safe Area Spacing */
+        padding-bottom: max(20px, env(safe-area-inset-bottom));
+        gap: 15px;
+        text-align: center;
+    }
+    
+    .footer .logo {
+        margin-bottom: 5px;
+    }
 }
 
 .copyright span {
@@ -1383,6 +1670,12 @@ button:hover {
         justify-content: center;
         align-items: center;
         font-size: 25px;
+
+        background-color: var(--glass-bg-strong);
+        border: 1px solid var(--glass-border);
+        box-shadow: var(--glass-shadow);
+        backdrop-filter: blur(var(--glass-blur));
+        -webkit-backdrop-filter: blur(var(--glass-blur));
         
         &:hover {
             color: #0067B1;
@@ -1403,12 +1696,21 @@ button:hover {
         width: 100%;
         height: auto;
         gap: 30px;
+        background-color: var(--glass-bg-strong);
+        border: 1px solid var(--glass-border);
+        border-bottom-color: #0067B1;
+        box-shadow: var(--glass-shadow);
+        backdrop-filter: blur(var(--glass-blur));
+        -webkit-backdrop-filter: blur(var(--glass-blur));
+        z-index: 1100;
         border-bottom: 1px #0067B1 solid;
         border-radius: 10px;
-        backdrop-filter: blur(12px);
+        pointer-events: auto;
         
         &.active {
             display: flex;
+            backdrop-filter: blur(calc(var(--glass-blur) + 2px));
+            -webkit-backdrop-filter: blur(calc(var(--glass-blur) + 2px));
         }
         
         a {
@@ -1609,7 +1911,12 @@ button:hover {
         
         .skillys {
             margin: auto;
-            height: 400px;
+            height: auto;
+
+            .grid-data, .grid-web {
+                margin: 0;
+                padding: 10px 0;
+            }
 
             .grid-data {
                 margin: 0;
@@ -1649,6 +1956,13 @@ button:hover {
     
     .copyright {
         font-size: small;
+    }
+
+    /* Stronger readability for the opened panel in LIGHT mode (mobile only) */
+    .light-theme .navbar.active {
+        background-color: rgba(255, 255, 255, 0.78);
+        border-color: rgba(0, 0, 0, 0.14);
+        border-bottom-color: #0067B1;
     }
 }
 
@@ -1897,7 +2211,12 @@ button:hover {
         
         .skillys {
             margin: auto;
-            height: 400px;
+            height: auto;
+
+            .grid-data, .grid-web {
+                margin: 0;
+                padding: 10px 0;
+            }
         }
     }
 

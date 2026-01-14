@@ -1,6 +1,57 @@
 [
     {
-        "pic": "stock.jpg",
+        "pic": "assets/img/p13.jpg",
+        "n": "18",
+        "link1": "",
+        "link2": "https://github.com/JVRLC/smartNYCRestaurants",
+        "title": "NYC Smart Restaurants: Migration Postgres-MongoDB",
+        "monh": "Dec",
+        "year": "2025",
+        "date": "2025-12-25",
+        "tools": [
+            "Python",
+            "Postgres",
+            "MongoDB",
+            "Data Migration"
+        ],
+        "description": "Migration of a New York City restaurant catalog from PostgreSQL to MongoDB (JSON documents) using Python scripts. The application supports search by name, cuisine, and neighborhood, as well as proximity-based retrieval (Haversine distance). Implementing a PostgreSQL JSONB cache (20 entries) significantly sped up repeated queries (≈0.125 s → ≈0.0034 s)."
+    },
+    {
+        "pic": "assets/img/p13.png",
+        "n": "17",
+        "link1": "",
+        "link2": "https://github.com/aurvl/CommentsAnalysis",
+        "title": "Comments Analysis: Text Classification Pipeline",
+        "monh": "Nov",
+        "year": "2025",
+        "date": "2025-11-20",
+        "tools": [
+            "Python",
+            "Scikit-Learn",
+            "NLP",
+            ""
+        ],
+        "description": "YouTube comments NLP pipeline: raw comments are labeled and stored in CSV, vectorized with TF-IDF (uni/bi-grams), then classified with baseline models (Logistic Regression, Linear SVM, Decision Tree). The script outputs accuracy, confusion matrix, a classification report, and saves evaluation files and prediction samples for review."
+    },
+    {
+        "pic": "assets/img/p12.png",
+        "n": "16",
+        "link1": "https://aurvl.github.io/portfolio/pages/post.html?id=abtest-ml",
+        "link2": "https://github.com/aurvl/ABTesting-Model",
+        "title": "AB Testing: The New Model",
+        "monh": "Apr",
+        "year": "2025",
+        "date": "2025-04-18",
+        "tools": [
+            "R",
+            "Python",
+            "Statistics",
+            ""
+        ],
+        "description": "A rigorous A/B-style evaluation of two predictive models for school failure risk. The project combines stratified randomization to build comparable groups and A/B testing to compare a baseline model against an improved Random Forest. In addition, a paired analysis on the same individuals (including McNemar’s test) highlights overall differences and targeted gains for specific subgroups (e.g., by socio-economic background)."
+    },
+    {
+        "pic": "assets/img/stock.jpg",
         "n": "14",
         "link1": "https://cw8-price-prediction.streamlit.app/",
         "link2": "https://github.com/aurvl/Stocks-prices-Prediction",
@@ -17,7 +68,7 @@
         "description": "This project aims to predict stock prices over a 30-day period using an LSTM (Long Short-Term Memory) model, designed for time series analysis. The Streamlit application offers a clear and intuitive interface to explore historical market data and visualize the predicted trends. This project combines data analysis, predictive modeling, and visualization to provide an accessible tool for users who want to better understand stock market movements."
     },
     {
-        "pic": "femunemp.webp",
+        "pic": "assets/img/femunemp.webp",
         "n": "13",
         "link1": "https://auradev.hashnode.dev/inegalites-de-genre-et-technologie-ce-que-nous-apprend-leconometrie-spatiale",
         "link2": "https://github.com/aurvl/SpatialEconometrics",
@@ -34,7 +85,7 @@
         "description": "This project explores the impact of technological progress on female unemployment in Europe, using spatial econometric methods. Using data covering France, Spain, Italy, the Netherlands and Belgium, it analyzes how employment in technology sectors, STEM qualifications and other factors influence female unemployment, both locally and between neighboring regions."
     },
     {
-        "pic": "sal.webp",
+        "pic": "assets/img/sal.webp",
         "n": "12",
         "link1": "",
         "link2": "https://github.com/aurvl/ML_projects/blob/main/Salary/Readme.md",
@@ -50,7 +101,7 @@
         "description": "This project aims to predict salaries using machine learning models, notably Linear Regression (LR) and Random Forest Regressor (RF). The repository is organized to simplify data preprocessing, model training, hyperparameter optimization, and making predictions on new data."
     },
     {
-        "pic": "p1.jpg",
+        "pic": "assets/img/p1.jpg",
         "n": "1",
         "link1": "https://github.com/aurvl/Projects/blob/main/IAE%20Trends/dashboard/resultats.md",
         "link2": "https://github.com/aurvl/Projects/blob/main/IAE%20Trends/IAE%20Trends.md",
@@ -66,7 +117,7 @@
         "description": "The objective of this work is to measure the importance given to environmental issues in Preferential Trade Agreements (PTAs) using the Environmental Attention Index (EAI). This indicator is calculated from data provided by the Trade & Environment Database (TREND), the most comprehensive database to date on environmental clauses in international trade agreements."
     },
     {
-        "pic": "p2.webp",
+        "pic": "assets/img/p2.webp",
         "n": "2",
         "link1": "https://aurvl.github.io/NotebookSites/ovwg/Ovwght.html",
         "link2": "https://github.com/aurvl/Projects/blob/main/Overweight/Overweight.md",
@@ -81,7 +132,7 @@
         "description": "This project explores the use of various classification models to predict whether an individual has a family history of overweight. Three different machine learning algorithms are implemented and evaluated: Logistic Regression, Random Forest, and XGBoost."
     },
     {
-        "pic": "p3.jpg",
+        "pic": "assets/img/p3.jpg",
         "n": "3",
         "link1": "https://github.com/aurvl/DE_projects/blob/main/Scraping%20Allocine/scraping_series.ipynb",
         "link2": "https://github.com/aurvl/DE_projects/blob/main/Scraping%20Allocine/Scraping%20Allocine.md",
@@ -97,7 +148,7 @@
         "description": "This project scrapes TV series data from AlloCiné, organizes it into a structured format, and conducts analyses. We collected data like series title, period, duration, genre, ratings, and more to create a comprehensive dataset."
     },
     {
-        "pic": "p4.jpg",
+        "pic": "assets/img/p4.jpg",
         "n": "4",
         "link1": "https://aurvl.github.io/NotebookSites/famd/Famd.html",
         "link2": "https://github.com/aurvl/ML_projects/blob/main/Famd/Famd.md",
@@ -112,7 +163,7 @@
         "description": "This activity focuses on applying Factorial Analysis of Mixed Data (FAMD) to the 'adult' dataset from the UCI Machine Learning Repository. FAMD is a dimension reduction technique allowing simultaneous analysis of quantitative and qualitative variables."
     },
     {
-        "pic": "p5.jpg",
+        "pic": "assets/img/p5.jpg",
         "n": "5",
         "link1": "https://github.com/aurvl/Projects/blob/main/Stock%20previsions/time%20series%20analysis.pdf",
         "link2": "https://github.com/aurvl/Projects/blob/main/Stock%20previsions/Stock%20Previsions.md",
@@ -128,7 +179,7 @@
         "description": "The study examines Belgian foreign trade time series to understand historical trends, assess relationships between variables, and provide forecasts over 10 quarters. The report includes univariate and multivariate analysis."
     },
     {
-        "pic": "p6.webp",
+        "pic": "assets/img/p6.webp",
         "n": "6",
         "link1": "https://aurvl.github.io/NotebookSites/okun/Report.html",
         "link2": "https://github.com/aurvl/Projects/blob/main/Okun%20Law/Okun%20Law.md",
@@ -143,7 +194,7 @@
         "description": "This analysis focuses on GDP and unemployment rates using Eurostat data. The primary goal is to understand the relationship between GDP growth and unemployment through Okun's Law."
     },
     {
-        "pic": "p7.jpg",
+        "pic": "assets/img/p7.jpg",
         "n": "7",
         "link1": "https://github.com/aurvl/Projects/blob/main/Unemployment/Unemployment.md",
         "link2": "https://github.com/aurvl/Projects/blob/main/Unemployment/Unemployment.md",
@@ -158,7 +209,7 @@
         "description": "This Python project involves econometric analysis of inflation and unemployment rates for five European countries (France, Germany, Italy, Netherlands, United Kingdom) for 2023, with projections for 2024."
     },
     {
-        "pic": "p8.jpg",
+        "pic": "assets/img/p8.jpg",
         "n": "8",
         "link1": "https://auradev.hashnode.dev/house-prices-prediction",
         "link2": "https://github.com/aurvl/ML_projects/blob/main/Housing/Housing.md",
@@ -173,7 +224,7 @@
         "description": "This project applies machine learning techniques to predict house prices using housing and area demographics data. The goal is to build a linear regression model to estimate prices."
     },
     {
-        "pic": "p9.jpg",
+        "pic": "assets/img/p9.jpg",
         "n": "9",
         "link1": "https://auradev.hashnode.dev/twitter-tweets-analysis",
         "link2": "https://github.com/aurvl/DA_projects/blob/main/Twitter/Twitter.md",
@@ -189,7 +240,7 @@
         "description": "This project analyzes tweets from French deputies to understand their dynamics and structure, including data collection, enrichment, distribution analysis by political party, and trend visualization."
     },
     {
-        "pic": "p10.png",
+        "pic": "assets/img/p10.png",
         "n": "10",
         "link1": "https://github.com/aurvl/DE_projects/blob/main/SQL%20Bank%20Fraud/SQL%20Bank%20Fraud.md",
         "link2": "https://github.com/aurvl/DE_projects/blob/main/SQL%20Bank%20Fraud/SQL%20Bank%20Fraud.md",
@@ -206,7 +257,7 @@
         "description": "This project simulates fictive banking transactions and records user responses regarding risk and money attitudes. Data is stored in a MySQL database for fraud indicator analysis."
     },
     {
-        "pic": "p11.webp",
+        "pic": "assets/img/p11.webp",
         "n": "11",
         "link1": "https://aurvl.github.io/NotebookSites/m2_exercices_py/allocine/allocine.html",
         "link2": "https://github.com/aurvl/DA_projects/edit/main/Allocine/Allocine.md",
@@ -222,7 +273,7 @@
         "description": "This project analyzes a dataset from Allociné (movies & series) to visualize key information and understand relationships between different attributes."
     },
     {
-        "pic": "tsc.png",
+        "pic": "assets/img/tsc.png",
         "n": "12",
         "link1": "",
         "link2": "https://github.com/aurvl/TSC-Finance",
@@ -238,6 +289,22 @@
             "Finance"
         ],
         "description": "This project introduces a Temporal Convolutional Pyramid Classifier (TCKPyramidClassifier) designed to predict high-quality trading entry points using multivariate financial time series. It includes synthetic data generation using geometric Brownian motion, model pre-training, asset-specific fine-tuning (S&P 500, FX, ETFs, BTC), and full long/cash backtesting."
+    },
+    {
+        "pic": "assets/img/p12.jpg",
+        "n": "15",
+        "link1": "",
+        "link2": "https://github.com/aurvl/ResearchPapersRecommandationSystem",
+        "title": "Research Papers Recommendation System",
+        "monh": "Jan",
+        "year": "2026",
+        "date": "2026-01-01",
+        "tools": [
+            "Python",
+            "NLP",
+            "Recommender System",
+            "FastAPI"
+        ],
+        "description": "Built a research-paper recommender on a corpus of ~50,000 papers (science, literature, history, etc.). The system adapts to user preferences: it proposes papers, updates recommendations as users like items, and shows “similar papers” on each article page. For cold-start users, it recommends papers closest to trending arXiv topics. Started with TF-IDF (high-dimensional, weak semantics) then upgraded to transformer embeddings (all-MiniLM-L6-v2) for more meaningful similarity and improved recommendations—an AI tool designed to support researchers and discovery."
     }
-
 ]

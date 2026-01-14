@@ -119,42 +119,207 @@ window.addEventListener('scroll', function() {
 });
 
 function filterSkills(category) {
-    const gridData = document.querySelector('.grid-data');
-    const gridWeb = document.querySelector('.grid-web');
-    const buttons = document.querySelectorAll('.filter-btn');
-  
+    const skillSection = document.querySelector('.skillys');
+    if (!skillSection) return;
+
+    const gridData = skillSection.querySelector('.grid-data');
+    const gridWeb = skillSection.querySelector('.grid-web');
+    const tabContainer = skillSection.querySelector('.filter-buttons');
+    const buttons = Array.from(skillSection.querySelectorAll('.filter-btn'));
+    const activeButton = skillSection.querySelector(`.filter-btn[data-category="${category}"]`);
+
+    if (!gridData || !gridWeb || !tabContainer || !activeButton) return;
+
     // Affichage conditionnel
     if (category === 'data') {
-      gridData.style.display = 'flex';
-      gridWeb.style.display = 'none';
+        gridData.style.display = 'flex';
+        gridWeb.style.display = 'none';
+        gridData.setAttribute('aria-hidden', 'false');
+        gridWeb.setAttribute('aria-hidden', 'true');
     } else {
-      gridData.style.display = 'none';
-      gridWeb.style.display = 'flex';
+        gridData.style.display = 'none';
+        gridWeb.style.display = 'flex';
+        gridData.setAttribute('aria-hidden', 'true');
+        gridWeb.setAttribute('aria-hidden', 'false');
     }
-  
-    // Gestion des boutons actifs
-    buttons.forEach(btn => btn.classList.remove('active'));
-    document.querySelector(`.filter-btn[data-category="${category}"]`).classList.add('active');
+
+    // Gestion des boutons actifs + ARIA
+    buttons.forEach(btn => {
+        const isActive = btn === activeButton;
+        btn.classList.toggle('active', isActive);
+        btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+    });
+
+    // Sliding pill
+    moveSkillsTabIndicator(tabContainer, activeButton);
 };
 
+function moveSkillsTabIndicator(tabContainer, activeButton) {
+    const indicator = tabContainer.querySelector('.tab-indicator');
+    if (!indicator || !activeButton) return;
+
+    const containerRect = tabContainer.getBoundingClientRect();
+    const buttonRect = activeButton.getBoundingClientRect();
+
+    const left = buttonRect.left - containerRect.left;
+    const top = buttonRect.top - containerRect.top;
+
+    indicator.style.opacity = '1';
+    indicator.style.width = `${buttonRect.width}px`;
+    indicator.style.height = `${buttonRect.height}px`;
+    indicator.style.top = `${top}px`;
+    indicator.style.transform = `translateX(${left}px)`;
+}
+
+function initSkillsTabs() {
+    const skillSection = document.querySelector('.skillys');
+    if (!skillSection) return;
+
+    const tabContainer = skillSection.querySelector('.filter-buttons');
+    const buttons = Array.from(skillSection.querySelectorAll('.filter-btn'));
+    if (!tabContainer || buttons.length < 2) return;
+
+    // Keyboard navigation (ArrowLeft/ArrowRight + Enter/Space)
+    buttons.forEach(btn => {
+        btn.addEventListener('keydown', (e) => {
+            const isLeft = e.key === 'ArrowLeft' || e.key === 'ArrowUp';
+            const isRight = e.key === 'ArrowRight' || e.key === 'ArrowDown';
+            const isActivate = e.key === 'Enter' || e.key === ' ';
+
+            if (!isLeft && !isRight && !isActivate) return;
+            e.preventDefault();
+
+            const currentIndex = buttons.indexOf(btn);
+            let nextIndex = currentIndex;
+            if (isLeft) nextIndex = (currentIndex - 1 + buttons.length) % buttons.length;
+            if (isRight) nextIndex = (currentIndex + 1) % buttons.length;
+
+            const nextBtn = buttons[nextIndex];
+            if (!nextBtn) return;
+
+            const nextCategory = nextBtn.getAttribute('data-category');
+            if (nextCategory) {
+                filterSkills(nextCategory);
+                nextBtn.focus();
+            }
+        });
+    });
+
+    // Initial indicator position
+    const activeButton = skillSection.querySelector('.filter-btn.active') || buttons[0];
+    if (activeButton) {
+        moveSkillsTabIndicator(tabContainer, activeButton);
+    }
+
+    // Keep indicator aligned on resize/orientation change
+    window.addEventListener('resize', () => {
+        const currentActive = skillSection.querySelector('.filter-btn.active') || buttons[0];
+        if (currentActive) moveSkillsTabIndicator(tabContainer, currentActive);
+    });
+}
+
+window.addEventListener('load', () => {
+    initSkillsTabs();
+    initExpCertTabs();
+});
+
 function filterContent(cat) {
-    const expCont = document.querySelector('.exp');
-    const certCont = document.querySelector('.cert');
-    const buttonss = document.querySelectorAll('.filt-btn');
-  
+    const expCertSection = document.querySelector('.exp-cert');
+    if (!expCertSection) return;
+
+    const expCont = expCertSection.querySelector('.exp');
+    const certCont = expCertSection.querySelector('.cert');
+    const tabContainer = expCertSection.querySelector('.filter-buttons');
+    const buttons = Array.from(expCertSection.querySelectorAll('.filt-btn'));
+    const activeButton = expCertSection.querySelector(`.filt-btn[cont-cat="${cat}"]`);
+
+    if (!expCont || !certCont || !tabContainer || !activeButton) return;
+
     // Affichage conditionnel
     if (cat === 'exp') {
-      expCont.style.display = 'flex';
-      certCont.style.display = 'none';
+        expCont.style.display = 'flex';
+        certCont.style.display = 'none';
+        expCont.setAttribute('aria-hidden', 'false');
+        certCont.setAttribute('aria-hidden', 'true');
     } else {
-      expCont.style.display = 'none';
-      certCont.style.display = 'flex';
+        expCont.style.display = 'none';
+        certCont.style.display = 'flex';
+        expCont.setAttribute('aria-hidden', 'true');
+        certCont.setAttribute('aria-hidden', 'false');
     }
-  
-    // Gestion des boutons actifs
-    buttonss.forEach(btn => btn.classList.remove('active'));
-    document.querySelector(`.filt-btn[cont-cat="${cat}"]`).classList.add('active');
+
+    // Gestion des boutons actifs + ARIA
+    buttons.forEach(btn => {
+        const isActive = btn === activeButton;
+        btn.classList.toggle('active', isActive);
+        btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+    });
+
+    moveExpCertTabIndicator(tabContainer, activeButton);
 };
+
+function moveExpCertTabIndicator(tabContainer, activeButton) {
+    const indicator = tabContainer.querySelector('.tab-indicator');
+    if (!indicator || !activeButton) return;
+
+    const containerRect = tabContainer.getBoundingClientRect();
+    const buttonRect = activeButton.getBoundingClientRect();
+
+    const left = buttonRect.left - containerRect.left;
+    const top = buttonRect.top - containerRect.top;
+
+    indicator.style.opacity = '1';
+    indicator.style.width = `${buttonRect.width}px`;
+    indicator.style.height = `${buttonRect.height}px`;
+    indicator.style.top = `${top}px`;
+    indicator.style.transform = `translateX(${left}px)`;
+}
+
+function initExpCertTabs() {
+    const expCertSection = document.querySelector('.exp-cert');
+    if (!expCertSection) return;
+
+    const tabContainer = expCertSection.querySelector('.filter-buttons');
+    const buttons = Array.from(expCertSection.querySelectorAll('.filt-btn'));
+    if (!tabContainer || buttons.length < 2) return;
+
+    // Keyboard navigation
+    buttons.forEach(btn => {
+        btn.addEventListener('keydown', (e) => {
+            const isLeft = e.key === 'ArrowLeft' || e.key === 'ArrowUp';
+            const isRight = e.key === 'ArrowRight' || e.key === 'ArrowDown';
+            const isActivate = e.key === 'Enter' || e.key === ' ';
+
+            if (!isLeft && !isRight && !isActivate) return;
+            e.preventDefault();
+
+            const currentIndex = buttons.indexOf(btn);
+            let nextIndex = currentIndex;
+            if (isLeft) nextIndex = (currentIndex - 1 + buttons.length) % buttons.length;
+            if (isRight) nextIndex = (currentIndex + 1) % buttons.length;
+
+            const nextBtn = buttons[nextIndex];
+            if (!nextBtn) return;
+
+            const nextCat = nextBtn.getAttribute('cont-cat');
+            if (nextCat) {
+                filterContent(nextCat);
+                nextBtn.focus();
+            }
+        });
+    });
+
+    // Initial indicator position
+    const activeButton = expCertSection.querySelector('.filt-btn.active') || buttons[0];
+    if (activeButton) {
+        moveExpCertTabIndicator(tabContainer, activeButton);
+    }
+
+    window.addEventListener('resize', () => {
+        const currentActive = expCertSection.querySelector('.filt-btn.active') || buttons[0];
+        if (currentActive) moveExpCertTabIndicator(tabContainer, currentActive);
+    });
+}
 
 async function updateRecentProjects() {
     try {
