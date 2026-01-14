@@ -87,7 +87,7 @@
     {
         "pic": "assets/img/sal.webp",
         "n": "12",
-        "link1": "",
+        "link1": "https://github.com/aurvl/ML_projects/blob/main/Salary/report_salary_pred.pdf",
         "link2": "https://github.com/aurvl/ML_projects/blob/main/Salary/Readme.md",
         "title": "Prédiction des Salaires",
         "monh": "Fev",
