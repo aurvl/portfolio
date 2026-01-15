@@ -1,7 +1,20 @@
+const BLOG_HOME_LANGUAGE_STORAGE_KEY = (typeof LANGUAGE_STORAGE_KEY !== 'undefined')
+    ? LANGUAGE_STORAGE_KEY
+    : 'selectedLanguage';
+const BLOG_HOME_POST_ID_QUERY_PARAM = 'id';
+
 document.addEventListener('DOMContentLoaded', async () => {
-    // Determine language from HTML lang attribute or URL
-    const isFrench = document.documentElement.lang === 'fr' || window.location.href.includes('_fr');
-    const lang = isFrench ? 'fr' : 'en';
+    // Determine language from shared localStorage key (fallback to page language)
+    const saved = (typeof getSavedLanguage === 'function') ? getSavedLanguage() : null;
+    const pageIsFrench = document.documentElement.lang === 'fr' || window.location.href.includes('_fr');
+    const lang = saved || (pageIsFrench ? 'fr' : 'en');
+    const isFrench = lang === 'fr';
+
+    if (!saved && typeof setSavedLanguage === 'function') {
+        setSavedLanguage(lang);
+    } else if (!saved) {
+        localStorage.setItem(BLOG_HOME_LANGUAGE_STORAGE_KEY, lang);
+    }
 
     // Fetch posts
     const posts = await getPosts(lang);
@@ -38,10 +51,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             <div class="blog-content">
                 ${displayDate ? `<time class="blog-date" datetime="${post.date}">${displayDate}</time>` : ''}
                 <h3>
-                    <a href="pages/post.html?id=${post.id}">${post.title}</a>
+                    <a href="pages/post.html?${BLOG_HOME_POST_ID_QUERY_PARAM}=${post.id}">${post.title}</a>
                 </h3>
                 <p class="blog-excerpt">${post.excerpt}</p>
-                <a href="pages/post.html?id=${post.id}" class="read-more">
+                <a href="pages/post.html?${BLOG_HOME_POST_ID_QUERY_PARAM}=${post.id}" class="read-more">
                     ${isFrench ? 'Lire plus' : 'Read more'} <i class="fa-solid fa-arrow-right"></i>
                 </a>
             </div>

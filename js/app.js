@@ -2,6 +2,15 @@
 const sections = document.querySelectorAll('section');
 const navLinks = document.querySelectorAll('.navbar a');
 
+// Shared keys (keep identical across scripts)
+// Avoid global redeclaration collisions with other scripts (e.g., blog-shared.js).
+const APP_THEME_STORAGE_KEY = (typeof THEME_STORAGE_KEY !== 'undefined')
+    ? THEME_STORAGE_KEY
+    : 'theme';
+const APP_LANGUAGE_STORAGE_KEY = (typeof LANGUAGE_STORAGE_KEY !== 'undefined')
+    ? LANGUAGE_STORAGE_KEY
+    : 'selectedLanguage';
+
 // Fonction pour activer le lien correspondant à la section visible
 window.onscroll = () => {
     let current = "";
@@ -29,14 +38,37 @@ window.onscroll = () => {
 const menuToggle = document.getElementById('menu-toggle');
 const navbar = document.querySelector('.navbar');
 
-menuToggle.addEventListener('click', () => {
+function setMenuAriaExpanded() {
+    if (!menuToggle || !navbar) return;
+    const expanded = navbar.classList.contains('active');
+    menuToggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+    menuToggle.setAttribute('aria-label', expanded ? 'Close menu' : 'Open menu');
+}
+
+function toggleMenu() {
+    if (!navbar) return;
     navbar.classList.toggle('active');
-});
+    setMenuAriaExpanded();
+}
+
+if (menuToggle && navbar) {
+    menuToggle.addEventListener('click', toggleMenu);
+    menuToggle.addEventListener('keydown', (e) => {
+        const isActivate = e.key === 'Enter' || e.key === ' ';
+        if (!isActivate) return;
+        e.preventDefault();
+        toggleMenu();
+    });
+
+    setMenuAriaExpanded();
+}
 
 // Fonction de changement de langue avec sauvegarde dans localStorage
 function changeLanguage(select) {
     const selectedLanguage = select.value;
-    localStorage.setItem('selectedLanguage', selectedLanguage);
+    localStorage.setItem(APP_LANGUAGE_STORAGE_KEY, selectedLanguage);
+
+    updateLogoLinksForLanguage(selectedLanguage);
 
     // Redirection en fonction de la langue choisie
     if (selectedLanguage === 'en') {
@@ -46,12 +78,19 @@ function changeLanguage(select) {
     }
 }
 
+function updateLogoLinksForLanguage(lang) {
+    const normalized = (lang === 'fr') ? 'fr' : 'en';
+    const homeHref = normalized === 'fr' ? 'home_fr.html' : 'index.html';
+    document.querySelectorAll('a.logo').forEach(logo => logo.setAttribute('href', homeHref));
+}
+
 // Charger la langue sauvegardée au chargement de la page
 window.onload = function() {
-    const savedLanguage = localStorage.getItem('selectedLanguage');
+    const savedLanguage = localStorage.getItem(APP_LANGUAGE_STORAGE_KEY);
     const languageSelect = document.getElementById('lang');
 
     if (savedLanguage) {
+        updateLogoLinksForLanguage(savedLanguage);
         languageSelect.value = savedLanguage;
         // Redirige vers la version de langue sauvegardée si elle ne correspond pas à la page actuelle
         if (savedLanguage === 'fr' && !window.location.href.includes('home_fr.html')) {
@@ -59,32 +98,32 @@ window.onload = function() {
         } else if (savedLanguage === 'en' && !window.location.href.includes('index.html')) {
             window.location.href = 'index.html';
         }
+    } else {
+        // If no saved preference, keep logo consistent with current page language
+        updateLogoLinksForLanguage(window.location.href.includes('home_fr.html') ? 'fr' : 'en');
     }
 };
 
 // Formulaire de contact avec reset après envoi
 const form = document.getElementById('myForm');
 
-form.addEventListener('submit', function(e) {
-    // Laisser le formulaire se soumettre normalement (en ouvrant un nouvel onglet)
-    
-    setTimeout(function() {
-        // Réinitialiser le formulaire après un court délai
-        form.reset();
-    }, 1000); // Attendre une seconde avant de réinitialiser pour laisser le formulaire se soumettre
-});
+if (form) {
+    form.addEventListener('submit', function() {
+        // Laisser le formulaire se soumettre normalement (en ouvrant un nouvel onglet)
 
-const themeToggleBtn = document.getElementById('theme-toggle');
+        setTimeout(function() {
+            // Réinitialiser le formulaire après un court délai
+            form.reset();
+        }, 1000); // Attendre une seconde avant de réinitialiser pour laisser le formulaire se soumettre
+    });
+}
+
 const body = document.body;
-
-// Check for saved theme in localStorage
-// Note: Logic moved to inline script in head to prevent FOUC
-const savedTheme = localStorage.getItem('theme') || 'dark';
 
 // Toggle theme and save preference in localStorage
 const themeToggleBtns = document.querySelectorAll('.theme-toggle');
 themeToggleBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
+    const handleToggleTheme = () => {
         // Check if currently dark (fallback to dark if no class)
         const isDark = body.classList.contains('dark-theme') || (!body.classList.contains('light-theme'));
 
@@ -93,14 +132,22 @@ themeToggleBtns.forEach(btn => {
             body.classList.remove('dark-theme');
             body.classList.add('light-theme');
             document.documentElement.className = 'light-theme';
-            localStorage.setItem('theme', 'light');
+            localStorage.setItem(APP_THEME_STORAGE_KEY, 'light');
         } else {
             // Switch to Dark
             body.classList.remove('light-theme');
             body.classList.add('dark-theme');
             document.documentElement.className = 'dark-theme';
-            localStorage.setItem('theme', 'dark');
+            localStorage.setItem(APP_THEME_STORAGE_KEY, 'dark');
         }
+    };
+
+    btn.addEventListener('click', handleToggleTheme);
+    btn.addEventListener('keydown', (e) => {
+        const isActivate = e.key === 'Enter' || e.key === ' ';
+        if (!isActivate) return;
+        e.preventDefault();
+        handleToggleTheme();
     });
 });
 

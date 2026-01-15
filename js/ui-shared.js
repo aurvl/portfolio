@@ -1,5 +1,8 @@
 // Shared UI Logic: Back-to-Top, Theme Toggle, Mobile Menu
 
+// Shared keys (keep identical across scripts)
+const THEME_STORAGE_KEY = 'theme';
+
 document.addEventListener('DOMContentLoaded', () => {
     
     // --- 1. Back to Top Button Logic ---
@@ -29,9 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- 2. Theme Toggle Logic (Consolidated) ---
-    // If inline scripts are removed, this will handle it.
-    // Checks if the logic already ran to avoid double-toggling if inline script exists.
-    // For now, I'll assume I replace the inline script with this.
+    // Note: Theme initialization (avoiding FOUC) is handled by inline HTML on this site.
     const themeToggleBtns = document.querySelectorAll('.theme-toggle');
     const body = document.body;
     
@@ -42,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // I will remove the inline script from blog pages.
         
         themeToggleBtns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
+            const handleToggleTheme = (e) => {
                 e.preventDefault(); // Stop any default behavior
                 
                 const isDark = body.classList.contains('dark-theme') || (!body.classList.contains('light-theme'));
@@ -50,13 +51,21 @@ document.addEventListener('DOMContentLoaded', () => {
                     body.classList.remove('dark-theme');
                     body.classList.add('light-theme');
                     document.documentElement.className = 'light-theme';
-                    localStorage.setItem('theme', 'light');
+                    localStorage.setItem(THEME_STORAGE_KEY, 'light');
                 } else {
                     body.classList.remove('light-theme');
                     body.classList.add('dark-theme');
                     document.documentElement.className = 'dark-theme';
-                    localStorage.setItem('theme', 'dark');
+                    localStorage.setItem(THEME_STORAGE_KEY, 'dark');
                 }
+            };
+
+            btn.addEventListener('click', handleToggleTheme);
+            btn.addEventListener('keydown', (e) => {
+                const isActivate = e.key === 'Enter' || e.key === ' ';
+                if (!isActivate) return;
+                e.preventDefault();
+                handleToggleTheme(e);
             });
         });
     }

@@ -1,15 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3L7YJ0JHG5"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-3L7YJ0JHG5');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog - Aurel VEHI</title>
+    <meta name="description" content="Articles and publications by Aurel VEHI: data, econometrics, machine learning, and applied research.">
+    <title>Blog | Aurel VEHI</title>
+    <link rel="canonical" href="https://aurvl.github.io/portfolio/pages/blog.html">
+    <link rel="alternate" hreflang="en" href="https://aurvl.github.io/portfolio/pages/blog.html">
+    <link rel="alternate" hreflang="fr" href="https://aurvl.github.io/portfolio/pages/blog_fr.html">
+    <link rel="alternate" hreflang="x-default" href="https://aurvl.github.io/portfolio/pages/blog.html">
     <link rel="icon" href="../assets/img/pic-square.png" type="image/png">
     
     <!-- Reuse Main CSS (Adjust path) -->
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/style-expl.css"> <!-- Reusing explore grid styles -->
-    <script src="https://kit.fontawesome.com/f56155cbc5.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/f56155cbc5.js" crossorigin="anonymous" defer></script>
 
     <style>
         /* Specific overrides for Blog Listing */
@@ -143,18 +157,18 @@
     <header class="header">
         <a class="logo" href="../index.html">Au<span>rel VEHI</span></a>
 
-        <nav class="navbar">
+        <nav class="navbar" id="primary-nav">
             <a href="../index.html">Home</a>
             <a href="../explore-projects.html">Projects</a>
             <a href="blog.html" class="active">Blog</a>
             <a href="../index.html#contacts">Contacts</a>
 
-            <select name="lang" id="lang" onchange="if(this.value) window.location.href=this.value;">
-                <option value="blog.html" selected>En</option>
-                <option value="blog_fr.html">Fr</option>
+            <select name="lang" id="lang" onchange="changeLanguage(this)" aria-label="Language">
+                <option value="en" selected>En</option>
+                <option value="fr">Fr</option>
             </select>
 
-            <div class="theme-toggle" id="theme-toggle">
+            <div class="theme-toggle" id="theme-toggle" role="button" tabindex="0" aria-label="Toggle theme">
                 <i class="fa-solid fa-sun"></i>
                 <div class="toggle-slider"></div>
                 <i class="fa-solid fa-moon"></i>
@@ -163,19 +177,19 @@
         
         <!-- Mobile Menu Logic could be added here if needed reusing app.js logic -->
         <div class="mobile-nav" id="mobile-nav">
-            <div class="menu-toggle" id="menu-toggle">
+            <div class="menu-toggle" id="menu-toggle" role="button" tabindex="0" aria-label="Open menu" aria-controls="primary-nav" aria-expanded="false">
                 &#9776; <!-- Code HTML pour les trois traits superposés -->
             </div>
 
-            <div class="theme-toggle" id="theme-toggle-mobile">
+            <div class="theme-toggle" id="theme-toggle-mobile" role="button" tabindex="0" aria-label="Toggle theme">
                 <i class="fa-solid fa-sun"></i>
                 <div class="toggle-slider"></div>
                 <i class="fa-solid fa-moon"></i>
             </div>
 
-            <select name="lang" id="lang-mobile" onchange="if(this.value) window.location.href=this.value;">
-                <option value="blog.html" selected>En</option>
-                <option value="blog_fr.html">Fr</option>
+            <select name="lang" id="lang-mobile" onchange="changeLanguage(this)" aria-label="Language">
+                <option value="en" selected>En</option>
+                <option value="fr">Fr</option>
             </select>
         </div>
     </header>
@@ -211,7 +225,7 @@
         <p>Loading posts...</p>
     </section>
 
-    <a class="to-top" href="#">
+    <a class="to-top" href="#" aria-label="Back to top">
         <i class="fas fa-long-arrow-up"></i>
     </a>
 
