@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3L7YJ0JHG5"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-3L7YJ0JHG5');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="description" content="Découvrez les projets d'Aurel VEHI en analyse de données, recherche économique et machine learning.">
+    <link rel="canonical" href="https://aurvl.github.io/portfolio/explore-projects_fr.html">
+    <link rel="alternate" hreflang="en" href="https://aurvl.github.io/portfolio/explore-projects.html">
+    <link rel="alternate" hreflang="fr" href="https://aurvl.github.io/portfolio/explore-projects_fr.html">
+    <link rel="alternate" hreflang="x-default" href="https://aurvl.github.io/portfolio/explore-projects.html">
     <title>Explorer les Projets | Aurel VEHI</title>
     <link rel="icon" href="assets/img/pic-square.png" type="image/png">
-
-   <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8FKVJTTKSH"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-    
-      gtag('config', 'G-8FKVJTTKSH');
-    </script>
 
     <script type="application/ld+json">
     {
@@ -35,7 +38,7 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
           
-    <script src="https://kit.fontawesome.com/f56155cbc5.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/f56155cbc5.js" crossorigin="anonymous" defer></script>
 
 </head>
 
@@ -52,18 +55,18 @@
     <header class="header">
         <a class="logo" href="home_fr.html">Au<span>rel VEHI</span></a>
 
-        <nav class="navbar">
+        <nav class="navbar" id="primary-nav">
             <a href="home_fr.html">Accueil</a>
             <a href="#works" class="active">Projets</a>
             <a href="pages/blog_fr.html">Blog</a>
             <a href="home_fr.html#contacts">Contacts</a>
             
-            <select name="lang" id="lang" onchange="changeLanguage(this)">
+            <select name="lang" id="lang" onchange="changeLanguage(this)" aria-label="Langue">
                 <option value="en">En</option>
                 <option value="fr" selected>Fr</option>
             </select>
 
-            <div id="theme-toggle" class="theme-toggle">
+            <div id="theme-toggle" class="theme-toggle" role="button" tabindex="0" aria-label="Changer le thème">
                 <i class="fas fa-sun"></i>
                 <div class="toggle-slider"></div>
                 <i class="fas fa-moon"></i>
@@ -71,16 +74,16 @@
         </nav>
 
         <div class="mobile-nav" id="mobile-nav">
-            <div class="menu-toggle" id="menu-toggle">
+            <div class="menu-toggle" id="menu-toggle" role="button" tabindex="0" aria-label="Ouvrir le menu" aria-controls="primary-nav" aria-expanded="false">
                 &#9776; <!-- Code HTML pour les trois traits superposés -->
             </div>
-            <div id="theme-toggle-mobile" class="theme-toggle">
+            <div id="theme-toggle-mobile" class="theme-toggle" role="button" tabindex="0" aria-label="Changer le thème">
                 <i class="fas fa-sun"></i>
                 <div class="toggle-slider"></div>
                 <i class="fas fa-moon"></i>
             </div>
 
-            <select name="lang" id="lang-mobile" onchange="changeLanguage(this)">
+            <select name="lang" id="lang-mobile" onchange="changeLanguage(this)" aria-label="Langue">
                 <option value="en">En</option>
                 <option value="fr" selected>Fr</option>
             </select>
@@ -134,9 +137,9 @@
         <a class="logo" href="home_fr.html">.l<span>a</span>dev</a>
 
         <div class="link-contact">
-            <p><a href="https://www.linkedin.com/in/aurel-vehi-29887a290/" target="_blank">LinkedIn</a></p>
-            <p><a href="https://github.com/aurvl" target="_blank">Github</a></p>
-            <p><a href="https://hashnode.com/@aurvl" target="_blank">Hashnode</a></p>
+            <p><a href="https://www.linkedin.com/in/aurel-vehi-29887a290/" target="_blank" rel="noopener noreferrer">LinkedIn</a></p>
+            <p><a href="https://github.com/aurvl" target="_blank" rel="noopener noreferrer">Github</a></p>
+            <p><a href="https://hashnode.com/@aurvl" target="_blank" rel="noopener noreferrer">Hashnode</a></p>
         </div>
 
         <div class="copyright">
@@ -144,7 +147,7 @@
         </div>
     </footer>
 
-    <a class="to-top" href="#welcome">
+    <a class="to-top" href="#welcome" aria-label="Retour en haut">
         <i class="fas fa-long-arrow-up"></i>
     </a>
 

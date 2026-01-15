@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3L7YJ0JHG5"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-3L7YJ0JHG5');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="description" content="Site web d'Aurel VEHI, Data Analyst Junior, Analyste Économique et Statistique. Blog, projets, compétences et contacts.">
+    <link rel="canonical" href="https://aurvl.github.io/portfolio/home_fr.html">
+    <link rel="alternate" hreflang="en" href="https://aurvl.github.io/portfolio/index.html">
+    <link rel="alternate" hreflang="fr" href="https://aurvl.github.io/portfolio/home_fr.html">
+    <link rel="alternate" hreflang="x-default" href="https://aurvl.github.io/portfolio/index.html">
     <title>Aurel VEHI — Data Analyst Junior | Site Web</title>
     <link rel="icon" href="assets/img/pic-square.png" type="image/png">
-
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8FKVJTTKSH"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-    
-      gtag('config', 'G-8FKVJTTKSH');
-    </script>
 
     <script type="application/ld+json">
     {
@@ -35,7 +38,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
-    <script src="https://kit.fontawesome.com/f56155cbc5.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/f56155cbc5.js" crossorigin="anonymous" defer></script>
 </head>
 
 <body>
@@ -49,9 +52,9 @@
 
     <!-- Navbar -->
     <header class="header">
-        <a class="logo" href="#">.l<span>a</span>dev</a>
+        <a class="logo" href="home_fr.html">.l<span>a</span>dev</a>
 
-        <nav class="navbar">
+        <nav class="navbar" id="primary-nav">
             <a href="#home" class="active">Accueil</a>
             <a href="#about">Bio</a>
             <a href="#works">Projets</a>
@@ -59,12 +62,12 @@
             <a href="#blog">Blog</a>
             <a href="#contacts">Contacts</a>
             
-            <select name="lang" id="lang" onchange="changeLanguage(this)">
+            <select name="lang" id="lang" onchange="changeLanguage(this)" aria-label="Langue">
                 <option value="en">En</option>
                 <option value="fr" selected>Fr</option>
             </select>
 
-            <div id="theme-toggle" class="theme-toggle">
+            <div id="theme-toggle" class="theme-toggle" role="button" tabindex="0" aria-label="Changer le thème">
                 <i class="fas fa-sun"></i>
                 <div class="toggle-slider"></div>
                 <i class="fas fa-moon"></i>
@@ -72,17 +75,17 @@
         </nav>
 
         <div class="mobile-nav" id="mobile-nav">
-            <div class="menu-toggle" id="menu-toggle">
+            <div class="menu-toggle" id="menu-toggle" role="button" tabindex="0" aria-label="Ouvrir le menu" aria-controls="primary-nav" aria-expanded="false">
                 &#9776;
             </div>
 
-            <div id="theme-toggle-mobile" class="theme-toggle">
+            <div id="theme-toggle-mobile" class="theme-toggle" role="button" tabindex="0" aria-label="Changer le thème">
                 <i class="fas fa-sun"></i>
                 <div class="toggle-slider"></div>
                 <i class="fas fa-moon"></i>
             </div>
 
-            <select name="lang" id="lang-mobile" onchange="changeLanguage(this)">
+            <select name="lang" id="lang-mobile" onchange="changeLanguage(this)" aria-label="Langue">
                 <option value="en">En</option>
                 <option value="fr" selected>Fr</option>
             </select>
@@ -98,14 +101,14 @@
             <div class="bulles">
                 <a href="#contacts" class="about-home">Me contacter</a>
                 <div class="bulle-contact">
-                    <a href="https://www.linkedin.com/in/aurel-vehi-29887a290/" target="_blank"><i class='bx bxl-linkedin-square'></i></a>
-                    <a href="https://github.com/aurvl" target="_blank"><i class='bx bxl-github' ></i></a>
-                    <a href="https://hashnode.com/@aurvl" target="_blank"><i class="fa-brands fa-hashnode"></i></a>
+                    <a href="https://www.linkedin.com/in/aurel-vehi-29887a290/" target="_blank" rel="noopener noreferrer"><i class='bx bxl-linkedin-square'></i></a>
+                    <a href="https://github.com/aurvl" target="_blank" rel="noopener noreferrer"><i class='bx bxl-github' ></i></a>
+                    <a href="https://hashnode.com/@aurvl" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-hashnode"></i></a>
                 </div>
             </div>
         </div>
         <div class="pic-home">
-            <img src="assets/img/pp2.png" alt="pp" width="auto" height="100%">
+            <img src="assets/img/pp2.png" alt="Portrait d’Aurel VEHI" width="auto" height="100%">
         </div>
     </section>
 
@@ -263,62 +266,62 @@
                 
                 <div class="grid-data" id="skills-panel-data" role="tabpanel" aria-labelledby="skills-tab-data" aria-hidden="false">
                     <div class="skill-box">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" />
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt="Python" />
                         <span class="tooltip-text">Python</span>
                     </div>
     
                     <div class="skill-box" title="R">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/rstudio/rstudio-original.svg" />
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/rstudio/rstudio-original.svg" alt="R" />
                         <span class="tooltip-text">R Language</span>
                     </div>
 
                     <div class="skill-box">
-                        <img src="https://icon.icepanel.io/Technology/svg/Stata.svg" />
+                        <img src="https://icon.icepanel.io/Technology/svg/Stata.svg" alt="Stata" />
                         <span class="tooltip-text">Stata</span>
                     </div>
 
                     <div class="skill-box">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/julia/julia-original.svg" />
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/julia/julia-original.svg" alt="Julia" />
                         <span class="tooltip-text">Julia</span>
                     </div>
     
                     <div class="skill-box" title="MySQL">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original-wordmark.svg" />
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original-wordmark.svg" alt="MySQL" />
                         <span class="tooltip-text">MySQL</span>
                     </div>
 
                     <div class="skill-box">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg" />
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg" alt="PostgreSQL" />
                         <span class="tooltip-text">PostgreSQL</span>
                     </div>
 
                     <div class="skill-box">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original-wordmark.svg" />
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original-wordmark.svg" alt="MongoDB" />
                         <span class="tooltip-text">MongoDB</span>
                     </div>
 
                     <div class="skill-box">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg" />
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg" alt="Pandas" />
                         <span class="tooltip-text">Pandas</span>
                     </div>
 
                     <div class="skill-box">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/scikitlearn/scikitlearn-original.svg" />
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/scikitlearn/scikitlearn-original.svg" alt="Scikit-Learn" />
                         <span class="tooltip-text">Scikit-Learn</span>
                     </div>
 
                     <div class="skill-box">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tensorflow/tensorflow-original.svg" />
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tensorflow/tensorflow-original.svg" alt="TensorFlow" />
                         <span class="tooltip-text">Tensorflow</span>
                     </div>
 
                     <div class="skill-box">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytorch/pytorch-original-wordmark.svg" />
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytorch/pytorch-original-wordmark.svg" alt="PyTorch" />
                         <span class="tooltip-text">PyTorch</span>
                     </div>
 
                     <div class="skill-box">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/fastapi/fastapi-original.svg" />
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/fastapi/fastapi-original.svg" alt="FastAPI" />
                         <span class="tooltip-text">FastApi</span>
                     </div>
 
@@ -330,47 +333,47 @@
                 
                 <div class="grid-web" id="skills-panel-web" role="tabpanel" aria-labelledby="skills-tab-web" aria-hidden="true" style="display: none;">
                     <div class="skill-box" title="Git">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" />
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" alt="Git" />
                         <span class="tooltip-text">Git</span>
                     </div>
 
                     <div class="skill-box">
-                        <img src="https://icon.icepanel.io/Technology/svg/Visual-Studio-Code-%28VS-Code%29.svg" />
+                        <img src="https://icon.icepanel.io/Technology/svg/Visual-Studio-Code-%28VS-Code%29.svg" alt="Visual Studio Code" />
                         <span class="tooltip-text">Visual Studio Code</span>
                     </div>
 
                     <div class="skill-box" title="HTML">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original-wordmark.svg" />
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original-wordmark.svg" alt="HTML" />
                         <span class="tooltip-text">HTML</span>
                     </div>
     
                     <div class="skill-box">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original-wordmark.svg" />
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original-wordmark.svg" alt="CSS" />
                         <span class="tooltip-text">CSS</span>
                     </div>
 
                     <div class="skill-box">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" />
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" alt="JavaScript" />
                         <span class="tooltip-text">JavaScript</span>
                     </div>
 
                     <div class="skill-box">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/streamlit/streamlit-original.svg" />
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/streamlit/streamlit-original.svg" alt="Streamlit" />
                         <span class="tooltip-text">Streamlit</span>
                     </div>
 
                     <div class="skill-box">
-                        <img src="assets/img/pbi.png" width="auto" height="100%" />
+                        <img src="assets/img/pbi.png" alt="Power BI" width="auto" height="100%" />
                         <span class="tooltip-text">Power BI</span>
                     </div>
                     
                     <div class="skill-box">
-                        <img src="assets/img/tabl.png" width="auto" height="100%" />
+                        <img src="assets/img/tabl.png" alt="Tableau" width="auto" height="100%" />
                         <span class="tooltip-text">Tableau</span>
                     </div>
 
                     <div class="skill-box">
-                        <img width="auto" height="100%" src="https://img.icons8.com/fluency/48/microsoft-365.png" />
+                        <img width="auto" height="100%" src="https://img.icons8.com/fluency/48/microsoft-365.png" alt="Microsoft Office" />
                         <span class="tooltip-text">Microsoft Office</span>
                     </div>
 
@@ -380,7 +383,7 @@
                     </div>
 
                     <div class="skill-box">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/googlecloud/googlecloud-original.svg" />
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/googlecloud/googlecloud-original.svg" alt="Google Cloud" />
                         <span class="tooltip-text">Google Cloud</span>
                     </div>
                 </div>
@@ -422,21 +425,21 @@
     
             <div class="link-contact">
                 <p>
-                    <a href="https://www.linkedin.com/in/aurel-vehi-29887a290/" target="_blank">
+                    <a href="https://www.linkedin.com/in/aurel-vehi-29887a290/" target="_blank" rel="noopener noreferrer">
                         <i class='bx bxl-linkedin-square'></i>
                     </a>
                     <span onclick="window.open('https://www.linkedin.com/in/aurel-vehi-29887a290/', '_blank');" style="cursor: pointer;">LinkedIn</span>
                 </p>
     
                 <p>
-                    <a href="https://github.com/aurvl" target="_blank">
+                    <a href="https://github.com/aurvl" target="_blank" rel="noopener noreferrer">
                         <i class='bx bxl-github'></i>
                     </a>
                     <span onclick="window.open('https://github.com/aurvl', '_blank');" style="cursor: pointer;">Github</span>
                 </p>
     
                 <p>
-                    <a href="https://hashnode.com/@aurvl" target="_blank">
+                    <a href="https://hashnode.com/@aurvl" target="_blank" rel="noopener noreferrer">
                         <i class="fa-brands fa-hashnode"></i>
                     </a>
                     <span onclick="window.open('https://hashnode.com/@aurvl', '_blank');" style="cursor: pointer;">Hashnode</span>
@@ -464,13 +467,13 @@
 
     <!-- Pied de page -->
     <footer class="footer">
-        <a class="logo" href="#">.l<span>a</span>dev</a>
+        <a class="logo" href="home_fr.html">.l<span>a</span>dev</a>
         <div class="copyright">
             &copy; 2025 <span>Aurel VEHI</span>. Tous droits réservés.
         </div>
     </footer>
 
-    <a class="to-top" href="#home">
+    <a class="to-top" href="#home" aria-label="Retour en haut">
         <i class="fas fa-long-arrow-up"></i>
     </a>
 

@@ -1,7 +1,20 @@
+const BLOG_LANGUAGE_STORAGE_KEY = (typeof LANGUAGE_STORAGE_KEY !== 'undefined')
+    ? LANGUAGE_STORAGE_KEY
+    : 'selectedLanguage';
+const BLOG_POST_ID_QUERY_PARAM = 'id';
+
 document.addEventListener('DOMContentLoaded', async () => {
-    // Current Page Lang logic: Use HTML attribute as source of truth
-    const isFrench = document.documentElement.lang === 'fr' || window.location.href.includes('_fr');
-    const lang = isFrench ? 'fr' : 'en';
+    // Language source of truth: shared localStorage (fallback to page language)
+    const saved = (typeof getSavedLanguage === 'function') ? getSavedLanguage() : null;
+    const pageIsFrench = document.documentElement.lang === 'fr' || window.location.href.includes('_fr');
+    const lang = saved || (pageIsFrench ? 'fr' : 'en');
+    const isFrench = lang === 'fr';
+
+    if (!saved && typeof setSavedLanguage === 'function') {
+        setSavedLanguage(lang);
+    } else if (!saved) {
+        localStorage.setItem(BLOG_LANGUAGE_STORAGE_KEY, lang);
+    }
     
     // Store all fetched posts to allow filtering without re-fetching
     let allPosts = await getPosts(lang);
@@ -45,9 +58,26 @@ document.addEventListener('DOMContentLoaded', async () => {
     const navbar = document.querySelector('.navbar');
 
     if (menuToggle && navbar) {
-        menuToggle.addEventListener('click', () => {
+        const setExpanded = () => {
+            const expanded = navbar.classList.contains('active');
+            menuToggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+            menuToggle.setAttribute('aria-label', expanded ? 'Close menu' : 'Open menu');
+        };
+
+        const toggleMenu = () => {
             navbar.classList.toggle('active');
+            setExpanded();
+        };
+
+        menuToggle.addEventListener('click', toggleMenu);
+        menuToggle.addEventListener('keydown', (e) => {
+            const isActivate = e.key === 'Enter' || e.key === ' ';
+            if (!isActivate) return;
+            e.preventDefault();
+            toggleMenu();
         });
+
+        setExpanded();
     }
 });
 
@@ -95,7 +125,7 @@ function renderPosts(posts, lang, isFrench) {
         
         // Fix path: we are in pages/blog.html, so assets are ../assets
         const imgPath = '../' + post.cover;
-        const linkPath = `post.html?id=${post.id}`;
+        const linkPath = `post.html?${BLOG_POST_ID_QUERY_PARAM}=${post.id}`;
 
         card.innerHTML = `
             <div class="blog-img">

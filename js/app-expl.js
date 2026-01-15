@@ -2,6 +2,15 @@
 const sections = document.querySelectorAll('section');
 const navLinks = document.querySelectorAll('.navbar a');
 
+// Shared keys (keep identical across scripts)
+// Avoid global redeclaration collisions if other scripts define similar constants.
+const APP_EXPL_THEME_STORAGE_KEY = (typeof THEME_STORAGE_KEY !== 'undefined')
+    ? THEME_STORAGE_KEY
+    : 'theme';
+const APP_EXPL_LANGUAGE_STORAGE_KEY = (typeof LANGUAGE_STORAGE_KEY !== 'undefined')
+    ? LANGUAGE_STORAGE_KEY
+    : 'selectedLanguage';
+
 // Fonction pour activer le lien correspondant à la section visible
 window.onscroll = () => {
     let current = "";
@@ -29,16 +38,37 @@ window.onscroll = () => {
 const menuToggle = document.getElementById('menu-toggle');
 const navbar = document.querySelector('.navbar');
 
+function setMenuAriaExpanded() {
+    if (!menuToggle || !navbar) return;
+    const expanded = navbar.classList.contains('active');
+    menuToggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+    menuToggle.setAttribute('aria-label', expanded ? 'Close menu' : 'Open menu');
+}
+
+function toggleMenu() {
+    if (!navbar) return;
+    navbar.classList.toggle('active');
+    setMenuAriaExpanded();
+}
+
 if (menuToggle && navbar) {
-    menuToggle.addEventListener('click', () => {
-        navbar.classList.toggle('active');
+    menuToggle.addEventListener('click', toggleMenu);
+    menuToggle.addEventListener('keydown', (e) => {
+        const isActivate = e.key === 'Enter' || e.key === ' ';
+        if (!isActivate) return;
+        e.preventDefault();
+        toggleMenu();
     });
+
+    setMenuAriaExpanded();
 }
 
 // Sauvegarder la langue choisie
 function changeLanguage(select) {
     const selectedLanguage = select.value;
-    localStorage.setItem('selectedLanguage', selectedLanguage);
+    localStorage.setItem(APP_EXPL_LANGUAGE_STORAGE_KEY, selectedLanguage);
+
+    updateLogoLinksForLanguage(selectedLanguage);
 
     if (selectedLanguage === 'en') {
         window.location.href = 'explore-projects.html';
@@ -47,13 +77,20 @@ function changeLanguage(select) {
     }
 }
 
+function updateLogoLinksForLanguage(lang) {
+    const normalized = (lang === 'fr') ? 'fr' : 'en';
+    const homeHref = normalized === 'fr' ? 'home_fr.html' : 'index.html';
+    document.querySelectorAll('a.logo').forEach(logo => logo.setAttribute('href', homeHref));
+}
+
 // Charger la langue sauvegardée
 window.onload = function() {
-    const savedLanguage = localStorage.getItem('selectedLanguage');
+    const savedLanguage = localStorage.getItem(APP_EXPL_LANGUAGE_STORAGE_KEY);
     const langDesktop = document.getElementById('lang');
     const langMobile = document.getElementById('lang-mobile');
 
     if (savedLanguage) {
+        updateLogoLinksForLanguage(savedLanguage);
         if (langDesktop) langDesktop.value = savedLanguage;
         if (langMobile) langMobile.value = savedLanguage;
 
@@ -63,20 +100,17 @@ window.onload = function() {
         } else if (savedLanguage === 'en' && isFrenchPage) {
             window.location.href = 'explore-projects.html';
         }
+    } else {
+        updateLogoLinksForLanguage(window.location.pathname.includes('_fr') ? 'fr' : 'en');
     }
 };
 
-const themeToggleBtn = document.getElementById('theme-toggle');
 const body = document.body;
-
-// Check for saved theme in localStorage
-// Note: Logic moved to inline script in head to prevent FOUC
-const savedTheme = localStorage.getItem('theme') || 'dark';
 
 // Toggle theme and save preference in localStorage
 const themeToggleBtns = document.querySelectorAll('.theme-toggle');
 themeToggleBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
+    const handleToggleTheme = () => {
         // Check if currently dark (fallback to dark if no class)
         const isDark = body.classList.contains('dark-theme') || (!body.classList.contains('light-theme'));
 
@@ -85,14 +119,22 @@ themeToggleBtns.forEach(btn => {
             body.classList.remove('dark-theme');
             body.classList.add('light-theme');
             document.documentElement.className = 'light-theme';
-            localStorage.setItem('theme', 'light');
+            localStorage.setItem(APP_EXPL_THEME_STORAGE_KEY, 'light');
         } else {
             // Switch to Dark
             body.classList.remove('light-theme');
             body.classList.add('dark-theme');
             document.documentElement.className = 'dark-theme';
-            localStorage.setItem('theme', 'dark');
+            localStorage.setItem(APP_EXPL_THEME_STORAGE_KEY, 'dark');
         }
+    };
+
+    btn.addEventListener('click', handleToggleTheme);
+    btn.addEventListener('keydown', (e) => {
+        const isActivate = e.key === 'Enter' || e.key === ' ';
+        if (!isActivate) return;
+        e.preventDefault();
+        handleToggleTheme();
     });
 });
 
@@ -260,6 +302,21 @@ document.addEventListener("DOMContentLoaded", async function () {
         projectGrid.innerHTML = "";
         projectList.forEach(project => {
             const toolsHTML = project.tools.filter(t => t).map(t => `<p>${t}</p>`).join('');
+
+            const link1 = (project.link1 || '').trim();
+            const link2 = (project.link2 || '').trim();
+
+            // Title: prefer link1, fallback to link2, else render as plain text
+            const titleHref = link1 || link2;
+            const titleHTML = titleHref
+                ? `<a href="${titleHref}" class="hover-link" target="_blank" rel="noopener noreferrer">${project.title}</a>`
+                : `${project.title}`;
+
+            // Read-more button: only render if we have a destination
+            const readMoreHTML = link2
+                ? `<a href="${link2}" class="rm" target="_blank" rel="noopener noreferrer">${isFrench ? 'Lire plus ➜' : 'Read more ➜'}</a>`
+                : '';
+
             const box = document.createElement('div');
             box.className = 'box';
             box.setAttribute('date', project.date);
@@ -269,11 +326,11 @@ document.addEventListener("DOMContentLoaded", async function () {
                     <img src="${project.pic}" alt="project${project.n}">
                 </div>
                 <div class="tdd">
-                    <h2><a href="${project.link1}" class="hover-link" target="_blank">${project.title}</a></h2>
+                    <h2>${titleHTML}</h2>
                     <p>📅 ${project.monh}, ${project.year}</p>
                     <div class="tools-used">${toolsHTML}</div>
                     <p>${project.description}</p>
-                    <a href="${project.link2}" class="rm" target="_blank">${isFrench ? 'Lire plus ➜' : 'Read more ➜'}</a>
+                    ${readMoreHTML}
                 </div>
             `;
             projectGrid.appendChild(box);
