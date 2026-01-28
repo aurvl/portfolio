@@ -1,5 +1,22 @@
 [
     {
+        "pic": "assets/img/p14.png",
+        "n": "19",
+        "link1": "https://fgindexestimator.onrender.com/web/",
+        "link2": "https://github.com/aurvl/FGIndexEstimator",
+        "title": "Fear & Greed Index Estimator",
+        "monh": "Jan",
+        "year": "2026",
+        "date": "2026-01-27",
+        "tools": [
+            "Finance",
+            "Statistical Modeling",
+            "Data Processing",
+            ""
+        ],
+        "description": "This project aims to reconstruct a CNN Fear & Greed-type index from public data (Yahoo Finance, FRED) by combining several market indicators (equities, volatility, bonds, credit). The objective is twofold: Match the official CNN Fear & Greed index as closely as possible and propose a transparent and interpretable theoretical index that can be used in quantitative analyses or trading strategies. The full pipeline is implemented in Python (pandas, scikit-learn, yfinance) and documented in a main notebook."
+    },
+    {
         "pic": "assets/img/p13.jpg",
         "n": "18",
         "link1": "",
