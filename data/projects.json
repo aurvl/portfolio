@@ -1,5 +1,22 @@
 [
     {
+        "pic": "https://github.com/aurvl/Data-Analysis-Project-Sales/dashboard/illust.png",
+        "n": "20",
+        "link1": "https://aurvl.github.io/portfolio/pages/post.html?id=data-analyst-proj1",
+        "link2": "https://github.com/aurvl/Data-Analysis-Project-Sales",
+        "title": "Sales Analytics Dashboard",
+        "monh": "Mar",
+        "year": "2026",
+        "date": "2026-03-16",
+        "tools": [
+            "PostgreSQL",
+            "SQL",
+            "Power BI",
+            "Data Modeling"
+        ],
+        "description": "Built an end-to-end BI workflow turning raw sales data into decision-ready dashboards. The project structures the dataset through analytical SQL views dedicated to customers, products and overall business performance, then connects them to Power BI to monitor revenue, order value, customer value, recency, customer segmentation and product performance. For a business, this kind of solution helps identify high-value customers, best-selling products, growth segments and underperforming areas in order to improve commercial, marketing and catalog decisions. This project highlights my ability to design business-oriented data models, write analytical SQL, define KPIs and deliver effective dashboards for decision-making."
+    },
+    {
         "pic": "assets/img/p14.png",
         "n": "19",
         "link1": "https://fgindexestimator.onrender.com/web/",

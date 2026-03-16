@@ -1,5 +1,22 @@
 [
     {
+        "pic": "https://github.com/aurvl/Data-Analysis-Project-Sales/dashboard/illust.png",
+        "n": "20",
+        "link1": "https://aurvl.github.io/portfolio/pages/post.html?id=data-analyst-proj1",
+        "link2": "https://github.com/aurvl/Data-Analysis-Project-Sales",
+        "title": "Sales Analytics Dashboard",
+        "monh": "Mar",
+        "year": "2026",
+        "date": "2026-03-16",
+        "tools": [
+            "PostgreSQL",
+            "SQL",
+            "Power BI",
+            "Data Modeling"
+        ],
+        "description": "Conception d’un pipeline BI complet pour transformer des données de ventes brutes en tableaux de bord décisionnels. Le projet structure les données autour d’un schéma analytique avec vues dédiées aux clients, aux produits et à la performance globale, puis les exploite dans Power BI pour suivre le chiffre d’affaires, le panier moyen, la valeur client, la récence, les segments clients et la performance produit. Pour une entreprise, ce type de solution aide à identifier les clients les plus rentables, les produits moteurs, les segments à fort potentiel et les zones de sous-performance afin d’améliorer les décisions commerciales, marketing et catalogue. Ce projet confirme mes compétences en modélisation analytique, SQL métier, conception de KPI et data visualization orientée business."
+    },
+    {
         "pic": "assets/img/p14.png",
         "n": "19",
         "link1": "https://fgindexestimator.onrender.com/web/",
