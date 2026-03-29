@@ -1,0 +1,667 @@
+{
+  "categories": [
+    {
+      "id": "data",
+      "label": {
+        "en": "Data and modeling",
+        "fr": "Data et modélisation"
+      },
+      "description": {
+        "en": "Core languages, data manipulation, modeling, and ML tooling.",
+        "fr": "Langages, manipulation de données, modélisation et outils ML."
+      },
+      "items": [
+        {
+          "id": "SK001",
+          "slug": "python",
+          "icon": {
+            "src": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg",
+            "alt": {
+              "en": "Python logo",
+              "fr": "Logo Python"
+            }
+          },
+          "content": {
+            "label": {
+              "en": "Python",
+              "fr": "Python"
+            },
+            "description": {
+              "en": "Data cleaning, EDA, machine learning, and automation workflows.",
+              "fr": "Nettoyage de données, EDA, machine learning et workflows d'automatisation."
+            }
+          },
+          "tags": [
+            "data",
+            "ml",
+            "automation"
+          ]
+        },
+        {
+          "id": "SK002",
+          "slug": "r",
+          "icon": {
+            "src": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/rstudio/rstudio-original.svg",
+            "alt": {
+              "en": "R logo",
+              "fr": "Logo R"
+            }
+          },
+          "content": {
+            "label": {
+              "en": "R",
+              "fr": "R"
+            },
+            "description": {
+              "en": "Statistics, econometrics, data analysis, and reporting.",
+              "fr": "Statistiques, économétrie, analyse de données et reporting."
+            }
+          },
+          "tags": [
+            "data",
+            "econometrics",
+            "statistics"
+          ]
+        },
+        {
+          "id": "SK003",
+          "slug": "stata",
+          "icon": {
+            "src": "https://icon.icepanel.io/Technology/svg/Stata.svg",
+            "alt": {
+              "en": "Stata logo",
+              "fr": "Logo Stata"
+            }
+          },
+          "content": {
+            "label": {
+              "en": "Stata",
+              "fr": "Stata"
+            },
+            "description": {
+              "en": "Applied econometrics and academic statistical workflows.",
+              "fr": "économétrie appliquée et workflows statistiques académiques."
+            }
+          },
+          "tags": [
+            "econometrics",
+            "statistics"
+          ]
+        },
+        {
+          "id": "SK004",
+          "slug": "julia",
+          "icon": {
+            "src": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/julia/julia-original.svg",
+            "alt": {
+              "en": "Julia logo",
+              "fr": "Logo Julia"
+            }
+          },
+          "content": {
+            "label": {
+              "en": "Julia",
+              "fr": "Julia"
+            },
+            "description": {
+              "en": "Scientific computing and numerical experimentation.",
+              "fr": "Calcul scientifique et expérimentation numérique."
+            }
+          },
+          "tags": [
+            "scientific-computing",
+            "numerical-methods"
+          ]
+        },
+        {
+          "id": "SK005",
+          "slug": "pandas",
+          "icon": {
+            "src": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg",
+            "alt": {
+              "en": "Pandas logo",
+              "fr": "Logo Pandas"
+            }
+          },
+          "content": {
+            "label": {
+              "en": "Pandas",
+              "fr": "Pandas"
+            },
+            "description": {
+              "en": "Tabular wrangling, transformations, and exploratory analysis.",
+              "fr": "Manipulation tabulaire, transformations et analyse exploratoire."
+            }
+          },
+          "tags": [
+            "data",
+            "wrangling"
+          ]
+        },
+        {
+          "id": "SK006",
+          "slug": "scikit-learn",
+          "icon": {
+            "src": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/scikitlearn/scikitlearn-original.svg",
+            "alt": {
+              "en": "Scikit-Learn logo",
+              "fr": "Logo Scikit-Learn"
+            }
+          },
+          "content": {
+            "label": {
+              "en": "Scikit-Learn",
+              "fr": "Scikit-Learn"
+            },
+            "description": {
+              "en": "Classical machine learning, preprocessing, and evaluation.",
+              "fr": "Machine learning classique, pretraitement et evaluation."
+            }
+          },
+          "tags": [
+            "ml",
+            "evaluation"
+          ]
+        },
+        {
+          "id": "SK007",
+          "slug": "tensorflow",
+          "icon": {
+            "src": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tensorflow/tensorflow-original.svg",
+            "alt": {
+              "en": "TensorFlow logo",
+              "fr": "Logo TensorFlow"
+            }
+          },
+          "content": {
+            "label": {
+              "en": "TensorFlow",
+              "fr": "TensorFlow"
+            },
+            "description": {
+              "en": "Deep learning models and neural network prototyping.",
+              "fr": "Modèles de deep learning et prototypage de réseaux de neurones."
+            }
+          },
+          "tags": [
+            "deep-learning",
+            "ml"
+          ]
+        },
+        {
+          "id": "SK008",
+          "slug": "pytorch",
+          "icon": {
+            "src": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytorch/pytorch-original-wordmark.svg",
+            "alt": {
+              "en": "PyTorch logo",
+              "fr": "Logo PyTorch"
+            }
+          },
+          "content": {
+            "label": {
+              "en": "PyTorch",
+              "fr": "PyTorch"
+            },
+            "description": {
+              "en": "Research-oriented deep learning experiments and training loops.",
+              "fr": "Expérimentations deep learning et entrainements orientés recherche."
+            }
+          },
+          "tags": [
+            "deep-learning",
+            "research"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "data-platforms",
+      "label": {
+        "en": "Databases and APIs",
+        "fr": "Bases de données et API"
+      },
+      "description": {
+        "en": "Storage, querying, data services, and backend integration.",
+        "fr": "Stockage, requêtage, services data et integration backend."
+      },
+      "items": [
+        {
+          "id": "SK009",
+          "slug": "mysql",
+          "icon": {
+            "src": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original-wordmark.svg",
+            "alt": {
+              "en": "MySQL logo",
+              "fr": "Logo MySQL"
+            }
+          },
+          "content": {
+            "label": {
+              "en": "MySQL",
+              "fr": "MySQL"
+            },
+            "description": {
+              "en": "Relational queries, schema design, and data extraction.",
+              "fr": "Requêtes relationnelles, schémas et extraction de données."
+            }
+          },
+          "tags": [
+            "sql",
+            "database"
+          ]
+        },
+        {
+          "id": "SK010",
+          "slug": "postgresql",
+          "icon": {
+            "src": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg",
+            "alt": {
+              "en": "PostgreSQL logo",
+              "fr": "Logo PostgreSQL"
+            }
+          },
+          "content": {
+            "label": {
+              "en": "PostgreSQL",
+              "fr": "PostgreSQL"
+            },
+            "description": {
+              "en": "Analytics-ready modeling, SQL querying, and structured storage.",
+              "fr": "Modélisation analytique, SQL et stockage structure."
+            }
+          },
+          "tags": [
+            "sql",
+            "database",
+            "analytics"
+          ]
+        },
+        {
+          "id": "SK011",
+          "slug": "mongodb",
+          "icon": {
+            "src": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original-wordmark.svg",
+            "alt": {
+              "en": "MongoDB logo",
+              "fr": "Logo MongoDB"
+            }
+          },
+          "content": {
+            "label": {
+              "en": "MongoDB",
+              "fr": "MongoDB"
+            },
+            "description": {
+              "en": "Document databases and flexible NoSQL data structures.",
+              "fr": "Bases documentaires et structures NoSQL flexibles."
+            }
+          },
+          "tags": [
+            "nosql",
+            "database"
+          ]
+        },
+        {
+          "id": "SK012",
+          "slug": "fastapi",
+          "icon": {
+            "src": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/fastapi/fastapi-original.svg",
+            "alt": {
+              "en": "FastAPI logo",
+              "fr": "Logo FastAPI"
+            }
+          },
+          "content": {
+            "label": {
+              "en": "FastAPI",
+              "fr": "FastAPI"
+            },
+            "description": {
+              "en": "API development, model serving, and backend endpoints.",
+              "fr": "Developpement d'API, serving de modèles et endpoints backend."
+            }
+          },
+          "tags": [
+            "api",
+            "backend",
+            "serving"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "frontend-apps",
+      "label": {
+        "en": "Web, apps, and AI assistants",
+        "fr": "Web, applications et assistants IA"
+      },
+      "description": {
+        "en": "Frontend foundations, lightweight app tooling, and AI coding assistants.",
+        "fr": "Fondations frontend, outils d'applications et assistants de codage IA."
+      },
+      "items": [
+        {
+          "id": "SK024",
+          "slug": "codex-openai",
+          "icon": {
+            "src": null,
+            "key": "openai",
+            "alt": {
+              "en": "OpenAI Codex logo",
+              "fr": "Logo Codex OpenAI"
+            }
+          },
+          "content": {
+            "label": {
+              "en": "Codex OpenAI",
+              "fr": "Codex OpenAI"
+            },
+            "description": {
+              "en": "AI coding assistant for faster prototyping, generation, and refactoring.",
+              "fr": "Assistant de codage IA pour le prototypage, la génération et le refactoring plus rapides."
+            }
+          },
+          "tags": [
+            "ai",
+            "assistant",
+            "coding"
+          ]
+        },
+        {
+          "id": "SK025",
+          "slug": "github-copilot",
+          "icon": {
+            "src": null,
+            "key": "copilot",
+            "alt": {
+              "en": "GitHub Copilot logo",
+              "fr": "Logo GitHub Copilot"
+            }
+          },
+          "content": {
+            "label": {
+              "en": "GitHub Copilot",
+              "fr": "GitHub Copilot"
+            },
+            "description": {
+              "en": "AI pair-programming assistant for suggestions, completions, and code cleanup.",
+              "fr": "Assistant de pair-programming IA pour les suggestions, complétions et le nettoyage du code."
+            }
+          },
+          "tags": [
+            "ai",
+            "assistant",
+            "pair-programming"
+          ]
+        },
+        {
+          "id": "SK013",
+          "slug": "git",
+          "icon": {
+            "src": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg",
+            "alt": {
+              "en": "Git logo",
+              "fr": "Logo Git"
+            }
+          },
+          "content": {
+            "label": {
+              "en": "Git",
+              "fr": "Git"
+            },
+            "description": {
+              "en": "Version control, collaboration, and project history.",
+              "fr": "Versioning, collaboration et historique projet."
+            }
+          },
+          "tags": [
+            "workflow",
+            "collaboration"
+          ]
+        },
+        {
+          "id": "SK014",
+          "slug": "vs-code",
+          "icon": {
+            "src": "https://icon.icepanel.io/Technology/svg/Visual-Studio-Code-%28VS-Code%29.svg",
+            "alt": {
+              "en": "VS Code logo",
+              "fr": "Logo VS Code"
+            }
+          },
+          "content": {
+            "label": {
+              "en": "VS Code",
+              "fr": "VS Code"
+            },
+            "description": {
+              "en": "Code editing, debugging, and project workflow management.",
+              "fr": "Ã‰dition de code, débogage et gestion du workflow projet."
+            }
+          },
+          "tags": [
+            "editor",
+            "workflow"
+          ]
+        },
+        {
+          "id": "SK015",
+          "slug": "html",
+          "icon": {
+            "src": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original-wordmark.svg",
+            "alt": {
+              "en": "HTML logo",
+              "fr": "Logo HTML"
+            }
+          },
+          "content": {
+            "label": {
+              "en": "HTML",
+              "fr": "HTML"
+            },
+            "description": {
+              "en": "Semantic page structure and content layout.",
+              "fr": "Structure sémantique des pages et organisation du contenu."
+            }
+          },
+          "tags": [
+            "frontend",
+            "markup"
+          ]
+        },
+        {
+          "id": "SK016",
+          "slug": "javascript",
+          "icon": {
+            "src": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg",
+            "alt": {
+              "en": "JavaScript logo",
+              "fr": "Logo JavaScript"
+            }
+          },
+          "content": {
+            "label": {
+              "en": "JavaScript",
+              "fr": "JavaScript"
+            },
+            "description": {
+              "en": "UI logic, interactions, and dynamic frontend behavior.",
+              "fr": "Logique UI, interactions et comportement dynamique frontend."
+            }
+          },
+          "tags": [
+            "frontend",
+            "logic"
+          ]
+        },
+        {
+          "id": "SK017",
+          "slug": "react",
+          "icon": {
+            "src": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg",
+            "alt": {
+              "en": "React logo",
+              "fr": "Logo React"
+            }
+          },
+          "content": {
+            "label": {
+              "en": "React",
+              "fr": "React"
+            },
+            "description": {
+              "en": "Component-driven interfaces and modern frontend state flows.",
+              "fr": "Interfaces par composants et flux d'état modernes coté frontend."
+            }
+          },
+          "tags": [
+            "frontend",
+            "ui"
+          ]
+        },
+        {
+          "id": "SK018",
+          "slug": "docker",
+          "icon": {
+            "src": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original-wordmark.svg",
+            "alt": {
+              "en": "Docker logo",
+              "fr": "Logo Docker"
+            }
+          },
+          "content": {
+            "label": {
+              "en": "Docker",
+              "fr": "Docker"
+            },
+            "description": {
+              "en": "Containers, reproducible environments, and deployment packaging.",
+              "fr": "Conteneurs, environnements reproductibles et packaging de d\u00e9ploiement."
+            }
+          },
+          "tags": [
+            "containerization",
+            "deployment",
+            "devops"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "analytics-tools",
+      "label": {
+        "en": "BI and productivity",
+        "fr": "BI et productivité"
+      },
+      "description": {
+        "en": "Visualization, dashboards, documentation, and cloud support tools.",
+        "fr": "Visualisation, dashboards, documentation et outils de support cloud."
+      },
+      "items": [
+        {
+          "id": "SK019",
+          "slug": "power-bi",
+          "icon": {
+            "src": "/assets/images/tools/pbi.png",
+            "alt": {
+              "en": "Power BI logo",
+              "fr": "Logo Power BI"
+            }
+          },
+          "content": {
+            "label": {
+              "en": "Power BI",
+              "fr": "Power BI"
+            },
+            "description": {
+              "en": "Dashboards, KPI tracking, and business reporting.",
+              "fr": "Dashboards, suivi de KPI et reporting business."
+            }
+          },
+          "tags": [
+            "bi",
+            "dashboard"
+          ]
+        },
+        {
+          "id": "SK020",
+          "slug": "tableau",
+          "icon": {
+            "src": "/assets/images/tools/tabl.png",
+            "alt": {
+              "en": "Tableau logo",
+              "fr": "Logo Tableau"
+            }
+          },
+          "content": {
+            "label": {
+              "en": "Tableau",
+              "fr": "Tableau"
+            },
+            "description": {
+              "en": "Data storytelling and interactive visual analytics.",
+              "fr": "Data storytelling et analyse visuelle interactive."
+            }
+          },
+          "tags": [
+            "bi",
+            "visualization"
+          ]
+        },
+        {
+          "id": "SK021",
+          "slug": "microsoft-office",
+          "icon": {
+            "src": "https://img.icons8.com/fluency/48/microsoft-365.png",
+            "alt": {
+              "en": "Microsoft Office logo",
+              "fr": "Logo Microsoft Office"
+            }
+          },
+          "content": {
+            "label": {
+              "en": "Microsoft Office",
+              "fr": "Microsoft Office"
+            },
+            "description": {
+              "en": "Documentation, reporting, and productivity workflows.",
+              "fr": "Documentation, reporting et workflows de productivité."
+            }
+          },
+          "tags": [
+            "productivity",
+            "reporting"
+          ]
+        },
+        {
+          "id": "SK022",
+          "slug": "excel",
+          "icon": {
+            "src": "https://upload.wikimedia.org/wikipedia/commons/e/e3/Microsoft_Office_Excel_%282019%E2%80%932025%29.svg",
+            "alt": {
+              "en": "Excel logo",
+              "fr": "Logo Excel"
+            }
+          },
+          "content": {
+            "label": {
+              "en": "Excel",
+              "fr": "Excel"
+            },
+            "description": {
+              "en": "Spreadsheet analysis, formulas, and reporting support.",
+              "fr": "Analyse sur tableur, formules et support au reporting."
+            }
+          },
+          "tags": [
+            "spreadsheet",
+            "reporting"
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+

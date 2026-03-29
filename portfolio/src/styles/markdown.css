@@ -1,0 +1,240 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+.md-content {
+  color: var(--text2-col);
+}
+
+.md-content > *:first-child {
+  margin-top: 0;
+}
+
+.md-content__h1,
+.md-content__h2,
+.md-content__h3 {
+  color: var(--text-col);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.md-content__h1 {
+  margin: 0 0 1rem;
+  font-size: 3rem;
+}
+
+.md-content__h2 {
+  margin: 1.75rem 0 0.75rem;
+  font-size: 1.5rem;
+}
+
+.md-content__h3 {
+  margin: 1.25rem 0 0.5rem;
+  font-size: 1.125rem;
+}
+
+.md-content__p {
+  margin: 0 0 1rem;
+  line-height: 1.5;
+}
+
+.md-content__link {
+  color: var(--accent-blue);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.md-content__img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  margin: 1.25rem 0;
+  border-radius: 16px;
+}
+
+.md-content__blockquote {
+  display: block;
+  margin: 1.25rem 0;
+  padding: 1rem;
+  border-left: 3px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-col);
+}
+
+.md-content__blockquote > *:first-child {
+  margin-top: 0;
+}
+
+.md-content__blockquote > *:last-child {
+  margin-bottom: 0;
+}
+
+.md-content__blockquote > * {
+  display: block;
+  width: 100%;
+}
+
+.md-content__blockquote p {
+  margin: 0 1rem 1rem 0;
+}
+
+.md-content__blockquote ul,
+.md-content__blockquote ol {
+  margin: 0 1rem 0;
+}
+
+.md-content__blockquote > *:last-child {
+  margin-bottom: 0;
+}
+
+.md-content__ul {
+  margin: 0 0 1rem 1.25rem;
+  padding-left: 1.25rem;
+  list-style-type: disc;
+}
+
+.md-content__ol {
+  margin: 0 0 1rem 1.25rem;
+  padding-left: 1.25rem;
+  list-style-type: decimal;
+}
+
+.md-content__li {
+  margin-bottom: 0.6rem;
+  line-height: 1.8;
+}
+
+.md-content__ul,
+.md-content__ol {
+  margin: 0 0 1rem 1.25rem;
+  padding: 0;
+}
+
+.md-content__li {
+  margin-bottom: 0.6rem;
+  line-height: 1.8;
+}
+
+.md-content__li--done,
+.md-content__li--avoid {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-left: -1.25rem;
+  list-style: none;
+}
+
+.md-content__li--done {
+  color: #4ade80;
+}
+
+.md-content__li--avoid {
+  color: #f87171;
+}
+
+.md-content__li-badge {
+  display: inline-flex;
+  min-width: 1rem;
+  height: 1rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.md-content__li-badge--done {
+  background: rgba(34, 197, 94, 0.16);
+  color: #4ade80;
+  border: 1px solid rgba(34, 197, 94, 0.35);
+}
+
+.md-content__li-badge--avoid {
+  background: rgba(239, 68, 68, 0.14);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.35);
+}
+
+.md-content__table-wrapper {
+  width: fit-content;
+  max-width: 100%;
+  margin: 1.25rem auto;
+  overflow-x: auto;
+  border: 1px solid var(--glass-border);
+  border-radius: 10px;
+}
+
+.md-content__table {
+  width: max-content;
+  border-collapse: collapse;
+  overflow: hidden;
+}
+
+.md-content__thead {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.md-content__th,
+.md-content__td {
+  padding: 0.5rem 1rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.md-content__th {
+  color: var(--text-col);
+  font-weight: 700;
+}
+
+.md-content__tr + .md-content__tr {
+  border-top: 1px solid var(--glass-border);
+}
+
+
+.md-content__hr {
+  margin: 1.5rem 0;
+  border: none;
+  border-top: 1px solid var(--glass-border);
+}
+
+.md-content__panel {
+  margin: 1.25rem 0;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--glass-border);
+}
+
+.md-content__panel-header {
+  padding: 0.5rem 1rem;
+  font-weight: 700;
+  color: var(--text-col);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.md-content__panel-body {
+  padding: 0.5rem 1rem;
+  color: var(--text2-col);
+}
+
+.md-content__panel--blue {
+  background: rgba(33, 107, 143, 0.18);
+}
+
+.md-content__panel--blue .md-content__panel-header {
+  background: rgba(33, 107, 143, 0.28);
+}
+
+.md-content__panel--green {
+  background: rgba(34, 197, 94, 0.12);
+}
+
+.md-content__panel--green .md-content__panel-header {
+  background: rgba(34, 197, 94, 0.2);
+}
+
+.md-content__panel--red {
+  background: rgba(239, 68, 68, 0.12);
+}
+
+.md-content__panel--red .md-content__panel-header {
+  background: rgba(239, 68, 68, 0.18);
+}
