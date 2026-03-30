@@ -6,7 +6,7 @@ type ProjectWindowSectionProps = {
 
 function ProjectWindowSection({ content }: ProjectWindowSectionProps) {
     return (
-        <section className="project-win-sect w-full">
+        <section className="project-win-sect min-w-0 w-full max-w-full">
             <MdContentRenderer content={content} />
         </section>
     )

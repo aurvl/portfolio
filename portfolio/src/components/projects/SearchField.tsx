@@ -9,12 +9,12 @@ type SearchFieldProps = {
 
 function SearchField({ label, placeholder, value, onChange }: SearchFieldProps) {
   return (
-    <div className="flex w-full flex-col gap-2 md:w-2/5">
+    <div className="flex min-w-0 w-full max-w-full flex-col gap-2 md:w-2/5">
       <p className="text-[var(--text2-col)]">{label}</p>
 
       <div
         className="
-        relative rounded-lg border border-[var(--statboxborder-col)] bg-[var(--fields-bg-col)]
+        relative max-w-full rounded-lg border border-[var(--statboxborder-col)] bg-[var(--fields-bg-col)]
         transition
         focus-within:ring-2 focus-within:ring-[var(--accent-lgtblue)]
         focus-within:border-[var(--accent-lgtblue)]

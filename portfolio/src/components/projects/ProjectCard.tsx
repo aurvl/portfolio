@@ -88,7 +88,7 @@ function ProjectCard({ project, onOpenProject, cardId }: ProjectCardProps) {
             }
           : undefined
       }
-      className={`flex w-full md:w-[calc(50%-0.5rem)] lg:w-[calc(33.333%-0.667rem)] aspect-[4/5]
+      className={`flex min-w-0 w-full aspect-[4/5]
       ${isInteractive ? 'cursor-pointer' : 'cursor-default'} flex-col gap-2 rounded-lg border
       border-[var(--glass-border)] p-2 underline-none transition-all duration-200 ease-in-out
       hover:border-[var(--accent-lgtblue)] hover:bg-[var(--btn-sobre-col)]`}
@@ -98,6 +98,7 @@ function ProjectCard({ project, onOpenProject, cardId }: ProjectCardProps) {
           <img
             src={project.cover.src || DEFAULT_PROJECT_COVER}
             alt={coverAlt}
+            loading="lazy"
             onError={(event) => {
               event.currentTarget.src = DEFAULT_PROJECT_COVER
             }}
@@ -120,7 +121,7 @@ function ProjectCard({ project, onOpenProject, cardId }: ProjectCardProps) {
           {keywords.slice(0, 3).map((keyword) => (
             <span
               key={keyword}
-              className="rounded-[7px] bg-[var(--keyw-bg-col)] px-2 py-1 text-xs font-semibold uppercase text-[var(--keyw-col)]"
+              className="rounded-[7px] bg-[var(--keyw-bg-col)] px-2 py-1 text-xs font-semibold uppercase text-[var(--keyw-col-window)]"
             >
               {keyword}
             </span>
@@ -153,7 +154,7 @@ function ProjectCard({ project, onOpenProject, cardId }: ProjectCardProps) {
         </div>
 
         <div className="flex justify-between">
-          <span className="flex items-center text-sm text-[var(--text2-col)]">
+          <span className="flex items-center text-sm text-[var(--text2-col)] capitalize">
             {new Date(project.date).toLocaleDateString(i18n.language, {
               month: 'short',
               year: '2-digit',

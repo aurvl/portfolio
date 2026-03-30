@@ -6,6 +6,7 @@ import { getProjectWindowSections } from '../../lib/projectWindowContent'
 import { getLocalizedField, getProjectContent } from '../../lib/utils'
 import type { Project } from '../../types/project'
 import type { ProjectWindowTabId } from '../../types/project-window'
+import ProjectWindowAccessGate from './ProjectWindowAccessGate'
 import ProjectWindowSection from './ProjectWindowSection'
 import ProjectWindowTabs from './ProjectWindowTabs'
 
@@ -25,13 +26,18 @@ const TOTAL_TECH_LEVEL = 3
 function ProjectWindow({ project, isOpen, onClose }: ProjectWindowProps) {
   const { t, i18n } = useTranslation()
   const [activeTab, setActiveTab] = useState<ProjectWindowTabId>('overview')
+  const [isSmallScreen, setIsSmallScreen] = useState(false)
 
   useEffect(() => {
     if (!isOpen) {
       return
     }
 
-    setActiveTab('overview')
+    const timeoutId = window.setTimeout(() => {
+      setActiveTab('overview')
+    }, 0)
+
+    return () => window.clearTimeout(timeoutId)
   }, [isOpen, project?.id, i18n.language])
 
   useEffect(() => {
@@ -66,6 +72,19 @@ function ProjectWindow({ project, isOpen, onClose }: ProjectWindowProps) {
     }
   }, [isOpen])
 
+  useEffect(() => {
+    const updateViewportState = () => {
+      setIsSmallScreen(window.innerWidth < 640)
+    }
+
+    updateViewportState()
+    window.addEventListener('resize', updateViewportState)
+
+    return () => {
+      window.removeEventListener('resize', updateViewportState)
+    }
+  }, [])
+
   const content = useMemo(
     () => (project ? getProjectContent(project, i18n.language) : null),
     [project, i18n.language]
@@ -95,6 +114,21 @@ function ProjectWindow({ project, isOpen, onClose }: ProjectWindowProps) {
     () => (project ? buildProjectLinkItems(project, t) : []),
     [project, t]
   )
+  const showLinksTab = !isSmallScreen
+  const isLockedAccess = Boolean(project?.window?.access && project.window.access !== 'public')
+  const shouldShowAccessGate = isLockedAccess || links.length === 0
+
+  useEffect(() => {
+    if (showLinksTab || activeTab !== 'links') {
+      return
+    }
+
+    const timeoutId = window.setTimeout(() => {
+      setActiveTab('value')
+    }, 0)
+
+    return () => window.clearTimeout(timeoutId)
+  }, [activeTab, showLinksTab])
 
   const activeSectionContent =
     activeTab === 'overview'
@@ -102,6 +136,42 @@ function ProjectWindow({ project, isOpen, onClose }: ProjectWindowProps) {
       : activeTab === 'method'
         ? sections.method
         : sections.value
+
+  const renderAccessSection = () => {
+    if (!project || !content) {
+      return null
+    }
+
+    if (shouldShowAccessGate) {
+      return (
+        <ProjectWindowAccessGate
+          projectSlug={project.slug}
+          projectTitle={content.title}
+        />
+      )
+    }
+
+    return (
+      <section className="project-win-sect flex w-full flex-col gap-4">
+        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--text2-col)]">
+          {t('projects.window.tabs.links')}
+        </p>
+        <div className="flex flex-wrap gap-3">
+          {links.map((link) => (
+            <a
+              key={`${link.label}-${link.href}`}
+              href={link.href}
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-lg border border-[var(--glass-border)] px-4 py-2 text-[var(--text-col)] transition-colors duration-200 hover:bg-[var(--btn-sobre-col)]"
+            >
+              {link.label}
+            </a>
+          ))}
+        </div>
+      </section>
+    )
+  }
 
   return (
     <AnimatePresence>
@@ -118,7 +188,7 @@ function ProjectWindow({ project, isOpen, onClose }: ProjectWindowProps) {
             onClick={onClose}
           />
 
-          <div className="pointer-events-none absolute inset-0 flex items-end justify-center px-4 py-6 md:items-center md:py-8">
+          <div className="pointer-events-none absolute inset-0 flex items-end justify-center overflow-x-hidden px-4 py-6 md:items-center md:py-8">
             <motion.div
               role="dialog"
               aria-modal="true"
@@ -127,10 +197,10 @@ function ProjectWindow({ project, isOpen, onClose }: ProjectWindowProps) {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 80 }}
               transition={{ duration: 0.28, ease: 'easeOut' }}
-              className="pointer-events-auto relative flex max-h-[calc(100vh-3rem)] w-full max-w-5xl flex-col overflow-hidden rounded-[5px]
+              className="pointer-events-auto relative flex max-h-[calc(100vh-3rem)] min-w-0 w-full max-w-5xl flex-col overflow-hidden rounded-[5px]
               border border-[var(--glass-border)] bg-[var(--win-bg)] shadow-2xl"
             >
-              <div className="overflow-y-auto px-4 pb-6 pt-0 md:px-6">
+              <div className="min-w-0 overflow-x-hidden overflow-y-auto px-4 pb-6 pt-0 md:px-6">
                 <div className="sticky top-0 z-20 -mx-4 mb-4 flex justify-end bg-[var(--bg-color)]/95 px-4 py-3 backdrop-blur md:-mx-6 md:px-6">
                   <button
                     type="button"
@@ -145,9 +215,9 @@ function ProjectWindow({ project, isOpen, onClose }: ProjectWindowProps) {
                   </button>
                 </div>
 
-                <div className="flex flex-col gap-6">
+                <div className="flex min-w-0 flex-col gap-6">
                   <div className="flex flex-col gap-6 rounded-lg bg-[var(--bg2-color)] p-4 md:items-center">
-                    <div className="flex flex-col items-center text-center">
+                    <div className="flex min-w-0 flex-col items-center text-center">
                       <h2
                         id="project-window-title"
                         className="text-3xl font-semibold md:text-4xl"
@@ -159,7 +229,7 @@ function ProjectWindow({ project, isOpen, onClose }: ProjectWindowProps) {
                         {keywords.slice(0, 4).map((keyword) => (
                           <span
                             key={keyword}
-                            className="rounded-lg border border-[var(--glass-border)] bg-[var(--glass-bg)] px-3 py-1 text-sm text-[var(--text2-col)]"
+                            className="rounded-lg border border-[var(--glass-border)] bg-[var(--pjtwintab)] px-3 py-1 text-sm text-[var(--keyw-col-window)]"
                           >
                             {keyword}
                           </span>
@@ -189,43 +259,29 @@ function ProjectWindow({ project, isOpen, onClose }: ProjectWindowProps) {
                     </div>
                   </div>
 
-                  <div className="flex justify-center">
+                  <div className="flex min-w-0 w-full justify-center">
                     <ProjectWindowTabs
                       activeTab={activeTab}
                       onTabChange={setActiveTab}
+                      showLinksTab={showLinksTab}
                     />
                   </div>
 
-                  <div className="flex flex-col gap-6 p-1 md:p-3">
-                    {activeTab === 'links' ? (
-                      <section className="project-win-sect w-full flex justify-center">
-                        {links.length > 0 ? (
-                          <div className="flex flex-wrap gap-3">
-                            {links.map((link) => (
-                              <a
-                                key={`${link.label}-${link.href}`}
-                                href={link.href}
-                                target="_blank"
-                                rel="noreferrer"
-                                className="rounded-lg border border-[var(--glass-border)] px-4 py-2 text-[var(--text-col)]
-                                transition-colors duration-200 hover:bg-[var(--btn-sobre-col)]"
-                              >
-                                {link.label}
-                              </a>
-                            ))}
-                          </div>
-                        ) : (
-                          <p className="text-[var(--text2-col)]">
-                            {t('projects.window.noLinks')}
-                          </p>
-                        )}
-                      </section>
+                  <div className="flex min-w-0 flex-col gap-6 p-1 md:p-3">
+                    {activeTab === 'links' && showLinksTab ? (
+                      renderAccessSection()
                     ) : activeSectionContent ? (
-                      <ProjectWindowSection content={activeSectionContent} />
+                      <>
+                        <ProjectWindowSection content={activeSectionContent} />
+                        {isSmallScreen && activeTab === 'value' && renderAccessSection()}
+                      </>
                     ) : (
-                      <p className="text-[var(--text2-col)]">
-                        {t('projects.window.emptySection')}
-                      </p>
+                      <>
+                        <p className="text-[var(--text2-col)]">
+                          {t('projects.window.emptySection')}
+                        </p>
+                        {isSmallScreen && activeTab === 'value' && renderAccessSection()}
+                      </>
                     )}
                   </div>
                 </div>

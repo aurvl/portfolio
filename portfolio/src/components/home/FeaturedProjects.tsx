@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
 import rawProjects from '../../data/projects.json'
 import type { Project } from '../../types/project'
 import { useTranslation } from 'react-i18next'
@@ -41,11 +42,7 @@ function FeaturedProjects() {
     }
   }, [])
 
-  useEffect(() => {
-    if (!isSmallScreen) {
-      setActiveRecentIndex(0)
-    }
-  }, [isSmallScreen])
+  const displayedRecentIndex = isSmallScreen ? activeRecentIndex : 0
 
   const handleRecentProjectsScroll = () => {
     const container = recentCarouselRef.current
@@ -106,7 +103,7 @@ function FeaturedProjects() {
                     <span
                       key={project.id}
                       className={`h-2.5 w-2.5 rounded-full transition-colors duration-200 ${
-                        index === activeRecentIndex
+                        index === displayedRecentIndex
                           ? 'bg-[var(--accent-blue)]'
                           : 'bg-[var(--text2-col)] opacity-40'
                       }`}
@@ -139,12 +136,12 @@ function FeaturedProjects() {
             )
           )}
 
-          <a href="/projects"
+          <Link to="/projects"
             className="btn btn-primary border-class mt-6 flex w-auto justify-center rounded-[5px] 
             bg-[#3784d8] p-3 font-semibold text-white md:p-3 sm:w-auto sm:min-w-[220px]
             ">
             {t('projects.viewAll')}
-          </a>
+          </Link>
         </div>
       </div>
     </section>

@@ -8,7 +8,7 @@ type ProjectGridProps = {
 
 function ProjectGrid({ projects, onOpenProject }: ProjectGridProps) {
   return (
-    <div className="flex flex-wrap gap-4">
+    <div className="grid min-w-0 grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
       {projects.map((project) => (
         <ProjectCard
           key={project.id}

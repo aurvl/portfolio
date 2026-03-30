@@ -35,6 +35,7 @@
 
 .navbar-shell {
   width: min(1200px, calc(100% - 2rem));
+  max-width: calc(100vw - 2rem);
   margin-inline: auto;
 }
 
@@ -184,6 +185,14 @@ background-color: rgba(109, 107, 107, 0.2); /* ajuste la couleur/alpha */
 
 .section-shell {
   width: min(1150px, calc(100% - 2rem));
+  max-width: calc(100vw - 2rem);
+  margin-inline: auto;
+
+}
+
+.blogpage-shell {
+  width: 100%;
+  max-width: calc(100vw - 2rem);
   margin-inline: auto;
 
 }
@@ -264,6 +273,7 @@ background-color: rgba(109, 107, 107, 0.2); /* ajuste la couleur/alpha */
   position: relative;
   display: inline-flex;
   width: fit-content;
+  max-width: 100%;
   align-items: center;
   justify-content: center;
   gap: 5px;
@@ -286,6 +296,7 @@ background-color: rgba(109, 107, 107, 0.2); /* ajuste la couleur/alpha */
 .project-window-tab {
   position: relative;
   z-index: 1;
+  min-width: 0;
   border: none;
   background: transparent;
   color: var(--text2-col);
@@ -301,4 +312,17 @@ background-color: rgba(109, 107, 107, 0.2); /* ajuste la couleur/alpha */
 
 .project-window-tab.is-active {
   color: white;
+}
+
+@media (max-width: 639px) {
+  .project-window-tabs {
+    width: 100%;
+    justify-content: stretch;
+  }
+
+  .project-window-tab {
+    flex: 1 1 0;
+    padding: 10px 14px;
+    font-size: 0.95rem;
+  }
 }

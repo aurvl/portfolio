@@ -42,7 +42,129 @@ import pandas as pd
 print("hello")
 ```
 
-This helps the renderer apply proper formatting and syntax highlighting.
+This helps the renderer apply the portfolio code-cell styling:
+
+* rounded code shell
+* top tab-style header
+* copy button on the right
+* line numbers
+* lightweight inline syntax coloring for common languages
+
+### Optional code block title
+
+You may add a short label with `title="..."` or `label="..."`.
+
+Example:
+
+````md
+```ts title="TypeScript SDK"
+import { OpenRouter } from '@openrouter/sdk'
+```
+````
+
+This title is used in the code-cell header instead of the raw language name.
+
+### Multi-language code groups
+
+The renderer also supports a lightweight tabbed code group using a markdown directive.
+
+Syntax:
+
+````md
+:::codegroup
+```ts title="TypeScript SDK"
+import { OpenRouter } from '@openrouter/sdk'
+```
+
+```ts title="TypeScript (fetch)"
+const response = await fetch('/api/chat')
+```
+
+```python title="Python"
+from openai import OpenAI
+```
+:::
+````
+
+Rules:
+
+* `:::codegroup` should contain only fenced code blocks
+* each block should declare its language
+* each block may define a short `title="..."` label
+* if no title is provided, the language label is used
+
+This feature is intentionally minimal:
+
+* no report button
+* no heavy math or syntax engine
+* no extra markdown nesting inside the group
+* the goal is a clean tabbed presentation, not a full docs platform component system
+* code groups are foldable directly from their header
+
+### Inline code
+
+Use backticks for inline code fragments.
+
+Example:
+
+```md
+Le champ `salary_in_usd` sert de cible.
+```
+
+Inline code is rendered with a monospace treatment based on `JetBrains Mono`.
+Use it for:
+
+* identifiers
+* file names
+* variables
+* short code tokens
+
+Avoid using inline code for ordinary prose or for emphasis.
+
+### Inline color
+
+You can color short inline fragments with one of five explicit markers:
+
+```md
+Le résultat est {red}critique{/red}, {blue}stable{/blue}, {green}validé{/green}, {yellow}à surveiller{/yellow} ou {purple}expérimental{/purple}.
+```
+
+Supported colors:
+
+* `{red}...{/red}`
+* `{blue}...{/blue}`
+* `{green}...{/green}`
+* `{yellow}...{/yellow}`
+* `{purple}...{/purple}`
+
+Rules:
+
+* use this only for short inline emphasis
+* do not use it for whole paragraphs
+* do not mix it with code spans
+* keep the usage intentional and sparse
+
+The renderer applies a lightweight color span, not a semantic callout block.
+
+### Inline math
+
+You can write lightweight inline math with `$...$`.
+
+Example:
+
+```md
+Le signal suit une logique de type $x_t = x_{t-1} + \epsilon_t$.
+```
+
+Supported inline math is intentionally minimal:
+
+* superscripts: `$x^t$` and `$x^{2x}$`
+* subscripts: `$x_t$`
+* fractions: `$\frac{a}{b}$`
+* simple operators and symbols: `+`, `-`, `*`, `:`
+
+Rendering uses a serif treatment based on `PT Serif`.
+This is a light inline syntax, not a full LaTeX engine.
 
 ---
 

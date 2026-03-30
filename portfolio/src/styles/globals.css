@@ -1,5 +1,5 @@
-@import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import "tailwindcss";
 
 :root {
   color-scheme: dark;
@@ -15,11 +15,14 @@
   --text-col: #ffffff;
   --text2-col: #9e9d9d;
   --text2-color: #9e9d9d;
+  --blogpost-text-col: #f7f8fb;
+  --blogpost-text2-col: #dbe2eb;
   --tool-col: #323d4d;
   --skill-col: #ced3f9cc;
   --domain-col: hsl(264, 86%, 91%);
   --domain-col-rgb: 6 103 177;
   --keyw-col: hsl(238, 50%, 48%);
+  --keyw-col-window: hsl(238, 64%, 66%);
   --keyw-bg-col: rgba(2, 10, 245, 0.05);
   --white: #ffffff;
 
@@ -51,6 +54,8 @@
   --pjtwintab-act: rgba(255, 255, 255, 0.035);
   --pjtwintab-act-border: rgba(255, 255, 255, 0.08);
   --pwt-border: rgba(255, 255, 255, 0.03);
+
+  --series-bg: #1a1a1a;
 }
 
 :root[data-theme='light'] {
@@ -64,12 +69,15 @@
   --text-col: #122033;
   --text2-col: #5f6b7a;
   --text2-color: #5f6b7a;
+  --blogpost-text-col: #0b1524;
+  --blogpost-text2-col: #0f1114;
   
   --tool-col: #d7e1ef;
   --skill-col: rgba(4, 102, 200, 0.12);
   --domain-col: #522891;
   --domain-col-rgb: 6 103 177;
   --keyw-col: rgba(2, 10, 245, 1);
+  --keyw-col-window: hsl(238, 50%, 48%);
   --keyw-bg-col: rgba(2, 10, 245, 0.05);
   --accent-blue: #0466c8;
   --accent-lgtblue: #2d86df;
@@ -94,6 +102,8 @@
   --pjtwintab-act: rgb(10, 16, 25);
   --pjtwintab-act-border: rgba(18, 32, 51, 0.08);
   --pwt-border: rgba(18, 32, 51, 0.03);
+
+  --series-bg: #eaeaea;
 }
 
 html {
@@ -151,84 +161,6 @@ img {
 .button-shadow {
   box-shadow: 0 18px 52px rgba(0, 0, 0, 0.18);
   transition: box-shadow 0.25s ease, transform 0.25s ease;
-}
-
-.md-content__code-block-wrapper {
-  margin: 1.5rem;
-  padding: 1.5rem;
-  border: 1px solid #1e3a5f;
-  border-radius: 10px;
-  overflow: hidden;
-  background: #0d1117;
-}
-
-.md-content__code-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-
-.md-content__code-lang {
-  font-size: 11px;
-  font-weight: 500;
-  font-family: monospace;
-  letter-spacing: 0.05em;
-  color: #79b8ff;
-  background: #1e3a5f;
-  display: inline-block;
-  padding: 2px 8px;
-  border-radius: 4px;
-  text-transform: none;
-}
-
-.md-content__code-block {
-  overflow-x: auto;
-  font-family: 'JetBrains Mono', 'Fira Code', monospace;
-  font-size: 14px;
-  line-height: 1.7;
-  color: #e1e4e8;
-}
-
-.md-content__copy-btn {
-  font-size: 11px;
-  font-weight: 500;
-  font-family: monospace;
-  color: #79b8ff;
-  background: transparent;
-  border: 1px solid #1e3a5f;
-  border-radius: 4px;
-  padding: 2px 8px;
-  cursor: pointer;
-  transition: background 0.15s;
-}
-
-.md-content__copy-btn:hover {
-  background: #1e3a5f;
-}
-
-/* Light theme overrides */
-:root[data-theme='light'] .md-content__code-block-wrapper {
-  background: #f6f8fa;
-  border-color: var(--statboxborder-col);
-}
-
-:root[data-theme='light'] .md-content__code-lang {
-  color: var(--accent-blue);
-  background: var(--skill-col);
-}
-
-:root[data-theme='light'] .md-content__code-block {
-  color: var(--text-col);
-}
-
-:root[data-theme='light'] .md-content__copy-btn {
-  color: var(--accent-blue);
-  border-color: var(--statboxborder-col);
-}
-
-:root[data-theme='light'] .md-content__copy-btn:hover {
-  background: var(--skill-col);
 }
 
 .button-shadow:hover {

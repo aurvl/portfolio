@@ -32,7 +32,7 @@
     "description2": "Je suis capable de couvrir l'ensemble de la chaine analytique (collecte des données jusqu'à la restitution finale) travers divers domaines d'application (économie, environnement, énergie...). Mon parcours en recherche m'a doté d'une forte rigueur méthodologique avec une capacité de travailler en autonomie sur des projets exigeants.",
     "description3": "N'hésitez pas à me contacter pour toute collaboration ou opportunité professionnelle !",
     "contact": "Me contacter",
-    "resume": "Télécharger mon CV"
+    "resume": "Mon CV"
   },
   "skills": {
     "eyebrow": "Compétences",
@@ -115,6 +115,17 @@
       "close": "Fermer la fenetre du projet",
       "emptySection": "Aucun contenu detaille n'est disponible pour cette section pour le moment.",
       "noLinks": "Aucun lien public n'est disponible pour ce projet.",
+      "locked": {
+        "title": "Contenu verrouillé",
+        "description": "Ce projet n'est volontairement pas exposé via un lien public pour le moment. Laisse ton email ci-dessous pour recevoir l'accès ou le prochain contenu disponible directement.",
+        "emailLabel": "Recevoir par email",
+        "emailPlaceholder": "ex. john.doe@example.com",
+        "submit": "Recevoir l'accès par email",
+        "submitting": "Envoi...",
+        "success": "Demande envoyée. Je reviendrai vers toi par email.",
+        "error": "Impossible d'envoyer la demande pour le moment.",
+        "emailFallback": "Me contacter directement par email"
+      },
       "tabs": {
         "overview": "Vue d'ensemble",
         "method": "Méthode",
@@ -191,19 +202,70 @@
     "description": "Voici quelques-uns de mes derniers articles. Ouvrez un post pour approfondir le sujet.",
     "viewAll": "Voir tous les articles",
     "minRead": "{{count}} min de lecture",
-    "posts": {
-      "reactHooks": {
-        "title": "Comprendre les React Hooks",
-        "summary": "Un regard pratique sur les React Hooks et la maniere dont ils simplifient la logique des composants."
+    "readMore": "Lire l'article",
+    "loading": "Chargement des articles...",
+    "backToBlog": "Retour au blog",
+    "backToSeries": "Retour a la serie",
+    "summaryTitle": "Summary",
+    "navigation": {
+      "previous": "Article precedent",
+      "next": "Article suivant"
+    },
+    "subscribe": {
+      "eyebrow": "Newsletter",
+      "title": "Tu veux être prévenu des prochains articles ?",
+      "description": "Laisse ton email et je te contacterai quand de nouveaux posts sortiront. Rien de superflu, juste les nouvelles publications.",
+      "emailLabel": "Ton email",
+      "emailPlaceholder": "ex. john.doe@example.com",
+      "submit": "S'abonner",
+      "submitting": "Envoi...",
+      "note": "Tu peux te desinscrire a tout moment en m'ecrivant directement.",
+      "success": "C'est envoyé. Je garderai ton email pour les prochains articles.",
+      "error": "Impossible d'envoyer la demande pour le moment.",
+      "emailFallback": "Me contacter directement",
+      "mailSubject": "Demande de suivi des prochains articles - {{title}}",
+      "mailBody": "Bonjour,\n\nJe souhaite etre contacté pour les prochains articles.\n\nEmail: {{email}}\nType: {{type}}\nContenu: {{title}}\nSlug: {{slug}}\nLangue: {{language}}"
+    },
+    "postNotFound": {
+      "title": "Article introuvable",
+      "description": "Le contenu demande n'est pas disponible dans cette langue pour le moment."
+    },
+    "section": {
+      "featured": {
+        "title": "Featured",
+        "subtitle": "Articles populaires"
       },
-      "gridFlex": {
-        "title": "CSS Grid vs Flexbox",
-        "summary": "Une comparaison concise entre CSS Grid et Flexbox pour les layouts modernes."
+      "series": {
+        "title": "Séries d'articles",
+        "subtitle": "Suivez une série d'articles pour explorer un sujet en profondeur"
       },
-      "jsPerf": {
-        "title": "Conseils de performance JavaScript",
-        "summary": "Des techniques utiles pour ameliorer les performances des applications JavaScript."
+      "search": {
+        "title": "Rechercher des articles",
+        "subtitle": "Trouvez les articles qui vous intéressent"
       }
+    },
+    "catalog": {
+      "filters": {
+        "search": {
+          "name": "Rechercher",
+          "placeholder": "Rechercher par titre, mots-clés..."
+        },
+        "tags": {
+          "name": "Tags",
+          "all": "Tous les tags"
+        }
+      },
+      "showingCount": "{{visible}} affichés sur {{total}}",
+      "loadMore": "Voir {{count}} de plus",
+      "empty": {
+        "title": "Aucun article correspondant",
+        "description": "Essaie de modifier la recherche ou le filtre."
+      }
+    },
+    "series": {
+      "readMore": "Decouvrir",
+      "postCount": "{{count}} posts",
+      "fallbackTitle": "Serie"
     }
   },
   "contact": {

@@ -1,8 +1,11 @@
+import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import LastBlogPosts from '../blog/LastBlogPosts'
+import { useBlogIndex } from '../../hooks/useBlogIndex'
 
 function RecentPosts() {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
+  const { latest } = useBlogIndex(i18n.language)
 
   return (
     <section id="blog" className="section-shell py-15 md:py-17">
@@ -22,16 +25,16 @@ function RecentPosts() {
 
       <div className="flex flex-col items-center">
         <div className="mt-2 flex align-top justify-center md:mt-0">
-          <LastBlogPosts />
+          <LastBlogPosts posts={latest} />
         </div>
 
-        <a
-          href="/blog"
+        <Link
+          to="/blog"
           className="btn btn-secondary border-class flex w-auto justify-center 
           rounded-[5px] p-3 font-semibold text-white md:p-2 sm:w-auto sm:min-w-[220px]"
         >
           {t('blog.viewAll')}
-        </a>
+        </Link>
       </div>
     </section>
   )

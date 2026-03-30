@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate } from 'react-router-dom'
 import MainLayout from '../components/layout/MainLayout'
-import type { FilterOption } from '../components/projects/FilterField'
+import type { FilterOption } from '../components/ui/FilterField'
 import ProjectFilters from '../components/projects/ProjectFilters'
 import ProjectGrid from '../components/projects/ProjectGrid'
 import ProjectsSummary from '../components/projects/ProjectsSummary'
@@ -11,17 +11,17 @@ import rawProjects from '../data/projects.json'
 import { getAppLanguage, getLocalizedField, getProjectContent } from '../lib/utils'
 import type { Project } from '../types/project'
 
-const PAGE_SIZE = 15
+const PAGE_SIZE = 9
+const LOAD_MORE_STEP = 3
 const projects = rawProjects as Project[]
 const technicalLevelValues = ['1', '2', '3'] as const
-const sortValues = [
-  'date-desc',
-  'date-asc',
-  'title-asc',
-  'title-desc',
-  'tech-desc',
-  'tech-asc',
-] as const
+type SortValue =
+  | 'date-desc'
+  | 'date-asc'
+  | 'title-asc'
+  | 'title-desc'
+  | 'tech-desc'
+  | 'tech-asc'
 
 function ProjectsPage() {
   const { t, i18n } = useTranslation()
@@ -32,7 +32,7 @@ function ProjectsPage() {
   const [selectedTag, setSelectedTag] = useState('')
   const [selectedTool, setSelectedTool] = useState('')
   const [selectedTechnicalLevel, setSelectedTechnicalLevel] = useState('')
-  const [selectedSort, setSelectedSort] = useState<(typeof sortValues)[number]>('date-desc')
+  const [selectedSort, setSelectedSort] = useState<SortValue>('date-desc')
   const [selectedYear, setSelectedYear] = useState('')
   const [visibleProjectsCount, setVisibleProjectsCount] = useState(PAGE_SIZE)
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
@@ -95,6 +95,7 @@ function ProjectsPage() {
   ]
 
   const normalizedSearch = searchValue.trim().toLowerCase()
+  const isSearchMode = normalizedSearch.length > 0
 
   const filteredProjects = projects
     .filter((project) => {
@@ -155,11 +156,15 @@ function ProjectsPage() {
       return new Date(projectB.date).getTime() - new Date(projectA.date).getTime()
     })
 
-  const visibleProjects = filteredProjects.slice(0, visibleProjectsCount)
+  const visibleProjects = isSearchMode
+    ? filteredProjects
+    : filteredProjects.slice(0, visibleProjectsCount)
   const remainingProjectsCount = filteredProjects.length - visibleProjects.length
 
   useEffect(() => {
-    setVisibleProjectsCount(PAGE_SIZE)
+    queueMicrotask(() => {
+      setVisibleProjectsCount(PAGE_SIZE)
+    })
   }, [
     searchValue,
     selectedDomain,
@@ -193,7 +198,9 @@ function ProjectsPage() {
     }
 
     if (visibleProjectsCount < targetProjectIndex + 1) {
-      setVisibleProjectsCount(targetProjectIndex + 1)
+      queueMicrotask(() => {
+        setVisibleProjectsCount(targetProjectIndex + 1)
+      })
       return
     }
 
@@ -238,7 +245,7 @@ function ProjectsPage() {
 
   return (
     <MainLayout sections={projectSections}>
-      <section className="section-shell py-10 md:py-8">
+      <section className="section-shell min-w-0 overflow-x-hidden py-10 md:py-8">
         <ProjectsSummary />
       </section>
 
@@ -246,7 +253,7 @@ function ProjectsPage() {
 
       <section
         id="projects"
-        className="section-shell flex scroll-mt-20 flex-col gap-8 py-10 md:py-8"
+        className="section-shell flex min-w-0 scroll-mt-20 flex-col gap-8 overflow-x-hidden py-10 md:py-8"
       >
         <ProjectFilters
           searchValue={searchValue}
@@ -260,7 +267,7 @@ function ProjectsPage() {
           technicalLevelValue={selectedTechnicalLevel}
           onTechnicalLevelChange={setSelectedTechnicalLevel}
           sortValue={selectedSort}
-          onSortChange={(value) => setSelectedSort(value as (typeof sortValues)[number])}
+          onSortChange={(value) => setSelectedSort(value as SortValue)}
           yearValue={selectedYear}
           onYearChange={setSelectedYear}
           domainOptions={domainOptions}
@@ -292,13 +299,13 @@ function ProjectsPage() {
                   type="button"
                   onClick={() =>
                     setVisibleProjectsCount(
-                      (currentCount) => currentCount + PAGE_SIZE
+                      (currentCount) => currentCount + LOAD_MORE_STEP
                     )
                   }
                   className="btn btn-primary border-class rounded-[5px] bg-[#3784d8] px-6 py-3 font-semibold text-white hover:bg-[#2c6abf]"
                 >
                   {t('projects.catalog.loadMore', {
-                    count: Math.min(PAGE_SIZE, remainingProjectsCount),
+                    count: Math.min(LOAD_MORE_STEP, remainingProjectsCount),
                   })}
                 </button>
               </div>

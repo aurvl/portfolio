@@ -34,26 +34,28 @@ type CalendarDataItem =
 
 const projects = rawProjects as Project[]
 const CHART_COLLAPSED_MAX_HEIGHT_CLASS = 'max-h-0 translate-y-[-8px] opacity-0'
-const CHART_EXPANDED_MAX_HEIGHT_CLASS = 'max-h-[300px] translate-y-0 opacity-100'
-const CALENDAR_CELL_HEIGHT = 19
+const CHART_EXPANDED_MAX_HEIGHT_CLASS = 'max-h-[150px] md:max-h-[200px] lg:max-h-[250px] translate-y-0 opacity-100'
+const CALENDAR_CELL_HEIGHT_LG = 19
+const CALENDAR_CELL_HEIGHT_MD = 15
+const CALENDAR_CELL_HEIGHT_SM = 7
 const GITHUB_CONTRIBUTION_YEAR = '2026'
 
 const CALENDAR_THEME_COLORS = {
   dark: {
-    cellBorder: '#1f1f1f',
-    monthBorder: 'rgba(255, 255, 255, 0.22)',
-    zeroDay: 'rgba(30, 30, 30, 0.975)',
-    monthLabel: 'rgba(203, 201, 201, 0.82)',
-    gradientStart: '#dbeafe',
-    gradientEnd: '#2563eb',
+    cellBorder: '#1d1f22',
+    monthBorder: 'rgba(255, 255, 255, 0.18)',
+    zeroDay: '#161b22',
+    monthLabel: 'rgba(200, 198, 195, 0.75)',
+    gradientStart: '#0e4429',
+    gradientEnd: '#39d353',
   },
   light: {
-    cellBorder: '#f4f7fb',
-    monthBorder: 'rgba(18, 32, 51, 0.22)',
-    zeroDay: 'rgba(18, 32, 51, 0.07)',
-    monthLabel: 'rgba(18, 32, 51, 0.54)',
-    gradientStart: '#e0f2fe',
-    gradientEnd: '#0f766e',
+    cellBorder: '#ffffff',
+    monthBorder: 'rgba(15,60,50,0.2)',
+    zeroDay: '#eef2f1',
+    monthLabel: 'rgba(15,60,50,0.5)',
+    gradientStart: '#c8e8e2',
+    gradientEnd: '#0a6b62',
   },
 } as const
 
@@ -61,7 +63,7 @@ function SummaryMetricCard({ icon, value, label }: SummaryMetricCardProps) {
   return (
     <article className="rounded-lg p-2 shadow-[var(--shadow-soft)] backdrop-blur-[var(--blur-strength)]">
       <div className="flex flex-col items-center justify-center group">
-        <p className="text-3xl font-bold leading-none text-[var(--keyw-col)] 
+        <p className="text-3xl font-bold leading-none text-[var(--keyw-col-window)] 
         transition-all duration-300 group-hover:text-4xl">
           {value}
         </p>
@@ -205,6 +207,8 @@ function ProjectActivityChart() {
   const [isCollapsed, setIsCollapsed] = useState(true)
   const [activityData, setActivityData] = useState<ActivityData | null>(null)
   const [isLoading, setIsLoading] = useState(true)
+  const [calendarCellHeight, setCalendarCellHeight] = useState(CALENDAR_CELL_HEIGHT_LG)
+  const [showCalendarDayLabels, setShowCalendarDayLabels] = useState(true)
   const { theme } = useTheme()
   const activityTitle =
     activityData?.source === 'github'
@@ -251,6 +255,33 @@ function ProjectActivityChart() {
   }, [])
 
   useEffect(() => {
+    const updateCalendarCellHeight = () => {
+      const width = window.innerWidth
+
+      setShowCalendarDayLabels(width >= 500)
+
+      if (width < 500) {
+        setCalendarCellHeight(CALENDAR_CELL_HEIGHT_SM)
+        return
+      }
+
+      if (width < 850) {
+        setCalendarCellHeight(CALENDAR_CELL_HEIGHT_MD)
+        return
+      }
+
+      setCalendarCellHeight(CALENDAR_CELL_HEIGHT_LG)
+    }
+
+    updateCalendarCellHeight()
+    window.addEventListener('resize', updateCalendarCellHeight)
+
+    return () => {
+      window.removeEventListener('resize', updateCalendarCellHeight)
+    }
+  }, [])
+
+  useEffect(() => {
     if (isLoading || !activityData || !chartRef.current) return
 
     const chart = echarts.init(chartRef.current)
@@ -293,7 +324,7 @@ function ProjectActivityChart() {
         top: 34,
         left: 24,
         right: 24,
-        cellSize: [CALENDAR_CELL_HEIGHT, CALENDAR_CELL_HEIGHT],
+        cellSize: [calendarCellHeight, calendarCellHeight],
         range: activityData.range,
         itemStyle: {
           borderWidth: 0,
@@ -308,6 +339,7 @@ function ProjectActivityChart() {
         },
         yearLabel: { show: false },
         dayLabel: {
+          show: showCalendarDayLabels,
           color: textColor,
           fontSize: 11,
         },
@@ -340,10 +372,10 @@ function ProjectActivityChart() {
       resizeObserver.disconnect()
       chart.dispose()
     }
-  }, [activityData, isLoading, theme])
+  }, [activityData, calendarCellHeight, isLoading, showCalendarDayLabels, theme])
 
   return (
-    <section className="mt-8">
+    <section className="mt-8 min-w-0 overflow-x-hidden">
       <button
         type="button"
         onClick={() => setIsCollapsed((current) => !current)}
@@ -374,13 +406,13 @@ function ProjectActivityChart() {
           isCollapsed ? CHART_COLLAPSED_MAX_HEIGHT_CLASS : CHART_EXPANDED_MAX_HEIGHT_CLASS
         }`}
       >
-        <div className='mt-2'>
+        <div className="mt-2 min-w-0 overflow-hidden">
           {isLoading ? (
             <div className="flex min-h-[260px] items-center justify-center text-[var(--text2-col)]">
               {t('projects.catalog.summary.activity.loading')}
             </div>
           ) : (
-            <div ref={chartRef} className='h-[720px]'/>
+            <div ref={chartRef} className="h-[720px] min-w-0 w-full max-w-full overflow-hidden" />
           )}
         </div>
       </div>
@@ -409,7 +441,7 @@ function ProjectsSummary() {
   }).length
 
   return (
-    <div>
+    <div className="min-w-0 overflow-x-hidden">
       <div>
         <h2 className="mb-4 text-3xl font-bold">
           {t('projects.catalog.summary.title')}

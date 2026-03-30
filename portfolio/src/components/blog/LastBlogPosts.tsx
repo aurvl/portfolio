@@ -1,35 +1,14 @@
-import { useTranslation } from 'react-i18next'
-import PostCard from './PostCard'
+import type { BlogPostMeta } from '../../types/post'
+import PostGrid from './PostGrid'
 
-function LastBlogPosts() {
-  const { t } = useTranslation()
+export type LastBlogPostsProps = {
+  posts: BlogPostMeta[]
+}
 
+const LastBlogPosts = ({ posts }: LastBlogPostsProps) => {
   return (
-    <div className="grid grid-cols-1 gap-8 p-8 md:grid-cols-2 md:p-12 lg:grid-cols-3">
-      <PostCard
-        title={t('blog.posts.reactHooks.title')}
-        imgs=""
-        summary={t('blog.posts.reactHooks.summary')}
-        date="June 10, 2024"
-        readTime="5"
-        link="/blog/understanding-react-hooks"
-      />
-      <PostCard
-        title={t('blog.posts.gridFlex.title')}
-        imgs=""
-        summary={t('blog.posts.gridFlex.summary')}
-        date="June 5, 2024"
-        readTime="7"
-        link="/blog/css-grid-vs-flexbox"
-      />
-      <PostCard
-        title={t('blog.posts.jsPerf.title')}
-        imgs=""
-        summary={t('blog.posts.jsPerf.summary')}
-        date="June 1, 2024"
-        readTime="6"
-        link="/blog/javascript-performance-tips"
-      />
+    <div className="px-8 pb-16 md:px-7">
+      <PostGrid posts={posts} />
     </div>
   )
 }

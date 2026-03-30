@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import AnimatedLogo from './AnimatedLogo'
 import LanguageSwitcher from '../ui/LanguageSwitcher'
 import ThemeToggle from '../ui/ThemeToggle'
@@ -16,6 +16,7 @@ type NavbarProps = {
 }
 
 function Navbar({ sections }: NavbarProps) {
+  const location = useLocation()
   const [activeSection, setActiveSection] = useState(
     sections.find((section) => section.hidden !== true && section.href === undefined)?.id ??
       sections.find((section) => section.hidden !== true)?.id ??
@@ -40,6 +41,20 @@ function Navbar({ sections }: NavbarProps) {
     if (!section.href) {
       scrollToSection(section.id)
     }
+  }
+
+  const isHrefActive = (href: string) => {
+    if (href === '/') {
+      return location.pathname === '/'
+    }
+
+    const [pathname, hash] = href.split('#')
+
+    if (hash) {
+      return location.pathname === pathname && location.hash === `#${hash}`
+    }
+
+    return location.pathname === href
   }
 
   useEffect(() => {
@@ -131,7 +146,10 @@ function Navbar({ sections }: NavbarProps) {
                 key={section.id}
                 to={section.href}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="nav-title-text nav-link-animated"
+                aria-current={isHrefActive(section.href) ? 'page' : undefined}
+                className={`nav-title-text nav-link-animated ${
+                  isHrefActive(section.href) ? 'active' : ''
+                }`}
               >
                 {section.label}
               </Link>
@@ -185,7 +203,8 @@ function Navbar({ sections }: NavbarProps) {
                   key={section.id}
                   to={section.href}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="navbar-mobile-link"
+                  aria-current={isHrefActive(section.href) ? 'page' : undefined}
+                  className={`navbar-mobile-link ${isHrefActive(section.href) ? 'active' : ''}`}
                 >
                   {section.label}
                 </Link>

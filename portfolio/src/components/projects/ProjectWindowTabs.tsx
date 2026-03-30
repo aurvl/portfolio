@@ -5,11 +5,13 @@ import type { ProjectWindowTabId } from '../../types/project-window'
 type ProjectWindowTabsProps = {
   activeTab: ProjectWindowTabId
   onTabChange: (tab: ProjectWindowTabId) => void
+  showLinksTab?: boolean
 }
 
 function ProjectWindowTabs({
   activeTab,
   onTabChange,
+  showLinksTab = true,
 }: ProjectWindowTabsProps) {
   const { t, i18n } = useTranslation()
   const [indicatorStyle, setIndicatorStyle] = useState({
@@ -24,9 +26,11 @@ function ProjectWindowTabs({
       { id: 'overview', label: t('projects.window.tabs.overview') },
       { id: 'method', label: t('projects.window.tabs.method') },
       { id: 'value', label: t('projects.window.tabs.value') },
-      { id: 'links', label: t('projects.window.tabs.links') },
+      ...(showLinksTab
+        ? [{ id: 'links' as ProjectWindowTabId, label: t('projects.window.tabs.links') }]
+        : []),
     ],
-    [t]
+    [showLinksTab, t]
   )
 
   useEffect(() => {

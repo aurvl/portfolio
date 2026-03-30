@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
-import type { FilterOption } from './FilterField'
-import FilterField from './FilterField'
+import type { FilterOption } from '../ui/FilterField'
+import FilterField from '../ui/FilterField'
 import SearchField from './SearchField'
 
 type ProjectFiltersProps = {
@@ -55,8 +55,8 @@ function ProjectFilters({
   const { t } = useTranslation()
 
   return (
-    <div className="flex flex-col gap-4">
-      <div className="flex flex-wrap items-center justify-start gap-6">
+    <div className="flex min-w-0 flex-col gap-4">
+      <div className="flex min-w-0 w-full flex-wrap items-center justify-start gap-6">
         <SearchField
           label={t('projects.catalog.filters.search')}
           placeholder={t('projects.catalog.filters.searchPlaceholder')}
@@ -83,7 +83,7 @@ function ProjectFilters({
         />
       </div>
 
-      <div className="flex flex-wrap items-end justify-start gap-6">
+      <div className="flex min-w-0 w-full flex-wrap items-end justify-start gap-6">
         <FilterField
           title={t('projects.catalog.filters.sortBy')}
           options={sortOptions}
