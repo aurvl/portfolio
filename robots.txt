@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /pages/blog-admin.html
-Sitemap: https://aurvl.github.io/portfolio/sitemap.xml
