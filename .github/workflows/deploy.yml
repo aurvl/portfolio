@@ -3,6 +3,7 @@ name: Deploy portfolio
 on:
   push:
     branches:
+      - master
       - new-implementations
   workflow_dispatch:
 
