@@ -1,0 +1,128 @@
+[
+  {
+    "slug": "regression-multiple-aggregation",
+    "seriesSlug": "ia-pas-a-pas",
+    "lang": "en",
+    "title": "Deciding with numbers",
+    "summary": "A simple introduction to the core idea behind most models: aggregating multiple signals, assigning them weights, and producing a decision.",
+    "date": "2026-03-26",
+    "tags": [
+      "regression",
+      "aggregation",
+      "ai"
+    ],
+    "cover": "/assets/blog/images/blog6.jpg",
+    "featured": true,
+    "readTime": 6,
+    "headings": [
+      {
+        "depth": 3,
+        "text": "Stack required to run the examples in this article",
+        "id": "stack-required-to-run-the-examples-in-this-article"
+      },
+      {
+        "depth": 2,
+        "text": "Introduction",
+        "id": "introduction"
+      },
+      {
+        "depth": 2,
+        "text": "The power plant: your brain already does AI",
+        "id": "the-power-plant-your-brain-already-does-ai"
+      },
+      {
+        "depth": 2,
+        "text": "Weighing information to make a decision",
+        "id": "weighing-information-to-make-a-decision"
+      },
+      {
+        "depth": 3,
+        "text": "Application: predicting electricity consumption",
+        "id": "application-predicting-electricity-consumption"
+      },
+      {
+        "depth": 3,
+        "text": "Strengths and limits of this approach",
+        "id": "strengths-and-limits-of-this-approach"
+      },
+      {
+        "depth": 2,
+        "text": "Summary: linear regression",
+        "id": "summary-linear-regression"
+      },
+      {
+        "depth": 2,
+        "text": "What's next?",
+        "id": "what-s-next"
+      },
+      {
+        "depth": 2,
+        "text": "Go further",
+        "id": "go-further"
+      }
+    ]
+  },
+  {
+    "slug": "regression-multiple-aggregation",
+    "seriesSlug": "ia-pas-a-pas",
+    "lang": "fr",
+    "title": "Décider avec des chiffres",
+    "summary": "Une introduction simple à l'idée centrale derrière de nombreux modèles : agréger plusieurs signaux, leur assigner des poids, et produire une décision.",
+    "date": "2026-03-26",
+    "tags": [
+      "regression",
+      "agregation",
+      "ia"
+    ],
+    "cover": "/assets/blog/images/blog6.jpg",
+    "featured": true,
+    "readTime": 7,
+    "headings": [
+      {
+        "depth": 3,
+        "text": "Stack requise pour réaliser les exemples de cet article",
+        "id": "stack-requise-pour-realiser-les-exemples-de-cet-article"
+      },
+      {
+        "depth": 2,
+        "text": "Introduction",
+        "id": "introduction"
+      },
+      {
+        "depth": 2,
+        "text": "La centrale électrique : ton cerveau fait déjà de l'IA",
+        "id": "la-centrale-electrique-ton-cerveau-fait-deja-de-l-ia"
+      },
+      {
+        "depth": 2,
+        "text": "Peser des informations pour décider",
+        "id": "peser-des-informations-pour-decider"
+      },
+      {
+        "depth": 3,
+        "text": "Application : prédire la consommation d'électricité",
+        "id": "application-predire-la-consommation-d-electricite"
+      },
+      {
+        "depth": 3,
+        "text": "Avantages et limites de cette approche :",
+        "id": "avantages-et-limites-de-cette-approche"
+      },
+      {
+        "depth": 2,
+        "text": "En résumé : la régression linéaire",
+        "id": "en-resume-la-regression-lineaire"
+      },
+      {
+        "depth": 2,
+        "text": "Et maintenant ?",
+        "id": "et-maintenant"
+      },
+      {
+        "depth": 2,
+        "text": "Pour aller plus loin",
+        "id": "pour-aller-plus-loin"
+      }
+    ]
+  }
+]

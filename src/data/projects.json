@@ -1,0 +1,1325 @@
+[
+  {
+    "id": "PJ001",
+    "slug": "sales-analytics-dashboard",
+    "status": "completed",
+    "date": "2026-03-16",
+    "featured": false,
+    "window": {
+      "enabled": true,
+      "contentSlug": "sales-analytics-dashboard",
+      "access": "public"
+    },
+    "technicalLevel": 2,
+    "cover": {
+      "src": "/assets/projects/images/sales-analytics-dashboard-cover.png",
+      "alt": {
+        "en": "Sales Analytics Dashboard project cover",
+        "fr": "Visuel du projet sales analytics dashboard"
+      }
+    },
+    "links": {
+      "primary": "https://aurvl.github.io/portfolio/projects?project=sales-analytics-dashboard",
+      "readMore": "https://github.com/aurvl/Data-Analysis-Project-Sales",
+      "github": "https://github.com/aurvl/Data-Analysis-Project-Sales",
+      "live": "https://aurvl.github.io/portfolio/projects?project=sales-analytics-dashboard"
+    },
+    "taxonomy": {
+      "domains": [
+        "Business Intelligence",
+        "Sales Analytics"
+      ],
+      "tools": [
+        "PostgreSQL",
+        "SQL",
+        "Power BI",
+        "Data Modeling"
+      ],
+      "keywords": {
+        "en": [
+          "dashboard",
+          "kpi",
+          "customers",
+          "sales"
+        ],
+        "fr": [
+          "dashboard",
+          "kpi",
+          "clients",
+          "ventes"
+        ]
+      }
+    },
+    "content": {
+      "en": {
+        "title": "Sales Analytics Dashboard",
+        "summary": "End-to-end BI workflow turning raw sales data into a KPI-driven Power BI dashboard for customer, product, and revenue analysis.",
+        "description": "Built an end-to-end BI workflow turning raw sales data into decision-ready dashboards. The project structures the dataset through analytical SQL views dedicated to customers, products and overall business performance, then connects them to Power BI to monitor revenue, order value, customer value, recency, customer segmentation and product performance. For a business, this kind of solution helps identify high-value customers, best-selling products, growth segments and underperforming areas in order to improve commercial, marketing and catalog decisions. This project highlights my ability to design business-oriented data models, write analytical SQL, define KPIs and deliver effective dashboards for decision-making."
+      },
+      "fr": {
+        "title": "Sales Analytics Dashboard",
+        "summary": "Workflow BI complet transformant des données de ventes brutes en dashboard Power BI orienté KPI, clients, produits et performance commerciale.",
+        "description": "Conception d’un pipeline BI complet pour transformer des données de ventes brutes en tableaux de bord décisionnels. Le projet structure les données autour d’un schéma analytique avec vues dédiées aux clients, aux produits et à la performance globale, puis les exploite dans Power BI pour suivre le chiffre d’affaires, le panier moyen, la valeur client, la récence, les segments clients et la performance produit. Pour une entreprise, ce type de solution aide à identifier les clients les plus rentables, les produits moteurs, les segments à fort potentiel et les zones de sous-performance afin d’améliorer les décisions commerciales, marketing et catalogue. Ce projet confirme mes compétences en modélisation analytique, SQL métier, conception de KPI et data visualization orientée business."
+      }
+    }
+  },
+  {
+    "id": "PJ002",
+    "slug": "fear-greed-index-estimator",
+    "status": "completed",
+    "date": "2026-01-27",
+    "featured": false,
+    "window": {
+      "enabled": true,
+      "contentSlug": "fear-greed-index-estimator",
+      "access": "public"
+    },
+    "technicalLevel": 3,
+    "cover": {
+      "src": "/assets/projects/images/fear-greed-index-estimator-cover.png",
+      "alt": {
+        "en": "Fear & Greed Index Estimator project cover",
+        "fr": "Visuel du projet estimation du fear and greed index"
+      }
+    },
+    "links": {
+      "primary": "https://fgindexestimator.onrender.com/",
+      "readMore": "https://github.com/aurvl/FGIndexEstimator",
+      "github": "https://github.com/aurvl/FGIndexEstimator",
+      "live": "https://fgindexestimator.onrender.com/"
+    },
+    "taxonomy": {
+      "domains": [
+        "Quantitative Finance",
+        "Statistical Modeling"
+      ],
+      "tools": [
+        "Finance",
+        "Statistical Modeling",
+        "Data Processing"
+      ],
+      "keywords": {
+        "en": [
+          "finance",
+          "sentiment",
+          "index",
+          "modeling"
+        ],
+        "fr": [
+          "finance",
+          "sentiment",
+          "indice",
+          "modélisation"
+        ]
+      }
+    },
+    "content": {
+      "en": {
+        "title": "Fear & Greed Index Estimator",
+        "summary": "Transparent reconstruction of a CNN-style market sentiment index from public financial indicators, with a reproducible Python pipeline and web app.",
+        "description": "This project aims to reconstruct a CNN Fear & Greed-type index from public data (Yahoo Finance, FRED) by combining several market indicators (equities, volatility, bonds, credit). The objective is twofold: Match the official CNN Fear & Greed index as closely as possible and propose a transparent and interpretable theoretical index that can be used in quantitative analyses or trading strategies. The full pipeline is implemented in Python (pandas, scikit-learn, yfinance) and documented in a main notebook."
+      },
+      "fr": {
+        "title": "Estimation du Fear and Greed Index",
+        "summary": "Reconstruction transparente d'un indice de sentiment de marché à partir d'indicateurs financiers publics, avec pipeline Python reproductible et interface web.",
+        "description": "Ce projet vise à reconstituer un indice de type \"CNN Fear & Greed\" à partir de données publiques (Yahoo Finance, FRED) en combinant plusieurs indicateurs de marché (actions, volatilité, obligations, crédit). L'objectif est double : reproduire l'indice officiel CNN Fear & Greed aussi fidèlement que possible et proposer un indice théorique transparent et interprétable, utilisable dans des analyses quantitatives ou des stratégies de trading. L'ensemble du pipeline est implémenté en Python (pandas, scikit-learn, yfinance) et documenté dans un notebook principal."
+      }
+    }
+  },
+  {
+    "id": "PJ021",
+    "slug": "research-papers-recommendation-system",
+    "status": "completed",
+    "date": "2026-01-01",
+    "featured": false,
+    "window": {
+      "enabled": true,
+      "contentSlug": "research-papers-recommendation-system",
+      "access": "public"
+    },
+    "technicalLevel": 3,
+    "cover": {
+      "src": "/assets/projects/images/research-papers-recommendation-system-cover.jpg",
+      "alt": {
+        "en": "Research Papers Recommendation System project cover",
+        "fr": "Visuel du projet système de recommandation de publications scientifiques"
+      }
+    },
+    "links": {
+      "primary": "https://github.com/aurvl/ResearchPapersRecommandationSystem",
+      "readMore": "https://github.com/aurvl/ResearchPapersRecommandationSystem",
+      "github": "https://github.com/aurvl/ResearchPapersRecommandationSystem",
+      "live": null
+    },
+    "taxonomy": {
+      "domains": [
+        "Recommendation Systems",
+        "Natural Language Processing"
+      ],
+      "tools": [
+        "Python",
+        "NLP",
+        "Recommender System",
+        "FastAPI"
+      ],
+      "keywords": {
+        "en": [
+          "recommender",
+          "papers",
+          "embeddings",
+          "fastapi"
+        ],
+        "fr": [
+          "recommandation",
+          "articles",
+          "embeddings",
+          "fastapi"
+        ]
+      }
+    },
+    "content": {
+      "en": {
+        "title": "Research Papers Recommendation System",
+        "summary": "Paper recommender built on a large corpus, evolving from TF-IDF to transformer embeddings for stronger semantic recommendations.",
+        "description": "Built a research-paper recommender on a corpus of ~50,000 papers (science, literature, history, etc.). The system adapts to user preferences: it proposes papers, updates recommendations as users like items, and shows “similar papers” on each article page. For cold-start users, it recommends papers closest to trending arXiv topics. Started with TF-IDF (high-dimensional, weak semantics) then upgraded to transformer embeddings (all-MiniLM-L6-v2) for more meaningful similarity and improved recommendations—an AI tool designed to support researchers and discovery."
+      },
+      "fr": {
+        "title": "Système de Recommandation de Publications Scientifiques",
+        "summary": "Moteur de recommandation d'articles construit sur un grand corpus, passe de TF-IDF à des embeddings Transformers plus pertinents.",
+        "description": "Système de recommandation de publications scientifiques construit sur un corpus d’environ 50 000 articles (sciences, littérature, histoire, etc.). Les recommandations s’adaptent aux préférences de l’utilisateur : on propose des articles, puis la liste évolue au fur et à mesure des likes. Lorsqu’un utilisateur ouvre un article, l’application affiche aussi des articles similaires. En absence de préférences (cold start), le système recommande les articles les plus proches de sujets en tendance (arXiv). Après un premier prototype en TF-IDF (vecteurs très grands et sémantique limitée), le moteur a été amélioré avec des embeddings Transformers (all-MiniLM-L6-v2) pour une similarité plus pertinente et de meilleures recommandations, afin d’assister concrètement la recherche."
+      }
+    }
+  },
+  {
+    "id": "PJ003",
+    "slug": "nyc-smart-restaurants-migration",
+    "status": "completed",
+    "date": "2025-12-25",
+    "featured": false,
+    "window": {
+      "enabled": true,
+      "contentSlug": "nyc-smart-restaurants-migration",
+      "access": "public"
+    },
+    "technicalLevel": 2,
+    "cover": {
+      "src": "/assets/projects/images/nyc-smart-restaurants-migration-cover.jpg",
+      "alt": {
+        "en": "NYC Smart Restaurants: Migration Postgres-MongoDB project cover",
+        "fr": "Visuel du projet nyc smart restaurants: migration postgres-mongodb"
+      }
+    },
+    "links": {
+      "primary": "https://github.com/JVRLC/smartNYCRestaurants",
+      "readMore": "https://github.com/JVRLC/smartNYCRestaurants",
+      "github": "https://github.com/JVRLC/smartNYCRestaurants",
+      "live": null
+    },
+    "taxonomy": {
+      "domains": [
+        "Data Engineering",
+        "Database Migration"
+      ],
+      "tools": [
+        "Python",
+        "PostgreSQL",
+        "MongoDB",
+        "Data Migration"
+      ],
+      "keywords": {
+        "en": [
+          "migration",
+          "database",
+          "cache",
+          "geolocation"
+        ],
+        "fr": [
+          "migration",
+          "base-de-données",
+          "cache",
+          "geolocalisation"
+        ]
+      }
+    },
+    "content": {
+      "en": {
+        "title": "NYC Smart Restaurants: Migration Postgres-MongoDB",
+        "summary": "Restaurant catalog migration from PostgreSQL to MongoDB with search, proximity queries, and JSONB caching to accelerate repeated requests.",
+        "description": "Migration of a New York City restaurant catalog from PostgreSQL to MongoDB (JSON documents) using Python scripts. The application supports search by name, cuisine, and neighborhood, as well as proximity-based retrieval (Haversine distance). Implementing a PostgreSQL JSONB cache (20 entries) significantly sped up repeated queries (≈0.125 s → ≈0.0034 s)."
+      },
+      "fr": {
+        "title": "NYC Smart Restaurants: Migration Postgres-MongoDB",
+        "summary": "Migration d'un catalogue de restaurants de PostgreSQL vers MongoDB avec recherche, requêtes de proximité et cache JSONB pour accélérer les appels répétés.",
+        "description": "Migration d’un catalogue de restaurants new-yorkais de PostgreSQL vers MongoDB (documents JSON) via scripts Python. L’application permet la recherche par nom, cuisine, quartier et rappel par proximité (distance Haversine). La mise en place d'un cache PostgreSQL en JSONB (20 entrées) a permis d'accélérer fortement les requêtes répétées (≈0.125 s → ≈0.0034 s)."
+      }
+    }
+  },
+  {
+    "id": "PJ004",
+    "slug": "comments-analysis-text-classification",
+    "status": "completed",
+    "date": "2025-11-20",
+    "featured": true,
+    "window": {
+      "enabled": true,
+      "contentSlug": "comments-analysis-text-classification",
+      "access": "public"
+    },
+    "technicalLevel": 2,
+    "cover": {
+      "src": "/assets/projects/images/comments-analysis-text-classification-cover.jpg",
+      "alt": {
+        "en": "Comments Analysis: Text Classification Pipeline project cover",
+        "fr": "Visuel du projet analyse de commentaires : classification de texte"
+      }
+    },
+    "links": {
+      "primary": "https://github.com/aurvl/CommentsAnalysis",
+      "readMore": "https://github.com/aurvl/CommentsAnalysis",
+      "github": "https://github.com/aurvl/CommentsAnalysis",
+      "live": null
+    },
+    "taxonomy": {
+      "domains": [
+        "Natural Language Processing",
+        "Text Classification"
+      ],
+      "tools": [
+        "Python",
+        "Scikit-Learn",
+        "NLP"
+      ],
+      "keywords": {
+        "en": [
+          "nlp",
+          "classification",
+          "comments",
+          "evaluation"
+        ],
+        "fr": [
+          "nlp",
+          "classification",
+          "commentaires",
+          "evaluation"
+        ]
+      }
+    },
+    "content": {
+      "en": {
+        "title": "Comments Analysis: Text Classification Pipeline",
+        "summary": "YouTube comment classification pipeline using TF-IDF features and baseline models, with evaluation exports for confusion matrices and prediction review.",
+        "description": "YouTube comments NLP pipeline: raw comments are labeled and stored in CSV, vectorized with TF-IDF (uni/bi-grams), then classified with baseline models (Logistic Regression, Linear SVM, Decision Tree). The script outputs accuracy, confusion matrix, a classification report, and saves evaluation files and prediction samples for review."
+      },
+      "fr": {
+        "title": "Analyse de commentaires : Classification de texte",
+        "summary": "Pipeline de classification de commentaires YouTube avec TF-IDF et modèles de base, plus exports d'evaluation pour matrice de confusion et revue des prédictions.",
+        "description": "Pipeline NLP sur des commentaires YouTube : données étiquetées en CSV, vectorisation TF-IDF (uni/bi-grams), puis classification avec des modèles de base (Logistic Regression, Linear SVM, Decision Tree). Le script produit accuracy, matrice de confusion, rapport de classification et exporte des fichiers d’évaluation pour revue."
+      }
+    }
+  },
+  {
+    "id": "PJ020",
+    "slug": "tsc-finance-temporal-signal-classification",
+    "status": "completed",
+    "date": "2025-11-01",
+    "featured": false,
+    "window": {
+      "enabled": true,
+      "contentSlug": "tsc-finance-temporal-signal-classification",
+      "access": "public"
+    },
+    "technicalLevel": 3,
+    "cover": {
+      "src": "/assets/projects/images/tsc-finance-temporal-signal-classification-cover.png",
+      "alt": {
+        "en": "TSC Finance – Temporal Signal Classification project cover",
+        "fr": "Visuel du projet tsc finance – classification de signaux temporels"
+      }
+    },
+    "links": {
+      "primary": "https://github.com/aurvl/TSC-Finance",
+      "readMore": "https://github.com/aurvl/TSC-Finance",
+      "github": "https://github.com/aurvl/TSC-Finance",
+      "live": null
+    },
+    "taxonomy": {
+      "domains": [
+        "Deep Learning",
+        "Quantitative Finance"
+      ],
+      "tools": [
+        "Python",
+        "Deep Learning",
+        "Time Series",
+        "PyTorch",
+        "Finance"
+      ],
+      "keywords": {
+        "en": [
+          "signals",
+          "pytorch",
+          "trading",
+          "temporal"
+        ],
+        "fr": [
+          "signaux",
+          "pytorch",
+          "trading",
+          "temporel"
+        ]
+      }
+    },
+    "content": {
+      "en": {
+        "title": "TSC Finance – Temporal Signal Classification",
+        "summary": "Deep-learning classifier for financial entry signals, combining synthetic data generation, fine-tuning, and long/cash backtesting.",
+        "description": "This project introduces a Temporal Convolutional Pyramid Classifier (TCKPyramidClassifier) designed to predict high-quality trading entry points using multivariate financial time series. It includes synthetic data generation using geometric Brownian motion, model pre-training, asset-specific fine-tuning (S&P 500, FX, ETFs, BTC), and full long/cash backtesting."
+      },
+      "fr": {
+        "title": "TSC Finance – Classification de Signaux Temporels",
+        "summary": "Classifieur deep learning de signaux financiers combinant génération de données synthétiques, fine-tuning et backtesting long/cash.",
+        "description": "Ce projet présente un classifieur pyramidal à convolutions temporelles (TCKPyramidClassifier) permettant d’identifier les points d’entrée optimaux en bourse à partir de séries temporelles financières multivariables. Il inclut la génération de données synthétiques via mouvement brownien géométrique, le pré-entrainement du modèle, le fine-tuning sur différents actifs (S&P 500, devises, ETFs, BTC) ainsi qu'un backtesting complet long/cash."
+      }
+    }
+  },
+  {
+    "id": "PJ005",
+    "slug": "ab-testing-new-model",
+    "status": "completed",
+    "date": "2025-04-18",
+    "featured": false,
+    "window": {
+      "enabled": true,
+      "contentSlug": "ab-testing-new-model",
+      "access": "public"
+    },
+    "technicalLevel": 3,
+    "cover": {
+      "src": "/assets/projects/images/ab-testing-new-model-cover.png",
+      "alt": {
+        "en": "AB Testing: The New Model project cover",
+        "fr": "Visuel du projet ab testing : le nouveau modèle"
+      }
+    },
+    "links": {
+      "primary": "https://aurvl.github.io/portfolio/projects?project=ab-testing-new-model",
+      "readMore": "https://github.com/aurvl/ABTesting-Model",
+      "github": "https://github.com/aurvl/ABTesting-Model",
+      "live": "https://aurvl.github.io/portfolio/projects?project=ab-testing-new-model"
+    },
+    "taxonomy": {
+      "domains": [
+        "Experiment Design",
+        "Applied Statistics"
+      ],
+      "tools": [
+        "R",
+        "Python",
+        "Statistics"
+      ],
+      "keywords": {
+        "en": [
+          "ab-testing",
+          "evaluation",
+          "randomization",
+          "statistics"
+        ],
+        "fr": [
+          "ab-testing",
+          "evaluation",
+          "randomisation",
+          "statistiques"
+        ]
+      }
+    },
+    "content": {
+      "en": {
+        "title": "AB Testing: The New Model",
+        "summary": "Rigorous A/B-style comparison of predictive models with stratified randomization, paired analysis, and subgroup performance evaluation.",
+        "description": "A rigorous A/B-style evaluation of two predictive models for school failure risk. The project combines stratified randomization to build comparable groups and A/B testing to compare a baseline model against an improved Random Forest. In addition, a paired analysis on the same individuals (including McNemar’s test) highlights overall differences and targeted gains for specific subgroups (e.g., by socio-economic background)."
+      },
+      "fr": {
+        "title": "AB Testing : Le Nouveau Modèle",
+        "summary": "Comparaison rigoureuse de modèles prédictifs via randomisation stratifiée, analyse appariee et évaluation detaillée des gains par sous-groupes.",
+        "description": "Comparaison rigoureuse de deux modèles prédictifs de risque d’échec scolaire via une approche expérimentale. Le projet combine randomisation stratifiée pour constituer des groupes comparables et A/B testing pour évaluer un modèle “baseline” vs un modèle “amélioré” (Random Forest). En complément, une analyse appariée sur les mêmes individus (dont test de McNemar) met en évidence les écarts globaux et les gains ciblés sur certains sous-groupes (par exemple selon le milieu social)."
+      }
+    }
+  },
+  {
+    "id": "PJ006",
+    "slug": "msci-world-cw8-price-prediction",
+    "status": "completed",
+    "date": "2025-04-01",
+    "featured": false,
+    "window": {
+      "enabled": true,
+      "contentSlug": "msci-world-cw8-price-prediction",
+      "access": "public"
+    },
+    "technicalLevel": 3,
+    "cover": {
+      "src": "/assets/projects/images/msci-world-cw8-price-prediction-cover.jpg",
+      "alt": {
+        "en": "Stock Price Prediction : MSCI World CW8 project cover",
+        "fr": "Visuel du projet prédiction des prix des actions : msci world cw8"
+      }
+    },
+    "links": {
+      "primary": "https://cw8-price-prediction.streamlit.app/",
+      "readMore": "https://github.com/aurvl/Stocks-prices-Prediction",
+      "github": "https://github.com/aurvl/Stocks-prices-Prediction",
+      "live": "https://cw8-price-prediction.streamlit.app/"
+    },
+    "taxonomy": {
+      "domains": [
+        "Time Series Forecasting",
+        "Quantitative Finance"
+      ],
+      "tools": [
+        "Time Series",
+        "LSTM",
+        "Data Science"
+      ],
+      "keywords": {
+        "en": [
+          "forecasting",
+          "lstm",
+          "markets",
+          "visualization"
+        ],
+        "fr": [
+          "prevision",
+          "lstm",
+          "marches",
+          "visualisation"
+        ]
+      }
+    },
+    "content": {
+      "en": {
+        "title": "Stock Price Prediction : MSCI World CW8",
+        "summary": "LSTM-based stock forecasting app for exploring historical data and visualizing 30-day market predictions through Streamlit.",
+        "description": "This project aims to predict stock prices over a 30-day period using an LSTM (Long Short-Term Memory) model, designed for time series analysis. The Streamlit application offers a clear and intuitive interface to explore historical market data and visualize the predicted trends. This project combines data analysis, predictive modeling, and visualization to provide an accessible tool for users who want to better understand stock market movements."
+      },
+      "fr": {
+        "title": "Prédiction des prix des actions : MSCI World CW8",
+        "summary": "Application de prevision boursiere basee sur un LSTM pour explorer les données historiques et visualiser des prédictions sur 30 jours.",
+        "description": "Ce projet a pour objectif de prédire les prix des actions sur une période de 30 jours en utilisant un modèle LSTM (Long Short-Term Memory), spécialisé dans l’analyse des séries temporelles. L’application Streamlit propose une interface claire et intuitive qui permet de consulter les données historiques des marchés financiers et de visualiser les prédictions générées. Ce projet combine analyse de données, modélisation prédictive et visualisation pour offrir un outil accessible aux utilisateurs souhaitant mieux comprendre les tendances boursières."
+      }
+    }
+  },
+  {
+    "id": "PJ007",
+    "slug": "technological-employment-gender-inequalities",
+    "status": "completed",
+    "date": "2025-03-15",
+    "featured": false,
+    "window": {
+      "enabled": true,
+      "contentSlug": "technological-employment-gender-inequalities",
+      "access": "public"
+    },
+    "technicalLevel": 3,
+    "cover": {
+      "src": "/assets/projects/images/technological-employment-gender-inequalities-cover.webp",
+      "alt": {
+        "en": "Technological employment and gender inequalities project cover",
+        "fr": "Visuel du projet technologie et inégalités de genre"
+      }
+    },
+    "links": {
+      "primary": "https://auradev.hashnode.dev/inegalites-de-genre-et-technologie-ce-que-nous-apprend-leconometrie-spatiale",
+      "readMore": "https://github.com/aurvl/SpatialEconometrics",
+      "github": "https://github.com/aurvl/SpatialEconometrics",
+      "live": "https://auradev.hashnode.dev/inegalites-de-genre-et-technologie-ce-que-nous-apprend-leconometrie-spatiale"
+    },
+    "taxonomy": {
+      "domains": [
+        "Spatial Econometrics",
+        "Labor Economics"
+      ],
+      "tools": [
+        "Spatial Data",
+        "Econometrics"
+      ],
+      "keywords": {
+        "en": [
+          "gender",
+          "employment",
+          "spatial",
+          "europe"
+        ],
+        "fr": [
+          "genre",
+          "emploi",
+          "spatial",
+          "europe"
+        ]
+      }
+    },
+    "content": {
+      "en": {
+        "title": "Technological employment and gender inequalities",
+        "summary": "Spatial econometrics study of how technology employment and STEM qualifications influence female unemployment across European regions.",
+        "description": "This project explores the impact of technological progress on female unemployment in Europe, using spatial econometric methods. Using data covering France, Spain, Italy, the Netherlands and Belgium, it analyzes how employment in technology sectors, STEM qualifications and other factors influence female unemployment, both locally and between neighboring regions."
+      },
+      "fr": {
+        "title": "Technologie et inégalités de genre",
+        "summary": "Etude en économétrie spatiale de l'effet de l'emploi technologique et des qualifications STEM sur le chômage féminin en Europe.",
+        "description": "Ce projet explore l’impact du progrès technologique sur le chômage féminin en Europe, en s’appuyant sur des méthodes d’économétrie spatiale. À partir de données couvrant la France, l’Espagne, l’Italie, les Pays-Bas et la Belgique, il analyse comment l’emploi dans les secteurs technologiques, les qualifications en STEM et d’autres facteurs influencent le chômage des femmes, aussi bien localement qu’entre régions voisines."
+      }
+    }
+  },
+  {
+    "id": "PJ008",
+    "slug": "salary-prediction-project",
+    "status": "completed",
+    "date": "2025-02-28",
+    "featured": false,
+    "window": {
+      "enabled": true,
+      "contentSlug": "salary-prediction-project",
+      "access": "public"
+    },
+    "technicalLevel": 2,
+    "cover": {
+      "src": "/assets/projects/images/salary-prediction-project-cover.jpg",
+      "alt": {
+        "en": "Salary Prediction Project project cover",
+        "fr": "Visuel du projet prédiction des salaires"
+      }
+    },
+    "links": {
+      "primary": "https://github.com/aurvl/ML_projects/blob/main/Salary/report_salary_pred.pdf",
+      "readMore": "https://github.com/aurvl/ML_projects/blob/main/Salary/report_salary_pred.pdf",
+      "github": "https://github.com/aurvl/ML_projects/blob/main/Salary/report_salary_pred.pdf",
+      "live": null
+    },
+    "taxonomy": {
+      "domains": [
+        "Machine Learning",
+        "Regression Modeling"
+      ],
+      "tools": [
+        "Python",
+        "Machine Learning",
+        "Pipeline"
+      ],
+      "keywords": {
+        "en": [
+          "salary",
+          "regression",
+          "pipeline",
+          "prediction"
+        ],
+        "fr": [
+          "salaire",
+          "regression",
+          "pipeline",
+          "prediction"
+        ]
+      }
+    },
+    "content": {
+      "en": {
+        "title": "Salary Prediction Project",
+        "summary": "Machine learning workflow for salary prediction, covering preprocessing, model training, tuning, and inference on new observations.",
+        "description": "This project aims to predict salaries using machine learning models, notably Linear Regression (LR) and Random Forest Regressor (RF). The repository is organized to simplify data preprocessing, model training, hyperparameter optimization, and making predictions on new data."
+      },
+      "fr": {
+        "title": "Prédiction des Salaires",
+        "summary": "Workflow de machine learning pour prédire les salaires, du pretraitement à l'entrainement, au tuning et aux prédictions sur de nouvelles données.",
+        "description": "Ce projet vise à prédire les salaires en utilisant des modèles d’apprentissage automatique, notamment une régression linéaire (LR) et un Random Forest Regressor (RF). Le dépôt est organisé pour simplifier le prétraitement des données, l’entraînement des modèles, l’optimisation des hyperparamètres et la prédiction sur de nouvelles données."
+      }
+    }
+  },
+  {
+    "id": "PJ019",
+    "slug": "allocine-data-visualization",
+    "status": "completed",
+    "date": "2024-11-01",
+    "featured": false,
+    "window": {
+      "enabled": true,
+      "contentSlug": "allocine-data-visualization",
+      "access": "public"
+    },
+    "technicalLevel": 2,
+    "cover": {
+      "src": "/assets/projects/images/allocine-data-visualization-cover.webp",
+      "alt": {
+        "en": "Data Visualization - AlloCiné project cover",
+        "fr": "Visuel du projet data visualization - AlloCiné"
+      }
+    },
+    "links": {
+      "primary": "https://aurvl.github.io/NotebookSites/m2_exercices_py/allocine/allocine.html",
+      "readMore": "https://github.com/aurvl/DA_projects/edit/main/Allocine/Allocine.md",
+      "github": "https://github.com/aurvl/DA_projects/edit/main/Allocine/Allocine.md",
+      "live": "https://aurvl.github.io/NotebookSites/m2_exercices_py/allocine/allocine.html"
+    },
+    "taxonomy": {
+      "domains": [
+        "Data Visualization",
+        "Network Analysis"
+      ],
+      "tools": [
+        "Python",
+        "Seaborn",
+        "Networkx"
+      ],
+      "keywords": {
+        "en": [
+          "allocine",
+          "visualization",
+          "movies",
+          "network"
+        ],
+        "fr": [
+          "allocine",
+          "visualisation",
+          "films",
+          "reseau"
+        ]
+      }
+    },
+    "content": {
+      "en": {
+        "title": "Data Visualization - AlloCiné",
+        "summary": "Visual exploration of an AlloCiné dataset to surface key patterns and attribute relationships across movies and series.",
+        "description": "This project analyzes a dataset from AlloCiné (movies & series) to visualize key information and understand relationships between different attributes."
+      },
+      "fr": {
+        "title": "Data Visualization - AlloCiné",
+        "summary": "Exploration visuelle d'un dataset AlloCiné pour faire ressortir des patterns clés et les relations entre attributs de films et séries.",
+        "description": "Ce projet vise à analyser un jeu de données d'AlloCiné, une base de données cinématographique (films & séries), afin de visualiser diverses informations clés et de comprendre les relations entre différents attributs."
+      }
+    }
+  },
+  {
+    "id": "PJ017",
+    "slug": "twitter-activity-french-deputies",
+    "status": "completed",
+    "date": "2024-11-01",
+    "featured": false,
+    "window": {
+      "enabled": true,
+      "contentSlug": "twitter-activity-french-deputies",
+      "access": "public"
+    },
+    "technicalLevel": 2,
+    "cover": {
+      "src": "/assets/projects/images/twitter-activity-french-deputies-cover.jpg",
+      "alt": {
+        "en": "Trends in Twitter Activity of French Deputies project cover",
+        "fr": "Visuel du projet analyse de l'activité twitter des députés français"
+      }
+    },
+    "links": {
+      "primary": "https://auradev.hashnode.dev/twitter-tweets-analysis",
+      "readMore": "https://github.com/aurvl/DA_projects/blob/main/Twitter/Twitter.md",
+      "github": "https://github.com/aurvl/DA_projects/blob/main/Twitter/Twitter.md",
+      "live": "https://auradev.hashnode.dev/twitter-tweets-analysis"
+    },
+    "taxonomy": {
+      "domains": [
+        "Social Media Analytics",
+        "Natural Language Processing"
+      ],
+      "tools": [
+        "Python",
+        "Seaborn",
+        "NLP"
+      ],
+      "keywords": {
+        "en": [
+          "twitter",
+          "politics",
+          "tweets",
+          "analysis"
+        ],
+        "fr": [
+          "twitter",
+          "politique",
+          "tweets",
+          "analyse"
+        ]
+      }
+    },
+    "content": {
+      "en": {
+        "title": "Trends in Twitter Activity of French Deputies",
+        "summary": "Political Twitter analysis covering data collection, enrichment, party-level distributions, and temporal visualization of deputy activity.",
+        "description": "This project analyzes tweets from French deputies to understand their dynamics and structure, including data collection, enrichment, distribution analysis by political party, and trend visualization."
+      },
+      "fr": {
+        "title": "Analyse de l'Activité Twitter des Députés Français",
+        "summary": "Analyse politique de Twitter melant collecte, enrichissement, distributions par parti et visualisation temporelle de l'activité des députés.",
+        "description": "Ce projet analyse les tweets des députés français pour comprendre leurs dynamiques et structure. Il inclut la collecte et l'enrichissement des données de tweets, l'analyse de leur distribution par parti politique, et la visualisation des tendances."
+      }
+    }
+  },
+  {
+    "id": "PJ011",
+    "slug": "allocine-tv-series-scraping",
+    "status": "completed",
+    "date": "2024-10-01",
+    "featured": false,
+    "window": {
+      "enabled": true,
+      "contentSlug": "allocine-tv-series-scraping",
+      "access": "public"
+    },
+    "technicalLevel": 2,
+    "cover": {
+      "src": "/assets/projects/images/allocine-tv-series-scraping-cover.jpg",
+      "alt": {
+        "en": "AlloCiné TV Series Scraping Project project cover",
+        "fr": "Visuel du projet projet de scraping des séries tv d'allociné"
+      }
+    },
+    "links": {
+      "primary": "https://github.com/aurvl/DE_projects/blob/main/Scraping%20Allocine/scraping_series.ipynb",
+      "readMore": "https://github.com/aurvl/DE_projects/blob/main/Scraping%20Allocine/scraping_series.ipynb",
+      "github": "https://github.com/aurvl/DE_projects/blob/main/Scraping%20Allocine/scraping_series.ipynb",
+      "live": null
+    },
+    "taxonomy": {
+      "domains": [
+        "Web Scraping",
+        "Data Collection"
+      ],
+      "tools": [
+        "Python",
+        "SQL",
+        "Web Scraping"
+      ],
+      "keywords": {
+        "en": [
+          "scraping",
+          "series",
+          "allocine",
+          "dataset"
+        ],
+        "fr": [
+          "scraping",
+          "series",
+          "allocine",
+          "dataset"
+        ]
+      }
+    },
+    "content": {
+      "en": {
+        "title": "AlloCiné TV Series Scraping Project",
+        "summary": "Structured TV series dataset built from AlloCiné scraping, then used for descriptive analysis on genres, durations, periods, and ratings.",
+        "description": "This project scrapes TV series data from AlloCiné, organizes it into a structured format, and conducts analyses. We collected data like series title, period, duration, genre, ratings, and more to create a comprehensive dataset."
+      },
+      "fr": {
+        "title": "Projet de Scraping des Séries TV d'AlloCiné",
+        "summary": "Construction d'un dataset structure à partir d'AlloCiné, puis analyse descriptive des genres, durees, periodes et notes.",
+        "description": "Ce projet consiste à scraper les données des séries TV sur AlloCiné, à les organiser dans un format structuré et à réaliser des analyses. Nous avons collecté des informations telles que le titre de la série, la période, la durée, le genre, les évaluations, et bien plus pour créer un ensemble de données complet."
+      }
+    }
+  },
+  {
+    "id": "PJ009",
+    "slug": "environmental-attention-index-pta",
+    "status": "completed",
+    "date": "2024-09-01",
+    "featured": false,
+    "window": {
+      "enabled": true,
+      "contentSlug": "environmental-attention-index-pta",
+      "access": "public"
+    },
+    "technicalLevel": 2,
+    "cover": {
+      "src": "/assets/projects/images/environmental-attention-index-pta-cover.jpg",
+      "alt": {
+        "en": "Analysis of the Environmental Attention Index (EAI) in Preferential Trade Agreements (PTAs) project cover",
+        "fr": "Visuel du projet analyse de l'indice d'attention environnementale (iae) dans les accords commerciaux préférentiels (acp)"
+      }
+    },
+    "links": {
+      "primary": "https://github.com/aurvl/Projects/blob/main/IAE%20Trends/dashboard/resultats.md",
+      "readMore": "https://github.com/aurvl/Projects/blob/main/IAE%20Trends/dashboard/resultats.md",
+      "github": "https://github.com/aurvl/Projects/blob/main/IAE%20Trends/dashboard/resultats.md",
+      "live": null
+    },
+    "taxonomy": {
+      "domains": [
+        "Trade Economics",
+        "Environmental Policy"
+      ],
+      "tools": [
+        "Python",
+        "Excel",
+        "Power BI"
+      ],
+      "keywords": {
+        "en": [
+          "trade",
+          "environment",
+          "index",
+          "policy"
+        ],
+        "fr": [
+          "commerce",
+          "environnement",
+          "indice",
+          "politique"
+        ]
+      }
+    },
+    "content": {
+      "en": {
+        "title": "Analysis of the Environmental Attention Index (EAI) in Preferential Trade Agreements (PTAs)",
+        "summary": "Quantitative study measuring environmental attention in trade agreements with the TREND database and a custom policy index.",
+        "description": "The objective of this work is to measure the importance given to environmental issues in Preferential Trade Agreements (PTAs) using the Environmental Attention Index (EAI). This indicator is calculated from data provided by the Trade & Environment Database (TREND), the most comprehensive database to date on environmental clauses in international trade agreements."
+      },
+      "fr": {
+        "title": "Analyse de l'Indice d'Attention Environnementale (IAE) dans les Accords Commerciaux Préférentiels (ACP)",
+        "summary": "Etude quantitative de l'attention environnementale dans les accords commerciaux via la base TREND et un indice analytique dédié.",
+        "description": "L'objectif de ce travail est de mesurer l'importance accordée aux questions environnementales dans les Accords Commerciaux Préférentiels (ACP) en utilisant l'Indice d'Attention Environnementale (IAE). Cet indicateur est calculé à partir des données fournies par la base de données Trade & Environment Database (TREND), la plus complète à ce jour sur les clauses environnementales dans les accords commerciaux internationaux."
+      }
+    }
+  },
+  {
+    "id": "PJ018",
+    "slug": "banking-fraud-data-collection",
+    "status": "completed",
+    "date": "2024-08-01",
+    "featured": false,
+    "window": {
+      "enabled": true,
+      "contentSlug": "banking-fraud-data-collection",
+      "access": "public"
+    },
+    "technicalLevel": 2,
+    "cover": {
+      "src": "/assets/projects/images/banking-fraud-data-collection-cover.png",
+      "alt": {
+        "en": "Banking Fraud Data Collection Project project cover",
+        "fr": "Visuel du projet collecte de données sur la fraude bancaire"
+      }
+    },
+    "links": {
+      "primary": "https://github.com/aurvl/DE_projects/blob/main/SQL%20Bank%20Fraud/SQL%20Bank%20Fraud.md",
+      "readMore": "https://github.com/aurvl/DE_projects/blob/main/SQL%20Bank%20Fraud/SQL%20Bank%20Fraud.md",
+      "github": "https://github.com/aurvl/DE_projects/blob/main/SQL%20Bank%20Fraud/SQL%20Bank%20Fraud.md",
+      "live": null
+    },
+    "taxonomy": {
+      "domains": [
+        "Data Collection",
+        "Fraud Analytics"
+      ],
+      "tools": [
+        "HTML",
+        "JavaScript",
+        "PHP",
+        "SQL"
+      ],
+      "keywords": {
+        "en": [
+          "fraud",
+          "mysql",
+          "survey",
+          "transactions"
+        ],
+        "fr": [
+          "fraude",
+          "mysql",
+          "questionnaire",
+          "transactions"
+        ]
+      }
+    },
+    "content": {
+      "en": {
+        "title": "Banking Fraud Data Collection Project",
+        "summary": "Web data collection setup simulating banking transactions and storing user responses for fraud-related behavioral analysis.",
+        "description": "This project simulates fictive banking transactions and records user responses regarding risk and money attitudes. Data is stored in a MySQL database for fraud indicator analysis."
+      },
+      "fr": {
+        "title": "Collecte de Données sur la Fraude Bancaire",
+        "summary": "Dispositif web de collecte simulant des transactions bancaires et stockant les réponses utilisateur pour une analyse comportementale liée à la fraude.",
+        "description": "Ce projet simule des transactions bancaires fictives et enregistre les réponses des utilisateurs concernant leur attitude face au risque et à l'argent. L'objectif est de collecter des données auprès des utilisateurs et de les stocker dans une base de données MySQL afin d'analyser les indicateurs potentiels de comportements frauduleux."
+      }
+    }
+  },
+  {
+    "id": "PJ013",
+    "slug": "belgian-trade-time-series",
+    "status": "completed",
+    "date": "2024-04-01",
+    "featured": false,
+    "window": {
+      "enabled": true,
+      "contentSlug": "belgian-trade-time-series",
+      "access": "public"
+    },
+    "technicalLevel": 2,
+    "cover": {
+      "src": "/assets/projects/images/belgian-trade-time-series-cover.jpg",
+      "alt": {
+        "en": "Analysis of Belgian Exports and Imports (1995-2023) project cover",
+        "fr": "Visuel du projet analyse des exportations et importations belges (1995-2023)"
+      }
+    },
+    "links": {
+      "primary": "https://github.com/aurvl/Projects/blob/main/Stock%20previsions/time%20series%20analysis.pdf",
+      "readMore": "https://github.com/aurvl/Projects/blob/main/Stock%20previsions/time%20series%20analysis.pdf",
+      "github": "https://github.com/aurvl/Projects/blob/main/Stock%20previsions/time%20series%20analysis.pdf",
+      "live": null
+    },
+    "taxonomy": {
+      "domains": [
+        "Time Series Analysis",
+        "International Trade"
+      ],
+      "tools": [
+        "Eviews",
+        "R",
+        "Time Series"
+      ],
+      "keywords": {
+        "en": [
+          "trade",
+          "forecasting",
+          "belgium",
+          "time-series"
+        ],
+        "fr": [
+          "commerce",
+          "prevision",
+          "belgique",
+          "series-temporelles"
+        ]
+      }
+    },
+    "content": {
+      "en": {
+        "title": "Analysis of Belgian Exports and Imports (1995-2023)",
+        "summary": "Time-series study of Belgian foreign trade, combining historical analysis, variable relationships, and ten-quarter forecasting.",
+        "description": "The study examines Belgian foreign trade time series to understand historical trends, assess relationships between variables, and provide forecasts over 10 quarters. The report includes univariate and multivariate analysis."
+      },
+      "fr": {
+        "title": "Analyse des Exportations et Importations Belges (1995-2023)",
+        "summary": "Etude en séries temporelles du commerce exterieur belge, entre analyse historique, relations entre variables et previsions sur dix trimestres.",
+        "description": "L'étude examine la série temporelle du commerce extérieur belge pour comprendre les tendances historiques, évaluer les relations entre les variables et fournir des prévisions sur une période de 10 trimestres. Le rapport est divisé en deux parties principales : une analyse univariée et une analyse multivariée."
+      }
+    }
+  },
+  {
+    "id": "PJ010",
+    "slug": "family-history-overweight-classification",
+    "status": "completed",
+    "date": "2024-04-01",
+    "featured": false,
+    "window": {
+      "enabled": true,
+      "contentSlug": "family-history-overweight-classification",
+      "access": "public"
+    },
+    "technicalLevel": 2,
+    "cover": {
+      "src": "/assets/projects/images/family-history-overweight-classification-cover.webp",
+      "alt": {
+        "en": "Classification Models for Family History of Overweight project cover",
+        "fr": "Visuel du projet modèles de classification pour les antécédents familiaux de surpoids"
+      }
+    },
+    "links": {
+      "primary": "https://aurvl.github.io/NotebookSites/ovwg/Ovwght.html",
+      "readMore": "https://github.com/aurvl/Projects/blob/main/Overweight/Overweight.md",
+      "github": "https://github.com/aurvl/Projects/blob/main/Overweight/Overweight.md",
+      "live": "https://aurvl.github.io/NotebookSites/ovwg/Ovwght.html"
+    },
+    "taxonomy": {
+      "domains": [
+        "Machine Learning",
+        "Classification"
+      ],
+      "tools": [
+        "R",
+        "Machine Learning"
+      ],
+      "keywords": {
+        "en": [
+          "classification",
+          "health",
+          "overweight",
+          "models"
+        ],
+        "fr": [
+          "classification",
+          "sante",
+          "surpoids",
+          "modèles"
+        ]
+      }
+    },
+    "content": {
+      "en": {
+        "title": "Classification Models for Family History of Overweight",
+        "summary": "Comparative classification study using Logistic Regression, Random Forest, and XGBoost to predict family history of overweight.",
+        "description": "This project explores the use of various classification models to predict whether an individual has a family history of overweight. Three different machine learning algorithms are implemented and evaluated: Logistic Regression, Random Forest, and XGBoost."
+      },
+      "fr": {
+        "title": "Modèles de Classification pour les Antécédents Familiaux de Surpoids",
+        "summary": "Etude comparative de classification avec regression logistique, Random Forest et XGBoost pour prédire les antécédents familiaux de surpoids.",
+        "description": "Ce projet explore l'utilisation de différents modèles de classification pour prédire si un individu a des antécédents familiaux de surpoids. Trois algorithmes de machine learning sont implémentés et évalués : régression logistique, Random Forest et XGBoost."
+      }
+    }
+  },
+  {
+    "id": "PJ016",
+    "slug": "house-price-prediction",
+    "status": "completed",
+    "date": "2024-01-01",
+    "featured": false,
+    "window": {
+      "enabled": true,
+      "contentSlug": "house-price-prediction",
+      "access": "public"
+    },
+    "technicalLevel": 2,
+    "cover": {
+      "src": "/assets/projects/images/house-price-prediction-cover.jpg",
+      "alt": {
+        "en": "House Price Prediction project cover",
+        "fr": "Visuel du projet prédiction des prix de l'immobilier"
+      }
+    },
+    "links": {
+      "primary": "https://auradev.hashnode.dev/house-prices-prediction",
+      "readMore": "https://github.com/aurvl/ML_projects/blob/main/Housing/Housing.md",
+      "github": "https://github.com/aurvl/ML_projects/blob/main/Housing/Housing.md",
+      "live": "https://auradev.hashnode.dev/house-prices-prediction"
+    },
+    "taxonomy": {
+      "domains": [
+        "Machine Learning",
+        "Regression Modeling"
+      ],
+      "tools": [
+        "Python",
+        "Machine Learning"
+      ],
+      "keywords": {
+        "en": [
+          "housing",
+          "prices",
+          "regression",
+          "prediction"
+        ],
+        "fr": [
+          "immobilier",
+          "prix",
+          "regression",
+          "prediction"
+        ]
+      }
+    },
+    "content": {
+      "en": {
+        "title": "House Price Prediction",
+        "summary": "Linear-regression housing project combining property features and area demographics to estimate house prices.",
+        "description": "This project applies machine learning techniques to predict house prices using housing and area demographics data. The goal is to build a linear regression model to estimate prices."
+      },
+      "fr": {
+        "title": "Prédiction des Prix de l'Immobilier",
+        "summary": "Projet de regression appliquée à l'immobilier, combinant caractéristiques des logements et données démographiques locales pour estimer les prix.",
+        "description": "Ce projet applique des techniques de machine learning pour prédire les prix de l'immobilier en fonction de différentes caractéristiques des logements et des données démographiques de la région. L'objectif est de construire un modèle de régression linéaire pour estimer les prix des logements."
+      }
+    }
+  },
+  {
+    "id": "PJ014",
+    "slug": "okuns-law-economic-indicators",
+    "status": "completed",
+    "date": "2023-12-01",
+    "featured": false,
+    "window": {
+      "enabled": true,
+      "contentSlug": "okuns-law-economic-indicators",
+      "access": "public"
+    },
+    "technicalLevel": 2,
+    "cover": {
+      "src": "/assets/projects/images/okuns-law-economic-indicators-cover.webp",
+      "alt": {
+        "en": "Analysis of Economic Indicators: Okun's Law project cover",
+        "fr": "Visuel du projet analyse des indicateurs économiques : loi d'okun"
+      }
+    },
+    "links": {
+      "primary": "https://aurvl.github.io/NotebookSites/okun/Report.html",
+      "readMore": "https://github.com/aurvl/Projects/blob/main/Okun%20Law/Okun%20Law.md",
+      "github": "https://github.com/aurvl/Projects/blob/main/Okun%20Law/Okun%20Law.md",
+      "live": "https://aurvl.github.io/NotebookSites/okun/Report.html"
+    },
+    "taxonomy": {
+      "domains": [
+        "Econometrics",
+        "Macroeconomics"
+      ],
+      "tools": [
+        "R",
+        "Econometrics"
+      ],
+      "keywords": {
+        "en": [
+          "okun",
+          "gdp",
+          "unemployment",
+          "macro"
+        ],
+        "fr": [
+          "okun",
+          "pib",
+          "chomage",
+          "macro"
+        ]
+      }
+    },
+    "content": {
+      "en": {
+        "title": "Analysis of Economic Indicators: Okun's Law",
+        "summary": "Econometric analysis of GDP growth and unemployment dynamics using Eurostat data through the lens of Okun's Law.",
+        "description": "This analysis focuses on GDP and unemployment rates using Eurostat data. The primary goal is to understand the relationship between GDP growth and unemployment through Okun's Law."
+      },
+      "fr": {
+        "title": "Analyse des Indicateurs Économiques : Loi d'Okun",
+        "summary": "Analyse économétrique de la croissance du PIB et du chômage à partir des données Eurostat dans le cadre de la loi d'Okun.",
+        "description": "Cette analyse se concentre sur les indicateurs économiques, en particulier le PIB et les taux de chômage, en utilisant des données d'Eurostat. Le principal objectif est de comprendre la relation entre la croissance du PIB et les taux de chômage à travers la loi d'Okun."
+      }
+    }
+  },
+  {
+    "id": "PJ012",
+    "slug": "factorial-analysis-mixed-data",
+    "status": "completed",
+    "date": "2023-12-01",
+    "featured": false,
+    "window": {
+      "enabled": true,
+      "contentSlug": "factorial-analysis-mixed-data",
+      "access": "public"
+    },
+    "technicalLevel": 2,
+    "cover": {
+      "src": "/assets/projects/images/factorial-analysis-mixed-data-cover.jpg",
+      "alt": {
+        "en": "Factorial Analysis of Mixed Data (FAMD) project cover",
+        "fr": "Visuel du projet analyse factorielle des données mixtes (afdm)"
+      }
+    },
+    "links": {
+      "primary": "https://aurvl.github.io/NotebookSites/famd/Famd.html",
+      "readMore": "https://github.com/aurvl/ML_projects/blob/main/Famd/Famd.md",
+      "github": "https://github.com/aurvl/ML_projects/blob/main/Famd/Famd.md",
+      "live": "https://aurvl.github.io/NotebookSites/famd/Famd.html"
+    },
+    "taxonomy": {
+      "domains": [
+        "Exploratory Data Analysis",
+        "Dimensionality Reduction"
+      ],
+      "tools": [
+        "R",
+        "Factor Analysis"
+      ],
+      "keywords": {
+        "en": [
+          "famd",
+          "mixed-data",
+          "reduction",
+          "uci"
+        ],
+        "fr": [
+          "afdm",
+          "données-mixtes",
+          "reduction",
+          "uci"
+        ]
+      }
+    },
+    "content": {
+      "en": {
+        "title": "Factorial Analysis of Mixed Data (FAMD)",
+        "summary": "Application of FAMD on the UCI adult dataset to jointly analyze quantitative and qualitative variables in a reduced space.",
+        "description": "This activity focuses on applying Factorial Analysis of Mixed Data (FAMD) to the 'adult' dataset from the UCI Machine Learning Repository. FAMD is a dimension reduction technique allowing simultaneous analysis of quantitative and qualitative variables."
+      },
+      "fr": {
+        "title": "Analyse Factorielle des Données Mixtes (AFDM)",
+        "summary": "Application de l'AFDM au dataset adult de l'UCI pour analyser conjointement variables quantitatives et qualitatives dans un espace reduit.",
+        "description": "Cette activité se concentre sur l'application de l'Analyse Factorielle des Données Mixtes (AFDM) au jeu de données \"adult\" de la UCI Machine Learning Repository. L'AFDM est une technique de réduction de dimension permettant d'analyser simultanément des variables quantitatives et qualitatives."
+      }
+    }
+  },
+  {
+    "id": "PJ015",
+    "slug": "phillips-curve-europe-policy",
+    "status": "completed",
+    "date": "2023-11-01",
+    "featured": false,
+    "window": {
+      "enabled": true,
+      "contentSlug": "phillips-curve-europe-policy",
+      "access": "public"
+    },
+    "technicalLevel": 2,
+    "cover": {
+      "src": "/assets/projects/images/phillips-curve-europe-policy-cover.jpg",
+      "alt": {
+        "en": "Phillips Curve Analysis and Policy Guidance for Europe 2024 project cover",
+        "fr": "Visuel du projet analyse de la courbe de phillips et recommandations de politique pour l'europe 2024"
+      }
+    },
+    "links": {
+      "primary": "https://github.com/aurvl/Projects/blob/main/Unemployment/Unemployment.md",
+      "readMore": "https://github.com/aurvl/Projects/blob/main/Unemployment/Unemployment.md",
+      "github": "https://github.com/aurvl/Projects/blob/main/Unemployment/Unemployment.md",
+      "live": null
+    },
+    "taxonomy": {
+      "domains": [
+        "Econometrics",
+        "Policy Analysis"
+      ],
+      "tools": [
+        "Python",
+        "Policy Analysis"
+      ],
+      "keywords": {
+        "en": [
+          "phillips-curve",
+          "inflation",
+          "unemployment",
+          "europe"
+        ],
+        "fr": [
+          "courbe-de-phillips",
+          "inflation",
+          "chomage",
+          "europe"
+        ]
+      }
+    },
+    "content": {
+      "en": {
+        "title": "Phillips Curve Analysis and Policy Guidance for Europe 2024",
+        "summary": "Econometric project on inflation and unemployment across European countries, with policy-oriented interpretation for 2024 projections.",
+        "description": "This Python project involves econometric analysis of inflation and unemployment rates for five European countries (France, Germany, Italy, Netherlands, United Kingdom) for 2023, with projections for 2024."
+      },
+      "fr": {
+        "title": "Analyse de la Courbe de Phillips et Recommandations de Politique pour l'Europe 2024",
+        "summary": "Projet économétrique sur inflation et chômage dans plusieurs pays européens, avec interpretation orientée politique économique pour 2024.",
+        "description": "Ce projet en Python implique une analyse économétrique de l'inflation et des taux de chômage pour cinq pays européens (France, Allemagne, Italie, Pays-Bas, Royaume-Uni) pour l'année 2023, avec des projections pour 2024."
+      }
+    }
+  }
+]

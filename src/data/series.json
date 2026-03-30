@@ -1,0 +1,16 @@
+[
+  {
+    "id": "SP01",
+    "slug": "ia-pas-a-pas",
+    "featured": true,
+    "title": {
+      "fr": "IA pas à pas",
+      "en": "AI step by step"
+    },
+    "description": {
+      "fr": "Une serie pour comprendre l'IA sans mystifier les bases: regression, probabilites, optimisation et logique de modele.",
+      "en": "A series built to understand AI without mystifying the basics: regression, probabilities, optimization, and model logic."
+    },
+    "cover": "/assets/blog/images/blog6.jpg"
+  }
+]

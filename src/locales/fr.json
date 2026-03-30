@@ -1,0 +1,292 @@
+{
+  "navbar": {
+    "language": "Langue",
+    "themeToggle": "Changer de theme"
+  },
+  "nav": {
+    "home": "Accueil",
+    "about": "À propos",
+    "skills": "Compétences",
+    "projects": "Projets",
+    "blog": "Blog",
+    "contact": "Contact"
+  },
+  "footer": {
+    "copyright": "© 2026 Aurel VEHI. Tous droits reservés."
+  },
+  "hero": {
+    "eyebrow": "Hello !",
+    "title": "Je suis Aurel VEHI",
+    "subtitle": "Data Analyst, Data Scientist et analyste économique",
+    "description": "Je conçois des workflows analytiques qui transforment des données complexes en insights clairs, outils concrets et livrables utiles à la décision.",
+    "stats": {
+      "profile": "Profil économie et data",
+      "projects": "{{count}}+ projets réalisés",
+      "skills": "{{count}}+ compétences clés"
+    }
+  },
+  "about": {
+    "eyebrow": "À propos de moi",
+    "imageAlt": "Portrait d'Aurel VEHI",
+    "description1": "Je travaille à l'intersection de l'économétrie et de la data science, en construisant des analyses rigoureuses, en extrayant des insights utiles et en produisant des résultats clairs et actionnables.",
+    "description2": "Je suis capable de couvrir l'ensemble de la chaine analytique (collecte des données jusqu'à la restitution finale) travers divers domaines d'application (économie, environnement, énergie...). Mon parcours en recherche m'a doté d'une forte rigueur méthodologique avec une capacité de travailler en autonomie sur des projets exigeants.",
+    "description3": "N'hésitez pas à me contacter pour toute collaboration ou opportunité professionnelle !",
+    "contact": "Me contacter",
+    "resume": "Mon CV"
+  },
+  "skills": {
+    "eyebrow": "Compétences",
+    "title": "Compétences, expertise et technologies",
+    "description": "Mon parcours combine des methodes quantitatives avancées, une expérience pratique sur des projets réels et des certifications qui valident ma maitrise des outils utilisés.",
+    "tabs": {
+      "experience": "Expériences",
+      "certifications": "Certifications",
+      "dataTools": "Data, ML et bases",
+      "webTools": "Web, BI et outils"
+    },
+    "experience": {
+      "ecos": {
+        "title": "Data Research Analyst",
+        "period": "mars 2025 - oct. 2025",
+        "contractType": "Stage",
+        "location": "Nice, France - Monaco"
+      },
+      "csm": {
+        "title": "Chargé de mission économètre",
+        "period": "oct. 2024 - dec. 2024",
+        "contractType": "Contrat",
+        "location": "Monaco"
+      },
+      "fsTutor": {
+        "title": "Professeur particulier de mathématiques",
+        "period": "mars 2023 - juin 2024",
+        "contractType": "Contrat",
+        "location": "Nice, France"
+      },
+      "fsFinance": {
+        "title": "Analyste finance et data",
+        "period": "juil. 2023 - sept. 2023",
+        "contractType": "Stage",
+        "location": "Nice, France"
+      }
+    },
+    "certifications": {
+      "credentialId": "Identifiant du certificat : {{id}}",
+      "verificationCode": "Code de vérification : {{code}}",
+      "issued": "Obtenu : {{date}}",
+      "issuedExpires": "Obtenu : {{issued}} • Expire : {{expires}}",
+      "introStatsR": "Introduction à la statistique avec R",
+      "pix": "Certification Pix"
+    },
+    "tools": {
+      "python": "Nettoyage de données, EDA, analyse de données, machine learning, deep learning",
+      "r": "Statistiques, économétrie, analyse de données, visualisation",
+      "stata": "Econometrie appliquée, analyse statistique, workflows académiques",
+      "julia": "Calcul scientifique, méthodes numériques, pipelines data",
+      "mysql": "Requêtes SQL, bases relationnelles, extraction de données",
+      "postgresql": "Conception de bases, requetage, modeles de données pour l'analyse",
+      "mongodb": "Bases documentaires, stockage flexible, workflows NoSQL",
+      "pandas": "Manipulation, transformation et analyse tabulaire des données",
+      "scikitlearn": "Machine learning classique, pretraitement, evaluation",
+      "tensorflow": "Deep learning, réseaux de neurones, prototypage de modèles",
+      "pytorch": "Experimentations en deep learning, modélisation orientée recherche",
+      "fastapi": "Développement d'API, mise en production de modèles, endpoints backend",
+      "git": "Gestion de versions, collaboration, historique de projet",
+      "vscode": "Édition de code, débogage, gestion du workflow projet",
+      "html": "Structure sémantique des pages et organisation du contenu web",
+      "javascript": "Interactivité frontend, logique UI, comportements dynamiques",
+      "react": "Developpement d'interfaces par composants, gestion d'etat, optimisation des performances",
+      "streamlit": "Applications data interactives et interfaces analytiques rapides",
+      "powerbi": "Dashboards, reporting, workflows de business intelligence",
+      "tableau": "Visualisation de données, dashboards, data storytelling",
+      "office": "Productivite, documentation et workflows de reporting",
+      "excel": "Analyse sur tableur, formules, reporting, dashboards",
+      "googlecloud": "Services cloud, deploiement et outillage autour de la data"
+    }
+  },
+  "projects": {
+    "eyebrow": "Portfolio",
+    "title": "Projets récents",
+    "viewAll": "Voir tous les projets",
+    "fallbackDomain": "Projet",
+    "technicalLevel": "Niveau technique",
+    "readMore": "Voir plus",
+    "window": {
+      "close": "Fermer la fenetre du projet",
+      "emptySection": "Aucun contenu detaille n'est disponible pour cette section pour le moment.",
+      "noLinks": "Aucun lien public n'est disponible pour ce projet.",
+      "locked": {
+        "title": "Contenu verrouillé",
+        "description": "Ce projet n'est volontairement pas exposé via un lien public pour le moment. Laisse ton email ci-dessous pour recevoir l'accès ou le prochain contenu disponible directement.",
+        "emailLabel": "Recevoir par email",
+        "emailPlaceholder": "ex. john.doe@example.com",
+        "submit": "Recevoir l'accès par email",
+        "submitting": "Envoi...",
+        "success": "Demande envoyée. Je reviendrai vers toi par email.",
+        "error": "Impossible d'envoyer la demande pour le moment.",
+        "emailFallback": "Me contacter directement par email"
+      },
+      "tabs": {
+        "overview": "Vue d'ensemble",
+        "method": "Méthode",
+        "value": "Apport",
+        "links": "Liens"
+      },
+      "links": {
+        "live": "Ouvrir la demo",
+        "github": "Ouvrir GitHub",
+        "readMore": "Ouvrir la documentation",
+        "primary": "Ouvrir la ressource principale"
+      }
+    },
+    "catalog": {
+      "summary": {
+        "title": "Un catalogue de projets, du concret à chaque ligne",
+        "description": "Filtrer, Parcourir, Découvrir !",
+        "activity": {
+          "githubTitle": "Activité GitHub en {{year}}",
+          "githubSubtitle": "Basé sur mes contributions GitHub publiques",
+          "projectsTitle": "Activité des projets sur les 12 derniers mois",
+          "projectsSubtitle": "Basé sur mes projets du portfolio",
+          "loading": "Chargement de l'activité GitHub..."
+        },
+        "metrics": {
+          "projects_one": "{{count}} projet réalisé",
+          "projects_other": "{{count}} projets réalisés",
+          "tools_one": "{{count}} outil utilisé",
+          "tools_other": "{{count}} outils utilisés",
+          "averageTechnicalLevel": "{{count}} / 3 moy. technique",
+          "lastThreeMonths_one": "{{count}} projet sur les 3 derniers mois",
+          "lastThreeMonths_other": "{{count}} projets sur les 3 derniers mois",
+          "projectsLabel": "projets réalisés",
+          "toolsLabel": "outils utilisés",
+          "averageTechnicalLevelLabel": "technique moy.",
+          "lastThreeMonthsLabel": "sur les 3 derniers mois"
+        }
+      },
+      "filters": {
+        "search": "Rechercher",
+        "searchPlaceholder": "Titre, mots-clés...",
+        "domain": "Domaine",
+        "tag": "Tag",
+        "tools": "Outils",
+        "technicalLevel": "Tech.",
+        "sortBy": "Trier par",
+        "year": "Année",
+        "allDomains": "Tous les domaines",
+        "allTags": "Tous",
+        "allTools": "Tous",
+        "allTechnicalLevels": "Tous",
+        "allYears": "Toutes",
+        "technicalLevelOption": "{{count}} ★",
+        "sortNewest": "Plus récents d'abord",
+        "sortOldest": "Plus anciens d'abord",
+        "sortTitleAsc": "Titre A-Z",
+        "sortTitleDesc": "Titre Z-A",
+        "sortTechnicalDesc": "Niveau technique : decroissant",
+        "sortTechnicalAsc": "Niveau technique : croissant"
+      },
+      "resultsCount_one": "{{count}} resultat",
+      "resultsCount_other": "{{count}} resultats",
+      "showingCount": "{{visible}} affichés sur {{total}}",
+      "loadMore": "Voir {{count}} de plus",
+      "empty": {
+        "title": "Aucun projet correspondant",
+        "description": "Essayez de modifier la recherche ou l'un des filtres."
+      }
+    }
+  },
+  "blog": {
+    "eyebrow": "Blog",
+    "title": "Articles récents",
+    "description": "Voici quelques-uns de mes derniers articles. Ouvrez un post pour approfondir le sujet.",
+    "viewAll": "Voir tous les articles",
+    "minRead": "{{count}} min de lecture",
+    "readMore": "Lire l'article",
+    "loading": "Chargement des articles...",
+    "backToBlog": "Retour au blog",
+    "backToSeries": "Retour a la serie",
+    "summaryTitle": "Summary",
+    "navigation": {
+      "previous": "Article precedent",
+      "next": "Article suivant"
+    },
+    "subscribe": {
+      "eyebrow": "Newsletter",
+      "title": "Tu veux être prévenu des prochains articles ?",
+      "description": "Laisse ton email et je te contacterai quand de nouveaux posts sortiront. Rien de superflu, juste les nouvelles publications.",
+      "emailLabel": "Ton email",
+      "emailPlaceholder": "ex. john.doe@example.com",
+      "submit": "S'abonner",
+      "submitting": "Envoi...",
+      "note": "Tu peux te desinscrire a tout moment en m'ecrivant directement.",
+      "success": "C'est envoyé. Je garderai ton email pour les prochains articles.",
+      "error": "Impossible d'envoyer la demande pour le moment.",
+      "emailFallback": "Me contacter directement",
+      "mailSubject": "Demande de suivi des prochains articles - {{title}}",
+      "mailBody": "Bonjour,\n\nJe souhaite etre contacté pour les prochains articles.\n\nEmail: {{email}}\nType: {{type}}\nContenu: {{title}}\nSlug: {{slug}}\nLangue: {{language}}"
+    },
+    "postNotFound": {
+      "title": "Article introuvable",
+      "description": "Le contenu demande n'est pas disponible dans cette langue pour le moment."
+    },
+    "section": {
+      "featured": {
+        "title": "Featured",
+        "subtitle": "Articles populaires"
+      },
+      "series": {
+        "title": "Séries d'articles",
+        "subtitle": "Suivez une série d'articles pour explorer un sujet en profondeur"
+      },
+      "search": {
+        "title": "Rechercher des articles",
+        "subtitle": "Trouvez les articles qui vous intéressent"
+      }
+    },
+    "catalog": {
+      "filters": {
+        "search": {
+          "name": "Rechercher",
+          "placeholder": "Rechercher par titre, mots-clés..."
+        },
+        "tags": {
+          "name": "Tags",
+          "all": "Tous les tags"
+        }
+      },
+      "showingCount": "{{visible}} affichés sur {{total}}",
+      "loadMore": "Voir {{count}} de plus",
+      "empty": {
+        "title": "Aucun article correspondant",
+        "description": "Essaie de modifier la recherche ou le filtre."
+      }
+    },
+    "series": {
+      "readMore": "Decouvrir",
+      "postCount": "{{count}} posts",
+      "fallbackTitle": "Serie"
+    }
+  },
+  "contact": {
+    "eyebrow": "Contact",
+    "title": "Prendre contact?",
+    "description": "N'hesitez pas à me contacter pour une question, une idée de projet ou une opportunité de collaboration.",
+    "name": "Nom",
+    "email": "Email",
+    "message": "Message",
+    "namePlaceholder": "ex. John Doe",
+    "emailPlaceholder": "ex. john.doe@example.com",
+    "messagePlaceholder": "Ecrivez votre message...",
+    "submit": "Envoyer",
+    "validationAlert": "L'adresse email doit contenir le symbole @.",
+    "hints": {
+      "emailRequired": "Veuillez saisir votre adresse email.",
+      "emailInvalid": "Votre adresse email doit contenir le symbole @.",
+      "messageRequired": "Veuillez ecrire un message."
+    }
+  },
+  "a11y": {
+    "segmentedTabs": "Onglets segmentés"
+  }
+}

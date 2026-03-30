@@ -1,0 +1,35 @@
+@media (max-width: 1023px) {
+  body {
+    background:
+      radial-gradient(circle at top left, rgba(4, 102, 200, 0.1), transparent 34%),
+      var(--bg-color);
+  }
+
+  .gap-rersponsive {
+    gap: clamp(2rem, 5vw, 4rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .seg-tabs__panel {
+    width: 60%;
+  }
+}
+
+@media (max-width: 450px) {
+  .navbar-mobile-toggle {
+    display: inline-flex;
+  }
+
+  .navbar-mobile-panel-shell {
+    display: block;
+  }
+
+  .seg-tabs__panel {
+    width: auto;
+  }
+
+  .tool-tooltip {
+    display: none;
+  }
+}
