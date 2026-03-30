@@ -1,6 +1,7 @@
 const DEFAULT_SITE_URL = 'https://aurvl.github.io/portfolio/'
 const DEFAULT_SITE_NAME = 'Aurel VEHI Portfolio'
 const DEFAULT_GA_MEASUREMENT_ID = 'G-3L7YJ0JHG5'
+const DEFAULT_CLARITY_PROJECT_ID = 'w3rmpxth6k'
 const DEFAULT_SOCIAL_IMAGE = 'assets/images/hero-image.png'
 
 const ABSOLUTE_URL_PATTERN = /^(?:[a-z]+:)?\/\//i
@@ -22,6 +23,10 @@ export function getSiteUrl() {
 
 export function getGoogleAnalyticsMeasurementId() {
   return import.meta.env.VITE_GA_MEASUREMENT_ID || DEFAULT_GA_MEASUREMENT_ID
+}
+
+export function getClarityProjectId() {
+  return import.meta.env.VITE_CLARITY_PROJECT_ID || DEFAULT_CLARITY_PROJECT_ID
 }
 
 export function getDefaultSocialImage() {

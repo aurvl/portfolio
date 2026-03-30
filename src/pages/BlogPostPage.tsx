@@ -201,7 +201,7 @@ function BlogPostPage() {
             </Link>
           )}
         </div>
-
+          
         <div className="grid xl:grid-cols-[minmax(0,1fr)_240px]">
           <div className="min-w-0">
             <div className="overflow-hidden rounded-lg border border-[var(--glass-border)] bg-[var(--glass-bg)]/70 backdrop-blur-xl">
@@ -216,7 +216,7 @@ function BlogPostPage() {
                   {post.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="rounded-full border border-[var(--glass-border)] px-3 py-1 text-[11px] uppercase tracking-[0.2em] text-[var(--text2-col)]"
+                      className="rounded-full border border-[var(--glass-border)] px-3 py-1 text-[11px] uppercase tracking-[0.2em] text-[var(--keyw-col-window)]"
                     >
                       {tag}
                     </span>

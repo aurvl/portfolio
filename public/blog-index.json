@@ -1,241 +1,64 @@
 [
   {
-    "slug": "gradient-descent-intuition",
-    "seriesSlug": "ia-pas-a-pas",
-    "lang": "en",
-    "title": "How a model actually adjusts itself",
-    "summary": "A simple intuition for gradient descent: observe the error, move in a better direction, and repeat until the model stabilizes.",
-    "date": "2026-03-30",
-    "tags": [
-      "optimization",
-      "gradient-descent",
-      "ai"
-    ],
-    "cover": "/assets/blog/images/blog6.jpg",
-    "featured": false,
-    "readTime": 2,
-    "headings": [
-      {
-        "depth": 1,
-        "text": "Introduction",
-        "id": "introduction"
-      },
-      {
-        "depth": 2,
-        "text": "A progressive adjustment logic",
-        "id": "a-progressive-adjustment-logic"
-      },
-      {
-        "depth": 2,
-        "text": "A useful intuition",
-        "id": "a-useful-intuition"
-      },
-      {
-        "depth": 2,
-        "text": "Compact example",
-        "id": "compact-example"
-      },
-      {
-        "depth": 2,
-        "text": "Two common pitfalls",
-        "id": "two-common-pitfalls"
-      },
-      {
-        "depth": 2,
-        "text": "Why this matters",
-        "id": "why-this-matters"
-      }
-    ]
-  },
-  {
-    "slug": "gradient-descent-intuition",
-    "seriesSlug": "ia-pas-a-pas",
-    "lang": "fr",
-    "title": "Comment un modele s'ajuste vraiment",
-    "summary": "Une intuition simple de la descente de gradient: observer l'erreur, avancer dans une meilleure direction, puis recommencer jusqu'a stabilisation.",
-    "date": "2026-03-30",
-    "tags": [
-      "optimisation",
-      "gradient-descent",
-      "ia"
-    ],
-    "cover": "/assets/blog/images/blog6.jpg",
-    "featured": false,
-    "readTime": 2,
-    "headings": [
-      {
-        "depth": 1,
-        "text": "Introduction",
-        "id": "introduction"
-      },
-      {
-        "depth": 2,
-        "text": "Une logique d'ajustement progressif",
-        "id": "une-logique-d-ajustement-progressif"
-      },
-      {
-        "depth": 2,
-        "text": "Une intuition utile",
-        "id": "une-intuition-utile"
-      },
-      {
-        "depth": 2,
-        "text": "Exemple compact",
-        "id": "exemple-compact"
-      },
-      {
-        "depth": 2,
-        "text": "Les deux pieges classiques",
-        "id": "les-deux-pieges-classiques"
-      },
-      {
-        "depth": 2,
-        "text": "Pourquoi cette notion est utile",
-        "id": "pourquoi-cette-notion-est-utile"
-      }
-    ]
-  },
-  {
-    "slug": "logistic-threshold-decisions",
-    "seriesSlug": "ia-pas-a-pas",
-    "lang": "en",
-    "title": "When a score becomes a decision",
-    "summary": "Why a classification model does not simply answer yes or no, but first estimates a probability that must then be converted into a decision.",
-    "date": "2026-03-28",
-    "tags": [
-      "classification",
-      "probabilities",
-      "ai"
-    ],
-    "cover": "/assets/blog/images/blog6.jpg",
-    "featured": true,
-    "readTime": 2,
-    "headings": [
-      {
-        "depth": 1,
-        "text": "Introduction",
-        "id": "introduction"
-      },
-      {
-        "depth": 2,
-        "text": "The real role of probability",
-        "id": "the-real-role-of-probability"
-      },
-      {
-        "depth": 2,
-        "text": "Not every threshold is equal",
-        "id": "not-every-threshold-is-equal"
-      },
-      {
-        "depth": 2,
-        "text": "Minimal example",
-        "id": "minimal-example"
-      },
-      {
-        "depth": 2,
-        "text": "What to keep in mind",
-        "id": "what-to-keep-in-mind"
-      },
-      {
-        "depth": 2,
-        "text": "Why this step matters",
-        "id": "why-this-step-matters"
-      }
-    ]
-  },
-  {
-    "slug": "logistic-threshold-decisions",
-    "seriesSlug": "ia-pas-a-pas",
-    "lang": "fr",
-    "title": "Quand un score devient une decision",
-    "summary": "Pourquoi un modele de classification ne repond pas seulement oui ou non, mais passe d'abord par une probabilite qu'il faut ensuite convertir en decision.",
-    "date": "2026-03-28",
-    "tags": [
-      "classification",
-      "probabilites",
-      "ia"
-    ],
-    "cover": "/assets/blog/images/blog6.jpg",
-    "featured": true,
-    "readTime": 2,
-    "headings": [
-      {
-        "depth": 1,
-        "text": "Introduction",
-        "id": "introduction"
-      },
-      {
-        "depth": 2,
-        "text": "Le vrai role de la probabilite",
-        "id": "le-vrai-role-de-la-probabilite"
-      },
-      {
-        "depth": 2,
-        "text": "Tous les seuils ne se valent pas",
-        "id": "tous-les-seuils-ne-se-valent-pas"
-      },
-      {
-        "depth": 2,
-        "text": "Exemple minimal",
-        "id": "exemple-minimal"
-      },
-      {
-        "depth": 2,
-        "text": "Ce qu'il faut retenir",
-        "id": "ce-qu-il-faut-retenir"
-      },
-      {
-        "depth": 2,
-        "text": "Pourquoi cette etape est importante",
-        "id": "pourquoi-cette-etape-est-importante"
-      }
-    ]
-  },
-  {
     "slug": "regression-multiple-aggregation",
     "seriesSlug": "ia-pas-a-pas",
     "lang": "en",
     "title": "Deciding with numbers",
-    "summary": "A simple introduction to the core idea behind many models: aggregate several signals, assign weights, and produce a decision.",
+    "summary": "A simple introduction to the core idea behind most models: aggregating multiple signals, assigning them weights, and producing a decision.",
     "date": "2026-03-26",
     "tags": [
-      "ai",
       "regression",
-      "intuition"
+      "aggregation",
+      "ai"
     ],
     "cover": "/assets/blog/images/blog6.jpg",
     "featured": true,
-    "readTime": 3,
+    "readTime": 6,
     "headings": [
       {
-        "depth": 1,
+        "depth": 3,
+        "text": "Stack required to run the examples in this article",
+        "id": "stack-required-to-run-the-examples-in-this-article"
+      },
+      {
+        "depth": 2,
         "text": "Introduction",
         "id": "introduction"
       },
       {
         "depth": 2,
-        "text": "A very human logic",
-        "id": "a-very-human-logic"
+        "text": "The power plant: your brain already does AI",
+        "id": "the-power-plant-your-brain-already-does-ai"
       },
       {
         "depth": 2,
-        "text": "From signal to prediction",
-        "id": "from-signal-to-prediction"
+        "text": "Weighing information to make a decision",
+        "id": "weighing-information-to-make-a-decision"
+      },
+      {
+        "depth": 3,
+        "text": "Application: predicting electricity consumption",
+        "id": "application-predicting-electricity-consumption"
+      },
+      {
+        "depth": 3,
+        "text": "Strengths and limits of this approach",
+        "id": "strengths-and-limits-of-this-approach"
       },
       {
         "depth": 2,
-        "text": "A concrete example",
-        "id": "a-concrete-example"
+        "text": "Summary: linear regression",
+        "id": "summary-linear-regression"
       },
       {
         "depth": 2,
-        "text": "Why this building block matters",
-        "id": "why-this-building-block-matters"
+        "text": "What's next?",
+        "id": "what-s-next"
       },
       {
         "depth": 2,
-        "text": "Natural limitation",
-        "id": "natural-limitation"
+        "text": "Go further",
+        "id": "go-further"
       }
     ]
   },
@@ -243,8 +66,8 @@
     "slug": "regression-multiple-aggregation",
     "seriesSlug": "ia-pas-a-pas",
     "lang": "fr",
-    "title": "D?cider avec des chiffres",
-    "summary": "Une introduction simple ? l'id?e centrale derri?re de nombreux mod?les : agr?ger plusieurs signaux, leur assigner des poids, et produire une d?cision.",
+    "title": "Décider avec des chiffres",
+    "summary": "Une introduction simple à l'idée centrale derrière de nombreux modèles : agréger plusieurs signaux, leur assigner des poids, et produire une décision.",
     "date": "2026-03-26",
     "tags": [
       "regression",
@@ -253,7 +76,7 @@
     ],
     "cover": "/assets/blog/images/blog6.jpg",
     "featured": true,
-    "readTime": 6,
+    "readTime": 7,
     "headings": [
       {
         "depth": 3,
@@ -261,7 +84,7 @@
         "id": "stack-requise-pour-realiser-les-exemples-de-cet-article"
       },
       {
-        "depth": 1,
+        "depth": 2,
         "text": "Introduction",
         "id": "introduction"
       },
@@ -272,8 +95,8 @@
       },
       {
         "depth": 2,
-        "text": "Première brique : peser des informations pour décider",
-        "id": "premiere-brique-peser-des-informations-pour-decider"
+        "text": "Peser des informations pour décider",
+        "id": "peser-des-informations-pour-decider"
       },
       {
         "depth": 3,
@@ -287,8 +110,18 @@
       },
       {
         "depth": 2,
-        "text": "Deuxième brique : répondre \"oui ou non\" avec nuance",
-        "id": "deuxieme-brique-repondre-oui-ou-non-avec-nuance"
+        "text": "En résumé : la régression linéaire",
+        "id": "en-resume-la-regression-lineaire"
+      },
+      {
+        "depth": 2,
+        "text": "Et maintenant ?",
+        "id": "et-maintenant"
+      },
+      {
+        "depth": 2,
+        "text": "Pour aller plus loin",
+        "id": "pour-aller-plus-loin"
       }
     ]
   }

@@ -36,8 +36,38 @@ const seriesCoverBySlug = new Map<string, string>(
     .map((entry) => [entry.slug, entry.cover])
 )
 
+function normalizePortableText(value: string) {
+  const normalized = value.normalize('NFC')
+
+  if (!/[ÃÂâ€]/.test(normalized)) {
+    return normalized
+  }
+
+  const repaired = Buffer.from(normalized, 'latin1').toString('utf8').normalize('NFC')
+
+  return scoreTextQuality(repaired) >= scoreTextQuality(normalized) ? repaired : normalized
+}
+
+function scoreTextQuality(value: string) {
+  let score = 0
+
+  if (!/[ÃÂâ€]/.test(value)) {
+    score += 3
+  }
+
+  if (!value.includes('�')) {
+    score += 2
+  }
+
+  if (/[\u00C0-\u017F]/.test(value)) {
+    score += 1
+  }
+
+  return score
+}
+
 function createHeadingId(value: string) {
-  return value
+  return normalizePortableText(value)
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
     .toLowerCase()
@@ -67,7 +97,7 @@ function extractHeadings(content: string) {
       continue
     }
 
-    const text = match[2].replace(/[`*_]/g, '').trim()
+    const text = normalizePortableText(match[2].replace(/[`*_]/g, '').trim())
 
     if (!text) {
       continue
@@ -98,16 +128,16 @@ const index: PostIndexItem[] = files
     const langFromFile: 'fr' | 'en' = file.endsWith('.fr.md') ? 'fr' : 'en'
 
     return {
-      slug: String(data.slug ?? slugFromFile),
+      slug: normalizePortableText(String(data.slug ?? slugFromFile)),
       seriesSlug:
         typeof data.seriesSlug === 'string' && data.seriesSlug.trim().length > 0
-          ? data.seriesSlug
+          ? normalizePortableText(data.seriesSlug)
           : null,
       lang: data.lang === 'fr' ? 'fr' : langFromFile,
-      title: String(data.title ?? slugFromFile),
-      summary: String(data.summary ?? '').trim(),
-      date: String(data.date ?? new Date().toISOString().slice(0, 10)),
-      tags: Array.isArray(data.tags) ? data.tags.map(String) : [],
+      title: normalizePortableText(String(data.title ?? slugFromFile)),
+      summary: normalizePortableText(String(data.summary ?? '').trim()),
+      date: normalizePortableText(String(data.date ?? new Date().toISOString().slice(0, 10))),
+      tags: Array.isArray(data.tags) ? data.tags.map((tag) => normalizePortableText(String(tag))) : [],
       cover:
         (typeof data.seriesSlug === 'string' &&
         data.seriesSlug.trim().length > 0 &&
@@ -122,6 +152,6 @@ const index: PostIndexItem[] = files
   })
   .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 
-fs.writeFileSync(outputPath, JSON.stringify(index, null, 2))
+fs.writeFileSync(outputPath, JSON.stringify(index, null, 2), 'utf-8')
 
 console.log(`Indexed ${index.length} blog posts`)

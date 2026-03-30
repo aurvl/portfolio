@@ -2,8 +2,8 @@
 slug: "regression-multiple-aggregation"
 seriesSlug: "ia-pas-a-pas"
 lang: "fr"
-title: "D?cider avec des chiffres"
-summary: "Une introduction simple ? l'id?e centrale derri?re de nombreux mod?les : agr?ger plusieurs signaux, leur assigner des poids, et produire une d?cision."
+title: "Décider avec des chiffres"
+summary: "Une introduction simple à l'idée centrale derrière de nombreux modèles : agréger plusieurs signaux, leur assigner des poids, et produire une décision."
 date: "2026-03-26"
 tags:
   - "regression"
@@ -25,7 +25,7 @@ featured: true
 - R
 :::
 
-# Introduction
+## Introduction
 
 On entend parler d'intelligence artificielle partout. Et souvent, la première réaction c'est : *"ça doit être hyper compliqué."*
 
@@ -63,7 +63,7 @@ Ce que tu viens de faire, c'est exactement ce qu'un modèle d'IA fait. Ni plus, 
 Il le fait sur des millions d'exemples, en quelques millisecondes, sans jamais se fatiguer.
 :::
 
-## Première brique : peser des informations pour décider
+## Peser des informations pour décider
 
 Restons dans la centrale. Tu veux maintenant prédire la consommation d'électricité du quartier ce soir. Tu as plusieurs informations :
 
@@ -154,17 +154,48 @@ print(paste("Consommation prédite :", round(predicted_consumption, 2), "MW"))
 
 ---
 
-## Deuxième brique : répondre "oui ou non" avec nuance
+Exactement, il manque une section de synthèse avant de passer à la suite. Voici ce que j'insèrerais juste avant "Et maintenant ?" :
 
-:::panel{tone="red" title="Le problème avec les réponses binaires"}
-Dans la vraie vie de l'IA, beaucoup de questions sont binaires :
+---
 
-- Cet email est-il du spam ?
-- Ce vol va-t-il être retardé ?
-- Cette transaction bancaire est-elle frauduleuse ?
-- Ce client va-t-il résilier son abonnement ?
-- Ce patient a-t-il une maladie grave ?
-- Ce candidat est-il un bon fit pour le poste ?
+## En résumé : la régression linéaire
+
+:::panel{tone="green" title="Ce que c'est"}
+Un modèle qui apprend à **peser des informations** pour prédire une valeur continue. Il cherche les poids $w_1, w_2, ..., w_n$ qui minimisent l'écart entre ses prédictions et la réalité.
+
+$y = w_0 + w_1 x_1 + w_2 x_2 + ... + w_n x_n$
 :::
 
-Si on utilisait directement la régression linéaire, on obtiendrait des valeurs comme 1.7 ou -0.3. Difficile d'en faire une décision claire. Et impossible de parler en probabilités.
+:::panel{tone="blue" title="Là où elle brille"}
+- [v] Prédire une valeur continue : consommation électrique, chiffre d'affaires, temps de livraison
+- [v] Résultats interprétables : on peut lire les poids et comprendre ce qui compte
+- [v] Rapide à entraîner, facile à déployer
+- [v] Bonne baseline — toujours tester ça en premier avant de complexifier
+:::
+
+:::panel{tone="red" title="Ses limites"}
+- [!] Elle suppose que la relation entre X et y est **linéaire** — si la réalité est plus complexe, elle rate
+- [!] Sensible aux valeurs aberrantes — un outlier peut tirer les poids dans le mauvais sens
+- [!] Elle ne sait pas répondre OUI ou NON — elle produit un nombre, pas une décision
+:::
+
+---
+
+## Et maintenant ?
+
+La régression linéaire est puissante. Mais elle a une limite claire : elle prédit des nombres, pas des décisions.
+
+Dans la vraie vie de l'IA, beaucoup de questions sont binaires — cet email est-il du spam ? Ce vol va-t-il être retardé ? Cette transaction est-elle frauduleuse ? Si on utilisait directement notre équation, on obtiendrait des valeurs comme `1.7` ou `-0.3`. Difficile d'en faire une décision claire. Et impossible de parler en probabilités.
+
+Dans le prochain article, on introduit la brique qui résout exactement ce problème : la **{purple}régression logistique{/purple}** — et avec elle, une petite fonction mathématique qui va changer ta façon de voir les choses.
+
+Elle s'appelle la {purple}sigmoïde{/purple}. Et une fois que tu l'auras vue, tu la retrouveras partout.
+
+---
+
+## Pour aller plus loin
+
+- [Régression linéaire — scikit-learn](https://scikit-learn.org/stable/modules/linear_model.html#ordinary-least-squares)
+- [Régression linéaire — documentation R](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/lm.html)
+- [Gradient descent visualisé](https://distill.pub/2017/momentum/)
+- [StatQuest — Linear Regression](https://www.youtube.com/watch?v=nk2CQITm_eo)

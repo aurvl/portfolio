@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import Navbar, { type NavbarSection } from './Navbar'
 import Footer from './Footer'
+import BackToTopButton from './BackToTopButton'
 
 type MainLayoutProps = {
   children: ReactNode
@@ -13,6 +14,7 @@ function MainLayout({ children, sections }: MainLayoutProps) {
       <Navbar sections={sections} />
       <main>{children}</main>
       <Footer />
+      <BackToTopButton />
     </div>
   )
 }

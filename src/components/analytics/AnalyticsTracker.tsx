@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
-import { getGoogleAnalyticsMeasurementId } from '../../lib/site'
+import { getClarityProjectId, getGoogleAnalyticsMeasurementId } from '../../lib/site'
 
 declare global {
   interface Window {
@@ -10,10 +10,14 @@ declare global {
 }
 
 const ANALYTICS_SCRIPT_ID = 'google-analytics-script'
+const CLARITY_SCRIPT_ID = 'microsoft-clarity-script'
+
+type ClarityFunction = ((...args: unknown[]) => void) & { q?: unknown[][] }
 
 function AnalyticsTracker() {
   const location = useLocation()
   const measurementId = getGoogleAnalyticsMeasurementId().trim()
+  const clarityProjectId = getClarityProjectId().trim()
 
   useEffect(() => {
     if (!measurementId) {
@@ -38,6 +42,32 @@ function AnalyticsTracker() {
     window.gtag('js', new Date())
     window.gtag('config', measurementId, { send_page_view: false })
   }, [measurementId])
+
+  useEffect(() => {
+    if (!clarityProjectId) {
+      return
+    }
+
+    const clarityWindow = window as Window & { clarity?: ClarityFunction }
+    const existingClarity = clarityWindow.clarity
+    const clarity: ClarityFunction =
+      existingClarity ||
+      (((...args: unknown[]) => {
+        const current = clarity as ClarityFunction
+        const queue = (current.q = current.q || [])
+        queue.push(args)
+      }) as ClarityFunction)
+
+    clarityWindow.clarity = clarity
+
+    if (!document.getElementById(CLARITY_SCRIPT_ID)) {
+      const script = document.createElement('script')
+      script.id = CLARITY_SCRIPT_ID
+      script.async = true
+      script.src = `https://www.clarity.ms/tag/${clarityProjectId}`
+      document.head.appendChild(script)
+    }
+  }, [clarityProjectId])
 
   useEffect(() => {
     if (!measurementId || !window.gtag) {
