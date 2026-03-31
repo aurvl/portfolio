@@ -28,11 +28,11 @@
   "about": {
     "eyebrow": "About me",
     "imageAlt": "Portrait of Aurel VEHI",
-    "description1": "I work at the intersection of econometrics and data science, building rigorous analyses, extracting useful insights, and producing clear, actionable results.",
-    "description2": "I am able to cover the full analytical workflow, from data collection to final delivery, across various application domains (economics, environment, energy...). My research background has given me strong methodological rigor and the ability to work independently on demanding projects.",
-    "description3": "Feel free to contact me for any collaboration or professional opportunity!",
+    "description1": "I am a data scientist and economic analyst with training in econometrics, statistical modeling, and data science. My background has been built through research, rigorous analysis, and the development of analytical solutions for economic and environmental issues.",
+    "description2": "I am able to cover the full analytical chain, from data collection and processing to modeling, indicator production, forecasting, and reporting.",
+    "description3": "What I bring: rigor, clarity, useful solutions, and results that are directly actionable for decision-making.",    
     "contact": "Reach out",
-    "resume": "My resume"
+    "resume": "View my resume"
   },
   "skills": {
     "eyebrow": "Skills",
@@ -210,6 +210,14 @@
     "navigation": {
       "previous": "Previous article",
       "next": "Next article"
+    },
+    "resources": {
+      "title": "Resources",
+      "items": {
+        "code": "Open code",
+        "repo": "Open repository",
+        "docs": "Open documentation"
+      }
     },
     "subscribe": {
       "eyebrow": "Newsletter",

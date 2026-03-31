@@ -24,6 +24,7 @@ Agents may edit:
 - `src/data/projects.json`
 - `src/content/project-windows/*.md`
 - `src/content/posts/*.md`
+- `src/data/blog-resources.json`
 - `src/data/series.json`
 - `src/data/domain.json`
 
@@ -48,9 +49,10 @@ For a new blog post:
 
 1. Run `npm run content:add-post -- ...`
 2. Fill the generated markdown files
-3. Confirm the cover path and series slug if used
-4. Run `npm run content:validate`
-5. Run `npm run build`
+3. Add an optional `src/data/blog-resources.json` entry only if the post has code / repo / docs companion links
+4. Confirm the cover path and series slug if used
+5. Run `npm run content:validate`
+6. Run `npm run build`
 
 ## Non-negotiable invariants
 
@@ -59,6 +61,7 @@ For a new blog post:
 - Keep project data bilingual in `content.en` and `content.fr`
 - Keep project windows bilingual and named `<contentSlug>.en.md` / `<contentSlug>.fr.md`
 - Keep blog posts named `<slug>.en.md` / `<slug>.fr.md`
+- Keep optional blog companion links in `src/data/blog-resources.json`, not in blog frontmatter
 - Keep project-window H1 headings exactly `Overview`, `Method`, and `Value`
 - Do not add unsupported frontmatter keys
 - Do not leave `TODO` placeholders in committed content

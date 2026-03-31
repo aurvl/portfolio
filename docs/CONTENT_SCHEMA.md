@@ -138,6 +138,28 @@ Notes:
 - the body must contain at least one H1 heading
 - read time and heading extraction are generated from markdown by `scripts/generate-blog-index.ts`
 
+## Blog Resources
+
+Location: `src/data/blog-resources.json`
+
+Optional companion links for blog post detail pages live in a separate slug-keyed JSON object:
+
+```json
+{
+  "regression-multiple-aggregation": {
+    "code": "https://colab.research.google.com/...",
+    "repo": "https://github.com/aurvl/AI-Step-by-Step/tree/main/bp1-linear-regression"
+  }
+}
+```
+
+Rules:
+
+- keys must match an existing blog post `slug`
+- allowed resource keys are only `code`, `repo`, and `docs`
+- omit missing resources instead of inventing placeholders
+- do not move these links into blog frontmatter
+
 ## Domain Colors
 
 Location: `src/data/domain.json`

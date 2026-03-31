@@ -28,11 +28,11 @@
   "about": {
     "eyebrow": "À propos de moi",
     "imageAlt": "Portrait d'Aurel VEHI",
-    "description1": "Je travaille à l'intersection de l'économétrie et de la data science, en construisant des analyses rigoureuses, en extrayant des insights utiles et en produisant des résultats clairs et actionnables.",
-    "description2": "Je suis capable de couvrir l'ensemble de la chaine analytique (collecte des données jusqu'à la restitution finale) travers divers domaines d'application (économie, environnement, énergie...). Mon parcours en recherche m'a doté d'une forte rigueur méthodologique avec une capacité de travailler en autonomie sur des projets exigeants.",
-    "description3": "N'hésitez pas à me contacter pour toute collaboration ou opportunité professionnelle !",
-    "contact": "Me contacter",
-    "resume": "Mon CV"
+    "description1": "Je suis data scientist et analyste économique, avec une formation en économétrie, en modélisation statistique et en data science. Mon parcours s’est construit entre recherche, analyse rigoureuse et développement de solutions analytiques sur des enjeux économiques et environnementaux.",
+    "description2": "Je suis capable de couvrir l'ensemble de la chaine analytique, de la collecte et du traitement des données jusqu’à la modélisation, la production d’indicateurs, la prévision et la restitution.",
+    "description3": "Ce que j’apporte : de la rigueur, de la clarté, des solutions utiles et des résultats directement exploitables pour la décision.",
+    "contact": "En savoir plus",
+    "resume": "Consulter mon CV"
   },
   "skills": {
     "eyebrow": "Compétences",
@@ -210,6 +210,14 @@
     "navigation": {
       "previous": "Article precedent",
       "next": "Article suivant"
+    },
+    "resources": {
+      "title": "Ressources",
+      "items": {
+        "code": "Ouvrir le code",
+        "repo": "Ouvrir le dépôt",
+        "docs": "Ouvrir la documentation"
+      }
     },
     "subscribe": {
       "eyebrow": "Newsletter",

@@ -1,0 +1,9 @@
+{
+  "regression-multiple-aggregation": {
+    "code": "https://colab.research.google.com/drive/15ZuZCkjIN3R7eZDS_h0QfPsctGNCQEQE?usp=sharing",
+    "repo": "https://github.com/aurvl/AI-Step-by-Step/tree/main/bp1-linear-regression"
+  },
+  "logistic-regression-score-probability": {
+    "repo": "https://github.com/aurvl/AI-Step-by-Step/tree/main/bp2-logistic-regression"
+  }
+}

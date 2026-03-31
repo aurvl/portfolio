@@ -20,7 +20,7 @@ function AboutSection() {
         </div>
 
         <div className="about-content basis-3/5 border-t-[1px] border-[var(--glass-border)] flex items-center">
-          <p className="max-w-2xl text-base leading-8 text-[var(--text2-col)] text-center md:text-left">
+          <p className="max-w-2xl text-base leading-8 text-[var(--text2-col)] text-center md:text-left pt-8 lg:pt-0">
             {t('about.description1')}
             <br />
             {t('about.description2')}
@@ -32,7 +32,7 @@ function AboutSection() {
       <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
         <a
           href="#contact-form"
-          className="button-shadow btn btn-primary border-class flex justify-center 
+          className="button-shadow btn btn-primary border-class flex flex items-center justify-center text-center 
           rounded-[5px] bg-[#3784d8] w-[60%] md:w-auto
           px-8 py-3 font-semibold text-white md:p-3 sm:w-auto sm:min-w-[220px]"
         >
@@ -41,7 +41,7 @@ function AboutSection() {
         <a
           href={getResumeDownloadUrl(i18n.resolvedLanguage ?? i18n.language)}
           download={i18n.resolvedLanguage === 'fr' ? 'AurelVehi_CV_FR.pdf' : 'AurelVehi_CV_EN.pdf'}
-          className="button-shadow btn btn-secondary border-class flex justify-center 
+          className="button-shadow btn btn-secondary border-class flex flex items-center justify-center text-center 
           rounded-[5px] w-[60%] md:w-auto
           px-8 py-3 font-semibold text-white md:p-3 sm:w-auto sm:min-w-[220px]"
         >

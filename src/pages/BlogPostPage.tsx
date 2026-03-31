@@ -113,11 +113,28 @@ function BlogPostPage() {
   }, [i18n.language, slug])
 
   const activeHeading = useActiveHeadingIds(post?.headings.map((heading) => heading.id) ?? [])
+  const navigationPosts = useMemo(() => {
+    if (!post?.seriesSlug) {
+      return index
+    }
+
+    return [...index]
+      .filter((item) => item.seriesSlug === post.seriesSlug)
+      .sort((postA, postB) => {
+        const dateDiff = new Date(postA.date).getTime() - new Date(postB.date).getTime()
+
+        if (dateDiff !== 0) {
+          return dateDiff
+        }
+
+        return postA.slug.localeCompare(postB.slug)
+      })
+  }, [index, post?.seriesSlug])
   const currentPostIndex = post
-    ? index.findIndex((item) => item.slug === post.slug)
+    ? navigationPosts.findIndex((item) => item.slug === post.slug)
     : -1
-  const previousPost = currentPostIndex >= 0 ? index[currentPostIndex - 1] ?? null : null
-  const nextPost = currentPostIndex >= 0 ? index[currentPostIndex + 1] ?? null : null
+  const previousPost = currentPostIndex >= 0 ? navigationPosts[currentPostIndex - 1] ?? null : null
+  const nextPost = currentPostIndex >= 0 ? navigationPosts[currentPostIndex + 1] ?? null : null
 
   if (!slug || (!post && !isIndexLoading)) {
     return (
@@ -180,7 +197,7 @@ function BlogPostPage() {
         }}
       />
       <section
-        className="blogpage-shell py-15 md:py-12 md:pl-30"
+        className="blogpage-shell py-15 md:py-12 lg:pl-30"
         style={blogPostThemeStyle}
       >
         <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
@@ -244,7 +261,7 @@ function BlogPostPage() {
                   {t('blog.loading')}
                 </div>
               ) : content ? (
-                <PostContent content={content} />
+                <PostContent content={content} postSlug={post.slug} />
               ) : (
                 <div className="rounded-lg border border-[var(--glass-border)] bg-[var(--glass-bg)]/65 px-6 py-10 text-center text-[var(--text2-col)] backdrop-blur-xl">
                   {t('blog.postNotFound.description')}

@@ -69,11 +69,13 @@ function SummaryMetricCard({ icon, value, label }: SummaryMetricCardProps) {
           {value}
         </p>
 
-        <div className="flex items-center justify-center gap-1">
-          <div className="flex h-full shrink-0 items-center justify-center rounded-xl text-[var(--text2-col)]">
+        <div className="flex flex-col items-center justify-center gap-1">
+          <div className="flex shrink-0 items-center justify-center rounded-xl text-[var(--text2-col)]">
             {icon}
           </div>
-          <p className="text-sm text-[var(--text2-col)]">{label}</p>
+          <p className="text-center text-sm text-[var(--text2-col)]">
+            {label}
+          </p>
         </div>
       </div>
     </article>

@@ -6,6 +6,7 @@ from content_ops import (
     ALLOWED_PROJECT_COVER_EXTENSIONS,
     BLOG_SUMMARY_WORD_LIMIT,
     DOMAIN_COLORS_PATH,
+    BLOG_RESOURCES_PATH,
     MARKDOWN_FILENAME_PATTERN,
     POSTS_DIR,
     PROJECT_ID_PATTERN,
@@ -600,6 +601,53 @@ def validate_project_windows(expected_window_slugs: dict[str, str]) -> tuple[lis
     return errors, warnings
 
 
+def validate_blog_resources() -> tuple[list[str], list[str]]:
+    errors: list[str] = []
+    warnings: list[str] = []
+    allowed_keys = {"code", "repo", "docs"}
+    post_slugs = {
+        match.group("slug")
+        for path in POSTS_DIR.glob("*.md")
+        if (match := MARKDOWN_FILENAME_PATTERN.fullmatch(path.name))
+    }
+
+    catalog = load_json(BLOG_RESOURCES_PATH)
+    if not isinstance(catalog, dict):
+        return [f"{relative_path(BLOG_RESOURCES_PATH)} must contain a JSON object."], warnings
+
+    for slug, resources in catalog.items():
+        location = f"{relative_path(BLOG_RESOURCES_PATH)}[{slug}]"
+
+        if not is_valid_slug(slug):
+            errors.append(f"{location} has an invalid post slug key.")
+            continue
+
+        if slug not in post_slugs:
+            errors.append(f"{location} references an unknown blog post slug.")
+
+        if not isinstance(resources, dict) or not resources:
+            errors.append(f"{location} must contain at least one resource link.")
+            continue
+
+        unexpected_keys = sorted(set(resources.keys()) - allowed_keys)
+        if unexpected_keys:
+            errors.append(
+                f"{location} has unsupported resource keys: {', '.join(unexpected_keys)}."
+            )
+
+        for key, value in resources.items():
+            if key not in allowed_keys:
+                continue
+
+            if not isinstance(value, str) or not is_http_url(value):
+                errors.append(f"{location} has an invalid {key} URL.")
+
+        if contains_placeholder(str(resources)):
+            errors.append(f"{location} still contains TODO-style placeholders.")
+
+    return errors, warnings
+
+
 def validate_string_list(*, value, location: str, errors: list[str]) -> list[str]:
     if not isinstance(value, list) or not value:
         errors.append(f"{location} must contain at least one value.")
@@ -649,6 +697,10 @@ def run_validation() -> tuple[list[str], list[str]]:
     window_errors, window_warnings = validate_project_windows(expected_window_slugs)
     errors.extend(window_errors)
     warnings.extend(window_warnings)
+
+    blog_resource_errors, blog_resource_warnings = validate_blog_resources()
+    errors.extend(blog_resource_errors)
+    warnings.extend(blog_resource_warnings)
 
     return errors, warnings
 

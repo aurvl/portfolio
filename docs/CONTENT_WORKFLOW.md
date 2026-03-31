@@ -9,6 +9,7 @@ Use these files and folders as the editable content sources:
 - `src/data/projects.json`
 - `src/content/project-windows/`
 - `src/content/posts/`
+- `src/data/blog-resources.json`
 - `src/data/series.json`
 - `src/data/domain.json`
 
@@ -103,6 +104,7 @@ Manual follow-up:
 - replace all `TODO` placeholders
 - adjust tags per language if needed
 - confirm the cover asset under `public/assets/blog/images/`
+- add an entry in `src/data/blog-resources.json` only when the article has optional code / repo / docs companion links
 
 Useful flags:
 
@@ -130,6 +132,7 @@ The validator checks:
 - `series.json` slugs, localized fields, and cover assets
 - `skills.json` ids, slugs, localized fields, and local icon references
 - blog-post filename/frontmatter alignment, required fields, tags, cover paths, and headings
+- `blog-resources.json` slug keys, allowed resource keys, and optional companion-link URLs
 - project-window filename/frontmatter alignment and the required `Overview / Method / Value` structure
 - obvious placeholder drift such as `TODO`
 

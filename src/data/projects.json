@@ -1,5 +1,69 @@
 [
   {
+    "id": "PJ022",
+    "slug": "excel-data-analyst-project",
+    "status": "completed",
+    "date": "2026-03-18",
+    "featured": false,
+    "technicalLevel": 2,
+    "cover": {
+      "src": "/assets/projects/images/excel-data-analyst-project-cover.jpg",
+      "alt": {
+        "en": "Excel sales performance analysis project cover",
+        "fr": "Visuel du projet analyse de la performance commerciale sur Excel"
+      }
+    },
+    "links": {
+      "primary": "https://github.com/aurvl/Excel-Data-Analyst-Project",
+      "readMore": "https://github.com/aurvl/Excel-Data-Analyst-Project",
+      "github": "https://github.com/aurvl/Excel-Data-Analyst-Project",
+      "live": null
+    },
+    "taxonomy": {
+      "domains": [
+        "Business Intelligence",
+        "Sales Analytics"
+      ],
+      "tools": [
+        "Excel",
+        "Power Query",
+        "Data Modeling",
+        "Financial Reporting"
+      ],
+      "keywords": {
+        "en": [
+          "excel",
+          "sales",
+          "kpi",
+          "reporting"
+        ],
+        "fr": [
+          "excel",
+          "ventes",
+          "kpi",
+          "reporting"
+        ]
+      }
+    },
+    "content": {
+      "en": {
+        "title": "Excel Sales Performance Analysis (2012-2014)",
+        "summary": "Excel sales analysis project combining data cleaning, KPI modeling, and management reporting to examine a 2012-2014 commercial trajectory marked by revenue volatility, product concentration, and retention issues.",
+        "description": "Built an Excel and Power Query sales-analysis workflow around a 2012-2014 business case. The repository provides the technical backbone: imperfect raw files, explicit cleaning rules, mapping tables, fact tables, and reporting outputs. The narrative leans on the final commercial report, which highlights a sharp revenue break after late 2012, strong dependence on bicycle sales, weak conversion from new customers into VIPs, and clear cross-sell potential in accessories. The project therefore works both as a serious Excel reporting pipeline and as a management-oriented sales diagnosis."
+      },
+      "fr": {
+        "title": "Analyse de la performance commerciale sur Excel (2012-2014)",
+        "summary": "Projet Excel d'analyse commerciale combinant nettoyage de données, modélisation de KPI et reporting management pour étudier la trajectoire 2012-2014, entre volatilité du chiffre d'affaires, concentration produit et faiblesse de rétention.",
+        "description": "Projet d'analyse commerciale sous Excel et Power Query construit autour d'un cas 2012-2014. Le dépôt apporte l'ossature technique : fichiers bruts imparfaits, règles de nettoyage explicites, tables de mapping, tables de faits et sorties de reporting. La narration s'appuie surtout sur le rapport commercial final, qui met en avant une rupture du chiffre d'affaires fin 2012, une forte dépendance aux ventes de vélos, une conversion insuffisante des nouveaux clients vers les segments VIP et un potentiel clair de cross-sell sur les accessoires. Le projet fonctionne donc à la fois comme pipeline Excel sérieux et comme diagnostic commercial orienté management."
+      }
+    },
+    "window": {
+      "enabled": true,
+      "contentSlug": "excel-data-analyst-project",
+      "access": "public"
+    }
+  },
+  {
     "id": "PJ001",
     "slug": "sales-analytics-dashboard",
     "status": "completed",

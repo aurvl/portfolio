@@ -1,5 +1,131 @@
 [
   {
+    "slug": "logistic-regression-score-probability",
+    "seriesSlug": "ia-pas-a-pas",
+    "lang": "en",
+    "title": "Yes or No, with nuance",
+    "summary": "A simple continuation of linear regression: keep the weighted score, pass it through a sigmoid, and turn it into a probability for yes-or-no decisions.",
+    "date": "2026-03-31",
+    "tags": [
+      "ai",
+      "logistic-regression",
+      "classification"
+    ],
+    "cover": "/assets/blog/images/blog6.jpg",
+    "featured": false,
+    "readTime": 6,
+    "headings": [
+      {
+        "depth": 2,
+        "text": "Stack required to run the examples in this article",
+        "id": "stack-required-to-run-the-examples-in-this-article"
+      },
+      {
+        "depth": 1,
+        "text": "Introduction",
+        "id": "introduction"
+      },
+      {
+        "depth": 1,
+        "text": "The same score, a different question",
+        "id": "the-same-score-a-different-question"
+      },
+      {
+        "depth": 1,
+        "text": "Turning a score into a probability",
+        "id": "turning-a-score-into-a-probability"
+      },
+      {
+        "depth": 2,
+        "text": "Application: deciding if a flight will be delayed",
+        "id": "application-deciding-if-a-flight-will-be-delayed"
+      },
+      {
+        "depth": 2,
+        "text": "When probability becomes a decision",
+        "id": "when-probability-becomes-a-decision"
+      },
+      {
+        "depth": 1,
+        "text": "Summary: logistic regression",
+        "id": "summary-logistic-regression"
+      },
+      {
+        "depth": 1,
+        "text": "What's next?",
+        "id": "what-s-next"
+      },
+      {
+        "depth": 1,
+        "text": "Go further",
+        "id": "go-further"
+      }
+    ]
+  },
+  {
+    "slug": "logistic-regression-score-probability",
+    "seriesSlug": "ia-pas-a-pas",
+    "lang": "fr",
+    "title": "Oui ou non, avec nuance",
+    "summary": "La suite simple de la régression linéaire : garder le score pondéré, le passer dans une sigmoïde, et obtenir une probabilité pour des décisions oui ou non.",
+    "date": "2026-03-31",
+    "tags": [
+      "ai",
+      "logistic-regression",
+      "classification"
+    ],
+    "cover": "/assets/blog/images/blog6.jpg",
+    "featured": false,
+    "readTime": 7,
+    "headings": [
+      {
+        "depth": 2,
+        "text": "Stack requise pour réaliser les exemples de cet article",
+        "id": "stack-requise-pour-realiser-les-exemples-de-cet-article"
+      },
+      {
+        "depth": 1,
+        "text": "Introduction",
+        "id": "introduction"
+      },
+      {
+        "depth": 1,
+        "text": "Le même score, une autre question",
+        "id": "le-meme-score-une-autre-question"
+      },
+      {
+        "depth": 1,
+        "text": "Transformer un score en probabilité",
+        "id": "transformer-un-score-en-probabilite"
+      },
+      {
+        "depth": 2,
+        "text": "Application : décider si un vol sera retardé",
+        "id": "application-decider-si-un-vol-sera-retarde"
+      },
+      {
+        "depth": 2,
+        "text": "Quand la probabilité devient une décision",
+        "id": "quand-la-probabilite-devient-une-decision"
+      },
+      {
+        "depth": 1,
+        "text": "En résumé : la régression logistique",
+        "id": "en-resume-la-regression-logistique"
+      },
+      {
+        "depth": 1,
+        "text": "Et maintenant ?",
+        "id": "et-maintenant"
+      },
+      {
+        "depth": 1,
+        "text": "Pour aller plus loin",
+        "id": "pour-aller-plus-loin"
+      }
+    ]
+  },
+  {
     "slug": "regression-multiple-aggregation",
     "seriesSlug": "ia-pas-a-pas",
     "lang": "en",
@@ -13,50 +139,50 @@
     ],
     "cover": "/assets/blog/images/blog6.jpg",
     "featured": true,
-    "readTime": 6,
+    "readTime": 7,
     "headings": [
       {
-        "depth": 3,
+        "depth": 2,
         "text": "Stack required to run the examples in this article",
         "id": "stack-required-to-run-the-examples-in-this-article"
       },
       {
-        "depth": 2,
+        "depth": 1,
         "text": "Introduction",
         "id": "introduction"
       },
       {
-        "depth": 2,
+        "depth": 1,
         "text": "The power plant: your brain already does AI",
         "id": "the-power-plant-your-brain-already-does-ai"
       },
       {
-        "depth": 2,
+        "depth": 1,
         "text": "Weighing information to make a decision",
         "id": "weighing-information-to-make-a-decision"
       },
       {
-        "depth": 3,
+        "depth": 2,
         "text": "Application: predicting electricity consumption",
         "id": "application-predicting-electricity-consumption"
       },
       {
-        "depth": 3,
+        "depth": 2,
         "text": "Strengths and limits of this approach",
         "id": "strengths-and-limits-of-this-approach"
       },
       {
-        "depth": 2,
+        "depth": 1,
         "text": "Summary: linear regression",
         "id": "summary-linear-regression"
       },
       {
-        "depth": 2,
+        "depth": 1,
         "text": "What's next?",
         "id": "what-s-next"
       },
       {
-        "depth": 2,
+        "depth": 1,
         "text": "Go further",
         "id": "go-further"
       }
@@ -79,47 +205,47 @@
     "readTime": 7,
     "headings": [
       {
-        "depth": 3,
+        "depth": 2,
         "text": "Stack requise pour réaliser les exemples de cet article",
         "id": "stack-requise-pour-realiser-les-exemples-de-cet-article"
       },
       {
-        "depth": 2,
+        "depth": 1,
         "text": "Introduction",
         "id": "introduction"
       },
       {
-        "depth": 2,
+        "depth": 1,
         "text": "La centrale électrique : ton cerveau fait déjà de l'IA",
         "id": "la-centrale-electrique-ton-cerveau-fait-deja-de-l-ia"
       },
       {
-        "depth": 2,
+        "depth": 1,
         "text": "Peser des informations pour décider",
         "id": "peser-des-informations-pour-decider"
       },
       {
-        "depth": 3,
+        "depth": 2,
         "text": "Application : prédire la consommation d'électricité",
         "id": "application-predire-la-consommation-d-electricite"
       },
       {
-        "depth": 3,
-        "text": "Avantages et limites de cette approche :",
+        "depth": 2,
+        "text": "Avantages et limites de cette approche",
         "id": "avantages-et-limites-de-cette-approche"
       },
       {
-        "depth": 2,
+        "depth": 1,
         "text": "En résumé : la régression linéaire",
         "id": "en-resume-la-regression-lineaire"
       },
       {
-        "depth": 2,
+        "depth": 1,
         "text": "Et maintenant ?",
         "id": "et-maintenant"
       },
       {
-        "depth": 2,
+        "depth": 1,
         "text": "Pour aller plus loin",
         "id": "pour-aller-plus-loin"
       }

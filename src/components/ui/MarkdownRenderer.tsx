@@ -1042,7 +1042,7 @@ function renderMathScripts(text: string, keySeed = 0): ReactNode[] {
 }
 
 function parseFraction(text: string, startIndex: number) {
-  const numeratorStart = startIndex + 6
+  const numeratorStart = startIndex + '\\frac'.length
   if (text[numeratorStart] !== '{') return null
 
   const numeratorEnd = findMatchingBrace(text, numeratorStart)

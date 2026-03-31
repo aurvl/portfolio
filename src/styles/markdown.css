@@ -13,12 +13,12 @@
 .md-content__h3 {
   color: var(--text-col);
   font-weight: 700;
-  line-height: 1.2;
+  line-height: 1.7;
   scroll-margin-top: 6.75rem;
 }
 
 .md-content__h1 {
-  margin: 0 0 1rem;
+  margin: 3rem 0 1rem;
   font-size: 3rem;
 }
 

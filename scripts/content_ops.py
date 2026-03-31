@@ -14,6 +14,7 @@ PROJECTS_PATH = SRC_DIR / "data" / "projects.json"
 SKILLS_PATH = SRC_DIR / "data" / "skills.json"
 SERIES_PATH = SRC_DIR / "data" / "series.json"
 DOMAIN_COLORS_PATH = SRC_DIR / "data" / "domain.json"
+BLOG_RESOURCES_PATH = SRC_DIR / "data" / "blog-resources.json"
 POSTS_DIR = SRC_DIR / "content" / "posts"
 PROJECT_WINDOWS_DIR = SRC_DIR / "content" / "project-windows"
 

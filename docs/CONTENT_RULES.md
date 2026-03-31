@@ -60,6 +60,14 @@ Do not introduce names like `p12.png`, `illust.png`, or `final-final-cover.jpg`.
 7. Do not add unsupported frontmatter keys or legacy blog metadata fields.
 8. Do not leave `TODO` placeholders in committed blog content.
 
+## Blog resources rules
+
+1. Optional blog companion links live in `src/data/blog-resources.json`.
+2. Allowed resource keys are only `code`, `repo`, and `docs`.
+3. Resource links are keyed by blog `slug`, not by language.
+4. Do not duplicate companion links in blog frontmatter.
+5. Omit the blog-resources entry entirely when a post has no companion links.
+
 ## Skill rules
 
 1. Skills must be stored under a category in `src/data/skills.json`.

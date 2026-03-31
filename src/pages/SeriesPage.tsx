@@ -29,7 +29,17 @@ function SeriesPage() {
   const { seriesSlug } = useParams()
   const { index } = useBlogIndex(i18n.language)
   const currentSeries = blogSeries.find((item) => item.slug === seriesSlug) ?? null
-  const seriesPosts = index.filter((post) => post.seriesSlug === seriesSlug)
+  const seriesPosts = [...index]
+    .filter((post) => post.seriesSlug === seriesSlug)
+    .sort((postA, postB) => {
+      const dateDiff = new Date(postA.date).getTime() - new Date(postB.date).getTime()
+
+      if (dateDiff !== 0) {
+        return dateDiff
+      }
+
+      return postA.slug.localeCompare(postB.slug)
+    })
   const rows = chunkPosts(seriesPosts, 3)
 
   const sections = [

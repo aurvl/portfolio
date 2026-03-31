@@ -48,6 +48,7 @@ Rules:
 - `featured` must be `true` or `false`
 
 Do not add legacy keys such as `message`, `code-links`, or ad-hoc metadata fields.
+If a post has optional code / repo / docs companion links, store them in `src/data/blog-resources.json`, not in frontmatter.
 
 ## Body structure
 
