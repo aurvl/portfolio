@@ -1,5 +1,70 @@
 [
   {
+    "id": "PJ023",
+    "slug": "insurance-claim-fraud-counterfactual-simulator",
+    "status": "completed",
+    "date": "2026-04-06",
+    "featured": true,
+    "technicalLevel": 3,
+    "cover": {
+      "src": "/assets/projects/images/insurance-claim-fraud-counterfactual-simulator-cover.jpg",
+      "alt": {
+        "en": "Insurance claim fraud analytics and counterfactual decision-support project cover",
+        "fr": "Visuel du projet fraude assurance et aide à la décision par contre-factuels"
+      }
+    },
+    "links": {
+      "primary": "https://github.com/aurvl/InsuranceClaimFraud",
+      "readMore": "https://github.com/aurvl/InsuranceClaimFraud",
+      "github": "https://github.com/aurvl/InsuranceClaimFraud",
+      "live": null
+    },
+    "taxonomy": {
+      "domains": [
+        "Fraud Analytics",
+        "Data Engineering"
+      ],
+      "tools": [
+        "Python",
+        "PostgreSQL",
+        "FastAPI",
+        "SQL",
+        "XGBoost"
+      ],
+      "keywords": {
+        "en": [
+          "insurance",
+          "fraud",
+          "counterfactuals",
+          "postgres"
+        ],
+        "fr": [
+          "assurance",
+          "fraude",
+          "contrefactuels",
+          "postgres"
+        ]
+      }
+    },
+    "content": {
+      "en": {
+        "title": "Insurance Claim Fraud Detection & Counterfactual Decision Support",
+        "summary": "End-to-end insurance fraud workflow combining JSON, PDF, and image intake, PostgreSQL analytics, tuned scoring, and counterfactual explanations to help claim teams investigate risky files and justify decisions.",
+        "description": "Designed an end-to-end insurance fraud workflow where claim packages arrive as CRM JSON, PDFs, and images, are consolidated into PostgreSQL, explored through analytical SQL, scored through a tuned fraud model, and explained with counterfactual scenarios. The project is positioned as a business-facing decision-support tool for claims and fraud teams rather than a standalone modeling exercise."
+      },
+      "fr": {
+        "title": "Fraude assurance : détection et aide à la décision par contre-factuels",
+        "summary": "Workflow complet de fraude assurance combinant intake JSON, PDF et image, analytics PostgreSQL, scoring optimisé et contre-factuels pour aider les équipes sinistres à prioriser les dossiers à risque.",
+        "description": "Conception d'un workflow complet de fraude assurance dans lequel des dossiers sinistres arrivent sous forme de JSON CRM, PDF et images, sont consolidés dans PostgreSQL, explorés via SQL analytique, scorés par un modèle fraude optimisé, puis expliqués par des scénarios contre-factuels. Le projet est pensé comme un outil d'aide à la décision pour les équipes sinistres et fraude, et non comme un simple exercice de modélisation."
+      }
+    },
+    "window": {
+      "enabled": true,
+      "contentSlug": "insurance-claim-fraud-counterfactual-simulator",
+      "access": "public"
+    }
+  },
+  {
     "id": "PJ022",
     "slug": "excel-data-analyst-project",
     "status": "completed",
@@ -323,7 +388,7 @@
     "slug": "comments-analysis-text-classification",
     "status": "completed",
     "date": "2025-11-20",
-    "featured": true,
+    "featured": false,
     "window": {
       "enabled": true,
       "contentSlug": "comments-analysis-text-classification",
