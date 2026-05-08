@@ -1,3 +1,3 @@
 # Aurel VEHI Portfolio
 
-React + TypeScript + Vite portfolio for Aurel VEHI.
+React + TypeScript + Vite
