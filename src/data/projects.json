@@ -1,5 +1,135 @@
 [
   {
+    "id": "PJ025",
+    "slug": "bayesian-linear-regression-econometrics",
+    "status": "completed",
+    "date": "2026-05-30",
+    "featured": false,
+    "technicalLevel": 3,
+    "cover": {
+      "src": "/assets/projects/images/bayesian-linear-regression-econometrics-cover.jpg",
+      "alt": {
+        "en": "Measuring tapes on a pink background representing estimation, uncertainty, and statistical measurement",
+        "fr": "Rubans de mesure sur fond rose représentant l'estimation, l'incertitude et la mesure statistique"
+      }
+    },
+    "links": {
+      "primary": "https://github.com/aurvl/Bayesian-Regression",
+      "readMore": "https://github.com/aurvl/Bayesian-Regression",
+      "github": "https://github.com/aurvl/Bayesian-Regression",
+      "live": null
+    },
+    "taxonomy": {
+      "domains": [
+        "Econometrics",
+        "Statistical Modeling",
+        "Regression Modeling"
+      ],
+      "tools": [
+        "Python",
+        "NumPy",
+        "SciPy",
+        "pandas",
+        "Jupyter Notebook"
+      ],
+      "keywords": {
+        "en": [
+          "bayesian",
+          "regression",
+          "shrinkage",
+          "econometrics"
+        ],
+        "fr": [
+          "bayésien",
+          "régression",
+          "shrinkage",
+          "économétrie"
+        ]
+      }
+    },
+    "content": {
+      "en": {
+        "title": "Bayesian Linear Regression in Econometrics",
+        "summary": "From-scratch econometrics project unifying OLS, Ridge, Bayesian regression, and Empirical Bayes to show shrinkage, posterior uncertainty, and marginal likelihood on an economic dataset.",
+        "description": "Implemented OLS, Ridge, Bayesian linear regression, and Empirical Bayes from scratch with NumPy and SciPy to place classical and Bayesian estimators on a common axis. The project derives posterior coefficient distributions, credible uncertainty, shrinkage effects, and marginal likelihood optimization with Cholesky stabilization. The WBES economic dataset is used as an illustration of the method, not as a causal economic claim."
+      },
+      "fr": {
+        "title": "Régression linéaire bayésienne en économétrie",
+        "summary": "Projet économétrique from scratch unifiant OLS, Ridge, régression bayésienne et Empirical Bayes pour montrer shrinkage, incertitude postérieure et vraisemblance marginale.",
+        "description": "Implémentation from scratch d'OLS, Ridge, régression linéaire bayésienne et Empirical Bayes avec NumPy et SciPy afin de placer les estimateurs classiques et bayésiens sur un même axe. Le projet détaille les distributions postérieures des coefficients, l'incertitude crédible, les effets de shrinkage et l'optimisation de la vraisemblance marginale stabilisée par Cholesky. Le dataset économique WBES sert d'illustration méthodologique, pas de preuve causale."
+      }
+    },
+    "window": {
+      "enabled": true,
+      "contentSlug": "bayesian-linear-regression-econometrics",
+      "access": "public"
+    }
+  },
+  {
+    "id": "PJ024",
+    "slug": "gpt-from-scratch",
+    "status": "completed",
+    "date": "2026-05-22",
+    "featured": false,
+    "technicalLevel": 3,
+    "cover": {
+      "src": "/assets/projects/images/gpt-from-scratch-cover.jpg",
+      "alt": {
+        "en": "Abstract layered blue shapes representing the internal layers of a GPT-style language model",
+        "fr": "Formes bleues abstraites en couches représentant l'architecture interne d'un modèle de langage de type GPT"
+      }
+    },
+    "links": {
+      "primary": "https://github.com/aurvl/GPT-from-scratch",
+      "readMore": "https://github.com/aurvl/GPT-from-scratch",
+      "github": "https://github.com/aurvl/GPT-from-scratch",
+      "live": null
+    },
+    "taxonomy": {
+      "domains": [
+        "Natural Language Processing",
+        "Deep Learning"
+      ],
+      "tools": [
+        "Python",
+        "PyTorch",
+        "Transformer",
+        "Jupyter Notebook"
+      ],
+      "keywords": {
+        "en": [
+          "gpt",
+          "transformer",
+          "causal attention",
+          "language modeling"
+        ],
+        "fr": [
+          "gpt",
+          "transformer",
+          "attention causale",
+          "modélisation du langage"
+        ]
+      }
+    },
+    "content": {
+      "en": {
+        "title": "Mini GPT from Scratch",
+        "summary": "Educational PyTorch implementation of a mini GPT language model, from text cleaning and tokenization to causal attention, Transformer blocks, training, evaluation, and controlled text generation.",
+        "description": "Built a compact GPT-style language model from scratch to understand the full next-token prediction pipeline: dataset preparation, tokenization, batching, causal self-attention, Transformer blocks, training loops, evaluation, perplexity, accuracy, and text generation. The project is deliberately pedagogical and transparent rather than positioned as a general chatbot."
+      },
+      "fr": {
+        "title": "Mini GPT from scratch",
+        "summary": "Implémentation pédagogique en PyTorch d'un mini modèle GPT, du nettoyage texte et de la tokenisation jusqu'à l'attention causale, l'entraînement, l'évaluation et la génération.",
+        "description": "Construction d'un modèle de langage compact de type GPT from scratch pour comprendre toute la chaîne de prédiction du prochain token : préparation du corpus, tokenisation, batching, self-attention causale, blocs Transformer, boucle d'entraînement, évaluation, perplexité, accuracy et génération de texte. Le projet est volontairement pédagogique et transparent, sans prétendre être un chatbot généraliste."
+      }
+    },
+    "window": {
+      "enabled": true,
+      "contentSlug": "gpt-from-scratch",
+      "access": "public"
+    }
+  },
+  {
     "id": "PJ023",
     "slug": "insurance-claim-fraud-counterfactual-simulator",
     "status": "completed",
