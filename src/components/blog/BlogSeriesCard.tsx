@@ -1,6 +1,7 @@
 import { GoLinkExternal } from 'react-icons/go'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
+import { getImageDimensions } from '../../lib/imageMetadata'
 import { withBasePath } from '../../lib/site'
 
 const DEFAULT_POST_IMAGE = withBasePath('assets/blog/images/defaultblogpostcover.png')
@@ -15,6 +16,8 @@ type BlogSeriesCardProps = {
 
 function BlogSeriesCard({ title, link, imgs, summary, contentNumb }: BlogSeriesCardProps) {
   const { t } = useTranslation()
+  const imageSource = imgs || 'assets/blog/images/defaultblogpostcover.png'
+  const imageDimensions = getImageDimensions(imageSource)
 
   return (
     <Link
@@ -23,8 +26,10 @@ function BlogSeriesCard({ title, link, imgs, summary, contentNumb }: BlogSeriesC
     >
       <div className="overflow-hidden">
         <img
-          src={withBasePath(imgs || DEFAULT_POST_IMAGE)}
+          src={withBasePath(imageSource)}
           alt={title}
+          width={imageDimensions?.width}
+          height={imageDimensions?.height}
           loading="lazy"
           onError={(event) => {
             event.currentTarget.src = DEFAULT_POST_IMAGE

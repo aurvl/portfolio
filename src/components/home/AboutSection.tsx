@@ -1,8 +1,12 @@
 import { useTranslation } from 'react-i18next'
 import { getResumeDownloadUrl, withBasePath } from '../../lib/site'
+import { getImageDimensions } from '../../lib/imageMetadata'
+
+const ABOUT_IMAGE = 'assets/images/about-image.png'
 
 function AboutSection() {
   const { t, i18n } = useTranslation()
+  const aboutImageDimensions = getImageDimensions(ABOUT_IMAGE)
 
   return (
     <section id="about" className="section-shell lg:py-24 md:py-0 pb-20 md:pb-25">
@@ -14,8 +18,11 @@ function AboutSection() {
 
           <img
             className="w-full object-cover"
-            src={withBasePath('assets/images/about-image.png')}
+            src={withBasePath(ABOUT_IMAGE)}
             alt={t('about.imageAlt')}
+            width={aboutImageDimensions?.width}
+            height={aboutImageDimensions?.height}
+            loading="lazy"
           />
         </div>
 
@@ -30,14 +37,6 @@ function AboutSection() {
         </div>
       </div>
       <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
-        <a
-          href="#contact-form"
-          className="button-shadow btn btn-primary border-class flex flex items-center justify-center text-center 
-          rounded-[5px] bg-[#3784d8] w-[60%] md:w-auto
-          px-8 py-3 font-semibold text-white md:p-3 sm:w-auto sm:min-w-[220px]"
-        >
-          {t('about.contact')}
-        </a>
         <a
           href={getResumeDownloadUrl(i18n.resolvedLanguage ?? i18n.language)}
           download={i18n.resolvedLanguage === 'fr' ? 'AurelVehi_CV_FR.pdf' : 'AurelVehi_CV_EN.pdf'}

@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import { getLocalizedField, getProjectContent, getProjectWindowRoute } from '../../lib/utils'
 import { getDomainColor } from '../../lib/domainColors'
+import { getImageDimensions } from '../../lib/imageMetadata'
 import { withBasePath } from '../../lib/site'
 import type { Project } from '../../types/project'
 
@@ -21,6 +22,8 @@ function FeaturedProjectCard({ project }: FeaturedProjectCardProps) {
   const keywords = getLocalizedField(project.taxonomy.keywords, i18n.language)
   const primaryDomain = project.taxonomy.domains[0] ?? t('projects.fallbackDomain')
   const projectWindowRoute = getProjectWindowRoute(project)
+  const imageSource = project.cover.src || 'assets/projects/images/defaultprojectcover.png'
+  const imageDimensions = getImageDimensions(imageSource)
   const isInteractive = Boolean(
     projectWindowRoute || project.links.primary || project.links.readMore
   )
@@ -82,8 +85,11 @@ function FeaturedProjectCard({ project }: FeaturedProjectCardProps) {
     >
       <div className="featured-project-card__image basis-2/5 w-full">
         <img
-          src={withBasePath(project.cover.src || DEFAULT_PROJECT_COVER)}
+          src={withBasePath(imageSource)}
           alt={coverAlt}
+          width={imageDimensions?.width}
+          height={imageDimensions?.height}
+          loading="lazy"
           onError={(event) => {
             event.currentTarget.src = DEFAULT_PROJECT_COVER
           }}

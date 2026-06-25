@@ -23,7 +23,9 @@
       "profile": "Profil économie et data",
       "projects": "{{count}}+ projets réalisés",
       "skills": "{{count}}+ compétences clés"
-    }
+    },
+    "ctaContact": "Me contacter",
+    "ctaProjects": "Voir mes projets"
   },
   "about": {
     "eyebrow": "À propos de moi",

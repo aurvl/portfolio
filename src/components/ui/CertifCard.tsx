@@ -1,3 +1,4 @@
+import { getImageDimensions } from '../../lib/imageMetadata'
 import { withBasePath } from '../../lib/site'
 
 type CertCardProps = {
@@ -17,6 +18,8 @@ function CertCard({
   credentialId,
   issuedText,
 }: CertCardProps) {
+  const imageDimensions = getImageDimensions(image)
+
   return (
     <a
       href={href}
@@ -24,7 +27,14 @@ function CertCard({
       rel="noopener noreferrer"
       className="cert-card"
     >
-      <img src={withBasePath(image)} alt={imageAlt} className="cert-card__image" />
+      <img
+        src={withBasePath(image)}
+        alt={imageAlt}
+        width={imageDimensions?.width}
+        height={imageDimensions?.height}
+        loading="lazy"
+        className="cert-card__image"
+      />
 
       <div className="text-sm">
         <h3 className="cert-card__title">
