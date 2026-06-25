@@ -1,15 +1,19 @@
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import remarkDirective from 'remark-directive'
+import remarkMath from 'remark-math'
+import rehypeKatex from 'rehype-katex'
 import type { Components } from 'react-markdown'
 import type { ReactNode } from 'react'
 import { useState } from 'react'
 import { LuCheck, LuChevronDown, LuChevronUp, LuCopy } from 'react-icons/lu'
 import { GoLinkExternal } from 'react-icons/go'
 import { createHeadingId } from '../../lib/getPost'
+import 'katex/dist/katex.min.css'
 
 type MdContentRendererProps = {
   content: string
+  widgets?: Record<string, ReactNode>
 }
 
 type CodeSnippet = {
@@ -113,15 +117,49 @@ function remarkCodeGroupDirective() {
   }
 }
 
-function remarkInlineColor() {
+function remarkWidgetDirective() {
   return (tree: { children?: unknown[] }) => {
-    transformInlineColorNodes(tree)
+    visitTree(tree, (node) => {
+      const typedNode = node as {
+        type?: string
+        name?: string
+        attributes?: Record<string, unknown>
+        children?: unknown[]
+        data?: {
+          hName?: string
+          hProperties?: Record<string, unknown>
+        }
+      }
+
+      if (
+        typedNode.type !== 'containerDirective' ||
+        typedNode.name !== 'widget'
+      ) {
+        return
+      }
+
+      const widgetId = String(typedNode.attributes?.id ?? '').trim()
+
+      if (!widgetId) {
+        return
+      }
+
+      typedNode.children = []
+      typedNode.data = {
+        hName: 'div',
+        hProperties: {
+          className: ['md-content__widget'],
+          'data-widget': 'true',
+          'data-widget-id': widgetId,
+        },
+      }
+    })
   }
 }
 
-function remarkInlineMath() {
+function remarkInlineColor() {
   return (tree: { children?: unknown[] }) => {
-    transformInlineMathNodes(tree)
+    transformInlineColorNodes(tree)
   }
 }
 
@@ -142,73 +180,12 @@ function transformInlineColorNodes(node: unknown) {
   })
 }
 
-function transformInlineMathNodes(node: unknown) {
-  if (!node || typeof node !== 'object') return
-
-  const typedNode = node as { children?: unknown[] }
-
-  if (!Array.isArray(typedNode.children)) return
-
-  typedNode.children = typedNode.children.flatMap((child) => {
-    if (isTextNode(child)) {
-      return splitTextNodeForMath(child.value ?? '')
-    }
-
-    transformInlineMathNodes(child)
-    return [child]
-  })
-}
-
 function isTextNode(node: unknown): node is { type: 'text'; value?: string } {
   return Boolean(
     node &&
       typeof node === 'object' &&
       (node as { type?: string }).type === 'text'
   )
-}
-
-function splitTextNodeForMath(text: string): unknown[] {
-  const nodes: unknown[] = []
-  let cursor = 0
-
-  while (cursor < text.length) {
-    const start = findInlineMathDelimiter(text, cursor)
-
-    if (start === -1) {
-      if (cursor < text.length) {
-        nodes.push({ type: 'text', value: text.slice(cursor) })
-      }
-      break
-    }
-
-    if (start > cursor) {
-      nodes.push({ type: 'text', value: text.slice(cursor, start) })
-    }
-
-    const end = findInlineMathDelimiter(text, start + 1)
-
-    if (end === -1) {
-      nodes.push({ type: 'text', value: text.slice(start) })
-      break
-    }
-
-    nodes.push({
-      type: 'textDirective',
-      name: 'math',
-      children: [{ type: 'text', value: text.slice(start + 1, end) }],
-      data: {
-        hName: 'span',
-        hProperties: {
-          className: ['md-content__math-inline'],
-          'data-math-inline': 'true',
-        },
-      },
-    })
-
-    cursor = end + 1
-  }
-
-  return nodes
 }
 
 function splitTextNodeForColor(text: string): unknown[] {
@@ -409,7 +386,7 @@ function CodeSurface({
   )
 }
 
-function MdContentRenderer({ content }: MdContentRendererProps) {
+function MdContentRenderer({ content, widgets = {} }: MdContentRendererProps) {
   const components: Components = {
     h1: ({ children }) => {
       const id = createHeadingId(flattenReactNodeToString(children))
@@ -580,6 +557,8 @@ function MdContentRenderer({ content }: MdContentRendererProps) {
         const codeItems = String(readNodeProperty(properties, 'data-code-items') ?? '[]')
         const isPanel = readNodeProperty(properties, 'data-panel') === 'true'
         const title = String(readNodeProperty(properties, 'data-title') ?? '')
+        const isWidget = readNodeProperty(properties, 'data-widget') === 'true'
+        const widgetId = String(readNodeProperty(properties, 'data-widget-id') ?? '')
 
         if (isCodeGroup) {
             return (
@@ -609,6 +588,20 @@ function MdContentRenderer({ content }: MdContentRendererProps) {
             )
         }
 
+        if (isWidget) {
+          const widget = widgets[widgetId]
+
+          if (!widget) {
+            return null
+          }
+
+          return (
+            <div className={className} {...props}>
+              {widget}
+            </div>
+          )
+        }
+
         return (
             <div className={className} {...props}>
             {children}
@@ -620,7 +613,8 @@ function MdContentRenderer({ content }: MdContentRendererProps) {
   return (
     <div className="md-content">
       <ReactMarkdown
-        remarkPlugins={[remarkDirective, remarkPanelDirective, remarkCodeGroupDirective, remarkInlineColor, remarkInlineMath, remarkGfm]}
+        remarkPlugins={[remarkMath, remarkDirective, remarkPanelDirective, remarkCodeGroupDirective, remarkWidgetDirective, remarkInlineColor, remarkGfm]}
+        rehypePlugins={[rehypeKatex]}
         components={components}
         >
         {content}

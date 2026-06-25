@@ -12,11 +12,11 @@
     "contact": "Contact"
   },
   "footer": {
-    "copyright": "© 2026 Aurel VEHI. All rights reserved."
+    "copyright": "© 2026 Aurel De Vince. All rights reserved."
   },
   "hero": {
     "eyebrow": "Hello!",
-    "title": "I'm Aurel VEHI",
+    "title": "I'm Aurel De Vince",
     "subtitle": "Data Analyst, Data Scientist, and Economic Analyst",
     "description": "I design analytical workflows that turn complex datasets into clear insights, practical tools, and decision-ready outputs.",
     "stats": {
@@ -27,7 +27,7 @@
   },
   "about": {
     "eyebrow": "About me",
-    "imageAlt": "Portrait of Aurel VEHI",
+    "imageAlt": "Portrait of Aurel De Vince",
     "description1": "I am a data scientist and economic analyst with training in econometrics, statistical modeling, and data science. My background has been built through research, rigorous analysis, and the development of analytical solutions for economic and environmental issues.",
     "description2": "I am able to cover the full analytical chain, from data collection and processing to modeling, indicator production, forecasting, and reporting.",
     "description3": "What I bring: rigor, clarity, useful solutions, and results that are directly actionable for decision-making.",    

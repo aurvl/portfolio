@@ -2,9 +2,20 @@ import { useTranslation } from 'react-i18next'
 import CertCard from '../ui/CertifCard'
 
 function CertList() {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
+  const anthropicIssuedDate = i18n.language === 'fr' ? '6 mai 2026' : 'May 6, 2026'
 
   const certifications = [
+    {
+      href: 'https://verify.skilljar.com/c/mrp4oqw4fn3r',
+      image: '/assets/images/certifications/anthropic.png',
+      imageAlt: 'Anthropic Education',
+      title: 'AI Fluency for students',
+      credentialId: t('skills.certifications.credentialId', {
+        id: 'mrp4oqw4fn3r',
+      }),
+      issuedText: t('skills.certifications.issued', { date: anthropicIssuedDate }),
+    },
     {
       href: 'https://www.datacamp.com/certificate/PDA0018574982789',
       image: '/assets/images/certifications/datacampinc_logo.jpg',

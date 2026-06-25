@@ -67,7 +67,7 @@ function HomePage() {
           {
             '@context': 'https://schema.org',
             '@type': 'WebSite',
-            name: 'Aurel VEHI Portfolio',
+            name: 'Aurel De Vince Portfolio',
             url: buildAbsoluteSiteUrl(),
           },
         ]}

@@ -13,23 +13,28 @@
 .md-content__h3 {
   color: var(--text-col);
   font-weight: 700;
-  line-height: 1.7;
+  line-height: 1.16;
+  overflow-wrap: anywhere;
   scroll-margin-top: 6.75rem;
+  word-break: normal;
 }
 
 .md-content__h1 {
-  margin: 3rem 0 1rem;
+  margin: 3.4rem 0 1.25rem;
   font-size: 3rem;
+  line-height: 1.08;
 }
 
 .md-content__h2 {
-  margin: 1.75rem 0 0.75rem;
+  margin: 2.25rem 0 0.95rem;
   font-size: 1.5rem;
+  line-height: 1.18;
 }
 
 .md-content__h3 {
-  margin: 1.25rem 0 0.5rem;
+  margin: 1.65rem 0 0.65rem;
   font-size: 1.125rem;
+  line-height: 1.22;
 }
 
 .md-content__p {
@@ -299,6 +304,24 @@
   border-top: 1px solid currentColor;
 }
 
+.md-content .katex {
+  color: var(--text-col);
+  font-size: 1.04em;
+}
+
+.md-content .katex-display {
+  margin: 1.15rem 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.25rem 0.1rem;
+  text-align: center;
+}
+
+.md-content .katex-display > .katex {
+  max-width: 100%;
+  text-align: center;
+}
+
 .md-content__img {
   display: block;
   width: 100%;
@@ -374,7 +397,7 @@
 .md-content__li--done,
 .md-content__li--avoid {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.75rem;
   margin-left: -1.25rem;
   list-style: none;
@@ -390,6 +413,7 @@
 
 .md-content__li-badge {
   display: inline-flex;
+  flex: 0 0 auto;
   min-width: 1rem;
   height: 1rem;
   align-items: center;
@@ -397,6 +421,7 @@
   border-radius: 999px;
   font-size: 0.85rem;
   font-weight: 700;
+  margin-top: 0.45rem;
 }
 
 .md-content__li-badge--done {
@@ -496,6 +521,10 @@
   background: rgba(239, 68, 68, 0.18);
 }
 
+.md-content__widget {
+  margin: 1.5rem 0;
+}
+
 :root[data-theme='light'] .md-content__inline-code {
   background: rgba(18, 32, 51, 0.06);
 }
@@ -575,11 +604,22 @@
   color: #ca8a04;
 }
 
-:root[data-theme='light'] .md-content__color-inline--purple {
-  color: #7c3aed;
-}
+  :root[data-theme='light'] .md-content__color-inline--purple {
+    color: #7c3aed;
+  }
 
 @media (max-width: 640px) {
+  .md-content__h1 {
+    font-size: clamp(2.1rem, 11vw, 2.75rem);
+    hyphens: auto;
+    line-height: 1.08;
+  }
+
+  .md-content__h2,
+  .md-content__h3 {
+    hyphens: auto;
+  }
+
   .md-content__code-shell {
     border-radius: 16px;
   }
@@ -603,4 +643,5 @@
     gap: 0.8rem;
     grid-template-columns: 1.8rem minmax(0, 1fr);
   }
+
 }

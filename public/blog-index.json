@@ -1,25 +1,22 @@
 [
   {
-    "slug": "logistic-regression-score-probability",
+    "slug": "multilayer-perceptron-neural-network",
     "seriesSlug": "ia-pas-a-pas",
     "lang": "en",
-    "title": "Yes or No, with nuance",
-    "summary": "A simple continuation of linear regression: keep the weighted score, pass it through a sigmoid, and turn it into a probability for yes-or-no decisions.",
-    "date": "2026-03-31",
+    "title": "Stacking to Understand - From Neuron to Network",
+    "summary": "Why a single neuron is not enough, how we move to the multilayer perceptron, what changes in the structure, forward pass, and backward pass - and why all of this is ultimately called a neural network.",
+    "date": "2026-04-07",
     "tags": [
       "ai",
-      "logistic-regression",
-      "classification"
+      "neural-network",
+      "mlp",
+      "backpropagation",
+      "deep-learning"
     ],
     "cover": "/assets/blog/images/blog6.jpg",
     "featured": false,
-    "readTime": 6,
+    "readTime": 17,
     "headings": [
-      {
-        "depth": 2,
-        "text": "Stack required to run the examples in this article",
-        "id": "stack-required-to-run-the-examples-in-this-article"
-      },
       {
         "depth": 1,
         "text": "Introduction",
@@ -27,62 +24,139 @@
       },
       {
         "depth": 1,
-        "text": "The same score, a different question",
-        "id": "the-same-score-a-different-question"
+        "text": "The Single Neuron: Reminder and Limits",
+        "id": "the-single-neuron-reminder-and-limits"
       },
       {
         "depth": 1,
-        "text": "Turning a score into a probability",
-        "id": "turning-a-score-into-a-probability"
+        "text": "The Multilayer Perceptron",
+        "id": "the-multilayer-perceptron"
       },
       {
         "depth": 2,
-        "text": "Application: deciding if a flight will be delayed",
-        "id": "application-deciding-if-a-flight-will-be-delayed"
+        "text": "Definition",
+        "id": "definition"
       },
       {
         "depth": 2,
-        "text": "When probability becomes a decision",
-        "id": "when-probability-becomes-a-decision"
+        "text": "Why Stack Layers?",
+        "id": "why-stack-layers"
+      },
+      {
+        "depth": 2,
+        "text": "What Changes: Structure, Forward, Backward",
+        "id": "what-changes-structure-forward-backward"
       },
       {
         "depth": 1,
-        "text": "Summary: logistic regression",
-        "id": "summary-logistic-regression"
+        "text": "A Problem a Single Neuron Cannot Solve",
+        "id": "a-problem-a-single-neuron-cannot-solve"
       },
       {
         "depth": 1,
-        "text": "What's next?",
-        "id": "what-s-next"
+        "text": "Mathematical Formulation",
+        "id": "mathematical-formulation"
+      },
+      {
+        "depth": 2,
+        "text": "Before: The Simple Neuron",
+        "id": "before-the-simple-neuron"
+      },
+      {
+        "depth": 2,
+        "text": "Now: Generalizing to the MLP",
+        "id": "now-generalizing-to-the-mlp"
       },
       {
         "depth": 1,
-        "text": "Go further",
+        "text": "Training a Neural Network",
+        "id": "training-a-neural-network"
+      },
+      {
+        "depth": 2,
+        "text": "The Context",
+        "id": "the-context"
+      },
+      {
+        "depth": 2,
+        "text": "The Loss",
+        "id": "the-loss"
+      },
+      {
+        "depth": 2,
+        "text": "The Backward Pass: Propagating Error Layer by Layer",
+        "id": "the-backward-pass-propagating-error-layer-by-layer"
+      },
+      {
+        "depth": 2,
+        "text": "The Update - Still the Same Form",
+        "id": "the-update-still-the-same-form"
+      },
+      {
+        "depth": 2,
+        "text": "Code",
+        "id": "code"
+      },
+      {
+        "depth": 1,
+        "text": "What to Watch Out For",
+        "id": "what-to-watch-out-for"
+      },
+      {
+        "depth": 2,
+        "text": "Data - Quantity and Quality",
+        "id": "data-quantity-and-quality"
+      },
+      {
+        "depth": 2,
+        "text": "Preprocessing",
+        "id": "preprocessing"
+      },
+      {
+        "depth": 2,
+        "text": "Hyperparameters",
+        "id": "hyperparameters"
+      },
+      {
+        "depth": 2,
+        "text": "Specialization: When the Architecture Adapts to the Problem",
+        "id": "specialization-when-the-architecture-adapts-to-the-problem"
+      },
+      {
+        "depth": 1,
+        "text": "What Comes Next?",
+        "id": "what-comes-next"
+      },
+      {
+        "depth": 1,
+        "text": "Conclusion",
+        "id": "conclusion"
+      },
+      {
+        "depth": 1,
+        "text": "Go Further",
         "id": "go-further"
       }
     ]
   },
   {
-    "slug": "logistic-regression-score-probability",
+    "slug": "multilayer-perceptron-neural-network",
     "seriesSlug": "ia-pas-a-pas",
     "lang": "fr",
-    "title": "Oui ou non, avec nuance",
-    "summary": "La suite simple de la régression linéaire : garder le score pondéré, le passer dans une sigmoïde, et obtenir une probabilité pour des décisions oui ou non.",
-    "date": "2026-03-31",
+    "title": "Empiler pour comprendre - du neurone au réseau",
+    "summary": "Pourquoi un neurone seul ne suffit pas, comment on passe au multilayer perceptron, ce qui change dans la structure, le forward et le backward - et pourquoi tout ça s'appelle finalement un réseau de neurones.",
+    "date": "2026-04-07",
     "tags": [
       "ai",
-      "logistic-regression",
-      "classification"
+      "neural-network",
+      "mlp",
+      "backpropagation",
+      "deep-learning"
     ],
     "cover": "/assets/blog/images/blog6.jpg",
     "featured": false,
-    "readTime": 7,
+    "readTime": 18,
     "headings": [
-      {
-        "depth": 2,
-        "text": "Stack requise pour réaliser les exemples de cet article",
-        "id": "stack-requise-pour-realiser-les-exemples-de-cet-article"
-      },
       {
         "depth": 1,
         "text": "Introduction",
@@ -90,33 +164,113 @@
       },
       {
         "depth": 1,
-        "text": "Le même score, une autre question",
-        "id": "le-meme-score-une-autre-question"
+        "text": "Le neurone seul : rappel et limites",
+        "id": "le-neurone-seul-rappel-et-limites"
       },
       {
         "depth": 1,
-        "text": "Transformer un score en probabilité",
-        "id": "transformer-un-score-en-probabilite"
+        "text": "Le Multilayer Perceptron",
+        "id": "le-multilayer-perceptron"
       },
       {
         "depth": 2,
-        "text": "Application : décider si un vol sera retardé",
-        "id": "application-decider-si-un-vol-sera-retarde"
+        "text": "Définition",
+        "id": "definition"
       },
       {
         "depth": 2,
-        "text": "Quand la probabilité devient une décision",
-        "id": "quand-la-probabilite-devient-une-decision"
+        "text": "Pourquoi empiler des couches ?",
+        "id": "pourquoi-empiler-des-couches"
+      },
+      {
+        "depth": 2,
+        "text": "Ce qui change : structure, forward, backward",
+        "id": "ce-qui-change-structure-forward-backward"
       },
       {
         "depth": 1,
-        "text": "En résumé : la régression logistique",
-        "id": "en-resume-la-regression-logistique"
+        "text": "Un problème qu'un neurone isolé ne peut pas résoudre",
+        "id": "un-probleme-qu-un-neurone-isole-ne-peut-pas-resoudre"
+      },
+      {
+        "depth": 1,
+        "text": "Formulation mathématique",
+        "id": "formulation-mathematique"
+      },
+      {
+        "depth": 2,
+        "text": "Avant : le neurone simple",
+        "id": "avant-le-neurone-simple"
+      },
+      {
+        "depth": 2,
+        "text": "Maintenant : généralisation au MLP",
+        "id": "maintenant-generalisation-au-mlp"
+      },
+      {
+        "depth": 1,
+        "text": "Entraîner un neural network",
+        "id": "entrainer-un-neural-network"
+      },
+      {
+        "depth": 2,
+        "text": "Le contexte",
+        "id": "le-contexte"
+      },
+      {
+        "depth": 2,
+        "text": "La loss",
+        "id": "la-loss"
+      },
+      {
+        "depth": 2,
+        "text": "Le backward, propager l'erreur couche par couche",
+        "id": "le-backward-propager-l-erreur-couche-par-couche"
+      },
+      {
+        "depth": 2,
+        "text": "La mise à jour - toujours la même forme",
+        "id": "la-mise-a-jour-toujours-la-meme-forme"
+      },
+      {
+        "depth": 2,
+        "text": "Code",
+        "id": "code"
+      },
+      {
+        "depth": 1,
+        "text": "Ce à quoi il faut faire attention",
+        "id": "ce-a-quoi-il-faut-faire-attention"
+      },
+      {
+        "depth": 2,
+        "text": "Les données - quantité et qualité",
+        "id": "les-donnees-quantite-et-qualite"
+      },
+      {
+        "depth": 2,
+        "text": "Le preprocessing",
+        "id": "le-preprocessing"
+      },
+      {
+        "depth": 2,
+        "text": "Les hyperparamètres",
+        "id": "les-hyperparametres"
+      },
+      {
+        "depth": 2,
+        "text": "Spécialisation, quand l'architecture s'adapte au problème",
+        "id": "specialisation-quand-l-architecture-s-adapte-au-probleme"
       },
       {
         "depth": 1,
         "text": "Et maintenant ?",
         "id": "et-maintenant"
+      },
+      {
+        "depth": 1,
+        "text": "Conclusion",
+        "id": "conclusion"
       },
       {
         "depth": 1,
@@ -126,26 +280,24 @@
     ]
   },
   {
-    "slug": "regression-multiple-aggregation",
+    "slug": "classification-logistic-activation",
     "seriesSlug": "ia-pas-a-pas",
     "lang": "en",
-    "title": "Deciding with numbers",
-    "summary": "A simple introduction to the core idea behind most models: aggregating multiple signals, assigning them weights, and producing a decision.",
-    "date": "2026-03-26",
+    "title": "From Score to Decision: The Perceptron Activation",
+    "summary": "Why the simple perceptron fails on binary problems, how the sigmoid transforms a score into a probability, why the loss must change, and how all of this comes together to form a real neuron.",
+    "date": "2026-03-31",
     "tags": [
-      "regression",
-      "aggregation",
-      "ai"
+      "ai",
+      "logistic-regression",
+      "sigmoid",
+      "log-loss",
+      "perceptron",
+      "classification"
     ],
     "cover": "/assets/blog/images/blog6.jpg",
-    "featured": true,
-    "readTime": 7,
+    "featured": false,
+    "readTime": 15,
     "headings": [
-      {
-        "depth": 2,
-        "text": "Stack required to run the examples in this article",
-        "id": "stack-required-to-run-the-examples-in-this-article"
-      },
       {
         "depth": 1,
         "text": "Introduction",
@@ -153,62 +305,390 @@
       },
       {
         "depth": 1,
-        "text": "The power plant: your brain already does AI",
-        "id": "the-power-plant-your-brain-already-does-ai"
+        "text": "The Intuition: Deciding with Uncertainty",
+        "id": "the-intuition-deciding-with-uncertainty"
       },
       {
         "depth": 1,
-        "text": "Weighing information to make a decision",
-        "id": "weighing-information-to-make-a-decision"
+        "text": "Reminder: The Simple Perceptron",
+        "id": "reminder-the-simple-perceptron"
+      },
+      {
+        "depth": 1,
+        "text": "Why the Simple Perceptron Fails Here",
+        "id": "why-the-simple-perceptron-fails-here"
+      },
+      {
+        "depth": 1,
+        "text": "The Sigmoid - Compressing the Score into a Probability",
+        "id": "the-sigmoid-compressing-the-score-into-a-probability"
+      },
+      {
+        "depth": 1,
+        "text": "The Complete Perceptron",
+        "id": "the-complete-perceptron"
       },
       {
         "depth": 2,
-        "text": "Application: predicting electricity consumption",
-        "id": "application-predicting-electricity-consumption"
+        "text": "What Changes: Before and Now",
+        "id": "what-changes-before-and-now"
       },
       {
         "depth": 2,
-        "text": "Strengths and limits of this approach",
-        "id": "strengths-and-limits-of-this-approach"
+        "text": "Why Must the Loss Change?",
+        "id": "why-must-the-loss-change"
       },
       {
         "depth": 1,
-        "text": "Summary: linear regression",
-        "id": "summary-linear-regression"
+        "text": "Likelihood: Measuring Model Coherence",
+        "id": "likelihood-measuring-model-coherence"
+      },
+      {
+        "depth": 2,
+        "text": "Generalizing to Several Observations",
+        "id": "generalizing-to-several-observations"
+      },
+      {
+        "depth": 2,
+        "text": "Properties",
+        "id": "properties"
+      },
+      {
+        "depth": 2,
+        "text": "The Product Problem",
+        "id": "the-product-problem"
+      },
+      {
+        "depth": 2,
+        "text": "Moving to the Logarithm",
+        "id": "moving-to-the-logarithm"
+      },
+      {
+        "depth": 2,
+        "text": "Final Adjustment: Minimizing Instead of Maximizing",
+        "id": "final-adjustment-minimizing-instead-of-maximizing"
       },
       {
         "depth": 1,
-        "text": "What's next?",
-        "id": "what-s-next"
+        "text": "Backward Propagation",
+        "id": "backward-propagation"
+      },
+      {
+        "depth": 2,
+        "text": "The New Gradients",
+        "id": "the-new-gradients"
       },
       {
         "depth": 1,
-        "text": "Go further",
+        "text": "The Neuron - Assembling the Pieces",
+        "id": "the-neuron-assembling-the-pieces"
+      },
+      {
+        "depth": 1,
+        "text": "Code - Logistic Regression on a Concrete Case",
+        "id": "code-logistic-regression-on-a-concrete-case"
+      },
+      {
+        "depth": 1,
+        "text": "Generalizing Activations",
+        "id": "generalizing-activations"
+      },
+      {
+        "depth": 1,
+        "text": "The Limits of the Perceptron: Why One Layer Is Not Enough",
+        "id": "the-limits-of-the-perceptron-why-one-layer-is-not-enough"
+      },
+      {
+        "depth": 1,
+        "text": "What Comes Next?",
+        "id": "what-comes-next"
+      },
+      {
+        "depth": 1,
+        "text": "Summary",
+        "id": "summary"
+      },
+      {
+        "depth": 1,
+        "text": "Go Further",
         "id": "go-further"
       }
     ]
   },
   {
-    "slug": "regression-multiple-aggregation",
+    "slug": "classification-logistic-activation",
     "seriesSlug": "ia-pas-a-pas",
     "lang": "fr",
-    "title": "Décider avec des chiffres",
-    "summary": "Une introduction simple à l'idée centrale derrière de nombreux modèles : agréger plusieurs signaux, leur assigner des poids, et produire une décision.",
+    "title": "Du score à la décision, l'activation du perceptron",
+    "summary": "Pourquoi le perceptron simple échoue sur les problèmes binaires, comment la sigmoïde transforme un score en probabilité, pourquoi la loss doit changer, et comment tout cela s'assemble pour former un vrai neurone.",
+    "date": "2026-03-31",
+    "tags": [
+      "ai",
+      "logistic-regression",
+      "sigmoid",
+      "log-loss",
+      "perceptron",
+      "classification"
+    ],
+    "cover": "/assets/blog/images/blog6.jpg",
+    "featured": false,
+    "readTime": 17,
+    "headings": [
+      {
+        "depth": 1,
+        "text": "Introduction",
+        "id": "introduction"
+      },
+      {
+        "depth": 1,
+        "text": "L'intuition : décider avec du flou",
+        "id": "l-intuition-decider-avec-du-flou"
+      },
+      {
+        "depth": 1,
+        "text": "Rappel : le perceptron simple",
+        "id": "rappel-le-perceptron-simple"
+      },
+      {
+        "depth": 1,
+        "text": "Pourquoi le perceptron simple échoue ici",
+        "id": "pourquoi-le-perceptron-simple-echoue-ici"
+      },
+      {
+        "depth": 1,
+        "text": "La sigmoïde - comprimer le score en probabilité",
+        "id": "la-sigmoide-comprimer-le-score-en-probabilite"
+      },
+      {
+        "depth": 1,
+        "text": "Le perceptron complet",
+        "id": "le-perceptron-complet"
+      },
+      {
+        "depth": 2,
+        "text": "Ce qui change : avant et maintenant",
+        "id": "ce-qui-change-avant-et-maintenant"
+      },
+      {
+        "depth": 2,
+        "text": "Pourquoi la loss doit changer ?",
+        "id": "pourquoi-la-loss-doit-changer"
+      },
+      {
+        "depth": 1,
+        "text": "La vraisemblance : mesurer la cohérence du modèle",
+        "id": "la-vraisemblance-mesurer-la-coherence-du-modele"
+      },
+      {
+        "depth": 2,
+        "text": "Généraliser à plusieurs observations",
+        "id": "generaliser-a-plusieurs-observations"
+      },
+      {
+        "depth": 2,
+        "text": "Propriétés",
+        "id": "proprietes"
+      },
+      {
+        "depth": 2,
+        "text": "Le problème du produit",
+        "id": "le-probleme-du-produit"
+      },
+      {
+        "depth": 2,
+        "text": "Passer au logarithme",
+        "id": "passer-au-logarithme"
+      },
+      {
+        "depth": 2,
+        "text": "Dernier ajustement : minimiser plutôt que maximiser",
+        "id": "dernier-ajustement-minimiser-plutot-que-maximiser"
+      },
+      {
+        "depth": 1,
+        "text": "Backward Propagation",
+        "id": "backward-propagation"
+      },
+      {
+        "depth": 2,
+        "text": "Les nouveaux gradients",
+        "id": "les-nouveaux-gradients"
+      },
+      {
+        "depth": 1,
+        "text": "Le neurone - assembler les pièces",
+        "id": "le-neurone-assembler-les-pieces"
+      },
+      {
+        "depth": 1,
+        "text": "Code - Régression logistique sur un cas concret",
+        "id": "code-regression-logistique-sur-un-cas-concret"
+      },
+      {
+        "depth": 1,
+        "text": "Généraliser les activations",
+        "id": "generaliser-les-activations"
+      },
+      {
+        "depth": 1,
+        "text": "Les limites du perceptron : pourquoi une seule couche ne suffit pas ?",
+        "id": "les-limites-du-perceptron-pourquoi-une-seule-couche-ne-suffit-pas"
+      },
+      {
+        "depth": 1,
+        "text": "Et maintenant ?",
+        "id": "et-maintenant"
+      },
+      {
+        "depth": 1,
+        "text": "En résumé",
+        "id": "en-resume"
+      },
+      {
+        "depth": 1,
+        "text": "Pour aller plus loin",
+        "id": "pour-aller-plus-loin"
+      }
+    ]
+  },
+  {
+    "slug": "regression-aggregation-perceptron",
+    "seriesSlug": "ia-pas-a-pas",
+    "lang": "en",
+    "title": "Aggregating to Decide",
+    "summary": "The fundamental brick of any AI model: weighting information, aggregating it, measuring error, and learning how to correct it. From linear regression to the perceptron, through loss and gradient descent.",
     "date": "2026-03-26",
     "tags": [
       "regression",
+      "perceptron",
+      "gradient-descent",
+      "aggregation",
+      "ai"
+    ],
+    "cover": "/assets/blog/images/blog6.jpg",
+    "featured": true,
+    "readTime": 16,
+    "headings": [
+      {
+        "depth": 1,
+        "text": "Introduction",
+        "id": "introduction"
+      },
+      {
+        "depth": 1,
+        "text": "The Power Plant: Your Brain Already Does AI",
+        "id": "the-power-plant-your-brain-already-does-ai"
+      },
+      {
+        "depth": 1,
+        "text": "Weighting - Giving Importance to Each Piece of Information",
+        "id": "weighting-giving-importance-to-each-piece-of-information"
+      },
+      {
+        "depth": 1,
+        "text": "Aggregating - Producing an Answer from the Weights",
+        "id": "aggregating-producing-an-answer-from-the-weights"
+      },
+      {
+        "depth": 1,
+        "text": "The Loss: Measuring the Gap Between Prediction and Reality",
+        "id": "the-loss-measuring-the-gap-between-prediction-and-reality"
+      },
+      {
+        "depth": 1,
+        "text": "Learning the Weights: From Manual Calibration to Automatic Optimization",
+        "id": "learning-the-weights-from-manual-calibration-to-automatic-optimization"
+      },
+      {
+        "depth": 1,
+        "text": "The Perceptron",
+        "id": "the-perceptron"
+      },
+      {
+        "depth": 1,
+        "text": "How Does a Model Calibrate Itself? The Learning Process",
+        "id": "how-does-a-model-calibrate-itself-the-learning-process"
+      },
+      {
+        "depth": 2,
+        "text": "1. Forward Propagation: Producing a Prediction",
+        "id": "1-forward-propagation-producing-a-prediction"
+      },
+      {
+        "depth": 2,
+        "text": "2. Cost Function: Measuring the Error",
+        "id": "2-cost-function-measuring-the-error"
+      },
+      {
+        "depth": 2,
+        "text": "3. Backward Propagation: Understanding Where the Error Comes From",
+        "id": "3-backward-propagation-understanding-where-the-error-comes-from"
+      },
+      {
+        "depth": 2,
+        "text": "4. Gradient Descent: Correcting the Weights",
+        "id": "4-gradient-descent-correcting-the-weights"
+      },
+      {
+        "depth": 2,
+        "text": "5. Loop: Repeat Until Convergence",
+        "id": "5-loop-repeat-until-convergence"
+      },
+      {
+        "depth": 1,
+        "text": "Simple Case: A Perceptron with 2 Inputs",
+        "id": "simple-case-a-perceptron-with-2-inputs"
+      },
+      {
+        "depth": 1,
+        "text": "Generalizing to a Whole Dataset - Vectors and Matrices",
+        "id": "generalizing-to-a-whole-dataset-vectors-and-matrices"
+      },
+      {
+        "depth": 1,
+        "text": "Code - Linear Regression and Simple Perceptron",
+        "id": "code-linear-regression-and-simple-perceptron"
+      },
+      {
+        "depth": 1,
+        "text": "Beyond Linear - Why We Need Non-Linearity",
+        "id": "beyond-linear-why-we-need-non-linearity"
+      },
+      {
+        "depth": 1,
+        "text": "What Comes Next?",
+        "id": "what-comes-next"
+      },
+      {
+        "depth": 1,
+        "text": "Summary",
+        "id": "summary"
+      },
+      {
+        "depth": 1,
+        "text": "Go Further",
+        "id": "go-further"
+      }
+    ]
+  },
+  {
+    "slug": "regression-aggregation-perceptron",
+    "seriesSlug": "ia-pas-a-pas",
+    "lang": "fr",
+    "title": "Agréger pour décider",
+    "summary": "La brique fondamentale de tout modèle d'IA : pondérer des informations, les agréger, mesurer l'erreur, et apprendre à corriger. De la régression linéaire au perceptron, en passant par la loss et le gradient descent.",
+    "date": "2026-03-26",
+    "tags": [
+      "regression",
+      "perceptron",
+      "gradient-descent",
       "agregation",
       "ia"
     ],
     "cover": "/assets/blog/images/blog6.jpg",
     "featured": true,
-    "readTime": 7,
+    "readTime": 17,
     "headings": [
-      {
-        "depth": 2,
-        "text": "Stack requise pour réaliser les exemples de cet article",
-        "id": "stack-requise-pour-realiser-les-exemples-de-cet-article"
-      },
       {
         "depth": 1,
         "text": "Introduction",
@@ -221,28 +701,88 @@
       },
       {
         "depth": 1,
-        "text": "Peser des informations pour décider",
-        "id": "peser-des-informations-pour-decider"
-      },
-      {
-        "depth": 2,
-        "text": "Application : prédire la consommation d'électricité",
-        "id": "application-predire-la-consommation-d-electricite"
-      },
-      {
-        "depth": 2,
-        "text": "Avantages et limites de cette approche",
-        "id": "avantages-et-limites-de-cette-approche"
+        "text": "Pondérer - Donner une importance à chaque information",
+        "id": "ponderer-donner-une-importance-a-chaque-information"
       },
       {
         "depth": 1,
-        "text": "En résumé : la régression linéaire",
-        "id": "en-resume-la-regression-lineaire"
+        "text": "Agréger - Produire une réponse à partir des poids",
+        "id": "agreger-produire-une-reponse-a-partir-des-poids"
+      },
+      {
+        "depth": 1,
+        "text": "La loss, mesurer l'écart entre ce qu'on prédit et la réalité",
+        "id": "la-loss-mesurer-l-ecart-entre-ce-qu-on-predit-et-la-realite"
+      },
+      {
+        "depth": 1,
+        "text": "Apprendre les poids : De la calibration manuelle à l'optimisation automatique",
+        "id": "apprendre-les-poids-de-la-calibration-manuelle-a-l-optimisation-automatique"
+      },
+      {
+        "depth": 1,
+        "text": "Le perceptron",
+        "id": "le-perceptron"
+      },
+      {
+        "depth": 1,
+        "text": "Comment un modèle se calibre ? Le processus d'apprentissage",
+        "id": "comment-un-modele-se-calibre-le-processus-d-apprentissage"
+      },
+      {
+        "depth": 2,
+        "text": "1. Forward propagation : Produire une prédiction",
+        "id": "1-forward-propagation-produire-une-prediction"
+      },
+      {
+        "depth": 2,
+        "text": "2. Fonction de coût : Mesurer l'erreur",
+        "id": "2-fonction-de-cout-mesurer-l-erreur"
+      },
+      {
+        "depth": 2,
+        "text": "3. Backward propagation : Comprendre d'où vient l'erreur",
+        "id": "3-backward-propagation-comprendre-d-ou-vient-l-erreur"
+      },
+      {
+        "depth": 2,
+        "text": "4. Gradient descent : Corriger les poids",
+        "id": "4-gradient-descent-corriger-les-poids"
+      },
+      {
+        "depth": 2,
+        "text": "5. Boucle : Répéter jusqu'à convergence",
+        "id": "5-boucle-repeter-jusqu-a-convergence"
+      },
+      {
+        "depth": 1,
+        "text": "Cas simple : Un perceptron à 2 entrées",
+        "id": "cas-simple-un-perceptron-a-2-entrees"
+      },
+      {
+        "depth": 1,
+        "text": "Généraliser à un dataset entier - Vecteurs et matrices",
+        "id": "generaliser-a-un-dataset-entier-vecteurs-et-matrices"
+      },
+      {
+        "depth": 1,
+        "text": "Code - Régression linéaire et perceptron simple",
+        "id": "code-regression-lineaire-et-perceptron-simple"
+      },
+      {
+        "depth": 1,
+        "text": "Au-delà du linéaire - Pourquoi on a besoin de non-linéarité",
+        "id": "au-dela-du-lineaire-pourquoi-on-a-besoin-de-non-linearite"
       },
       {
         "depth": 1,
         "text": "Et maintenant ?",
         "id": "et-maintenant"
+      },
+      {
+        "depth": 1,
+        "text": "En résumé",
+        "id": "en-resume"
       },
       {
         "depth": 1,

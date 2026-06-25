@@ -61,10 +61,10 @@
 
 :root[data-theme='light'] {
   color-scheme: light;
-  --bg-color: #f4f7fbd7;
+  --bg-color: #f8fbff;
   --white: #ffffff;
   --bg2-color: #ffffff;
-  --bg3-color: #cad3dc;
+  --bg3-color: #e7edf5;
   --win-bg: #ffffff;
   
   --text-color: #0e1928;
@@ -74,7 +74,7 @@
   --blogpost-text-col: #0b1524;
   --blogpost-text2-col: #0f1114;
   
-  --tool-col: #d7e1ef;
+  --tool-col: #eef4fb;
   --skill-col: rgba(4, 102, 200, 0.12);
   --domain-col: #522891;
   --domain-col-rgb: 6 103 177;
@@ -87,25 +87,25 @@
   --accent-lgtpurple: #7b2cbf;
   --toggle-hover: #0466c8;
   --toggle-bg: #ffffff;
-  --statboxborder-col: rgba(18, 32, 51, 0.15);
-  --fields-bg-col: #cdcccc71;
+  --statboxborder-col: rgba(18, 32, 51, 0.1);
+  --fields-bg-col: rgba(248, 251, 255, 0.82);
   
-  --glass-bg: rgba(206, 206, 206, 0.72);
+  --glass-bg: rgba(255, 255, 255, 0.74);
   --glass-bg-strong: rgba(255, 255, 255, 1);
-  --glass-bg-fallback: rgba(206, 206, 206, 0.88);
-  --glass-bg-strong-fallback: rgba(206, 206, 206, 0.88);
-  --glass-border: rgba(18, 32, 51, 0.194);
+  --glass-bg-fallback: rgba(248, 251, 255, 0.94);
+  --glass-bg-strong-fallback: rgba(255, 255, 255, 0.96);
+  --glass-border: rgba(18, 32, 51, 0.12);
   --glass-shadow: 0 10px 30px rgba(18, 32, 51, 0.08);
-  --segmenttabs-col: rgba(18, 32, 51, 0.025);
-  --btn-sobre-col: rgba(18, 32, 51, 0.1);
+  --segmenttabs-col: rgba(255, 255, 255, 0.72);
+  --btn-sobre-col: rgba(4, 102, 200, 0.08);
   
-  --pjtwintab: rgba(18, 32, 51, 0.1);
-  --pjtwintab-border: rgba(18, 32, 51, 0.878);
-  --pjtwintab-act: rgb(10, 16, 25);
-  --pjtwintab-act-border: rgba(18, 32, 51, 0.08);
-  --pwt-border: rgba(18, 32, 51, 0.03);
+  --pjtwintab: rgba(255, 255, 255, 0.76);
+  --pjtwintab-border: rgba(18, 32, 51, 0.12);
+  --pjtwintab-act: #eaf2fb;
+  --pjtwintab-act-border: rgba(4, 102, 200, 0.16);
+  --pwt-border: rgba(18, 32, 51, 0.1);
 
-  --series-bg: #eaeaea;
+  --series-bg: #f8fbff;
 }
 
 html {

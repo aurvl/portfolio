@@ -35,7 +35,7 @@ function AnimatedLogo() {
     <div className="flex h-10 w-32 items-center justify-center">
       <img
         src={withBasePath(logos[currentLogoIndex] ?? darkLogos[0])}
-        alt="Aurel VEHI logo"
+        alt="Aurel De Vince logo"
         className="navbar-logo"
       />
     </div>

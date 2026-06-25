@@ -113,13 +113,14 @@ function BlogPostPage() {
   }, [i18n.language, slug])
 
   const activeHeading = useActiveHeadingIds(post?.headings.map((heading) => heading.id) ?? [])
+  const postSeriesSlug = post?.seriesSlug ?? null
   const navigationPosts = useMemo(() => {
-    if (!post?.seriesSlug) {
+    if (!postSeriesSlug) {
       return index
     }
 
     return [...index]
-      .filter((item) => item.seriesSlug === post.seriesSlug)
+      .filter((item) => item.seriesSlug === postSeriesSlug)
       .sort((postA, postB) => {
         const dateDiff = new Date(postA.date).getTime() - new Date(postB.date).getTime()
 
@@ -129,7 +130,7 @@ function BlogPostPage() {
 
         return postA.slug.localeCompare(postB.slug)
       })
-  }, [index, post?.seriesSlug])
+  }, [index, postSeriesSlug])
   const currentPostIndex = post
     ? navigationPosts.findIndex((item) => item.slug === post.slug)
     : -1

@@ -128,7 +128,7 @@ function FeaturedProjects() {
                 </div>
               </div>
             ) : (
-              <div className="flex flex-wrap gap-4">
+              <div className="grid w-full min-w-0 auto-rows-fr grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
                 {recentProjects.map((project) => (
                   <RecentProjectCard key={project.id} project={project} />
                 ))}

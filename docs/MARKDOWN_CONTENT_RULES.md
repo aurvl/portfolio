@@ -370,7 +370,36 @@ Panel rules:
 
 ---
 
-## 10. Writing style rules
+## 10. Interactive widgets
+
+Blog posts can embed registered React widgets with a markdown directive:
+
+```md
+:::widget{id="example-widget"}
+:::
+```
+
+Rules:
+
+* the widget implementation must live in `src/components/blog/widgets`
+* the widget id must be registered in `src/components/blog/widgets/blogWidgetRegistry.tsx`
+* markdown stays responsible for the article narrative
+* TSX widgets are for genuinely interactive explanations, simulations, charts, or controls
+* if a widget id is missing from the registry, nothing is rendered
+
+Widget visual convention:
+
+* keep interactive widgets in the dark glass-card style introduced by the AI series
+* use a dark graphite background, subtle blue accent lines, rounded corners, compact controls, and clear computed values
+* prefer sliders for continuous variables and keep the active graph/value visible while the user manipulates controls
+* widgets must remain readable on mobile: controls stack, charts do not overflow, and long labels wrap safely
+* avoid switching future widgets to unrelated visual systems unless the surrounding article explicitly requires it
+
+Use widgets sparingly so the article remains readable without turning every section into an app.
+
+---
+
+## 11. Writing style rules
 
 ### Keep content concrete
 
@@ -430,7 +459,7 @@ Each section should help the reader understand:
 
 ---
 
-## 11. Agent instructions
+## 12. Agent instructions
 
 When an AI agent writes markdown content for this portfolio:
 
@@ -446,7 +475,7 @@ When an AI agent writes markdown content for this portfolio:
 
 ---
 
-## 12. Design principle
+## 13. Design principle
 
 This markdown system is designed to be:
 
