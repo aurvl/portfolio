@@ -10,6 +10,7 @@ import { LuCheck, LuChevronDown, LuChevronUp, LuCopy } from 'react-icons/lu'
 import { GoLinkExternal } from 'react-icons/go'
 import { createHeadingId } from '../../lib/getPost'
 import { getImageDimensions } from '../../lib/imageMetadata'
+import { withBasePath } from '../../lib/site'
 import 'katex/dist/katex.min.css'
 
 type MdContentRendererProps = {
@@ -425,7 +426,7 @@ function MdContentRenderer({ content, widgets = {} }: MdContentRendererProps) {
 
       return (
         <img
-          src={src ?? ''}
+          src={withBasePath(src ?? '')}
           alt={alt ?? ''}
           width={imageDimensions?.width}
           height={imageDimensions?.height}
