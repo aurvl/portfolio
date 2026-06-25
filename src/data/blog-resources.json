@@ -1,1 +1,17 @@
-{}
+{
+  "regression-aggregation-perceptron": {
+    "code": "https://github.com/aurvl/AI-Step-by-Step/blob/main/bp1-linear-regression/1_script.py",
+    "repo": "https://github.com/aurvl/AI-Step-by-Step/tree/main/bp1-linear-regression",
+    "docs": "https://github.com/aurvl/AI-Step-by-Step/blob/main/bp1-linear-regression/1_manual.ipynb"
+  },
+  "classification-logistic-activation": {
+    "code": "https://github.com/aurvl/AI-Step-by-Step/blob/main/bp2-logistic-regression/2_script.py",
+    "repo": "https://github.com/aurvl/AI-Step-by-Step/tree/main/bp2-logistic-regression",
+    "docs": "https://github.com/aurvl/AI-Step-by-Step/blob/main/bp2-logistic-regression/2_manual.ipynb"
+  },
+  "multilayer-perceptron-neural-network": {
+    "code": "https://github.com/aurvl/AI-Step-by-Step/blob/main/bp3-neural-networks/3_script.py",
+    "repo": "https://github.com/aurvl/AI-Step-by-Step/tree/main/bp3-neural-networks",
+    "docs": "https://github.com/aurvl/AI-Step-by-Step/blob/main/bp3-neural-networks/3_manual.ipynb"
+  }
+}
