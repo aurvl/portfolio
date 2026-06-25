@@ -2,16 +2,10 @@ import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { motion } from 'framer-motion'
 import { FaLinkedin } from 'react-icons/fa'
 import { BsDiscord, BsGithub } from 'react-icons/bs'
-import { GiGraduateCap } from 'react-icons/gi'
-import { IoHammerSharp } from 'react-icons/io5'
-import { TbBrandReactNative } from 'react-icons/tb'
 import { useTranslation } from 'react-i18next'
-import StatBox from '../ui/StatBox'
-import projects from '../../data/projects.json'
-import skillsCatalog from '../../data/skills.json'
+import { Link } from 'react-router-dom'
 import { withBasePath } from '../../lib/site'
-import type { Project } from '../../types/project'
-import type { SkillCatalog } from '../../types/skill'
+import { getImageDimensions } from '../../lib/imageMetadata'
 
 type FloatingLink = {
   id: number
@@ -54,15 +48,8 @@ const floatingLinks: FloatingLink[] = [
   },
 ]
 
-const typedProjects = projects as Project[]
-const typedSkillsCatalog = skillsCatalog as SkillCatalog
-const projectsCount = typedProjects.length
-const skillsCount = typedSkillsCatalog.categories.reduce(
-  (total, category) => total + category.items.length,
-  0
-)
-
 const ICON_SIZE = 48
+const HERO_IMAGE = 'assets/images/hero-image.png'
 
 function clamp(value: number, min: number, max: number) {
   return Math.max(min, Math.min(value, max))
@@ -70,6 +57,7 @@ function clamp(value: number, min: number, max: number) {
 
 function HeroSection() {
   const { t } = useTranslation()
+  const heroImageDimensions = getImageDimensions(HERO_IMAGE)
 
   const dragAreaRef = useRef<HTMLDivElement | null>(null)
   const mobileAreaRef = useRef<HTMLDivElement | null>(null)
@@ -166,6 +154,21 @@ function HeroSection() {
         <p className="max-w-2xl text-base leading-8 text-[var(--text2-col)]">
           {t('hero.description')}
         </p>
+
+        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <a
+            href="#contact-form"
+            className="button-shadow btn btn-primary border-class flex items-center justify-center rounded-[5px] bg-[#3784d8] px-8 py-3 font-semibold text-white sm:min-w-[180px]"
+          >
+            {t('hero.ctaContact')}
+          </a>
+          <Link
+            to="/projects"
+            className="button-shadow btn btn-secondary border-class flex items-center justify-center rounded-[5px] px-8 py-3 font-semibold text-white sm:min-w-[180px]"
+          >
+            {t('hero.ctaProjects')}
+          </Link>
+        </div>
       </div>
 
       <div
@@ -174,8 +177,10 @@ function HeroSection() {
       >
         <div ref={dragAreaRef} className="relative mx-auto flex items-center justify-center">
           <img
-            src={withBasePath('assets/images/hero-image.png')}
+            src={withBasePath(HERO_IMAGE)}
             alt={t('hero.title')}
+            width={heroImageDimensions?.width}
+            height={heroImageDimensions?.height}
             className="h-full w-full rounded-full object-cover"
           />
 
@@ -226,20 +231,6 @@ function HeroSection() {
           ))}
       </div>
 
-      <div className="flex flex-col items-center justify-center w-full justify-center gap-6 p-10 lg:flex-row">
-        <StatBox
-          icon={<GiGraduateCap size={24} />}
-          text={t('hero.stats.profile')}
-        />
-        <StatBox
-          icon={<IoHammerSharp size={24} />}
-          text={t('hero.stats.projects', { count: projectsCount })}
-        />
-        <StatBox
-          icon={<TbBrandReactNative size={24} />}
-          text={t('hero.stats.skills', { count: skillsCount })}
-        />
-      </div>
     </section>
   )
 }

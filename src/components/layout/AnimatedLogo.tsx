@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useTheme } from '../../app/theme-context'
+import { getImageDimensions } from '../../lib/imageMetadata'
 import { withBasePath } from '../../lib/site'
 
 const darkLogos = [
@@ -20,6 +21,8 @@ function AnimatedLogo() {
   const { theme } = useTheme()
   const [currentLogoIndex, setCurrentLogoIndex] = useState(0)
   const logos = theme === 'light' ? lightLogos : darkLogos
+  const currentLogo = logos[currentLogoIndex] ?? darkLogos[0]
+  const currentLogoDimensions = getImageDimensions(currentLogo)
 
   useEffect(() => {
     const intervalId = window.setInterval(() => {
@@ -34,8 +37,10 @@ function AnimatedLogo() {
   return (
     <div className="flex h-10 w-32 items-center justify-center">
       <img
-        src={withBasePath(logos[currentLogoIndex] ?? darkLogos[0])}
+        src={withBasePath(currentLogo)}
         alt="Aurel De Vince logo"
+        width={currentLogoDimensions?.width}
+        height={currentLogoDimensions?.height}
         className="navbar-logo"
       />
     </div>

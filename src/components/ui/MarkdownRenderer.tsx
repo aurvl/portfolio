@@ -9,6 +9,7 @@ import { useState } from 'react'
 import { LuCheck, LuChevronDown, LuChevronUp, LuCopy } from 'react-icons/lu'
 import { GoLinkExternal } from 'react-icons/go'
 import { createHeadingId } from '../../lib/getPost'
+import { getImageDimensions } from '../../lib/imageMetadata'
 import 'katex/dist/katex.min.css'
 
 type MdContentRendererProps = {
@@ -419,13 +420,20 @@ function MdContentRenderer({ content, widgets = {} }: MdContentRendererProps) {
       </a>
     ),
 
-    img: ({ src, alt }) => (
-      <img
-        src={src ?? ''}
-        alt={alt ?? ''}
-        className="md-content__img"
-      />
-    ),
+    img: ({ src, alt }) => {
+      const imageDimensions = getImageDimensions(src)
+
+      return (
+        <img
+          src={src ?? ''}
+          alt={alt ?? ''}
+          width={imageDimensions?.width}
+          height={imageDimensions?.height}
+          loading="lazy"
+          className="md-content__img"
+        />
+      )
+    },
 
     blockquote: ({ children }) => (
       <blockquote className="md-content__blockquote">

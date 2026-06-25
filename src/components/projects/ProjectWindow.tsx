@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { IoIosClose } from 'react-icons/io'
+import { getImageDimensions } from '../../lib/imageMetadata'
 import { getProjectWindowSections } from '../../lib/projectWindowContent'
 import { getLocalizedField, getProjectContent } from '../../lib/utils'
 import { normalizeLegacyProjectLink, withBasePath } from '../../lib/site'
@@ -28,6 +29,7 @@ function ProjectWindow({ project, isOpen, onClose }: ProjectWindowProps) {
   const { t, i18n } = useTranslation()
   const [activeTab, setActiveTab] = useState<ProjectWindowTabId>('overview')
   const [isSmallScreen, setIsSmallScreen] = useState(false)
+  const coverDimensions = getImageDimensions(project?.cover.src)
 
   useEffect(() => {
     if (!isOpen) {
@@ -255,6 +257,9 @@ function ProjectWindow({ project, isOpen, onClose }: ProjectWindowProps) {
                       <img
                         src={withBasePath(project.cover.src)}
                         alt={getLocalizedField(project.cover.alt, i18n.language)}
+                        width={coverDimensions?.width}
+                        height={coverDimensions?.height}
+                        loading="lazy"
                         className="h-auto w-full rounded-lg object-cover"
                       />
                     </div>

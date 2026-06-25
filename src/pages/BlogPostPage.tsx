@@ -8,6 +8,7 @@ import PostContent from '../components/blog/PostContent'
 import BlogSubscribeSection from '../components/blog/BlogSubscribeSection'
 import Seo from '../components/seo/Seo'
 import { getPost, formatPostDate } from '../lib/getPost'
+import { getImageDimensions } from '../lib/imageMetadata'
 import { useBlogIndex } from '../hooks/useBlogIndex'
 import { PERSON_NAME, PERSON_SAME_AS, buildAbsoluteSiteUrl, withBasePath } from '../lib/site'
 
@@ -71,6 +72,7 @@ function BlogPostPage() {
     () => index.find((item) => item.slug === slug) ?? null,
     [index, slug]
   )
+  const coverDimensions = getImageDimensions(post?.cover)
 
   useEffect(() => {
     let isCancelled = false
@@ -226,6 +228,8 @@ function BlogPostPage() {
               <img
                 src={withBasePath(post.cover)}
                 alt={post.title}
+                width={coverDimensions?.width}
+                height={coverDimensions?.height}
                 className="h-[260px] w-full object-cover md:h-[360px]"
               />
 
