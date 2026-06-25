@@ -255,8 +255,8 @@ function ProjectsPage() {
         }
         description={
           i18n.language === 'fr'
-            ? 'Selection de projets data, econometrie, machine learning et analytics realises par Aurel VEHI.'
-            : 'Selection of data, econometrics, machine learning, and analytics projects built by Aurel VEHI.'
+            ? 'Selection de projets data, econometrie, machine learning et analytics realises par Aurel De Vince.'
+            : 'Selection of data, econometrics, machine learning, and analytics projects built by Aurel De Vince.'
         }
         path="projects"
         lang={i18n.language}
@@ -271,8 +271,8 @@ function ProjectsPage() {
           url: buildAbsoluteSiteUrl('projects'),
           description:
             i18n.language === 'fr'
-              ? 'Selection de projets data, econometrie, machine learning et analytics realises par Aurel VEHI.'
-              : 'Selection of data, econometrics, machine learning, and analytics projects built by Aurel VEHI.',
+              ? 'Selection de projets data, econometrie, machine learning et analytics realises par Aurel De Vince.'
+              : 'Selection of data, econometrics, machine learning, and analytics projects built by Aurel De Vince.',
         }}
       />
       <section className="section-shell min-w-0 overflow-x-hidden py-10 md:py-8">

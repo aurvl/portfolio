@@ -253,7 +253,7 @@ background-color: rgba(109, 107, 107, 0.2); /* ajuste la couleur/alpha */
   padding: 3px 10px;
   border-radius: 5px;
 
-  /* Pill coloré — tint violet */
+  /* Pill coloré - tint violet */
   /* background: rgba(120, 80, 220, 0.28); */
   background: rgba(41, 41, 41, 0.6);
   /* border: 1px solid rgba(180, 140, 255, 0.40); */
@@ -267,6 +267,11 @@ background-color: rgba(109, 107, 107, 0.2); /* ajuste la couleur/alpha */
 
   /* Pas de coupure */
   white-space: nowrap;
+}
+
+:root[data-theme='light'] .project-domain {
+  background: rgba(255, 255, 255, 0.76);
+  border: 1px solid rgba(18, 32, 51, 0.08);
 }
 
 .project-window-tabs {
@@ -296,12 +301,18 @@ background-color: rgba(109, 107, 107, 0.2); /* ajuste la couleur/alpha */
 .project-window-tab {
   position: relative;
   z-index: 1;
+  display: inline-flex;
   min-width: 0;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
   border: none;
   background: transparent;
   color: var(--text2-col);
   padding: 10px 30px;
   font-weight: 600;
+  line-height: 1.15;
+  text-align: center;
   cursor: pointer;
   transition: color 0.25s ease;
 }
@@ -312,6 +323,10 @@ background-color: rgba(109, 107, 107, 0.2); /* ajuste la couleur/alpha */
 
 .project-window-tab.is-active {
   color: white;
+}
+
+:root[data-theme='light'] .project-window-tab.is-active {
+  color: var(--accent-blue);
 }
 
 .back-to-top-button {
@@ -344,6 +359,15 @@ background-color: rgba(109, 107, 107, 0.2); /* ajuste la couleur/alpha */
 
 .back-to-top-button:hover {
   background: var(--bg3-color);
+}
+
+:root[data-theme='light'] .back-to-top-button {
+  background: rgba(255, 255, 255, 0.92);
+  border-color: rgba(18, 32, 51, 0.12);
+}
+
+:root[data-theme='light'] .back-to-top-button:hover {
+  background: #eef4fb;
 }
 
 .back-to-top-button.is-visible {

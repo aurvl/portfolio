@@ -3,6 +3,7 @@ import { GoLinkExternal } from 'react-icons/go'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import { formatPostDate } from '../../lib/getPost'
+import { getImageDimensions } from '../../lib/imageMetadata'
 import { withBasePath } from '../../lib/site'
 import type { BlogPostMeta } from '../../types/post'
 
@@ -14,6 +15,8 @@ type PostCardProps = {
 
 function PostCard({ post }: PostCardProps) {
   const { t, i18n } = useTranslation()
+  const imageSource = post.cover || 'assets/blog/images/defaultblogpostcover.png'
+  const imageDimensions = getImageDimensions(imageSource)
 
   return (
     <Link
@@ -21,8 +24,10 @@ function PostCard({ post }: PostCardProps) {
       className="post-card flex h-full min-w-0 flex-col gap-2"
     >
       <img
-        src={withBasePath(post.cover || DEFAULT_POST_IMAGE)}
+        src={withBasePath(imageSource)}
         alt={post.title}
+        width={imageDimensions?.width}
+        height={imageDimensions?.height}
         loading="lazy"
         onError={(event) => {
           event.currentTarget.src = DEFAULT_POST_IMAGE

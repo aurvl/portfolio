@@ -32,7 +32,10 @@ function Seo({
   useEffect(() => {
     const canonicalUrl = buildCanonicalPath(path)
     const imageUrl = image ?? getDefaultSocialImage()
-    const fullTitle = title.includes(SITE_NAME) ? title : `${title} | ${SITE_NAME}`
+    const fullTitle =
+      title.includes(SITE_NAME) || title.includes(PERSON_NAME)
+        ? title
+        : `${title} | ${SITE_NAME}`
 
     document.title = fullTitle
     document.documentElement.lang = lang === 'fr' ? 'fr' : 'en'

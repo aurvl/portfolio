@@ -8,6 +8,7 @@ import PostContent from '../components/blog/PostContent'
 import BlogSubscribeSection from '../components/blog/BlogSubscribeSection'
 import Seo from '../components/seo/Seo'
 import { getPost, formatPostDate } from '../lib/getPost'
+import { getImageDimensions } from '../lib/imageMetadata'
 import { useBlogIndex } from '../hooks/useBlogIndex'
 import { PERSON_NAME, PERSON_SAME_AS, buildAbsoluteSiteUrl, withBasePath } from '../lib/site'
 
@@ -71,6 +72,7 @@ function BlogPostPage() {
     () => index.find((item) => item.slug === slug) ?? null,
     [index, slug]
   )
+  const coverDimensions = getImageDimensions(post?.cover)
 
   useEffect(() => {
     let isCancelled = false
@@ -113,13 +115,14 @@ function BlogPostPage() {
   }, [i18n.language, slug])
 
   const activeHeading = useActiveHeadingIds(post?.headings.map((heading) => heading.id) ?? [])
+  const postSeriesSlug = post?.seriesSlug ?? null
   const navigationPosts = useMemo(() => {
-    if (!post?.seriesSlug) {
+    if (!postSeriesSlug) {
       return index
     }
 
     return [...index]
-      .filter((item) => item.seriesSlug === post.seriesSlug)
+      .filter((item) => item.seriesSlug === postSeriesSlug)
       .sort((postA, postB) => {
         const dateDiff = new Date(postA.date).getTime() - new Date(postB.date).getTime()
 
@@ -129,7 +132,7 @@ function BlogPostPage() {
 
         return postA.slug.localeCompare(postB.slug)
       })
-  }, [index, post?.seriesSlug])
+  }, [index, postSeriesSlug])
   const currentPostIndex = post
     ? navigationPosts.findIndex((item) => item.slug === post.slug)
     : -1
@@ -225,6 +228,8 @@ function BlogPostPage() {
               <img
                 src={withBasePath(post.cover)}
                 alt={post.title}
+                width={coverDimensions?.width}
+                height={coverDimensions?.height}
                 className="h-[260px] w-full object-cover md:h-[360px]"
               />
 

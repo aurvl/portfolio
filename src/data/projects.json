@@ -134,7 +134,7 @@
     "slug": "insurance-claim-fraud-counterfactual-simulator",
     "status": "completed",
     "date": "2026-04-06",
-    "featured": true,
+    "featured": false,
     "technicalLevel": 3,
     "cover": {
       "src": "/assets/projects/images/insurance-claim-fraud-counterfactual-simulator-cover.jpg",
@@ -440,7 +440,7 @@
       "en": {
         "title": "Research Papers Recommendation System",
         "summary": "Paper recommender built on a large corpus, evolving from TF-IDF to transformer embeddings for stronger semantic recommendations.",
-        "description": "Built a research-paper recommender on a corpus of ~50,000 papers (science, literature, history, etc.). The system adapts to user preferences: it proposes papers, updates recommendations as users like items, and shows “similar papers” on each article page. For cold-start users, it recommends papers closest to trending arXiv topics. Started with TF-IDF (high-dimensional, weak semantics) then upgraded to transformer embeddings (all-MiniLM-L6-v2) for more meaningful similarity and improved recommendations—an AI tool designed to support researchers and discovery."
+        "description": "Built a research-paper recommender on a corpus of ~50,000 papers (science, literature, history, etc.). The system adapts to user preferences: it proposes papers, updates recommendations as users like items, and shows “similar papers” on each article page. For cold-start users, it recommends papers closest to trending arXiv topics. Started with TF-IDF (high-dimensional, weak semantics) then upgraded to transformer embeddings (all-MiniLM-L6-v2) for more meaningful similarity and improved recommendations-an AI tool designed to support researchers and discovery."
       },
       "fr": {
         "title": "Système de Recommandation de Publications Scientifiques",

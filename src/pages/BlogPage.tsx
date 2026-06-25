@@ -64,8 +64,8 @@ function BlogPage() {
         }
         description={
           i18n.language === 'fr'
-            ? 'Articles d Aurel VEHI sur la data analyse, l econometrie, la modelisation et la prise de decision.'
-            : 'Articles by Aurel VEHI on data analysis, econometrics, modeling, and decision-making.'
+            ? 'Articles d Aurel De Vince sur la data analyse, l econometrie, la modelisation et la prise de decision.'
+            : 'Articles by Aurel De Vince on data analysis, econometrics, modeling, and decision-making.'
         }
         path="blog"
         lang={i18n.language}
@@ -80,8 +80,8 @@ function BlogPage() {
           url: buildAbsoluteSiteUrl('blog'),
           description:
             i18n.language === 'fr'
-              ? 'Articles d Aurel VEHI sur la data analyse, l econometrie, la modelisation et la prise de decision.'
-              : 'Articles by Aurel VEHI on data analysis, econometrics, modeling, and decision-making.',
+              ? 'Articles d Aurel De Vince sur la data analyse, l econometrie, la modelisation et la prise de decision.'
+              : 'Articles by Aurel De Vince on data analysis, econometrics, modeling, and decision-making.',
         }}
       />
       <section id="blog" className="section-shell py-15 md:py-12">

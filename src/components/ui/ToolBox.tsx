@@ -1,5 +1,6 @@
 import { TbBrandOpenai } from 'react-icons/tb'
 import { VscCopilot } from 'react-icons/vsc'
+import { getImageDimensions } from '../../lib/imageMetadata'
 import { withBasePath } from '../../lib/site'
 
 type ToolCardProps = {
@@ -12,6 +13,8 @@ type ToolCardProps = {
 }
 
 function ToolCard({ iconSrc, iconKey, iconAlt, title, description, group }: ToolCardProps) {
+  const imageDimensions = getImageDimensions(iconSrc ?? undefined) ?? { width: 48, height: 48 }
+
   return (
     <div className="tool-card" data-group={group}>
       {iconKey === 'openai' ? (
@@ -21,7 +24,16 @@ function ToolCard({ iconSrc, iconKey, iconAlt, title, description, group }: Tool
           <VscCopilot className="tool-card__svg-icon" />
         </span>
       ) : (
-        iconSrc && <img src={withBasePath(iconSrc)} alt={iconAlt} className="tool-card__icon box-border" />
+        iconSrc && (
+          <img
+            src={withBasePath(iconSrc)}
+            alt={iconAlt}
+            width={imageDimensions?.width}
+            height={imageDimensions?.height}
+            loading="lazy"
+            className="tool-card__icon box-border"
+          />
+        )
       )}
       <span className="tool-tooltip">
         <strong>{title}</strong>

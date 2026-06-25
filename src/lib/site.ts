@@ -1,5 +1,5 @@
 const DEFAULT_SITE_URL = 'https://aurvl.github.io/portfolio/'
-const DEFAULT_SITE_NAME = 'Aurel VEHI Portfolio'
+const DEFAULT_SITE_NAME = 'Aurel De Vince Portfolio'
 const DEFAULT_GA_MEASUREMENT_ID = 'G-3L7YJ0JHG5'
 const DEFAULT_CLARITY_PROJECT_ID = 'w3rmpxth6k'
 const DEFAULT_SOCIAL_IMAGE = 'assets/images/hero-image.png'
@@ -7,10 +7,10 @@ const DEFAULT_SOCIAL_IMAGE = 'assets/images/hero-image.png'
 const ABSOLUTE_URL_PATTERN = /^(?:[a-z]+:)?\/\//i
 
 export const SITE_NAME = DEFAULT_SITE_NAME
-export const PERSON_NAME = 'Aurel VEHI'
+export const PERSON_NAME = 'Aurel De Vince'
 export const PERSON_ROLE = 'Data Analyst, Data Scientist, and Economic Analyst'
 export const PERSON_DESCRIPTION =
-  'Portfolio of Aurel VEHI, showcasing data analysis, econometrics, machine learning, and research-driven projects.'
+  'Portfolio of Aurel De Vince, showcasing data analysis, econometrics, machine learning, and research-driven projects.'
 export const PERSON_SAME_AS = [
   'https://github.com/aurvl',
   'https://www.linkedin.com/in/aurel-vehi/',
