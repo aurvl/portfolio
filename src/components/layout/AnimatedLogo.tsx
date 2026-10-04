@@ -8,7 +8,7 @@ function AnimatedLogo() {
 
   return (
     <span className="navbar-mark">
-      <img src={withBasePath(mark)} alt="" width={27} height={27} />
+      <img src={withBasePath(mark)} alt="" width={20} height={20} />
       <span className="navbar-mark__name">Aurel Vehi</span>
     </span>
   )
