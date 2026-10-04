@@ -1,18 +1,23 @@
 import { FiChevronRight } from 'react-icons/fi'
+import { nowBuildingItems } from '../../data/nowBuilding'
 import { useHomeContent } from '../../hooks/useHomeContent'
 import Reveal from './Reveal'
 
 function NowBuildingSection() {
-  const { nowBuilding, work } = useHomeContent().content
+  const { content, lang } = useHomeContent()
+  const { nowBuilding, work, blog } = content
+  const updatedAt = new Intl.DateTimeFormat(blog.dateLocale, { month: 'long', year: 'numeric' }).format(
+    new Date(__NOW_BUILDING_UPDATED_AT__)
+  )
 
   return (
     <div className="hv-wrap">
       <Reveal className="hv-row-head">
         <h2 className="hv-h2">{nowBuilding.title}</h2>
-        <span className="hv-muted">{nowBuilding.updated}</span>
+        <span className="hv-muted">{nowBuilding.updatedPrefix} {updatedAt}</span>
       </Reveal>
       <Reveal className="hv-list">
-        {nowBuilding.items.map((item) => {
+        {nowBuildingItems[lang].map((item) => {
           const content = (
             <>
               <span className={`hv-status ${item.state === 'progress' ? 'hv-status--progress' : 'hv-status--prep'}`}>

@@ -2,7 +2,7 @@ import { DOI_BLUE_CARBON, type HomeContent } from './home'
 
 // French homepage content, same shape as homeEn in home.ts.
 export const homeFr: HomeContent = {
-  nav: { method: 'Méthode', research: 'Recherche', work: 'Travaux', about: 'Profil', blog: 'Blog', contact: 'Contact', cta: 'Me contacter' },
+  nav: { home: 'Accueil', method: 'Méthode', research: 'Recherche', work: 'Travaux', about: 'Profil', blog: 'Blog', contact: 'Contact', cta: 'Me contacter' },
 
   hero: {
     role: 'Économiste appliqué',
@@ -120,11 +120,11 @@ export const homeFr: HomeContent = {
   doctoralResearch: {
     eyebrow: 'Recherche doctorale',
     title: 'Comment les entreprises se transforment de part et d’autre d’une frontière.',
-    intro: 'Ma thèse étudie les entreprises de l’Eurorégion Nouvelle-Aquitaine, Euskadi et Navarre, dans le cadre du projet d’observatoire OISE. C’est un terrain où j’applique ma méthode, avec la profondeur d’un doctorat.',
+    intro: 'Ma thèse étudie comment les entreprises se transforment dans l’Eurorégion Nouvelle-Aquitaine, Euskadi et Navarre, à ESTIA Recherche et à l’Université de Bordeaux. C’est un terrain où j’applique ma méthode, avec la profondeur d’un doctorat.',
     question: 'Comment mesurer et modéliser les transformations des entreprises en matière d’innovation, de durabilité, de performance économique et d’ancrage territorial pour mieux comprendre les dynamiques régionales ?',
     meta: [
       { title: 'Doctorat, 2026–2029', detail: 'Économie appliquée' },
-      { title: 'ESTIA Recherche · Univ. Bordeaux', detail: 'Dans le cadre du projet OISE' },
+      { title: 'ESTIA Recherche · Univ. Bordeaux', detail: 'Eurorégion transfrontalière' },
     ],
     mapLabel: 'L’Eurorégion Euskadi–Navarre–Nouvelle-Aquitaine',
     borderLabel: 'Frontière FR / ES',
@@ -134,13 +134,13 @@ export const homeFr: HomeContent = {
       { title: 'Performance & résilience', detail: 'Activité, productivité et croissance', tone: 'amber' },
       { title: 'Ancrage territorial', detail: 'Réseaux locaux et transfrontaliers', tone: 'violet' },
     ],
-    programmeLink: 'Lire le programme de recherche',
   },
 
   publications: {
     title: 'Publications.',
     intro: 'Les travaux évalués par les pairs que j’ai co-écrits.',
     readArticle: 'Lire l’article (DOI)',
+    allPublications: 'Toutes les publications',
     items: [
       {
         kind: 'Article évalué par les pairs',
@@ -163,28 +163,20 @@ export const homeFr: HomeContent = {
     viewProject: 'Voir le projet',
     relatedLabel: 'Études liées',
     browseAll: 'Voir les {count} projets',
-    sketchLabels: ['IPC · taux · crédit · emploi', 'mensuel'],
+    sketchLabels: ['Scores de fraude des sinistres', 'seuil de contrôle'],
     items: [
-      {
-        domain: 'Economic Intelligence',
-        keywords: ['données macro', 'api', 'indicateurs'],
-        state: 'progress',
-        title: 'Système d’intelligence économique pour les marchés américains',
-        summary: 'Une infrastructure qui réunit des données macroéconomiques, financières et institutionnelles dans un cadre harmonisé.',
-        tools: 'Python · SQL · API',
-        details: [
-          { label: 'Problème', value: 'Les signaux macro, financiers et institutionnels sont dispersés.' },
-          { label: 'Conséquence', value: 'Chaque décision financière commence par un rapprochement manuel des données.' },
-          { label: 'Solution', value: 'Un pipeline harmonisé et documenté d’indicateurs comparables.' },
-          { label: 'Résultat', value: 'FMarketMonitor, une plateforme de suivi' },
-        ],
-      },
       {
         slug: 'insurance-claim-fraud-counterfactual-simulator',
         state: 'done',
         title: 'Fraude à l’assurance & aide à la décision contrefactuelle',
-        summary: 'Les dossiers de sinistre arrivent en JSON, PDF et images ; ils sont consolidés dans PostgreSQL, scorés et expliqués par des scénarios contrefactuels pour aider les équipes à justifier leurs décisions.',
+        summary: 'Un workflow de bout en bout qui consolide des dossiers de sinistre hétérogènes, score le risque de fraude et explique chaque décision par des scénarios contrefactuels.',
         tools: 'PostgreSQL · XGBoost · FastAPI',
+        details: [
+          { label: 'Problème', value: 'Les dossiers arrivent en JSON, PDF et images, dispersés entre plusieurs systèmes.' },
+          { label: 'Conséquence', value: 'Les équipes fraude examinent à la main et peinent à justifier leurs décisions.' },
+          { label: 'Solution', value: 'Une base PostgreSQL, un score de fraude calibré et des explications contrefactuelles.' },
+          { label: 'Résultat', value: 'Un outil d’aide à la décision pour les équipes sinistres et fraude' },
+        ],
       },
       {
         slug: 'bayesian-linear-regression-econometrics',
@@ -193,22 +185,22 @@ export const homeFr: HomeContent = {
         summary: 'MCO, Ridge, régression bayésienne et Bayes empirique implémentés à la main sur des données économiques, pour rendre visibles le shrinkage et l’incertitude des paramètres.',
         tools: 'NumPy · SciPy',
       },
+      {
+        slug: 'technological-employment-gender-inequalities',
+        state: 'done',
+        title: 'Emploi technologique & inégalités de genre',
+        summary: 'Étude d’économétrie spatiale sur la façon dont l’emploi technologique et les qualifications STEM influencent le chômage féminin dans les régions européennes, localement et entre voisines.',
+        tools: 'Données spatiales · Économétrie',
+      },
     ],
     related: [
-      { slug: 'technological-employment-gender-inequalities', title: 'Emploi technologique & inégalités de genre', detail: 'Économétrie spatiale · régions européennes' },
       { slug: 'environmental-attention-index-pta', title: 'Indice d’attention environnementale', detail: 'Indicateur composite · accords commerciaux' },
       { slug: 'belgian-trade-time-series', title: 'Commerce belge, 1995–2023', detail: 'Séries temporelles · prévision à 10 trimestres' },
+      { slug: 'phillips-curve-europe-policy', title: 'Courbe de Phillips en Europe', detail: 'Économétrie · analyse de politique' },
     ],
   },
 
-  nowBuilding: {
-    title: 'En construction.',
-    updated: 'Mis à jour en octobre 2026',
-    items: [
-      { state: 'progress', title: 'FMarketMonitor', detail: 'La couche de suivi du système d’intelligence économique sur les marchés américains.' },
-      { state: 'prep', title: 'Adoption de l’IA dans les entreprises européennes', detail: 'Étude appliquée sur les données Eurostat TIC : qui adopte l’IA, et pourquoi les écarts persistent.' },
-    ],
-  },
+  nowBuilding: { title: 'En construction.', updatedPrefix: 'Mis à jour en' },
 
   help: {
     title: 'Où je peux aider.',
@@ -218,7 +210,7 @@ export const homeFr: HomeContent = {
       {
         quote: 'Nos données sont dans des sources qui ne concordent pas.',
         answer: 'Cartographie des sources, règles d’harmonisation et pipelines de données documentés et reproductibles.',
-        evidence: [{ label: 'OISE', href: '#research' }, { label: 'Système marchés US', href: '#work' }],
+        evidence: [{ label: 'Recherche doctorale', href: '#research' }, { label: 'Cas assurance', href: '/projects?project=insurance-claim-fraud-counterfactual-simulator' }],
       },
       {
         quote: 'Il nous faut un indicateur que l’on peut défendre.',
@@ -244,13 +236,13 @@ export const homeFr: HomeContent = {
 
   about: {
     title: 'Profil.',
-    portraitAlt: 'Portrait d’Aurel De Vince',
+    portraitAlt: 'Portrait d’Aurel Vehi',
     bio: 'Économiste appliqué formé à l’économétrie et à la data science. Je transforme des données économiques complexes et imparfaites en connaissances utiles aux organisations.',
     journey: [
       { when: 'Formation', what: 'Économie, économétrie & data science' },
       { when: '2024–2025', what: 'Postes en recherche de données & économétrie, Monaco' },
       { when: '2026', what: 'Première publication évaluée par les pairs' },
-      { when: '2026–2029', what: 'Doctorat, projet OISE', current: true },
+      { when: '2026–2029', what: 'Doctorat en économie appliquée', current: true },
       { when: 'Ensuite', what: 'Systèmes d’intelligence économique', next: true },
     ],
     principles: ['Le problème avant l’outil', 'La comparabilité avant la sophistication', 'L’incertitude reste visible', 'Une recherche menée par l’humain'],
@@ -258,6 +250,33 @@ export const homeFr: HomeContent = {
   },
 
   blog: { title: 'Articles de blog.', allPosts: 'Tous les articles', loading: 'Chargement des articles…', minRead: 'min de lecture', dateLocale: 'fr-FR' },
+
+  projectsPage: {
+    seoTitle: 'Travaux : études appliquées et systèmes',
+    seoDescription: 'Études appliquées et systèmes d’aide à la décision par Aurel Vehi : économétrie, indicateurs, prévision et infrastructures de données sur des données économiques réelles.',
+    eyebrow: 'Travaux',
+    title: 'Études appliquées et systèmes, construits sur des données réelles.',
+    intro: 'Chaque projet part d’un problème économique ou décisionnel et suit la même méthode : cartographier les données, construire, modéliser, tester et livrer quelque chose d’utilisable.',
+    summary: '{count} projets · {from}–{to}',
+    selectedTitle: 'Travaux choisis',
+    appliedTitle: 'Économie appliquée & aide à la décision',
+    appliedIntro: 'Études d’économétrie, d’indicateurs, de prévision et d’aide à la décision.',
+    otherTitle: 'Autres travaux techniques',
+    otherIntro: 'Projets de machine learning, NLP, collecte et ingénierie de données qui ont affûté la boîte à outils.',
+    open: 'Ouvrir',
+  },
+
+  publicationsPage: {
+    seoTitle: 'Publications',
+    seoDescription: 'Publications évaluées par les pairs co-écrites par Aurel Vehi.',
+    eyebrow: 'Publications',
+    title: 'Publications.',
+    intro: 'Les travaux évalués par les pairs que j’ai co-écrits.',
+    count: '{count} publication(s)',
+    viewLabel: 'Affichage',
+    grid: 'Grille',
+    list: 'Liste',
+  },
 
   contact: {
     title: 'Rendons les données économiques utiles.',

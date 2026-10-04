@@ -1,12 +1,12 @@
 import { Suspense, lazy } from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 
 const HomePage = lazy(() => import('./pages/HomePage'))
 const ProjectsPage = lazy(() => import('./pages/ProjectsPage'))
 const BlogPage = lazy(() => import('./pages/BlogPage'))
 const BlogPostPage = lazy(() => import('./pages/BlogPostPage'))
 const SeriesPage = lazy(() => import('./pages/SeriesPage'))
-const ResearchPage = lazy(() => import('./pages/ResearchPage'))
+const PublicationsPage = lazy(() => import('./pages/PublicationsPage'))
 
 function App() {
   return (
@@ -23,7 +23,9 @@ function App() {
         <Route path="/blog/:slug" element={<BlogPostPage />} />
         <Route path="/series/:seriesSlug" element={<SeriesPage />} />
         <Route path="/projects" element={<ProjectsPage />} />
-        <Route path="/research" element={<ResearchPage />} />
+        <Route path="/publications" element={<PublicationsPage />} />
+        {/* The V1 research page was replaced by the homepage section and /publications. */}
+        <Route path="/research" element={<Navigate to="/publications" replace />} />
       </Routes>
     </Suspense>
   )

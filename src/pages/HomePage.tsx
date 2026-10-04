@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useHomeContent } from '../hooks/useHomeContent'
+import { useSiteNav } from '../hooks/useSiteNav'
 import MainLayout from '../components/layout/MainLayout'
 import Seo from '../components/seo/Seo'
 import HomeHero from '../components/home-v2/HomeHero'
@@ -19,6 +20,7 @@ import {
   PERSON_NAME,
   PERSON_ROLE,
   PERSON_SAME_AS,
+  SITE_NAME,
   buildAbsoluteSiteUrl,
 } from '../lib/site'
 
@@ -30,17 +32,8 @@ function scrollToSection(sectionId: string) {
 function HomePage() {
   const location = useLocation()
   const [activeStep, setActiveStep] = useState(0)
-  const { content, lang } = useHomeContent()
-  const { nav } = content
-  const homeSections = [
-    { id: 'home', label: 'Home', hidden: true },
-    { id: 'approach', label: nav.method },
-    { id: 'research', label: nav.research },
-    { id: 'work', label: nav.work },
-    { id: 'about', label: nav.about },
-    { id: 'blog-posts', label: nav.blog },
-    { id: 'contact-form', label: nav.contact, hidden: true },
-  ]
+  const { lang } = useHomeContent()
+  const { homeSections, homeCta } = useSiteNav()
 
   useEffect(() => {
     if (!location.hash) return
@@ -54,7 +47,7 @@ function HomePage() {
     <MainLayout
       sections={homeSections}
       className="home-v2"
-      cta={{ label: nav.cta, targetId: 'contact-form' }}
+      cta={homeCta}
     >
       <Seo
         title={`${PERSON_NAME} | ${PERSON_ROLE}`}
@@ -74,7 +67,7 @@ function HomePage() {
           {
             '@context': 'https://schema.org',
             '@type': 'WebSite',
-            name: 'Aurel De Vince Portfolio',
+            name: SITE_NAME,
             url: buildAbsoluteSiteUrl(),
           },
         ]}

@@ -2,6 +2,7 @@ import { FiArrowLeft } from 'react-icons/fi'
 import { useTranslation } from 'react-i18next'
 import { Link, useParams } from 'react-router-dom'
 import MainLayout from '../components/layout/MainLayout'
+import { useSiteNav } from '../hooks/useSiteNav'
 import PostGrid from '../components/blog/PostGrid'
 import BlogSubscribeSection from '../components/blog/BlogSubscribeSection'
 import Seo from '../components/seo/Seo'
@@ -42,14 +43,10 @@ function SeriesPage() {
     })
   const rows = chunkPosts(seriesPosts, 3)
 
-  const sections = [
-    { id: 'home', label: t('nav.home'), href: '/' },
-    { id: 'blog', label: t('nav.blog'), href: '/blog' },
-    { id: 'contact', label: t('nav.contact'), href: '/#contact-form' },
-  ]
+  const { pageSections: sections, pageCta } = useSiteNav()
 
   return (
-    <MainLayout sections={sections} className="home-v2">
+    <MainLayout sections={sections} className="home-v2" cta={pageCta}>
       <Seo
         title={
           currentSeries

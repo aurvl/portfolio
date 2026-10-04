@@ -22,8 +22,17 @@ function getTaxonomy(item: WorkItem, lang: AppLanguage) {
 
 const projectHref = (slug: string) => `/projects?project=${encodeURIComponent(slug)}`
 
-function TrendSketch() {
+// Featured figure: distribution of claim fraud scores, the review threshold,
+// one flagged claim and (dashed) the counterfactual version that falls below it.
+const SCORE_BARS = [10, 18, 30, 44, 58, 66, 70, 64, 55, 46, 38, 31, 25, 20, 16, 13, 11, 9, 8, 7, 9, 12, 6]
+const THRESHOLD_INDEX = 16
+const FLAGGED_INDEX = 21
+const COUNTERFACTUAL_INDEX = 13
+
+function FraudSketch() {
   const { work } = useHomeContent().content
+  const barWidth = 460 / SCORE_BARS.length
+  const thresholdX = THRESHOLD_INDEX * barWidth
 
   return (
     <div className="hv-work__visual" aria-hidden="true">
@@ -33,13 +42,44 @@ function TrendSketch() {
       </div>
       {/* Stretches to the free height of the featured card; strokes keep their width. */}
       <svg viewBox="0 0 460 96" preserveAspectRatio="none">
-        <g stroke="var(--hv-line-2)" vectorEffect="non-scaling-stroke">
-          <line x1="0" y1="8" x2="460" y2="8" vectorEffect="non-scaling-stroke" />
-          <line x1="0" y1="48" x2="460" y2="48" vectorEffect="non-scaling-stroke" />
-          <line x1="0" y1="88" x2="460" y2="88" vectorEffect="non-scaling-stroke" />
-        </g>
-        <path d="M0 70 C 40 66, 60 44, 100 50 S 160 78, 200 58 S 260 18, 300 28 S 380 62, 420 36 L 460 26" fill="none" stroke="var(--hv-accent)" strokeWidth="2" vectorEffect="non-scaling-stroke" />
-        <path d="M0 86 C 50 84, 80 72, 120 76 S 200 64, 240 68 S 320 50, 360 56 S 420 42, 460 46" fill="none" stroke="var(--hv-t2)" strokeWidth="1.5" strokeDasharray="4 3" vectorEffect="non-scaling-stroke" />
+        <line x1="0" y1="95" x2="460" y2="95" stroke="var(--hv-line-2)" vectorEffect="non-scaling-stroke" />
+        {SCORE_BARS.map((height, index) => {
+          const isFlagged = index === FLAGGED_INDEX
+          const isAbove = index >= THRESHOLD_INDEX
+          return (
+            <rect
+              key={index}
+              x={index * barWidth + 2}
+              y={95 - height * 1.2}
+              width={barWidth - 4}
+              height={height * 1.2}
+              rx="1"
+              fill={isFlagged ? 'var(--hv-accent)' : isAbove ? 'var(--hv-t2)' : 'var(--hv-t3)'}
+              opacity={isFlagged ? 1 : isAbove ? 0.75 : 0.55}
+            />
+          )
+        })}
+        <rect
+          x={COUNTERFACTUAL_INDEX * barWidth + 2}
+          y={95 - SCORE_BARS[FLAGGED_INDEX] * 1.2}
+          width={barWidth - 4}
+          height={SCORE_BARS[FLAGGED_INDEX] * 1.2}
+          rx="1"
+          fill="none"
+          stroke="var(--hv-accent)"
+          strokeDasharray="3 2"
+          vectorEffect="non-scaling-stroke"
+        />
+        <line
+          x1={thresholdX}
+          y1="2"
+          x2={thresholdX}
+          y2="95"
+          stroke="var(--hv-warn)"
+          strokeWidth="1.5"
+          strokeDasharray="4 3"
+          vectorEffect="non-scaling-stroke"
+        />
       </svg>
     </div>
   )
@@ -71,7 +111,7 @@ function WorkCard({ item, featured }: { item: WorkItem; featured?: boolean }) {
         ))}
       </div>
       <p>{item.summary}</p>
-      {featured && <TrendSketch />}
+      {featured && <FraudSketch />}
       {item.details && (
         <dl className="hv-work__details">
           {item.details.map((detail) => (
@@ -100,9 +140,23 @@ function WorkCard({ item, featured }: { item: WorkItem; featured?: boolean }) {
   )
 }
 
-function WorkSection() {
+// Flagship card + two smaller cards; also used at the top of /projects.
+export function SelectedWorkGrid() {
   const { work } = useHomeContent().content
   const [featured, ...others] = work.items
+
+  return (
+    <Reveal className="hv-work">
+      <WorkCard item={featured} featured />
+      {others.map((item) => (
+        <WorkCard key={item.title} item={item} />
+      ))}
+    </Reveal>
+  )
+}
+
+function WorkSection() {
+  const { work } = useHomeContent().content
 
   return (
     <div className="hv-wrap">
@@ -110,12 +164,7 @@ function WorkSection() {
         <h2 className="hv-h2">{work.title}</h2>
         <p>{work.intro}</p>
       </Reveal>
-      <Reveal className="hv-work">
-        <WorkCard item={featured} featured />
-        {others.map((item) => (
-          <WorkCard key={item.title} item={item} />
-        ))}
-      </Reveal>
+      <SelectedWorkGrid />
       <Reveal className="hv-related">
         <span className="hv-related__label">{work.relatedLabel}</span>
         {work.related.map((study) => (

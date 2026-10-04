@@ -44,7 +44,7 @@ export type NowItem = {
 export type Evidence = { label: string; href: string }
 
 export type HomeContent = {
-  nav: { method: string; research: string; work: string; about: string; blog: string; contact: string; cta: string }
+  nav: { home: string; method: string; research: string; work: string; about: string; blog: string; contact: string; cta: string }
   hero: {
     role: string
     affiliation: string
@@ -91,12 +91,12 @@ export type HomeContent = {
     mapLabel: string
     borderLabel: string
     dimensions: { title: string; detail: string; tone: 'blue' | 'green' | 'amber' | 'violet' }[]
-    programmeLink: string
   }
   publications: {
     title: string
     intro: string
     readArticle: string
+    allPublications: string
     items: {
       kind: string
       status: string
@@ -120,7 +120,7 @@ export type HomeContent = {
     items: WorkItem[]
     related: { slug: string; title: string; detail: string }[]
   }
-  nowBuilding: { title: string; updated: string; items: NowItem[] }
+  nowBuilding: { title: string; updatedPrefix: string }
   help: {
     title: string
     intro: string
@@ -140,6 +140,31 @@ export type HomeContent = {
     cv: string
   }
   blog: { title: string; allPosts: string; loading: string; minRead: string; dateLocale: string }
+  projectsPage: {
+    seoTitle: string
+    seoDescription: string
+    eyebrow: string
+    title: string
+    intro: string
+    summary: string
+    selectedTitle: string
+    appliedTitle: string
+    appliedIntro: string
+    otherTitle: string
+    otherIntro: string
+    open: string
+  }
+  publicationsPage: {
+    seoTitle: string
+    seoDescription: string
+    eyebrow: string
+    title: string
+    intro: string
+    count: string
+    viewLabel: string
+    grid: string
+    list: string
+  }
   contact: {
     title: string
     lead: string
@@ -161,7 +186,7 @@ export type HomeContent = {
 }
 
 export const homeEn: HomeContent = {
-  nav: { method: 'Method', research: 'Research', work: 'Work', about: 'About', blog: 'Blog', contact: 'Contact', cta: 'Get in touch' },
+  nav: { home: 'Home', method: 'Method', research: 'Research', work: 'Work', about: 'About', blog: 'Blog', contact: 'Contact', cta: 'Get in touch' },
 
   hero: {
     role: 'Applied economist',
@@ -279,11 +304,11 @@ export const homeEn: HomeContent = {
   doctoralResearch: {
     eyebrow: 'Doctoral research',
     title: 'How firms transform across a border.',
-    intro: 'My PhD studies the firms of the Nouvelle-Aquitaine, Euskadi and Navarre Euroregion, within the OISE observatory project. It is one field where I apply my method, at doctoral depth.',
+    intro: 'My PhD studies how firms transform across the Nouvelle-Aquitaine, Euskadi and Navarre Euroregion, at ESTIA Recherche and the University of Bordeaux. It is one field where I apply my method, at doctoral depth.',
     question: 'How can firm-level transformations in innovation, sustainability, economic performance and territorial embeddedness be measured and modelled to better understand regional dynamics?',
     meta: [
       { title: 'PhD, 2026–2029', detail: 'Applied economics' },
-      { title: 'ESTIA Recherche · Univ. Bordeaux', detail: 'Within the OISE project' },
+      { title: 'ESTIA Recherche · Univ. Bordeaux', detail: 'Cross-border Euroregion' },
     ],
     mapLabel: 'The Euskadi–Navarre–Nouvelle-Aquitaine Euroregion',
     borderLabel: 'FR / ES border',
@@ -293,13 +318,13 @@ export const homeEn: HomeContent = {
       { title: 'Performance & resilience', detail: 'Activity, productivity and growth', tone: 'amber' },
       { title: 'Territorial anchoring', detail: 'Local and cross-border networks', tone: 'violet' },
     ],
-    programmeLink: 'Read the research programme',
   },
 
   publications: {
     title: 'Publications.',
     intro: 'Peer-reviewed research I have co-authored.',
     readArticle: 'Read the article (DOI)',
+    allPublications: 'All publications',
     items: [
       {
         kind: 'Peer-reviewed article',
@@ -322,28 +347,20 @@ export const homeEn: HomeContent = {
     viewProject: 'View project',
     relatedLabel: 'Related studies',
     browseAll: 'Browse all {count} projects',
-    sketchLabels: ['CPI · rates · credit · labour', 'monthly'],
+    sketchLabels: ['Claim fraud scores', 'review threshold'],
     items: [
-      {
-        domain: 'Economic Intelligence',
-        keywords: ['macro data', 'apis', 'indicators'],
-        state: 'progress',
-        title: 'Economic Intelligence System for U.S. Markets',
-        summary: 'An infrastructure that brings macroeconomic, financial and institutional data into one harmonised framework.',
-        tools: 'Python · SQL · APIs',
-        details: [
-          { label: 'Problem', value: 'Macro, financial and institutional signals sit in scattered sources.' },
-          { label: 'Consequence', value: 'Every financial decision starts with reconciling data by hand.' },
-          { label: 'Solution', value: 'One harmonised, documented pipeline of comparable indicators.' },
-          { label: 'Output', value: 'FMarketMonitor, a monitoring platform' },
-        ],
-      },
       {
         slug: 'insurance-claim-fraud-counterfactual-simulator',
         state: 'done',
         title: 'Insurance Fraud & Counterfactual Decision Support',
-        summary: 'Claim files arrive as JSON, PDFs and images; they are consolidated in PostgreSQL, scored, and explained with counterfactual scenarios so claim teams can justify decisions.',
+        summary: 'An end-to-end workflow that consolidates heterogeneous claim files, scores fraud risk and explains each decision with counterfactual scenarios.',
         tools: 'PostgreSQL · XGBoost · FastAPI',
+        details: [
+          { label: 'Problem', value: 'Claim files arrive as CRM JSON, PDFs and images, scattered across systems.' },
+          { label: 'Consequence', value: 'Fraud teams review suspicious claims by hand and struggle to justify decisions.' },
+          { label: 'Solution', value: 'One PostgreSQL base, a tuned fraud score and counterfactual explanations.' },
+          { label: 'Output', value: 'A decision-support tool for claims and fraud teams' },
+        ],
       },
       {
         slug: 'bayesian-linear-regression-econometrics',
@@ -352,22 +369,22 @@ export const homeEn: HomeContent = {
         summary: 'OLS, Ridge, Bayesian regression and Empirical Bayes implemented from first principles on economic data, to make shrinkage and parameter uncertainty visible.',
         tools: 'NumPy · SciPy',
       },
+      {
+        slug: 'technological-employment-gender-inequalities',
+        state: 'done',
+        title: 'Technology jobs & gender inequality',
+        summary: 'Spatial econometrics study of how technology employment and STEM qualifications shape female unemployment across European regions, locally and between neighbours.',
+        tools: 'Spatial data · Econometrics',
+      },
     ],
     related: [
-      { slug: 'technological-employment-gender-inequalities', title: 'Technology jobs & gender inequality', detail: 'Spatial econometrics · European regions' },
       { slug: 'environmental-attention-index-pta', title: 'Environmental Attention Index', detail: 'Composite indicator · trade agreements' },
       { slug: 'belgian-trade-time-series', title: 'Belgian trade, 1995–2023', detail: 'Time series · 10-quarter forecast' },
+      { slug: 'phillips-curve-europe-policy', title: 'Phillips curve in Europe', detail: 'Econometrics · policy analysis' },
     ],
   },
 
-  nowBuilding: {
-    title: 'Now building.',
-    updated: 'Updated October 2026',
-    items: [
-      { state: 'progress', title: 'FMarketMonitor', detail: 'The monitoring layer of the U.S. markets intelligence system.' },
-      { state: 'prep', title: 'AI adoption in European firms', detail: 'Applied study on Eurostat ICT data: who adopts AI, and why gaps persist.' },
-    ],
-  },
+  nowBuilding: { title: 'Now building.', updatedPrefix: 'Updated' },
 
   help: {
     title: 'Where I can help.',
@@ -377,7 +394,7 @@ export const homeEn: HomeContent = {
       {
         quote: 'Our data sits in sources that don’t match.',
         answer: 'Source mapping, harmonisation rules and documented, reproducible data pipelines.',
-        evidence: [{ label: 'OISE', href: '#research' }, { label: 'U.S. markets system', href: '#work' }],
+        evidence: [{ label: 'Doctoral research', href: '#research' }, { label: 'Insurance case', href: '/projects?project=insurance-claim-fraud-counterfactual-simulator' }],
       },
       {
         quote: 'We need an indicator we can defend.',
@@ -403,13 +420,13 @@ export const homeEn: HomeContent = {
 
   about: {
     title: 'About.',
-    portraitAlt: 'Portrait of Aurel De Vince',
+    portraitAlt: 'Portrait of Aurel Vehi',
     bio: 'Applied economist trained in econometrics and data science. I turn complex, imperfect economic data into knowledge organisations can use.',
     journey: [
       { when: 'Background', what: 'Economics, econometrics & data science' },
       { when: '2024–2025', what: 'Data research & econometrics roles, Monaco' },
       { when: '2026', what: 'First peer-reviewed publication' },
-      { when: '2026–2029', what: 'PhD, OISE project', current: true },
+      { when: '2026–2029', what: 'PhD in applied economics', current: true },
       { when: 'Next', what: 'Economic intelligence systems', next: true },
     ],
     principles: ['Problem before tool', 'Comparability before sophistication', 'Uncertainty stays visible', 'Human-led research'],
@@ -417,6 +434,33 @@ export const homeEn: HomeContent = {
   },
 
   blog: { title: 'Blog posts.', allPosts: 'All posts', loading: 'Loading posts…', minRead: 'min read', dateLocale: 'en-GB' },
+
+  projectsPage: {
+    seoTitle: 'Work: applied studies and systems',
+    seoDescription: 'Applied studies and decision-support systems by Aurel Vehi: econometrics, indicators, forecasting and data infrastructure on real economic data.',
+    eyebrow: 'Work',
+    title: 'Applied studies and systems, built on real data.',
+    intro: 'Each project starts from an economic or decision problem and follows the same method: map the data, build, model, test and deliver something people can use.',
+    summary: '{count} projects · {from}–{to}',
+    selectedTitle: 'Selected work',
+    appliedTitle: 'Applied economics & decision support',
+    appliedIntro: 'Econometrics, indicators, forecasting and decision-support studies.',
+    otherTitle: 'Other technical work',
+    otherIntro: 'Machine learning, NLP, data collection and engineering projects that sharpened the toolkit.',
+    open: 'Open',
+  },
+
+  publicationsPage: {
+    seoTitle: 'Publications',
+    seoDescription: 'Peer-reviewed publications co-authored by Aurel Vehi.',
+    eyebrow: 'Publications',
+    title: 'Publications.',
+    intro: 'Peer-reviewed research I have co-authored.',
+    count: '{count} publication(s)',
+    viewLabel: 'Display',
+    grid: 'Grid',
+    list: 'List',
+  },
 
   contact: {
     title: 'Let’s make economic data useful.',

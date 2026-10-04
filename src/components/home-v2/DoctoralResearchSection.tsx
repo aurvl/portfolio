@@ -1,5 +1,3 @@
-import { Link } from 'react-router-dom'
-import { FiChevronRight } from 'react-icons/fi'
 import { useHomeContent } from '../../hooks/useHomeContent'
 import Reveal from './Reveal'
 
@@ -41,9 +39,6 @@ function DoctoralResearchSection() {
               </div>
             ))}
           </div>
-          <Link to="/research" className="hv-btn hv-btn--primary hv-btn--sm hv-research__programme">
-            {doctoralResearch.programmeLink} <FiChevronRight className="hv-arrow" aria-hidden="true" />
-          </Link>
         </div>
         <div className="hv-research__visual">
           <EuroregionMap />

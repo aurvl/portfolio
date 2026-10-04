@@ -25,7 +25,7 @@
   --hv-surface-3: #ebe9e4;
   --hv-ink: #141413;
   --hv-muted: #5f5e59;
-  --hv-faint: #96948d;
+  --hv-faint: #737169;
   --hv-line: rgba(20, 20, 19, 0.08);
   --hv-line-2: rgba(20, 20, 19, 0.14);
   --hv-line-3: rgba(20, 20, 19, 0.26);
@@ -64,7 +64,7 @@
   --hv-surface-3: #2a2b2f;
   --hv-ink: #ecebe8;
   --hv-muted: #a3a19b;
-  --hv-faint: #74726d;
+  --hv-faint: #8f8d87;
   --hv-line: rgba(255, 255, 255, 0.07);
   --hv-line-2: rgba(255, 255, 255, 0.12);
   --hv-line-3: rgba(255, 255, 255, 0.24);
@@ -782,10 +782,6 @@
   font-size: 13.5px;
   line-height: 1.45;
   color: var(--hv-muted);
-}
-
-.home-v2 .hv-research__programme {
-  margin-top: 32px;
 }
 
 /* --- Publications --- */
@@ -1719,5 +1715,82 @@
 
   .home-v2 .hv-method-carousel__track {
     scroll-behavior: auto;
+  }
+}
+
+/* --- Cookie banner (rendered by MainLayout on every page) --- */
+.cookie-banner {
+  position: fixed;
+  left: 50%;
+  bottom: 16px;
+  z-index: 1000;
+  transform: translateX(-50%);
+  width: min(880px, calc(100% - 32px));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 14px 16px 14px 20px;
+  border: 1px solid var(--hv-line-2, var(--glass-border));
+  border-radius: 4px;
+  background: var(--hv-surface, var(--bg2-color));
+  box-shadow: 0 12px 32px rgba(20, 20, 19, 0.16);
+  font-size: 14px;
+  color: var(--hv-muted, var(--text2-col));
+}
+
+.cookie-banner__text {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.cookie-banner__text b {
+  font-family: var(--hv-display, inherit);
+  font-weight: 700;
+  color: var(--hv-ink, var(--text-color));
+}
+
+.cookie-banner__actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.cookie-banner__btn {
+  height: 34px;
+  padding: 0 14px;
+  border: 1px solid var(--hv-line-2, var(--glass-border));
+  border-radius: 3px;
+  background: transparent;
+  color: var(--hv-ink, var(--text-color));
+  font-size: 13.5px;
+  font-weight: 560;
+  white-space: nowrap;
+}
+
+.cookie-banner__btn:hover {
+  border-color: var(--hv-line-3, var(--glass-border));
+}
+
+.cookie-banner__btn--primary {
+  border-color: transparent;
+  background: var(--hv-ink, var(--text-color));
+  color: var(--hv-bg, var(--bg-color));
+}
+
+.cookie-banner__btn--primary:hover {
+  border-color: transparent;
+  background: var(--hv-accent, var(--accent-blue));
+}
+
+@media (max-width: 640px) {
+  .cookie-banner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .cookie-banner__actions .cookie-banner__btn {
+    flex: 1;
   }
 }

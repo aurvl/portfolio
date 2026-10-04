@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
+import { useAnalyticsConsent } from '../../lib/consent'
 import { getClarityProjectId, getGoogleAnalyticsMeasurementId } from '../../lib/site'
 
 declare global {
@@ -16,8 +17,10 @@ type ClarityFunction = ((...args: unknown[]) => void) & { q?: unknown[][] }
 
 function AnalyticsTracker() {
   const location = useLocation()
-  const measurementId = getGoogleAnalyticsMeasurementId().trim()
-  const clarityProjectId = getClarityProjectId().trim()
+  // Nothing is loaded or tracked until the visitor accepts the cookie banner.
+  const hasConsent = useAnalyticsConsent() === 'granted'
+  const measurementId = hasConsent ? getGoogleAnalyticsMeasurementId().trim() : ''
+  const clarityProjectId = hasConsent ? getClarityProjectId().trim() : ''
 
   useEffect(() => {
     if (!measurementId) {

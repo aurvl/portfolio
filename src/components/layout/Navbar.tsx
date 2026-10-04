@@ -13,7 +13,9 @@ export type NavbarSection = {
 
 export type NavbarCta = {
   label: string
-  targetId: string
+  // Scroll to a section of the current page, or navigate to another page.
+  targetId?: string
+  href?: string
 }
 
 type NavbarProps = {
@@ -191,13 +193,18 @@ function Navbar({ sections, cta }: NavbarProps) {
           </button>
           <LanguageSwitcher />
           <ThemeToggle />
-          {cta && (
+          {cta?.href && (
+            <Link to={cta.href} className="navbar-cta inline-flex items-center" onClick={() => setIsMobileMenuOpen(false)}>
+              {cta.label}
+            </Link>
+          )}
+          {cta?.targetId && !cta.href && (
             <button
               type="button"
               className="navbar-cta"
               onClick={() => {
                 setIsMobileMenuOpen(false)
-                scrollToSection(cta.targetId)
+                scrollToSection(cta.targetId ?? '')
               }}
             >
               {cta.label}

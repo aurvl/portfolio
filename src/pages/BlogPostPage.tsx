@@ -4,6 +4,7 @@ import { FiArrowLeft, FiArrowRight } from 'react-icons/fi'
 import { useTranslation } from 'react-i18next'
 import { Link, useParams } from 'react-router-dom'
 import MainLayout from '../components/layout/MainLayout'
+import { useSiteNav } from '../hooks/useSiteNav'
 import PostContent from '../components/blog/PostContent'
 import BlogSubscribeSection from '../components/blog/BlogSubscribeSection'
 import Seo from '../components/seo/Seo'
@@ -62,11 +63,7 @@ function BlogPostPage() {
   const [content, setContent] = useState<string | null>(null)
   const [isContentLoading, setIsContentLoading] = useState(true)
 
-  const blogSections = [
-    { id: 'home', label: t('nav.home'), href: '/' },
-    { id: 'blog', label: t('nav.blog'), href: '/blog' },
-    { id: 'contact', label: t('nav.contact'), href: '/#contact-form' },
-  ]
+  const { pageSections: blogSections, pageCta } = useSiteNav()
 
   const post = useMemo(
     () => index.find((item) => item.slug === slug) ?? null,
@@ -141,7 +138,7 @@ function BlogPostPage() {
 
   if (!slug || (!post && !isIndexLoading)) {
     return (
-      <MainLayout sections={blogSections} className="home-v2">
+      <MainLayout sections={blogSections} className="home-v2" cta={pageCta}>
         <section className="section-shell py-15 md:py-12">
           <div className="blog-v2__notfound rounded-[24px] border border-[var(--glass-border)] bg-[var(--glass-bg)]/70 px-8 py-12 text-center backdrop-blur-xl">
             <h1 className="text-3xl font-semibold text-[var(--text-col)]">
@@ -174,7 +171,7 @@ function BlogPostPage() {
   } as CSSProperties
 
   return (
-    <MainLayout sections={blogSections} className="home-v2">
+    <MainLayout sections={blogSections} className="home-v2" cta={pageCta}>
       <Seo
         title={post.title}
         description={post.summary}

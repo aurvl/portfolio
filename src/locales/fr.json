@@ -3,257 +3,16 @@
     "language": "Langue",
     "themeToggle": "Changer de theme"
   },
-  "nav": {
-    "home": "Accueil",
-    "research": "Recherche",
-    "publications": "Publications",
-    "about": "À propos",
-    "skills": "Compétences",
-    "projects": "Travaux",
-    "blog": "Notes",
-    "contact": "Contact"
-  },
   "footer": {
-    "copyright": "© 2026 Aurel De Vince. Tous droits reservés."
-  },
-  "hero": {
-    "eyebrow": "Doctorat · Projet OISE · ESTIA",
-    "title": "Je suis Aurel De Vince",
-    "subtitle": "Doctorant en économie appliquée et économétrie",
-    "description": "J’étudie les transformations des entreprises et des territoires par l’innovation, la durabilité et les dynamiques transfrontalières, à partir de données, d’indicateurs et de méthodes économétriques.",
-    "stats": {
-      "profile": "Profil économie et data",
-      "projects": "{{count}}+ projets réalisés",
-      "skills": "{{count}}+ compétences clés"
-    },
-    "ctaContact": "Me contacter",
-    "ctaResearch": "Découvrir la recherche",
-    "ctaProjects": "Explorer les travaux",
-    "caption": "Économie appliquée · innovation · territoires"
-  },
-  "about": {
-    "eyebrow": "À propos de moi",
-    "imageAlt": "Portrait d'Aurel De Vince",
-    "description1": "Je suis doctorant en économie appliquée et économétrie. Mon travail relie données, méthodes quantitatives et analyse économique pour rendre les transformations des entreprises et des territoires plus observables et discutables.",
-    "description2": "Mon parcours couvre la chaîne analytique : collecte et structuration des données, modélisation, construction d’indicateurs, visualisation et restitution des limites comme des résultats.",
-    "description3": "Je privilégie une recherche utile à la décision, sans dissocier la rigueur méthodologique du contexte économique auquel elle répond.",
-    "contact": "En savoir plus",
-    "resume": "Consulter mon CV"
-  },
-  "researchPreview": {
-    "eyebrow": "Programme de recherche",
-    "title": "Observer les transformations économiques, sans perdre leur contexte.",
-    "description": "Mon doctorat s’inscrit dans le projet OISE : la construction d’un observatoire économique transfrontalier consacré à l’innovation, à la durabilité et à la performance des entreprises et du territoire.",
-    "link": "Voir l’orientation de recherche",
-    "axes": {
-      "enterprise": {
-        "title": "Entreprises, innovation et performance",
-        "description": "Comprendre les trajectoires de transformation, les capacités d’innovation et les conditions de performance durable."
-      },
-      "territory": {
-        "title": "Territoires et durabilité",
-        "description": "Lire les interdépendances entre activités économiques, ressources, inégalités et dynamiques transfrontalières."
-      },
-      "measurement": {
-        "title": "Mesure et décision",
-        "description": "Concevoir des indicateurs et des analyses dont les hypothèses, l’incertitude et les limites restent visibles."
-      }
-    }
-  },
-  "approach": {
-    "eyebrow": "Approche",
-    "title": "De la question économique à un résultat réellement exploitable.",
-    "description": "Les outils ne précèdent pas le problème. Chaque travail commence par un mécanisme à comprendre et se termine par une restitution qui rend les conclusions comme les incertitudes lisibles.",
-    "steps": {
-      "question": {
-        "title": "Situer la question",
-        "description": "Définir le phénomène, les acteurs concernés et la décision que l’analyse peut éclairer."
-      },
-      "evidence": {
-        "title": "Construire l’évidence",
-        "description": "Qualifier les données, leur périmètre, leurs angles morts et leurs conditions de comparaison."
-      },
-      "method": {
-        "title": "Choisir une méthode proportionnée",
-        "description": "Employer l’économétrie, la statistique ou la modélisation lorsque leurs hypothèses répondent réellement au problème."
-      },
-      "decision": {
-        "title": "Restituer avec prudence",
-        "description": "Faire apparaître résultats, incertitudes, limites et pistes d’action sans transformer une estimation en certitude."
-      }
-    }
-  },
-  "selectedWork": {
-    "eyebrow": "Travaux sélectionnés",
-    "title": "Études à venir et formats de recherche.",
-    "description": "Trois placeholders de V1 pour les études qui seront publiées au fil du doctorat.",
-    "placeholder": "Placeholder V1",
-    "catalogLink": "Explorer le catalogue existant",
-    "items": {
-      "territorial": {
-        "title": "Trajectoires économiques transfrontalières",
-        "description": "Placeholder pour une étude des flux, complémentarités et écarts entre territoires voisins.",
-        "type": "Étude territoriale"
-      },
-      "innovation": {
-        "title": "Capacités d’innovation des entreprises",
-        "description": "Placeholder pour une étude sur les signaux d’innovation, leur mesure et leurs limites.",
-        "type": "Diagnostic exploratoire"
-      },
-      "sustainability": {
-        "title": "Durabilité et performance",
-        "description": "Placeholder pour une étude qui mettrait en regard des indicateurs économiques, sociaux et environnementaux.",
-        "type": "Analyse appliquée"
-      },
-      "indicator": {
-        "title": "Construire un indicateur lisible",
-        "description": "Placeholder pour un travail sur la conception, l’interprétation et l’incertitude d’un indicateur composite.",
-        "type": "Méthode et mesure"
-      }
-    }
-  },
-  "publications": {
-    "eyebrow": "Publications scientifiques",
-    "title": "Références scientifiques",
-    "referenceLabel": "Publication scientifique",
-    "blueCarbonReference": "Hilmi, N., Vehi, L.A.D.V., Treskova, M. et al. Global assessment shows blue carbon wealth dominated by ocean processes and unevenly distributed across countries. Communications Sustainability 1, 114 (2026).",
-    "blueCarbonUrl": "https://doi.org/10.1038/s44458-026-00117-8"
-  },
-  "researchPage": {
-    "seoTitle": "Recherche en économie appliquée",
-    "seoDescription": "Travaux de recherche d’Aurel De Vince sur l’innovation, la durabilité et les dynamiques territoriales transfrontalières.",
-    "eyebrow": "Recherche",
-    "title": "Économie appliquée, indicateurs et dynamiques territoriales.",
-    "description": "Dans le cadre du projet OISE à l’ESTIA, mon doctorat porte sur les conditions de construction d’un observatoire économique transfrontalier, utile à la compréhension des entreprises, du territoire et de leurs transformations.",
-    "notice": "Cette page présente une orientation de recherche. Les résultats, données, partenaires et livrables en cours ne sont publiés qu’une fois vérifiables et communicables.",
-    "agenda": {
-      "eyebrow": "Agenda",
-      "title": "Trois fonctions pour l’observatoire",
-      "items": {
-        "observe": {
-          "title": "Observer",
-          "description": "Structurer des données et des indicateurs pour suivre les évolutions économiques, environnementales et territoriales."
-        },
-        "understand": {
-          "title": "Comprendre",
-          "description": "Étudier les mécanismes qui relient innovation, durabilité, performance et contexte territorial."
-        },
-        "support": {
-          "title": "Éclairer",
-          "description": "Produire des sorties interprétables pour nourrir le dialogue entre entreprises, institutions et recherche."
-        }
-      }
-    },
-    "principles": {
-      "eyebrow": "Principes",
-      "title": "Une recherche conçue pour rester discutable.",
-      "items": {
-        "transparent": {
-          "title": "Transparente",
-          "description": "Les hypothèses, les sources et les choix de mesure font partie du résultat."
-        },
-        "contextual": {
-          "title": "Contextualisée",
-          "description": "Un indicateur ne prend sens qu’au regard du territoire, des acteurs et de l’échelle à laquelle il est lu."
-        },
-        "useful": {
-          "title": "Utile",
-          "description": "L’objectif n’est pas de produire un score opaque, mais d’ouvrir une compréhension et une décision mieux informées."
-        }
-      }
-    },
-    "publications": {
-      "eyebrow": "Publications",
-      "title": "Références scientifiques",
-      "blueCarbonReference": "Hilmi, N., Vehi, L.A.D.V., Treskova, M. et al. Global assessment shows blue carbon wealth dominated by ocean processes and unevenly distributed across countries. Communications Sustainability 1, 114 (2026). https://doi.org/10.1038/s44458-026-00117-8"
-    },
-    "cta": {
-      "description": "Les travaux publiés et les notes rendent compte de cette trajectoire au fil de son développement.",
-      "work": "Explorer les travaux",
-      "notes": "Lire les notes"
-    }
-  },
-  "skills": {
-    "eyebrow": "Compétences",
-    "title": "Compétences, expertise et technologies",
-    "description": "Mon parcours combine des méthodes quantitatives avancées, une expérience pratique sur des projets réels et des certifications qui valident ma maitrise des outils utilisés.",
-    "tabs": {
-      "experience": "Expériences",
-      "certifications": "Certifications",
-      "dataTools": "Data, ML et bases",
-      "webTools": "Web, BI et outils"
-    },
-    "experience": {
-      "ecos": {
-        "title": "Data Research Analyst",
-        "period": "mars 2025 - oct. 2025",
-        "contractType": "Stage",
-        "location": "Nice, France - Monaco"
-      },
-      "csm": {
-        "title": "Chargé de mission économètre",
-        "period": "oct. 2024 - dec. 2024",
-        "contractType": "Contrat",
-        "location": "Monaco"
-      },
-      "fsTutor": {
-        "title": "Professeur particulier de mathématiques",
-        "period": "mars 2023 - juin 2024",
-        "contractType": "Contrat",
-        "location": "Nice, France"
-      },
-      "fsFinance": {
-        "title": "Analyste finance et data",
-        "period": "juil. 2023 - sept. 2023",
-        "contractType": "Stage",
-        "location": "Nice, France"
-      }
-    },
-    "certifications": {
-      "credentialId": "Identifiant du certificat : {{id}}",
-      "verificationCode": "Code de vérification : {{code}}",
-      "issued": "Obtenu : {{date}}",
-      "issuedExpires": "Obtenu : {{issued}} • Expire : {{expires}}",
-      "introStatsR": "Introduction à la statistique avec R",
-      "pix": "Certification Pix"
-    },
-    "tools": {
-      "python": "Nettoyage de données, EDA, analyse de données, machine learning, deep learning",
-      "r": "Statistiques, économétrie, analyse de données, visualisation",
-      "stata": "Econometrie appliquée, analyse statistique, workflows académiques",
-      "julia": "Calcul scientifique, méthodes numériques, pipelines data",
-      "mysql": "Requêtes SQL, bases relationnelles, extraction de données",
-      "postgresql": "Conception de bases, requetage, modeles de données pour l'analyse",
-      "mongodb": "Bases documentaires, stockage flexible, workflows NoSQL",
-      "pandas": "Manipulation, transformation et analyse tabulaire des données",
-      "scikitlearn": "Machine learning classique, pretraitement, evaluation",
-      "tensorflow": "Deep learning, réseaux de neurones, prototypage de modèles",
-      "pytorch": "Experimentations en deep learning, modélisation orientée recherche",
-      "fastapi": "Développement d'API, mise en production de modèles, endpoints backend",
-      "git": "Gestion de versions, collaboration, historique de projet",
-      "vscode": "Édition de code, débogage, gestion du workflow projet",
-      "html": "Structure sémantique des pages et organisation du contenu web",
-      "javascript": "Interactivité frontend, logique UI, comportements dynamiques",
-      "react": "Developpement d'interfaces par composants, gestion d'etat, optimisation des performances",
-      "streamlit": "Applications data interactives et interfaces analytiques rapides",
-      "powerbi": "Dashboards, reporting, workflows de business intelligence",
-      "tableau": "Visualisation de données, dashboards, data storytelling",
-      "office": "Productivite, documentation et workflows de reporting",
-      "vba": "Automatisation Excel, macros VBA, workflows de reporting",
-      "googlecloud": "Services cloud, deploiement et outillage autour de la data"
-    }
+    "copyright": "© 2026 Aurel Vehi. Tous droits réservés."
   },
   "projects": {
-    "eyebrow": "Portfolio",
-    "title": "Travaux sélectionnés",
-    "viewAll": "Explorer tous les travaux",
     "fallbackDomain": "Projet",
     "technicalLevel": "Niveau technique",
     "readMore": "Voir plus",
     "window": {
       "close": "Fermer la fenetre du projet",
       "emptySection": "Aucun contenu detaille n'est disponible pour cette section pour le moment.",
-      "noLinks": "Aucun lien public n'est disponible pour ce projet.",
       "locked": {
         "title": "Contenu verrouillé",
         "description": "Ce projet n'est volontairement pas exposé via un lien public pour le moment. Laisse ton email ci-dessous pour recevoir l'accès ou le prochain contenu disponible directement.",
@@ -279,51 +38,20 @@
       }
     },
     "catalog": {
-      "summary": {
-        "title": "Un catalogue de projets, du concret à chaque ligne",
-        "description": "Filtrer, Parcourir, Découvrir !",
-        "activity": {
-          "githubTitle": "Activité GitHub en {{year}}",
-          "githubSubtitle": "Basé sur mes contributions GitHub publiques",
-          "projectsTitle": "Activité des projets sur les 12 derniers mois",
-          "projectsSubtitle": "Basé sur mes projets du portfolio",
-          "loading": "Chargement de l'activité GitHub..."
-        },
-        "metrics": {
-          "projects_one": "{{count}} projet réalisé",
-          "projects_other": "{{count}} projets réalisés",
-          "tools_one": "{{count}} outil utilisé",
-          "tools_other": "{{count}} outils utilisés",
-          "averageTechnicalLevel": "{{count}} / 3 moy. technique",
-          "lastThreeMonths_one": "{{count}} projet sur les 3 derniers mois",
-          "lastThreeMonths_other": "{{count}} projets sur les 3 derniers mois",
-          "projectsLabel": "projets réalisés",
-          "toolsLabel": "outils utilisés",
-          "averageTechnicalLevelLabel": "technique moy.",
-          "lastThreeMonthsLabel": "sur les 3 derniers mois"
-        }
-      },
       "filters": {
         "search": "Rechercher",
         "searchPlaceholder": "Titre, mots-clés...",
         "domain": "Domaine",
         "tag": "Tag",
-        "tools": "Outils",
-        "technicalLevel": "Tech.",
         "sortBy": "Trier par",
         "year": "Année",
         "allDomains": "Tous les domaines",
         "allTags": "Tous",
-        "allTools": "Tous",
-        "allTechnicalLevels": "Tous",
         "allYears": "Toutes",
-        "technicalLevelOption": "{{count}} ★",
         "sortNewest": "Plus récents d'abord",
         "sortOldest": "Plus anciens d'abord",
         "sortTitleAsc": "Titre A-Z",
-        "sortTitleDesc": "Titre Z-A",
-        "sortTechnicalDesc": "Niveau technique : decroissant",
-        "sortTechnicalAsc": "Niveau technique : croissant"
+        "sortTitleDesc": "Titre Z-A"
       },
       "resultsCount_one": "{{count}} resultat",
       "resultsCount_other": "{{count}} resultats",
@@ -336,10 +64,6 @@
     }
   },
   "blog": {
-    "eyebrow": "Blog",
-    "title": "Articles récents",
-    "description": "Voici quelques-uns de mes derniers articles. Ouvrez un post pour approfondir le sujet.",
-    "viewAll": "Voir tous les articles",
     "minRead": "{{count}} min de lecture",
     "readMore": "Lire l'article",
     "loading": "Chargement des articles...",
@@ -379,8 +103,8 @@
     },
     "section": {
       "featured": {
-        "title": "Featured",
-        "subtitle": "Articles populaires"
+        "title": "À la une",
+        "subtitle": "Derniers articles"
       },
       "series": {
         "title": "Séries d'articles",
@@ -415,25 +139,11 @@
       "fallbackTitle": "Serie"
     }
   },
-  "contact": {
-    "eyebrow": "Contact",
-    "title": "Prendre contact?",
-    "description": "N'hesitez pas à me contacter pour une question, une idée de projet ou une opportunité de collaboration.",
-    "name": "Nom",
-    "email": "Email",
-    "message": "Message",
-    "namePlaceholder": "ex. John Doe",
-    "emailPlaceholder": "ex. john.doe@example.com",
-    "messagePlaceholder": "Ecrivez votre message...",
-    "submit": "Envoyer",
-    "validationAlert": "L'adresse email doit contenir le symbole @.",
-    "hints": {
-      "emailRequired": "Veuillez saisir votre adresse email.",
-      "emailInvalid": "Votre adresse email doit contenir le symbole @.",
-      "messageRequired": "Veuillez ecrire un message."
-    }
-  },
-  "a11y": {
-    "segmentedTabs": "Onglets segmentés"
+  "consent": {
+    "title": "Cookies.",
+    "text": "J’utilise des statistiques d’audience (Google Analytics, Microsoft Clarity) pour comprendre l’usage du site. Rien n’est chargé sans votre accord.",
+    "accept": "Accepter",
+    "decline": "Refuser",
+    "settings": "Cookies"
   }
 }

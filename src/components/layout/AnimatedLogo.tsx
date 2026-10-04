@@ -38,7 +38,7 @@ function AnimatedLogo() {
     <div className="flex h-10 w-32 items-center justify-center">
       <img
         src={withBasePath(currentLogo)}
-        alt="Aurel De Vince logo"
+        alt="Aurel Vehi logo"
         width={currentLogoDimensions?.width}
         height={currentLogoDimensions?.height}
         className="navbar-logo"

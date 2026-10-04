@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import MainLayout from '../components/layout/MainLayout'
+import { useSiteNav } from '../hooks/useSiteNav'
 import Seo from '../components/seo/Seo'
 import LastBlogPosts from '../components/blog/LastBlogPosts'
 import BlogFilters from '../components/blog/BlogFilters'
@@ -23,12 +24,7 @@ function BlogPage() {
   const [selectedTag, setSelectedTag] = useState('')
   const [visiblePostsCount, setVisiblePostsCount] = useState(PAGE_SIZE)
 
-  const blogSections = [
-    { id: 'home', label: t('nav.home'), href: '/' },
-    { id: 'projects', label: t('nav.projects'), href: '/projects' },
-    { id: 'blog', label: t('nav.blog') },
-    { id: 'contact', label: t('nav.contact'), href: '/#contact-form' },
-  ]
+  const { pageSections: blogSections, pageCta } = useSiteNav()
 
   const normalizedSearch = searchValue.trim().toLowerCase()
   const isSearchMode = normalizedSearch.length > 0
@@ -55,7 +51,7 @@ function BlogPage() {
   ]
 
   return (
-    <MainLayout sections={blogSections} className="home-v2">
+    <MainLayout sections={blogSections} className="home-v2" cta={pageCta}>
       <Seo
         title={
           i18n.language === 'fr'
@@ -64,8 +60,8 @@ function BlogPage() {
         }
         description={
           i18n.language === 'fr'
-            ? 'Articles d Aurel De Vince sur la data analyse, l econometrie, la modelisation et la prise de decision.'
-            : 'Articles by Aurel De Vince on data analysis, econometrics, modeling, and decision-making.'
+            ? 'Articles d’Aurel Vehi sur l’économie appliquée, l’économétrie, la modélisation et la décision.'
+            : 'Articles by Aurel Vehi on applied economics, econometrics, modelling and decision-making.'
         }
         path="blog"
         lang={i18n.language}
@@ -80,8 +76,8 @@ function BlogPage() {
           url: buildAbsoluteSiteUrl('blog'),
           description:
             i18n.language === 'fr'
-              ? 'Articles d Aurel De Vince sur la data analyse, l econometrie, la modelisation et la prise de decision.'
-              : 'Articles by Aurel De Vince on data analysis, econometrics, modeling, and decision-making.',
+              ? 'Articles d’Aurel Vehi sur l’économie appliquée, l’économétrie, la modélisation et la décision.'
+              : 'Articles by Aurel Vehi on applied economics, econometrics, modelling and decision-making.',
         }}
       />
       <section id="blog" className="hv-section blog-v2__first">

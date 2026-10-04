@@ -3,257 +3,16 @@
     "language": "Language",
     "themeToggle": "Toggle theme"
   },
-  "nav": {
-    "home": "Home",
-    "research": "Research",
-    "publications": "Publications",
-    "about": "About",
-    "skills": "Skills",
-    "projects": "Work",
-    "blog": "Notes",
-    "contact": "Contact"
-  },
   "footer": {
-    "copyright": "© 2026 Aurel De Vince. All rights reserved."
-  },
-  "hero": {
-    "eyebrow": "PhD · OISE Project · ESTIA",
-    "title": "I'm Aurel De Vince",
-    "subtitle": "Doctoral Researcher in Applied Economics and Econometrics",
-    "description": "I study how firms and territories evolve through innovation, sustainability, and cross-border dynamics, using data, indicators, and econometric methods.",
-    "stats": {
-      "profile": "Economics and data profile",
-      "projects": "{{count}}+ completed projects",
-      "skills": "{{count}}+ core skills"
-    },
-    "ctaContact": "Contact me",
-    "ctaResearch": "Explore the research",
-    "ctaProjects": "Explore the work",
-    "caption": "Applied economics · innovation · territories"
-  },
-  "about": {
-    "eyebrow": "About me",
-    "imageAlt": "Portrait of Aurel De Vince",
-    "description1": "I am a doctoral researcher in applied economics and econometrics. My work connects data, quantitative methods, and economic analysis to make transformations in firms and territories more observable and open to discussion.",
-    "description2": "My background covers the analytical chain: data collection and structuring, modelling, indicator design, visualisation, and communication of both findings and limits.",
-    "description3": "I favour research that informs decisions without separating methodological rigour from the economic context it addresses.",
-    "contact": "Reach out",
-    "resume": "View my resume"
-  },
-  "researchPreview": {
-    "eyebrow": "Research programme",
-    "title": "Observing economic transformation without losing its context.",
-    "description": "My PhD is part of the OISE project: the development of a cross-border economic observatory focused on innovation, sustainability, and the performance of firms and the territory.",
-    "link": "Explore the research direction",
-    "axes": {
-      "enterprise": {
-        "title": "Firms, innovation, and performance",
-        "description": "Understanding transformation pathways, innovation capabilities, and the conditions for sustainable performance."
-      },
-      "territory": {
-        "title": "Territories and sustainability",
-        "description": "Reading the interdependencies between economic activity, resources, inequalities, and cross-border dynamics."
-      },
-      "measurement": {
-        "title": "Measurement and decision-making",
-        "description": "Designing indicators and analyses whose assumptions, uncertainty, and limits remain visible."
-      }
-    }
-  },
-  "approach": {
-    "eyebrow": "Approach",
-    "title": "From an economic question to genuinely usable evidence.",
-    "description": "Tools do not come before the problem. Each project starts with a mechanism to understand and ends with a communication that makes both conclusions and uncertainty legible.",
-    "steps": {
-      "question": {
-        "title": "Frame the question",
-        "description": "Define the phenomenon, the actors involved, and the decision that analysis can inform."
-      },
-      "evidence": {
-        "title": "Build the evidence",
-        "description": "Assess the data, its scope, blind spots, and conditions for comparison."
-      },
-      "method": {
-        "title": "Choose a proportionate method",
-        "description": "Use econometrics, statistics, or modelling only when their assumptions genuinely answer the problem."
-      },
-      "decision": {
-        "title": "Report with care",
-        "description": "Make results, uncertainty, limits, and possible actions visible without turning an estimate into certainty."
-      }
-    }
-  },
-  "selectedWork": {
-    "eyebrow": "Selected work",
-    "title": "Forthcoming studies and research formats.",
-    "description": "Three V1 placeholders for studies that will be released throughout the PhD.",
-    "placeholder": "V1 placeholder",
-    "catalogLink": "Explore the existing catalogue",
-    "items": {
-      "territorial": {
-        "title": "Cross-border economic trajectories",
-        "description": "Placeholder for a study of flows, complementarities, and gaps between neighbouring territories.",
-        "type": "Territorial study"
-      },
-      "innovation": {
-        "title": "Firms' innovation capabilities",
-        "description": "Placeholder for a study of innovation signals, their measurement, and their limitations.",
-        "type": "Exploratory diagnostic"
-      },
-      "sustainability": {
-        "title": "Sustainability and performance",
-        "description": "Placeholder for a study comparing economic, social, and environmental indicators.",
-        "type": "Applied analysis"
-      },
-      "indicator": {
-        "title": "Designing a legible indicator",
-        "description": "Placeholder for work on the design, interpretation, and uncertainty of a composite indicator.",
-        "type": "Method and measurement"
-      }
-    }
-  },
-  "publications": {
-    "eyebrow": "Scientific publications",
-    "title": "Scientific references",
-    "referenceLabel": "Scientific publication",
-    "blueCarbonReference": "Hilmi, N., Vehi, L.A.D.V., Treskova, M. et al. Global assessment shows blue carbon wealth dominated by ocean processes and unevenly distributed across countries. Communications Sustainability 1, 114 (2026).",
-    "blueCarbonUrl": "https://doi.org/10.1038/s44458-026-00117-8"
-  },
-  "researchPage": {
-    "seoTitle": "Applied economics research",
-    "seoDescription": "Research work by Aurel De Vince on innovation, sustainability, and cross-border territorial dynamics.",
-    "eyebrow": "Research",
-    "title": "Applied economics, indicators, and territorial dynamics.",
-    "description": "Within ESTIA's OISE project, my PhD examines how to build a cross-border economic observatory that helps understand firms, the territory, and their transformations.",
-    "notice": "This page presents a research direction. Ongoing results, data, partners, and deliverables are published only once they are verifiable and cleared for communication.",
-    "agenda": {
-      "eyebrow": "Agenda",
-      "title": "Three functions for the observatory",
-      "items": {
-        "observe": {
-          "title": "Observe",
-          "description": "Structure data and indicators to follow economic, environmental, and territorial changes."
-        },
-        "understand": {
-          "title": "Understand",
-          "description": "Study the mechanisms connecting innovation, sustainability, performance, and territorial context."
-        },
-        "support": {
-          "title": "Inform",
-          "description": "Produce interpretable outputs that support discussion between firms, institutions, and research."
-        }
-      }
-    },
-    "principles": {
-      "eyebrow": "Principles",
-      "title": "Research designed to remain open to scrutiny.",
-      "items": {
-        "transparent": {
-          "title": "Transparent",
-          "description": "Assumptions, sources, and measurement choices are part of the result."
-        },
-        "contextual": {
-          "title": "Contextual",
-          "description": "An indicator only makes sense in relation to a territory, its actors, and the scale at which it is read."
-        },
-        "useful": {
-          "title": "Useful",
-          "description": "The goal is not an opaque score, but a better-grounded understanding and decision."
-        }
-      }
-    },
-    "publications": {
-      "eyebrow": "Publications",
-      "title": "Scientific references",
-      "blueCarbonReference": "Hilmi, N., Vehi, L.A.D.V., Treskova, M. et al. Global assessment shows blue carbon wealth dominated by ocean processes and unevenly distributed across countries. Communications Sustainability 1, 114 (2026). https://doi.org/10.1038/s44458-026-00117-8"
-    },
-    "cta": {
-      "description": "Published work and notes document this trajectory as it develops.",
-      "work": "Explore the work",
-      "notes": "Read the notes"
-    }
-  },
-  "skills": {
-    "eyebrow": "Skills",
-    "title": "Skills, expertise, and technologies",
-    "description": "My background combines advanced quantitative methods, hands-on project experience, and certifications that validate my command of the tools I use.",
-    "tabs": {
-      "experience": "Experience",
-      "certifications": "Certifications",
-      "dataTools": "Data, ML, and databases",
-      "webTools": "Web, BI, and tools"
-    },
-    "experience": {
-      "ecos": {
-        "title": "Data Research Analyst",
-        "period": "Mar 2025 - Oct 2025",
-        "contractType": "Internship",
-        "location": "Nice, France - Monaco"
-      },
-      "csm": {
-        "title": "Project Officer and Econometrician",
-        "period": "Oct 2024 - Dec 2024",
-        "contractType": "Contract",
-        "location": "Monaco"
-      },
-      "fsTutor": {
-        "title": "Private Math Tutor",
-        "period": "Mar 2023 - Jun 2024",
-        "contractType": "Contract",
-        "location": "Nice, France"
-      },
-      "fsFinance": {
-        "title": "Finance and Data Analyst",
-        "period": "Jul 2023 - Sep 2023",
-        "contractType": "Internship",
-        "location": "Nice, France"
-      }
-    },
-    "certifications": {
-      "credentialId": "Credential ID: {{id}}",
-      "verificationCode": "Verification code: {{code}}",
-      "issued": "Issued: {{date}}",
-      "issuedExpires": "Issued: {{issued}} • Expires: {{expires}}",
-      "introStatsR": "Introduction to Statistics with R",
-      "pix": "Pix Certificate"
-    },
-    "tools": {
-      "python": "Data cleaning, EDA, data analysis, machine learning, deep learning",
-      "r": "Statistics, econometrics, data analysis, visualization",
-      "stata": "Applied econometrics, statistical analysis, academic workflows",
-      "julia": "Scientific computing, numerical methods, data workflows",
-      "mysql": "SQL queries, relational databases, data extraction",
-      "postgresql": "Database design, querying, analytics-ready data models",
-      "mongodb": "Document databases, flexible storage, NoSQL workflows",
-      "pandas": "Data wrangling, transformation, tabular analysis",
-      "scikitlearn": "Classical machine learning, preprocessing, evaluation",
-      "tensorflow": "Deep learning, neural networks, model prototyping",
-      "pytorch": "Deep learning experiments, research-oriented modeling",
-      "fastapi": "API development, model serving, backend endpoints",
-      "git": "Version control, collaboration, project history",
-      "vscode": "Code editing, debugging, project workflow management",
-      "html": "Semantic page structure and web content layout",
-      "javascript": "Frontend interactivity, UI logic, dynamic behavior",
-      "react": "Component-based UI development, state management, performance optimization",
-      "streamlit": "Interactive data apps and fast analytical interfaces",
-      "powerbi": "Dashboards, reporting, business intelligence workflows",
-      "tableau": "Data visualization, dashboards, storytelling",
-      "office": "Productivity, documentation, and reporting workflows",
-      "vba": "Excel automation, VBA macros, reporting workflows",
-      "googlecloud": "Cloud services, deployment, and data-related tooling"
-    }
+    "copyright": "© 2026 Aurel Vehi. All rights reserved."
   },
   "projects": {
-    "eyebrow": "Portfolio",
-    "title": "Featured projects",
-    "viewAll": "View all projects",
     "fallbackDomain": "Project",
     "technicalLevel": "Technical level",
     "readMore": "Read more",
     "window": {
       "close": "Close project window",
       "emptySection": "No detailed content is available for this section yet.",
-      "noLinks": "No public links are available for this project.",
       "locked": {
         "title": "Locked content",
         "description": "This project is intentionally not exposed through a public link yet. Leave your email below to receive access details or the next available material directly.",
@@ -279,51 +38,20 @@
       }
     },
     "catalog": {
-      "summary": {
-        "title": "A portfolio,  concrete work, line by line.",
-        "description": "Filter, Browse, Discover!",
-        "activity": {
-          "githubTitle": "GitHub activity in {{year}}",
-          "githubSubtitle": "Based on my public GitHub contributions",
-          "projectsTitle": "Project activity over the last 12 months",
-          "projectsSubtitle": "Based on my portfolio projects",
-          "loading": "Loading GitHub activity..."
-        },
-        "metrics": {
-          "projects_one": "{{count}} realized project",
-          "projects_other": "{{count}} realized projects",
-          "tools_one": "{{count}} tool used",
-          "tools_other": "{{count}} tools used",
-          "averageTechnicalLevel": "{{count}} / 3 avg. tech. level ",
-          "lastThreeMonths_one": "{{count}} project in the last 3 months",
-          "lastThreeMonths_other": "{{count}} projects in the last 3 months",
-          "projectsLabel": "realized projects",
-          "toolsLabel": "tools used",
-          "averageTechnicalLevelLabel": "avg. tech. level",
-          "lastThreeMonthsLabel": "in the last 3 months"
-        }
-      },
       "filters": {
         "search": "Search",
         "searchPlaceholder": "Title, keywords...",
         "domain": "Domain",
         "tag": "Tag",
-        "tools": "Tools",
-        "technicalLevel": "Tech.",
         "sortBy": "Sort by",
         "year": "Year",
         "allDomains": "All",
         "allTags": "All",
-        "allTools": "All",
-        "allTechnicalLevels": "All",
         "allYears": "All",
-        "technicalLevelOption": "{{count}} ★",
         "sortNewest": "Newest first",
         "sortOldest": "Oldest first",
         "sortTitleAsc": "Title A-Z",
-        "sortTitleDesc": "Title Z-A",
-        "sortTechnicalDesc": "Technical level: high to low",
-        "sortTechnicalAsc": "Technical level: low to high"
+        "sortTitleDesc": "Title Z-A"
       },
       "resultsCount_one": "{{count}} result",
       "resultsCount_other": "{{count}} results",
@@ -336,10 +64,6 @@
     }
   },
   "blog": {
-    "eyebrow": "Blog",
-    "title": "Recent posts",
-    "description": "Here are a few of my latest articles. Open a post to explore the topic in more detail.",
-    "viewAll": "View all blog posts",
     "minRead": "{{count}} min read",
     "readMore": "Read the article",
     "loading": "Loading posts...",
@@ -379,8 +103,8 @@
     },
     "section": {
       "featured": {
-        "title": "Featured",
-        "subtitle": "Popular articles"
+        "title": "Latest",
+        "subtitle": "Latest articles"
       },
       "series": {
         "title": "Article Series",
@@ -415,25 +139,11 @@
       "fallbackTitle": "Series"
     }
   },
-  "contact": {
-    "eyebrow": "Contact",
-    "title": "Get in touch",
-    "description": "Feel free to reach out if you have a question, a project idea, or a collaboration opportunity.",
-    "name": "Name",
-    "email": "Email",
-    "message": "Message",
-    "namePlaceholder": "e.g. John Doe",
-    "emailPlaceholder": "e.g. john.doe@example.com",
-    "messagePlaceholder": "Write your message...",
-    "submit": "Send",
-    "validationAlert": "The email address must contain an @ symbol.",
-    "hints": {
-      "emailRequired": "Please enter your email address.",
-      "emailInvalid": "Your email address must contain an @ symbol.",
-      "messageRequired": "Please write a message."
-    }
-  },
-  "a11y": {
-    "segmentedTabs": "Segmented tabs"
+  "consent": {
+    "title": "Cookies.",
+    "text": "I use audience statistics (Google Analytics, Microsoft Clarity) to understand how the site is used. Nothing is loaded unless you accept.",
+    "accept": "Accept",
+    "decline": "Decline",
+    "settings": "Cookies"
   }
 }

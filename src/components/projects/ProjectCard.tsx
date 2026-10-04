@@ -140,24 +140,6 @@ function ProjectCard({ project, onOpenProject, cardId }: ProjectCardProps) {
       </div>
 
       <div className="mt-auto flex flex-col">
-        <div className="project-card__level flex min-h-[2rem] items-center gap-4">
-          <span className="font-semibold">{t('projects.technicalLevel')}:</span>
-
-          <div className="flex text-lg tracking-[0.24em] text-[var(--accent-blue)]">
-            {[1, 2, 3].map((star) => (
-              <span
-                key={star}
-                className={
-                  star <= project.technicalLevel
-                    ? 'text-[var(--accent-blue)]'
-                    : 'text-[var(--text2-col)]'
-                }
-              >
-                {star <= project.technicalLevel ? '\u2605' : '\u2606'}
-              </span>
-            ))}
-          </div>
-        </div>
 
         <div className="flex items-end justify-between gap-3">
           <span className="project-card__date flex items-center text-sm text-[var(--text2-col)] capitalize">

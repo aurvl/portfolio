@@ -50,6 +50,7 @@ const sitemapEntries = [
   { path: '', lastmod: homeLastMod, changefreq: 'monthly', priority: '1.0' },
   { path: 'projects', lastmod: latestProjectDate, changefreq: 'weekly', priority: '0.9' },
   { path: 'blog', lastmod: latestPostDate, changefreq: 'weekly', priority: '0.9' },
+  { path: 'publications', lastmod: homeLastMod, changefreq: 'monthly', priority: '0.8' },
   ...series.map((entry) => ({
     path: `series/${entry.slug}`,
     lastmod:

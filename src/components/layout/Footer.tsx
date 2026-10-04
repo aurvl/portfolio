@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next'
+import { openConsentBanner } from '../../lib/consent'
 
 function Footer() {
   const { t } = useTranslation()
@@ -39,6 +40,13 @@ function Footer() {
           >
             Email
           </a>
+          <button
+            type="button"
+            onClick={openConsentBanner}
+            className="transition hover:text-[var(--text-col)]"
+          >
+            {t('consent.settings')}
+          </button>
         </div>
       </div>
     </footer>
