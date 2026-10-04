@@ -1,49 +1,16 @@
-import { useEffect, useState } from 'react'
 import { useTheme } from '../../app/theme-context'
-import { getImageDimensions } from '../../lib/imageMetadata'
 import { withBasePath } from '../../lib/site'
 
-const darkLogos = [
-  '/assets/images/logos/logo1.png',
-  '/assets/images/logos/logo2.png',
-  '/assets/images/logos/logo3.png',
-  '/assets/images/logos/logo4.png',
-]
-
-const lightLogos = [
-  '/assets/images/logos/logo1li.png',
-  '/assets/images/logos/logo2li.png',
-  '/assets/images/logos/logo3li.png',
-  '/assets/images/logos/logo4li.png',
-]
-
+// Logo test: AV monogram (white bars on the dark theme, black bars on the light theme) next to the name.
 function AnimatedLogo() {
   const { theme } = useTheme()
-  const [currentLogoIndex, setCurrentLogoIndex] = useState(0)
-  const logos = theme === 'light' ? lightLogos : darkLogos
-  const currentLogo = logos[currentLogoIndex] ?? darkLogos[0]
-  const currentLogoDimensions = getImageDimensions(currentLogo)
-
-  useEffect(() => {
-    const intervalId = window.setInterval(() => {
-      setCurrentLogoIndex((previousIndex) => (previousIndex + 1) % logos.length)
-    }, 30000)
-
-    return () => {
-      window.clearInterval(intervalId)
-    }
-  }, [logos.length])
+  const mark = theme === 'light' ? '/assets/images/logos/av-light.svg' : '/assets/images/logos/av-dark.svg'
 
   return (
-    <div className="flex h-10 w-32 items-center justify-center">
-      <img
-        src={withBasePath(currentLogo)}
-        alt="Aurel Vehi logo"
-        width={currentLogoDimensions?.width}
-        height={currentLogoDimensions?.height}
-        className="navbar-logo"
-      />
-    </div>
+    <span className="navbar-mark">
+      <img src={withBasePath(mark)} alt="" width={30} height={30} />
+      <span className="navbar-mark__name">Aurel Vehi</span>
+    </span>
   )
 }
 

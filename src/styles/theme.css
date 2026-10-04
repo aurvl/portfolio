@@ -33,6 +33,28 @@
   mix-blend-mode: normal;
 }
 
+/* Logo test: AV monogram + name. */
+.navbar-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.navbar-mark img {
+  width: 30px;
+  height: 30px;
+  display: block;
+}
+
+.navbar-mark__name {
+  font-family: 'Bricolage Grotesque', Inter, sans-serif;
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: -0.01em;
+  color: var(--text-color);
+  white-space: nowrap;
+}
+
 .navbar-shell {
   width: min(1200px, calc(100% - 2rem));
   max-width: calc(100vw - 2rem);
