@@ -63,6 +63,10 @@ function AnalyticsTracker() {
 
     clarityWindow.clarity = clarity
 
+    // This effect only runs after the visitor accepted the banner. Since Oct 2025 Clarity needs an
+    // explicit signal for EEA/UK/CH visitors, otherwise each page view counts as a separate visitor.
+    clarity('consentv2', { ad_Storage: 'denied', analytics_Storage: 'granted' })
+
     if (!document.getElementById(CLARITY_SCRIPT_ID)) {
       const script = document.createElement('script')
       script.id = CLARITY_SCRIPT_ID
