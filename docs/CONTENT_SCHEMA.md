@@ -66,6 +66,12 @@ Keep these language-agnostic:
 - `taxonomy.domains`
 - `taxonomy.tools`
 
+`featured` is still required by the schema and the validator (at most one project may be `true`), but the V2
+homepage no longer reads it: the homepage flagship is the first item of `src/data/selected-work.json`.
+
+On `/projects`, a project is listed under "applied studies" when one of its `taxonomy.domains` is in
+`APPLIED_DOMAINS` (`src/pages/ProjectsPage.tsx`); everything else goes under "other technical work".
+
 ### Localized project fields
 
 Store these under `en` and `fr`:
@@ -164,7 +170,8 @@ Rules:
 
 Location: `src/data/domain.json`
 
-This file maps project domains to the text color used on project cards and featured project cards.
+This file maps project domains to the colour of the domain badge on project cards (catalogue and homepage
+selected work).
 
 Use it as the single source of truth for domain color clusters:
 
@@ -257,9 +264,85 @@ Skills are grouped by category so UI tabs and future filters can be driven by da
 - `category.label`
 - `category.description`
 
+## Homepage
+
+### Section text
+
+Location: `src/data/home.ts` (English, `homeEn`, and the `HomeContent` type) and `src/data/home.fr.ts`
+(French, `homeFr`, same shape). Each key is one section: `nav`, `hero`, `methodGraph`, `stackLabel`, `method`,
+`doctoralResearch`, `publications`, `work`, `nowBuilding`, `help`, `about`, `blog`, `contact`, plus the page
+headers `projectsPage` and `publicationsPage`. TypeScript enforces that both languages have the same keys.
+
+### Selected work
+
+Location: `src/data/selected-work.json`, `{ "en": { "items": [...], "related": [...] }, "fr": { ... } }`.
+
+`items` are the work cards; `related` is the short "related studies" row under them:
+`{ "slug": "...", "title": "...", "detail": "Method · topic" }`, where `slug` must exist in `projects.json`.
+
+Work card item:
+
+```json
+{
+  "slug": "insurance-claim-fraud-counterfactual-simulator",
+  "state": "done",
+  "title": "Insurance Fraud & Counterfactual Decision Support",
+  "summary": "One or two sentences.",
+  "tools": "PostgreSQL · XGBoost · FastAPI",
+  "details": [
+    { "label": "Problem", "value": "..." },
+    { "label": "Consequence", "value": "..." },
+    { "label": "Solution", "value": "..." },
+    { "label": "Output", "value": "..." }
+  ]
+}
+```
+
+- The first item is the flagship (large card with figure); give it `details` in the order
+  Problem, Consequence, Solution, Output (in French: Problème, Conséquence, Solution, Résultat).
+- `state`: `done` or `progress`.
+- `slug` links to `/projects?project=<slug>`; the domain badge and keywords come from that project in
+  `projects.json`. For work that is not in the catalogue, omit `slug` and set `domain` and `keywords` instead.
+- `tools`: short list separated by ` · `.
+- Keep the same items, in the same order, in `en` and `fr`.
+
+### Publications
+
+Location: `src/data/publications.json`, an array shared by the homepage section and `/publications`.
+
+```json
+{
+  "title": "Article title",
+  "authorsBefore": "Hilmi, N., ",
+  "me": "Vehi, L.A.D.V.",
+  "authorsAfter": ", Treskova, M. et al.",
+  "journal": "Communications Sustainability",
+  "reference": "1, 114 (2026)",
+  "url": "https://doi.org/...",
+  "kind": { "en": "Peer-reviewed article", "fr": "Article évalué par les pairs" },
+  "status": { "en": "Published · 2026", "fr": "Publié · 2026" }
+}
+```
+
+`me` is highlighted between the co-authors; `authorsBefore` / `authorsAfter` carry the punctuation.
+`status` must state the real stage (published, accepted, under review), in both languages.
+
+### Now building
+
+Location: `src/data/now-building.json`, `{ "en": [...], "fr": [...] }`.
+
+```json
+{ "state": "progress", "title": "FMarketMonitor", "detail": "One sentence.", "href": "https://..." }
+```
+
+- `state`: `progress` (in progress) or `prep` (in preparation); `href` is optional.
+- The "Updated" date is not stored: it is the date of the last commit touching this file.
+
 ## Validation
 
 - Type-level schemas live in `src/lib/content-schema.ts`
+- `home.ts` / `home.fr.ts` are checked by TypeScript at build time. The three homepage JSON files are not
+  checked by the Python validator: follow the shapes above, run `npm run build` and look at the page
 - Script-level validation lives in `scripts/validate_content.py`
 
 Run:

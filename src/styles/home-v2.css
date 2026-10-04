@@ -1,7 +1,8 @@
 /* ------------------------------------------------------------------ *
- * Homepage V2 — scoped to .home-v2 so blog / projects keep their look.
- * Warm neutrals, one blue accent, small radii (<= 8px), Inter for text,
- * Bricolage Grotesque for section titles, JetBrains Mono for metadata.
+ * V2 design system — scoped to .home-v2, which every page sets through
+ * <MainLayout className="home-v2">. Warm neutrals, one blue accent, small
+ * radii (3px, <= 8px), Inter for text, Bricolage Grotesque for titles,
+ * JetBrains Mono for small metadata only. See docs/DESIGN_SYSTEM.md.
  * ------------------------------------------------------------------ */
 
 @font-face {

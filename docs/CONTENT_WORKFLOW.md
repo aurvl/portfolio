@@ -12,12 +12,29 @@ Use these files and folders as the editable content sources:
 - `src/data/blog-resources.json`
 - `src/data/series.json`
 - `src/data/domain.json`
+- `src/data/home.ts`, `src/data/home.fr.ts` (homepage copy)
+- `src/data/selected-work.json`, `src/data/publications.json`, `src/data/now-building.json` (homepage lists)
 
 Do not edit generated files such as:
 
 - `public/blog-index.json`
 - `public/sitemap.xml`
 - `public/robots.txt`
+- `public/404.html`
+
+## Portfolio Manager
+
+The owner also edits content with a separate local tool, the Portfolio Manager (private repository
+`aurvl/port-manager`). It edits posts, projects and the three homepage JSON files, runs the validator, then
+commits and pushes to `master`, limited to `src/content`, `src/data`, `public/assets/blog` and
+`public/assets/projects`. Keep these file formats stable: the manager reads and writes them as documented
+in `docs/CONTENT_SCHEMA.md` (posts keep the frontmatter of `docs/BLOG_POST.md`).
+
+## Update the homepage
+
+1. Edit the text in `src/data/home.ts` and the same keys in `src/data/home.fr.ts`.
+2. Edit selected work, publications or now building in their JSON file, in both `en` and `fr`.
+3. Run `npm run build`, then check the homepage in both languages, light and dark, desktop and mobile.
 
 ## Create a project
 
@@ -143,3 +160,4 @@ Before commit or push:
 1. Run `npm run content:validate`
 2. Run `npm run build`
 3. Review the generated `public/blog-index.json` diff if blog content changed
+4. Look at every page you touched in both languages

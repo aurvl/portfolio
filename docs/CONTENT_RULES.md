@@ -6,7 +6,8 @@ These rules exist so future agents can add or update content without breaking th
 
 1. `id` must stay stable once created.
 2. `slug` must stay stable once published.
-3. Only one project can have `"featured": true`.
+3. Only one project can have `"featured": true` (validator rule; the V2 homepage picks its flagship from
+   `selected-work.json`, not from this flag).
 4. Every featured project must have:
    - `links.primary`
    - `links.readMore`
@@ -68,6 +69,17 @@ Do not introduce names like `p12.png`, `illust.png`, or `final-final-cover.jpg`.
 4. Do not duplicate companion links in blog frontmatter.
 5. Omit the blog-resources entry entirely when a post has no companion links.
 
+## Homepage rules
+
+1. Homepage copy lives in `src/data/home.ts` (EN) and `src/data/home.fr.ts` (FR); edit both, never hardcode text in components.
+2. Selected work, publications and now building live in `selected-work.json`, `publications.json`, `now-building.json`.
+3. The first selected-work item is the flagship: it needs `details` (Problem, Consequence, Solution, Output).
+4. A selected-work or related `slug` must exist in `projects.json`.
+5. Claims must be defensible: no invented results, partners, clients or affiliations; name only ESTIA and the
+   University of Bordeaux unless the owner approves another name.
+6. Keep the text sparse: one idea per sentence, short card copy, no marketing tone.
+7. Big titles have no trailing period.
+
 ## Skill rules
 
 1. Skills must be stored under a category in `src/data/skills.json`.
@@ -80,6 +92,7 @@ Do not introduce names like `p12.png`, `illust.png`, or `final-final-cover.jpg`.
 
 Agents may safely edit:
 
+- homepage copy (`home.ts`, `home.fr.ts`) and the homepage JSON files
 - project `content`
 - project `links`
 - project `taxonomy`
