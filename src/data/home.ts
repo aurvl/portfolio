@@ -16,7 +16,7 @@ export function getPublications(lang: AppLanguage) {
     status: status[lang],
   }))
 }
-// Positioning and claims come from new_vision/; keep them defensible before publishing.
+// Positioning and claims come from the private vision docs (../new_vision, kept outside this repo); keep them defensible before publishing.
 
 export const DOI_BLUE_CARBON = 'https://doi.org/10.1038/s44458-026-00117-8'
 
