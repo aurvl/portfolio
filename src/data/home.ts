@@ -71,6 +71,7 @@ export type HomeContent = {
     }
     caption: string
   }
+  stackLabel: string
   method: {
     title: string
     intro: string
@@ -221,6 +222,8 @@ export const homeEn: HomeContent = {
     },
     caption: 'Many sources → one documented method → decisions',
   },
+
+  stackLabel: 'Stack · tools serve the question, not the other way round',
 
   method: {
     title: 'One method, from question to decision.',

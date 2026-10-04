@@ -38,6 +38,8 @@ export const homeFr: HomeContent = {
     caption: 'Plusieurs sources → une méthode documentée → des décisions',
   },
 
+  stackLabel: 'Stack · les outils servent la question, pas l’inverse',
+
   method: {
     title: 'Une méthode, de la question à la décision.',
     intro: 'La même rigueur pour chaque étude, quels que soient les données ou le commanditaire. Choisissez une étape pour voir les questions que je pose et ce qui en ressort.',
