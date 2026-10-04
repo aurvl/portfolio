@@ -17,8 +17,10 @@ type ClarityFunction = ((...args: unknown[]) => void) & { q?: unknown[][] }
 
 function AnalyticsTracker() {
   const location = useLocation()
-  // Nothing is loaded or tracked until the visitor accepts the cookie banner.
-  const hasConsent = useAnalyticsConsent() === 'granted'
+  // Nothing is loaded or tracked until the visitor accepts the cookie banner, and never on a
+  // local preview (dev server, local builds) so tests do not pollute the statistics.
+  const isLiveSite = import.meta.env.PROD && !['localhost', '127.0.0.1'].includes(window.location.hostname)
+  const hasConsent = useAnalyticsConsent() === 'granted' && isLiveSite
   const measurementId = hasConsent ? getGoogleAnalyticsMeasurementId().trim() : ''
   const clarityProjectId = hasConsent ? getClarityProjectId().trim() : ''
 
