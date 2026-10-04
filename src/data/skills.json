@@ -537,7 +537,7 @@
             },
             "description": {
               "en": "Containers, reproducible environments, and deployment packaging.",
-              "fr": "Conteneurs, environnements reproductibles et packaging de d\u00e9ploiement."
+              "fr": "Conteneurs, environnements reproductibles et packaging de déploiement."
             }
           },
           "tags": [
@@ -658,10 +658,33 @@
             "automation",
             "reporting"
           ]
+        },
+        {
+          "id": "SK026",
+          "slug": "latex",
+          "icon": {
+            "src": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/latex/latex-original.svg",
+            "alt": {
+              "en": "LaTeX logo",
+              "fr": "Logo LaTeX"
+            }
+          },
+          "content": {
+            "label": {
+              "en": "LaTeX",
+              "fr": "LaTeX"
+            },
+            "description": {
+              "en": "Scientific writing: papers, reports, equations and reproducible documents.",
+              "fr": "Rédaction scientifique : articles, rapports, équations et documents reproductibles."
+            }
+          },
+          "tags": [
+            "writing",
+            "research"
+          ]
         }
       ]
     }
   ]
 }
-
-
