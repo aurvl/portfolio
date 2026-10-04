@@ -7,7 +7,7 @@ export const homeFr: HomeContent = {
   hero: {
     role: 'Économiste appliqué',
     affiliation: 'Doctorant, ESTIA & Université de Bordeaux',
-    title: ['Des données fragmentées', 'à l’intelligence économique.'],
+    title: ['Des données fragmentées', 'à l’intelligence économique'],
     lead: 'J’étudie comment les entreprises et les territoires innovent, deviennent plus durables et performent, et je construis les données, les indicateurs et les modèles économétriques nécessaires pour le mesurer.',
     primaryCta: 'Voir mes travaux',
     secondaryCta: 'Me contacter',
@@ -41,7 +41,7 @@ export const homeFr: HomeContent = {
   stackLabel: 'Stack · les outils servent la question, pas l’inverse',
 
   method: {
-    title: 'Une méthode, de la question à la décision.',
+    title: 'Une méthode, de la question à la décision',
     intro: 'La même rigueur pour chaque étude, quels que soient les données ou le commanditaire. Choisissez une étape pour voir les questions que je pose et ce qui en ressort.',
     questionsLabel: 'Les questions que je pose',
     outputLabel: 'Ce qui en ressort',
@@ -121,7 +121,7 @@ export const homeFr: HomeContent = {
 
   doctoralResearch: {
     eyebrow: 'Recherche doctorale',
-    title: 'Comment les entreprises se transforment de part et d’autre d’une frontière.',
+    title: 'Comment les entreprises se transforment de part et d’autre d’une frontière',
     intro: 'Ma thèse étudie comment les entreprises se transforment dans l’Eurorégion Nouvelle-Aquitaine, Euskadi et Navarre, à ESTIA Recherche et à l’Université de Bordeaux. C’est un terrain où j’applique ma méthode, avec la profondeur d’un doctorat.',
     question: 'Comment mesurer et modéliser les transformations des entreprises en matière d’innovation, de durabilité, de performance économique et d’ancrage territorial pour mieux comprendre les dynamiques régionales ?',
     meta: [
@@ -139,7 +139,7 @@ export const homeFr: HomeContent = {
   },
 
   publications: {
-    title: 'Publications.',
+    title: 'Publications',
     intro: 'Les travaux évalués par les pairs que j’ai co-écrits.',
     readArticle: 'Lire l’article (DOI)',
     allPublications: 'Toutes les publications',
@@ -159,7 +159,7 @@ export const homeFr: HomeContent = {
   },
 
   work: {
-    title: 'Travaux choisis.',
+    title: 'Travaux choisis',
     intro: 'Des études appliquées et des systèmes construits sur des données réelles : infrastructure, aide à la décision et profondeur économétrique.',
     statusLabels: { progress: 'En cours', done: 'Terminé', prep: 'En préparation' },
     viewProject: 'Voir le projet',
@@ -202,10 +202,10 @@ export const homeFr: HomeContent = {
     ],
   },
 
-  nowBuilding: { title: 'En construction.', updatedPrefix: 'Mis à jour en' },
+  nowBuilding: { title: 'En construction', updatedPrefix: 'Mis à jour en' },
 
   help: {
-    title: 'Où je peux aider.',
+    title: 'Où je peux aider',
     intro: 'Pour les entreprises, PME et institutions qui travaillent avec des données économiques. Chaque problème renvoie à un travail où je l’ai traité.',
     evidenceLabel: 'Preuves :',
     problems: [
@@ -236,7 +236,7 @@ export const homeFr: HomeContent = {
   },
 
   about: {
-    title: 'Profil.',
+    title: 'Profil',
     portraitAlt: 'Portrait d’Aurel Vehi',
     bio: 'Économiste appliqué formé à l’économétrie et à la data science. Je transforme des données économiques complexes et imparfaites en connaissances utiles aux organisations.',
     journey: [
@@ -250,13 +250,13 @@ export const homeFr: HomeContent = {
     cv: 'Télécharger le CV',
   },
 
-  blog: { title: 'Articles de blog.', allPosts: 'Tous les articles', loading: 'Chargement des articles…', minRead: 'min de lecture', dateLocale: 'fr-FR' },
+  blog: { title: 'Articles de blog', allPosts: 'Tous les articles', loading: 'Chargement des articles…', minRead: 'min de lecture', dateLocale: 'fr-FR' },
 
   projectsPage: {
     seoTitle: 'Travaux : études appliquées et systèmes',
     seoDescription: 'Études appliquées et systèmes d’aide à la décision par Aurel Vehi : économétrie, indicateurs, prévision et infrastructures de données sur des données économiques réelles.',
     eyebrow: 'Travaux',
-    title: 'Études appliquées et systèmes, construits sur des données réelles.',
+    title: 'Études appliquées et systèmes, construits sur des données réelles',
     intro: 'Chaque projet part d’un problème économique ou décisionnel et suit la même méthode : cartographier les données, construire, modéliser, tester et livrer quelque chose d’utilisable.',
     summary: '{count} projets · {from}–{to}',
     selectedTitle: 'Travaux choisis',
@@ -271,7 +271,7 @@ export const homeFr: HomeContent = {
     seoTitle: 'Publications',
     seoDescription: 'Publications évaluées par les pairs co-écrites par Aurel Vehi.',
     eyebrow: 'Publications',
-    title: 'Publications.',
+    title: 'Publications',
     intro: 'Les travaux évalués par les pairs que j’ai co-écrits.',
     count: '{count} publication(s)',
     viewLabel: 'Affichage',
@@ -280,7 +280,7 @@ export const homeFr: HomeContent = {
   },
 
   contact: {
-    title: 'Rendons les données économiques utiles.',
+    title: 'Rendons les données économiques utiles',
     lead: 'Chercheurs, organisations, recruteurs : commencez là où cela vous correspond.',
     routes: [
       { audience: 'Chercheurs', title: 'Collaboration de recherche', detail: 'Comparabilité, indicateurs, innovation régionale, économétrie.', subject: 'Une collaboration de recherche', tone: 'research' },

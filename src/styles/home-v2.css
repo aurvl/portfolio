@@ -754,9 +754,15 @@
 .home-v2 .hv-dim {
   --hv-dim: var(--hv-accent);
   padding: 16px;
-  border-radius: 4px;
-  background: color-mix(in srgb, var(--hv-dim) 20%, transparent);
-  border: 2px solid var(--hv-dim);
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--hv-dim) 10%, var(--hv-surface));
+  border: 1px solid transparent;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.home-v2 .hv-dim:hover {
+  border-color: var(--hv-dim);
+  background: color-mix(in srgb, var(--hv-dim) 15%, var(--hv-surface));
 }
 
 .home-v2 .hv-dim--blue { --hv-dim: #0a5fc2; }

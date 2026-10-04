@@ -191,7 +191,7 @@ export const homeEn: HomeContent = {
   hero: {
     role: 'Applied economist',
     affiliation: 'PhD researcher, ESTIA & University of Bordeaux',
-    title: ['From fragmented data', 'to economic intelligence.'],
+    title: ['From fragmented data', 'to economic intelligence'],
     lead: 'I study how firms and territories innovate, become more sustainable and perform, and I build the data, indicators and econometric models needed to measure it.',
     primaryCta: 'Explore my work',
     secondaryCta: 'Get in touch',
@@ -225,7 +225,7 @@ export const homeEn: HomeContent = {
   stackLabel: 'Stack · tools serve the question, not the other way round',
 
   method: {
-    title: 'One method, from question to decision.',
+    title: 'One method, from question to decision',
     intro: 'The same discipline on every study, whatever the data or the client. Pick a step to see the questions I ask and what comes out of it.',
     questionsLabel: 'Questions I ask',
     outputLabel: 'What comes out',
@@ -305,7 +305,7 @@ export const homeEn: HomeContent = {
 
   doctoralResearch: {
     eyebrow: 'Doctoral research',
-    title: 'How firms transform across a border.',
+    title: 'How firms transform across a border',
     intro: 'My PhD studies how firms transform across the Nouvelle-Aquitaine, Euskadi and Navarre Euroregion, at ESTIA Recherche and the University of Bordeaux. It is one field where I apply my method, at doctoral depth.',
     question: 'How can firm-level transformations in innovation, sustainability, economic performance and territorial embeddedness be measured and modelled to better understand regional dynamics?',
     meta: [
@@ -323,7 +323,7 @@ export const homeEn: HomeContent = {
   },
 
   publications: {
-    title: 'Publications.',
+    title: 'Publications',
     intro: 'Peer-reviewed research I have co-authored.',
     readArticle: 'Read the article (DOI)',
     allPublications: 'All publications',
@@ -343,7 +343,7 @@ export const homeEn: HomeContent = {
   },
 
   work: {
-    title: 'Selected work.',
+    title: 'Selected work',
     intro: 'Applied studies and systems built on real data: infrastructure, decision support and econometric depth.',
     statusLabels: { progress: 'In progress', done: 'Completed', prep: 'In preparation' },
     viewProject: 'View project',
@@ -386,10 +386,10 @@ export const homeEn: HomeContent = {
     ],
   },
 
-  nowBuilding: { title: 'Now building.', updatedPrefix: 'Updated' },
+  nowBuilding: { title: 'Now building', updatedPrefix: 'Updated' },
 
   help: {
-    title: 'Where I can help.',
+    title: 'Where I can help',
     intro: 'For companies, SMEs and institutions working with economic data. Each problem below links to work where I have done it.',
     evidenceLabel: 'Evidence:',
     problems: [
@@ -420,7 +420,7 @@ export const homeEn: HomeContent = {
   },
 
   about: {
-    title: 'About.',
+    title: 'About',
     portraitAlt: 'Portrait of Aurel Vehi',
     bio: 'Applied economist trained in econometrics and data science. I turn complex, imperfect economic data into knowledge organisations can use.',
     journey: [
@@ -434,13 +434,13 @@ export const homeEn: HomeContent = {
     cv: 'Download CV',
   },
 
-  blog: { title: 'Blog posts.', allPosts: 'All posts', loading: 'Loading posts…', minRead: 'min read', dateLocale: 'en-GB' },
+  blog: { title: 'Blog posts', allPosts: 'All posts', loading: 'Loading posts…', minRead: 'min read', dateLocale: 'en-GB' },
 
   projectsPage: {
     seoTitle: 'Work: applied studies and systems',
     seoDescription: 'Applied studies and decision-support systems by Aurel Vehi: econometrics, indicators, forecasting and data infrastructure on real economic data.',
     eyebrow: 'Work',
-    title: 'Applied studies and systems, built on real data.',
+    title: 'Applied studies and systems, built on real data',
     intro: 'Each project starts from an economic or decision problem and follows the same method: map the data, build, model, test and deliver something people can use.',
     summary: '{count} projects · {from}–{to}',
     selectedTitle: 'Selected work',
@@ -455,7 +455,7 @@ export const homeEn: HomeContent = {
     seoTitle: 'Publications',
     seoDescription: 'Peer-reviewed publications co-authored by Aurel Vehi.',
     eyebrow: 'Publications',
-    title: 'Publications.',
+    title: 'Publications',
     intro: 'Peer-reviewed research I have co-authored.',
     count: '{count} publication(s)',
     viewLabel: 'Display',
@@ -464,7 +464,7 @@ export const homeEn: HomeContent = {
   },
 
   contact: {
-    title: 'Let’s make economic data useful.',
+    title: 'Let’s make economic data useful',
     lead: 'Researchers, organisations, recruiters: start where it fits you.',
     routes: [
       { audience: 'Researchers', title: 'Research collaboration', detail: 'Comparability, indicators, regional innovation, econometrics.', subject: 'A research collaboration', tone: 'research' },
