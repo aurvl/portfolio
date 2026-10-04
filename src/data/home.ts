@@ -129,7 +129,6 @@ export type HomeContent = {
     problems: { quote: string; answer: string; evidence: Evidence[] }[]
     formatsLabel: string
     formats: string[]
-    availability: string
     cta: string
   }
   about: {
@@ -417,7 +416,6 @@ export const homeEn: HomeContent = {
     ],
     formatsLabel: 'Formats:',
     formats: ['Short studies', 'Methodological reviews', 'Indicator & data prototypes'],
-    availability: 'Selected missions, compatible with my doctoral work.',
     cta: 'Discuss a project',
   },
 

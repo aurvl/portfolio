@@ -57,7 +57,6 @@ function HelpSection({ onNavigate }: HelpSectionProps) {
           ))}
         </div>
         <div className="hv-help__cta">
-          <span>{help.availability}</span>
           <button type="button" className="hv-btn hv-btn--primary hv-btn--sm" onClick={() => onNavigate('contact-form')}>
             {help.cta}
           </button>

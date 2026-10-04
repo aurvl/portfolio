@@ -232,7 +232,6 @@ export const homeFr: HomeContent = {
     ],
     formatsLabel: 'Formats :',
     formats: ['Études courtes', 'Revues méthodologiques', 'Prototypes d’indicateurs & de données'],
-    availability: 'Missions choisies, compatibles avec mon doctorat.',
     cta: 'Discuter d’un projet',
   },
 
