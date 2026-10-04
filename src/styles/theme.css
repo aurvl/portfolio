@@ -115,6 +115,24 @@
     font-size: 14px;
 }
 
+/* Desktop and tablet: three columns so the links sit at the true centre of the page,
+   even though the logo and the right-hand controls have different widths. */
+@media (min-width: 768px) {
+  .navbar-shell {
+    display: grid;
+    grid-template-columns: minmax(max-content, 1fr) auto minmax(max-content, 1fr);
+    column-gap: 16px;
+  }
+
+  .navbar-shell > .navbar-brand {
+    justify-self: start;
+  }
+
+  .navbar-shell > .navbar-actions {
+    justify-self: end;
+  }
+}
+
 /* Language select: sized here because the global `select { font: inherit }` overrides utilities. */
 select.language-switcher {
   font-size: 11px;

@@ -176,7 +176,7 @@ function Navbar({ sections, cta }: NavbarProps) {
           )}
         </nav>
 
-        <div className="flex items-center gap-3">
+        <div className="navbar-actions flex items-center gap-3">
           <button
             type="button"
             aria-label={isMobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
