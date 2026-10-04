@@ -246,7 +246,7 @@ function ProjectsPage() {
   }
 
   return (
-    <MainLayout sections={projectSections}>
+    <MainLayout sections={projectSections} className="home-v2">
       <Seo
         title={
           i18n.language === 'fr'
@@ -275,16 +275,14 @@ function ProjectsPage() {
               : 'Selection of data, econometrics, machine learning, and analytics projects built by Aurel De Vince.',
         }}
       />
-      <section className="section-shell min-w-0 overflow-x-hidden py-10 md:py-8">
-        <ProjectsSummary />
+      <section className="hv-section projects-v2__summary">
+        <div className="hv-wrap">
+          <ProjectsSummary />
+        </div>
       </section>
 
-      <span className="block w-full border-b border-[var(--glass-border)]"></span>
-
-      <section
-        id="projects"
-        className="section-shell flex min-w-0 scroll-mt-20 flex-col gap-8 overflow-x-hidden py-10 md:py-8"
-      >
+      <section id="projects" className="hv-section hv-section--tight scroll-mt-20">
+        <div className="hv-wrap projects-v2__catalog">
         <ProjectFilters
           searchValue={searchValue}
           onSearchChange={setSearchValue}
@@ -332,7 +330,7 @@ function ProjectsPage() {
                       (currentCount) => currentCount + LOAD_MORE_STEP
                     )
                   }
-                  className="btn btn-primary border-class rounded-[5px] bg-[#3784d8] px-6 py-3 font-semibold text-white hover:bg-[#2c6abf]"
+                  className="hv-btn hv-btn--ghost hv-btn--sm"
                 >
                   {t('projects.catalog.loadMore', {
                     count: Math.min(LOAD_MORE_STEP, remainingProjectsCount),
@@ -342,15 +340,16 @@ function ProjectsPage() {
             )}
           </>
         ) : (
-          <div className="rounded-lg border border-[var(--glass-border)] bg-[var(--glass-bg)] px-6 py-10 text-center">
-            <h3 className="text-xl font-semibold text-[var(--text-col)]">
+          <div className="hv-card projects-v2__empty">
+            <h3>
               {t('projects.catalog.empty.title')}
             </h3>
-            <p className="mt-3 text-[var(--text2-col)]">
+            <p>
               {t('projects.catalog.empty.description')}
             </p>
           </div>
         )}
+        </div>
       </section>
     </MainLayout>
   )

@@ -76,32 +76,26 @@ function BlogSubscribeSection({
   }
 
   return (
-    <section className="mt-10 rounded-lg border border-[var(--glass-border)] bg-[var(--bg2-color)] px-5 py-6 shadow-[0_0_0_1px_rgba(255,255,255,0.03)] md:px-8 md:py-8">
-      <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+    <section className="subscribe-v2 mt-10 rounded-lg border border-[var(--glass-border)] bg-[var(--bg2-color)] px-5 py-6 md:px-8 md:py-8">
+      <div className="subscribe-v2__layout flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
         <div className="max-w-2xl">
-          <p className="text-xs uppercase tracking-[0.28em] text-[var(--text2-col)]">
+          <p className="subscribe-v2__eyebrow text-xs uppercase tracking-[0.28em] text-[var(--text2-col)]">
             {t('blog.subscribe.eyebrow')}
           </p>
-          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-[var(--text-col)] md:text-5xl">
+          <h2 className="subscribe-v2__title mt-4 text-3xl font-semibold tracking-tight text-[var(--text-col)] md:text-5xl">
             {t('blog.subscribe.title')}
           </h2>
-          <p className="mt-4 max-w-xl text-base leading-8 text-[var(--text2-col)] md:text-lg">
+          <p className="subscribe-v2__description mt-4 max-w-xl text-base leading-8 text-[var(--text2-col)] md:text-lg">
             {t('blog.subscribe.description')}
           </p>
         </div>
 
-        <form
-          onSubmit={handleSubmit}
-          className="w-full max-w-xl rounded-lg border border-[var(--glass-border)] bg-[var(--bg-color)]/50 p-4 backdrop-blur-xl md:p-5"
-        >
-          <label
-            htmlFor={inputId}
-            className="text-sm font-semibold text-[var(--text-col)]"
-          >
+        <form onSubmit={handleSubmit} className="subscribe-v2__form w-full max-w-xl">
+          <label htmlFor={inputId} className="subscribe-v2__label text-sm font-semibold text-[var(--text-col)]">
             {t('blog.subscribe.emailLabel')}
           </label>
 
-          <div className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-center">
+          <div className="subscribe-v2__group">
             <input
               id={inputId}
               type="email"
@@ -115,59 +109,39 @@ function BlogSubscribeSection({
                 }
               }}
               placeholder={t('blog.subscribe.emailPlaceholder')}
-              className="min-w-0 flex-1 rounded-lg border border-[var(--glass-border)] bg-[var(--glass-bg)] px-4 py-3 text-[var(--text-col)] outline-none transition-colors duration-200 placeholder:text-[var(--text2-col)] focus:border-[var(--accent-blue)]"
+              className="subscribe-v2__input"
             />
 
             <button
               type="submit"
               disabled={!isEmailValid || isSubmitting}
-              className={`inline-flex items-center justify-center gap-2 px-5 py-3 transition-all duration-200 ${
-                !isEmailValid || isSubmitting
-                  ? 'cursor-not-allowed opacity-40'
-                  : 'hover:gap-3'
-              }`}
+              className="subscribe-v2__submit"
             >
-              <span className="bg-gradient-to-r from-[#e05aff] to-[#ff8c42] bg-clip-text text-xl font-semibold text-transparent">
+              <span className="bg-gradient-to-r from-[#e05aff] to-[#ff8c42] bg-clip-text font-semibold text-transparent">
                 {isSubmitting ? t('blog.subscribe.submitting') : t('blog.subscribe.submit')}
               </span>
-              <span className="bg-gradient-to-r from-[#e05aff] to-[#ff8c42] bg-clip-text text-transparent">
-                <MdKeyboardArrowRight
-                  size={22}
-                  style={{
-                    fill: 'url(#btn-gradient)',
-                    flexShrink: 0,
-                  }}
-                />
-                {/* À mettre une seule fois dans le composant, hors du bouton */}
-                <svg width="0" height="0" style={{ position: 'absolute' }}>
-                  <defs>
-                    <linearGradient id="btn-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                      <stop offset="0%" stopColor="#e05aff" />
-                      <stop offset="100%" stopColor="#ff8c42" />
-                    </linearGradient>
-                  </defs>
-                </svg>
-              </span>
+              <MdKeyboardArrowRight size={22} style={{ fill: 'url(#btn-gradient)', flexShrink: 0 }} aria-hidden="true" />
+              <svg width="0" height="0" style={{ position: 'absolute' }} aria-hidden="true">
+                <defs>
+                  <linearGradient id="btn-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="#e05aff" />
+                    <stop offset="100%" stopColor="#ff8c42" />
+                  </linearGradient>
+                </defs>
+              </svg>
             </button>
           </div>
 
-          <p className="mt-4 text-sm leading-7 text-[var(--text2-col)]">
-            {t('blog.subscribe.note')}
-          </p>
+          <p className="subscribe-v2__note">{t('blog.subscribe.note')}</p>
 
           {status === 'success' && (
-            <p className="mt-4 text-sm text-[#4ade80]">
-              {t('blog.subscribe.success')}
-            </p>
+            <p className="subscribe-v2__status subscribe-v2__status--ok">{t('blog.subscribe.success')}</p>
           )}
 
           {status === 'error' && (
-            <p className="mt-4 text-sm text-[#fca5a5]">
+            <p className="subscribe-v2__status subscribe-v2__status--error">
               {t('blog.subscribe.error')}{' '}
-              <a
-                href={fallbackMailtoHref}
-                className="underline decoration-[var(--glass-border)] underline-offset-4"
-              >
+              <a href={fallbackMailtoHref} className="underline underline-offset-4">
                 {t('blog.subscribe.emailFallback')}
               </a>
             </p>

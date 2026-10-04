@@ -141,9 +141,9 @@ function BlogPostPage() {
 
   if (!slug || (!post && !isIndexLoading)) {
     return (
-      <MainLayout sections={blogSections}>
+      <MainLayout sections={blogSections} className="home-v2">
         <section className="section-shell py-15 md:py-12">
-          <div className="rounded-[24px] border border-[var(--glass-border)] bg-[var(--glass-bg)]/70 px-8 py-12 text-center backdrop-blur-xl">
+          <div className="blog-v2__notfound rounded-[24px] border border-[var(--glass-border)] bg-[var(--glass-bg)]/70 px-8 py-12 text-center backdrop-blur-xl">
             <h1 className="text-3xl font-semibold text-[var(--text-col)]">
               {t('blog.postNotFound.title')}
             </h1>
@@ -152,7 +152,7 @@ function BlogPostPage() {
             </p>
             <Link
               to="/blog"
-              className="mt-8 inline-flex items-center gap-2 rounded-full border border-[var(--glass-border)] bg-[var(--glass-bg)] px-5 py-3 text-sm font-semibold text-[var(--text-col)] backdrop-blur-xl"
+              className="blog-v2__nav-btn mt-8 inline-flex items-center gap-2 rounded-full border border-[var(--glass-border)] bg-[var(--glass-bg)] px-5 py-3 text-sm font-semibold text-[var(--text-col)] backdrop-blur-xl"
             >
               <FiArrowLeft />
               {t('blog.backToBlog')}
@@ -174,7 +174,7 @@ function BlogPostPage() {
   } as CSSProperties
 
   return (
-    <MainLayout sections={blogSections}>
+    <MainLayout sections={blogSections} className="home-v2">
       <Seo
         title={post.title}
         description={post.summary}
@@ -206,7 +206,7 @@ function BlogPostPage() {
         <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
           <Link
             to="/blog"
-            className="inline-flex items-center gap-2 rounded-lg border border-[var(--glass-border)] bg-[var(--glass-bg)] px-4 py-2 text-sm font-semibold text-[var(--text-col)] backdrop-blur-xl transition-colors duration-200 hover:border-[var(--accent-lgtblue)]"
+            className="blog-v2__nav-btn inline-flex items-center gap-2 rounded-lg border border-[var(--glass-border)] bg-[var(--glass-bg)] px-4 py-2 text-sm font-semibold text-[var(--text-col)] backdrop-blur-xl transition-colors duration-200 hover:border-[var(--accent-lgtblue)]"
           >
             <FiArrowLeft />
             {t('blog.backToBlog')}
@@ -215,7 +215,7 @@ function BlogPostPage() {
           {post.seriesSlug && (
             <Link
               to={`/series/${post.seriesSlug}`}
-              className="inline-flex items-center gap-2 rounded-lg border border-[var(--glass-border)] btn-primary px-4 py-2 text-sm font-semibold text-[var(--text-col)] backdrop-blur-xl transition-colors duration-200 hover:border-[var(--accent-lgtblue)]"
+              className="blog-v2__nav-btn inline-flex items-center gap-2 rounded-lg border border-[var(--glass-border)] btn-primary px-4 py-2 text-sm font-semibold text-[var(--text-col)] backdrop-blur-xl transition-colors duration-200 hover:border-[var(--accent-lgtblue)]"
             >
               {t('blog.backToSeries')}
             </Link>
@@ -224,7 +224,7 @@ function BlogPostPage() {
           
         <div className="grid xl:grid-cols-[minmax(0,1fr)_240px]">
           <div className="min-w-0">
-            <div className="overflow-hidden rounded-lg border border-[var(--glass-border)] bg-[var(--glass-bg)]/70 backdrop-blur-xl">
+            <div className="blog-v2__article-head overflow-hidden rounded-lg border border-[var(--glass-border)] bg-[var(--glass-bg)]/70 backdrop-blur-xl">
               <img
                 src={withBasePath(post.cover)}
                 alt={post.title}
@@ -245,7 +245,7 @@ function BlogPostPage() {
                   ))}
                 </div>
 
-                <h1 className="text-4xl font-semibold tracking-tight text-[var(--text-col)] md:text-5xl">
+                <h1 className="blog-v2__article-title text-4xl font-semibold tracking-tight text-[var(--text-col)] md:text-5xl">
                   {post.title}
                 </h1>
 
@@ -262,13 +262,13 @@ function BlogPostPage() {
 
             <div className="mt-8">
               {isContentLoading || isIndexLoading ? (
-                <div className="rounded-lg border border-[var(--glass-border)] bg-[var(--glass-bg)]/65 px-6 py-10 text-center text-[var(--text2-col)] backdrop-blur-xl">
+                <div className="blog-v2__state-box rounded-lg border border-[var(--glass-border)] bg-[var(--glass-bg)]/65 px-6 py-10 text-center text-[var(--text2-col)] backdrop-blur-xl">
                   {t('blog.loading')}
                 </div>
               ) : content ? (
                 <PostContent content={content} postSlug={post.slug} />
               ) : (
-                <div className="rounded-lg border border-[var(--glass-border)] bg-[var(--glass-bg)]/65 px-6 py-10 text-center text-[var(--text2-col)] backdrop-blur-xl">
+                <div className="blog-v2__state-box rounded-lg border border-[var(--glass-border)] bg-[var(--glass-bg)]/65 px-6 py-10 text-center text-[var(--text2-col)] backdrop-blur-xl">
                   {t('blog.postNotFound.description')}
                 </div>
               )}
@@ -278,7 +278,7 @@ function BlogPostPage() {
               {previousPost ? (
                 <Link
                   to={`/blog/${previousPost.slug}`}
-                  className="group rounded-lg p-5 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-[var(--accent-lgtblue)]"
+                  className="blog-v2__pager group rounded-lg p-5 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-[var(--accent-lgtblue)]"
                 >
                   <p className="mb-3 inline-flex items-center gap-2 text-sm font-semibold text-[var(--accent-lgtpurple)] group-hover:text-[var(--accent-lgtblue)]">
                     <FiArrowLeft />
@@ -293,7 +293,7 @@ function BlogPostPage() {
               {nextPost ? (
                 <Link
                   to={`/blog/${nextPost.slug}`}
-                  className="group rounded-[22px] p-5 text-right backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-[var(--accent-lgtblue)]"
+                  className="blog-v2__pager group rounded-[22px] p-5 text-right backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-[var(--accent-lgtblue)]"
                 >
                   <p className="mb-3 inline-flex items-center gap-2 text-sm font-semibold text-[var(--accent-lgtpurple)] group-hover:text-[var(--accent-lgtblue)]">
                     {t('blog.navigation.next')}
@@ -315,7 +315,7 @@ function BlogPostPage() {
 
           <aside className="xl:sticky bdc xl:top-24 xl:self-start xl:justify-self-end">
             <div className="w-full max-w-[220px] pt-1">
-              <p className="mb-3 text-[11px] uppercase tracking-[0.24em] text-[var(--text2-col)]">
+              <p className="toc-title mb-3 text-[11px] uppercase tracking-[0.24em] text-[var(--text2-col)]">
                 {t('blog.summaryTitle')}
               </p>
 
@@ -324,7 +324,9 @@ function BlogPostPage() {
                   <a
                     key={heading.id}
                     href={`#${heading.id}`}
-                    className={`border-l px-3 py-1 text-xs leading-5 transition-colors duration-200 ${
+                    className={`toc-link border-l px-3 py-1 text-xs leading-5 transition-colors duration-200 ${
+                      activeHeading === heading.id ? 'is-active ' : ''
+                    }${
                       activeHeading === heading.id
                         ? 'border-[var(--accent-lgtblue)] text-[var(--text-col)]'
                         : 'border-transparent text-[var(--text2-col)] hover:text-[var(--text-col)]'

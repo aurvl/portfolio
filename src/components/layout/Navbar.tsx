@@ -11,11 +11,17 @@ export type NavbarSection = {
   hidden?: boolean
 }
 
-type NavbarProps = {
-  sections: NavbarSection[]
+export type NavbarCta = {
+  label: string
+  targetId: string
 }
 
-function Navbar({ sections }: NavbarProps) {
+type NavbarProps = {
+  sections: NavbarSection[]
+  cta?: NavbarCta
+}
+
+function Navbar({ sections, cta }: NavbarProps) {
   const location = useLocation()
   const [activeSection, setActiveSection] = useState(
     sections.find((section) => section.hidden !== true && section.href === undefined)?.id ??
@@ -122,7 +128,7 @@ function Navbar({ sections }: NavbarProps) {
 
   return (
     <header className="sticky top-0 z-50 border-b border-[var(--glass-border)] bg-[var(--glass-bg-strong)] backdrop-blur-xl">
-      <div className="navbar-shell relative flex h-20 items-center justify-between">
+      <div className="navbar-shell relative flex h-[54px] items-center justify-between">
         {firstSection?.href ? (
           <Link to={firstSection.href} className="navbar-brand" onClick={() => setIsMobileMenuOpen(false)}>
             <AnimatedLogo />
@@ -137,7 +143,7 @@ function Navbar({ sections }: NavbarProps) {
           </button>
         )}
 
-        <nav className="hidden h-full items-center gap-8 md:flex">
+        <nav className="navbar-links hidden h-full items-center gap-8 md:flex">
           {sections
             .filter((section) => section.hidden !== true)
             .map((section) =>
@@ -185,6 +191,18 @@ function Navbar({ sections }: NavbarProps) {
           </button>
           <LanguageSwitcher />
           <ThemeToggle />
+          {cta && (
+            <button
+              type="button"
+              className="navbar-cta"
+              onClick={() => {
+                setIsMobileMenuOpen(false)
+                scrollToSection(cta.targetId)
+              }}
+            >
+              {cta.label}
+            </button>
+          )}
         </div>
 
         <div

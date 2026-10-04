@@ -636,26 +636,26 @@
         },
         {
           "id": "SK022",
-          "slug": "excel",
+          "slug": "vba",
           "icon": {
             "src": "https://upload.wikimedia.org/wikipedia/commons/e/e3/Microsoft_Office_Excel_%282019%E2%80%932025%29.svg",
             "alt": {
-              "en": "Excel logo",
-              "fr": "Logo Excel"
+              "en": "VBA logo",
+              "fr": "Logo VBA"
             }
           },
           "content": {
             "label": {
-              "en": "Excel",
-              "fr": "Excel"
+              "en": "VBA",
+              "fr": "VBA"
             },
             "description": {
-              "en": "Spreadsheet analysis, formulas, and reporting support.",
-              "fr": "Analyse sur tableur, formules et support au reporting."
+              "en": "Excel automation with VBA macros and reporting workflows.",
+              "fr": "Automatisation d'Excel avec des macros VBA et des workflows de reporting."
             }
           },
           "tags": [
-            "spreadsheet",
+            "automation",
             "reporting"
           ]
         }

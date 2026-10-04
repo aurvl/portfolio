@@ -55,7 +55,7 @@ function BlogPage() {
   ]
 
   return (
-    <MainLayout sections={blogSections}>
+    <MainLayout sections={blogSections} className="home-v2">
       <Seo
         title={
           i18n.language === 'fr'
@@ -84,33 +84,25 @@ function BlogPage() {
               : 'Articles by Aurel De Vince on data analysis, econometrics, modeling, and decision-making.',
         }}
       />
-      <section id="blog" className="section-shell py-15 md:py-12">
-        <div className="flex flex-col p-8 md:p-7 md:pb-0">
-          <p className="mb-3 text-sm uppercase tracking-[0.24em] text-[var(--text2-col)]">
-            {t('blog.section.featured.title')}
-          </p>
-
-          <h1 className="mb-4 text-4xl font-semibold tracking-tight md:text-5xl">
-            {t('blog.section.featured.subtitle')}
-          </h1>
-        </div>
-
-        <LastBlogPosts posts={latest} />
-
-        <span className="block w-full border-b border-[var(--glass-border)]"></span>
-
-        <div className="flex flex-col gap-10 px-8 py-20 md:px-7">
-          <div>
-            <p className="mb-3 text-sm uppercase tracking-[0.24em] text-[var(--text2-col)]">
-              {t('blog.section.series.title')}
-            </p>
-
-            <h2 className="mb-4 text-4xl font-semibold tracking-tight md:max-w-[55%] md:text-5xl">
-              {t('blog.section.series.subtitle')}
-            </h2>
+      <section id="blog" className="hv-section blog-v2__first">
+        <div className="hv-wrap blog-v2__block">
+          <div className="blog-v2__head">
+            <p className="hv-eyebrow">{t('blog.section.featured.title')}</p>
+            <h1 className="hv-h2">{t('blog.section.featured.subtitle')}</h1>
           </div>
 
-          <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+          <LastBlogPosts posts={latest} />
+        </div>
+      </section>
+
+      <section className="hv-section">
+        <div className="hv-wrap blog-v2__block">
+          <div className="blog-v2__head">
+            <p className="hv-eyebrow">{t('blog.section.series.title')}</p>
+            <h2 className="hv-h2">{t('blog.section.series.subtitle')}</h2>
+          </div>
+
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
             {featuredSeries.map((featuredSeriesItem) => {
               const localizedTitle = getLocalizedField(featuredSeriesItem.title, i18n.language)
               const localizedDescription = getLocalizedField(
@@ -134,18 +126,13 @@ function BlogPage() {
             })}
           </div>
         </div>
+      </section>
 
-        <span className="block w-full border-b border-[var(--glass-border)]"></span>
-
-        <div className="flex flex-col gap-8 p-8 pb-20 md:p-7 md:pb-24">
-          <div>
-            <p className="mb-3 text-sm uppercase tracking-[0.24em] text-[var(--text2-col)]">
-              {t('blog.section.search.title')}
-            </p>
-
-            <h2 className="mb-4 text-4xl font-semibold tracking-tight md:max-w-[55%] md:text-5xl">
-              {t('blog.section.search.subtitle')}
-            </h2>
+      <section className="hv-section">
+        <div className="hv-wrap blog-v2__block">
+          <div className="blog-v2__head">
+            <p className="hv-eyebrow">{t('blog.section.search.title')}</p>
+            <h2 className="hv-h2">{t('blog.section.search.subtitle')}</h2>
           </div>
 
           <BlogFilters
@@ -163,16 +150,16 @@ function BlogPage() {
           />
 
           {isLoading ? (
-            <div className="rounded-[18px] border border-[var(--glass-border)] bg-[var(--glass-bg)]/65 px-6 py-10 text-center text-[var(--text2-col)]">
+            <div className="hv-card blog-v2__state">
               {t('blog.loading')}
             </div>
           ) : error ? (
-            <div className="rounded-[18px] border border-[var(--glass-border)] bg-[var(--glass-bg)]/65 px-6 py-10 text-center text-[var(--text2-col)]">
+            <div className="hv-card blog-v2__state">
               {error}
             </div>
           ) : filteredPosts.length > 0 ? (
             <>
-              <p className="text-sm text-[var(--text2-col)]">
+              <p className="blog-v2__showing">
                 {t('blog.catalog.showingCount', {
                   visible: visiblePosts.length,
                   total: filteredPosts.length,
@@ -188,7 +175,7 @@ function BlogPage() {
                     onClick={() =>
                       setVisiblePostsCount((currentCount) => currentCount + LOAD_MORE_STEP)
                     }
-                    className="btn btn-primary border-class rounded-[8px] bg-[#3784d8] px-6 py-3 font-semibold text-white hover:bg-[#2c6abf]"
+                    className="hv-btn hv-btn--ghost hv-btn--sm"
                   >
                     {t('blog.catalog.loadMore', {
                       count: Math.min(LOAD_MORE_STEP, remainingPostsCount),
@@ -198,11 +185,11 @@ function BlogPage() {
               )}
             </>
           ) : (
-            <div className="rounded-[18px] border border-[var(--glass-border)] bg-[var(--glass-bg)]/65 px-6 py-10 text-center">
-              <h3 className="text-xl font-semibold text-[var(--text-col)]">
+            <div className="hv-card blog-v2__state">
+              <h3>
                 {t('blog.catalog.empty.title')}
               </h3>
-              <p className="mt-3 text-[var(--text2-col)]">
+              <p>
                 {t('blog.catalog.empty.description')}
               </p>
             </div>

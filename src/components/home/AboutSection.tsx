@@ -12,7 +12,7 @@ function AboutSection() {
     <section id="about" className="section-shell lg:py-24 md:py-0 pb-20 md:pb-25">
       <div className="flex flex-col p-8 md:p-12 lg:flex-row gap-rersponsive">
         <div className="about-img flex basis-2/5 flex-col items-center justify-center">
-          <p className="mb-3 text-right text-sm uppercase tracking-[0.24em] text-[var(--text2-col)]">
+          <p className="research-kicker about-section__eyebrow">
             {t('about.eyebrow')}
           </p>
 
@@ -26,8 +26,8 @@ function AboutSection() {
           />
         </div>
 
-        <div className="about-content basis-3/5 border-t-[1px] border-[var(--glass-border)] flex items-center">
-          <p className="max-w-2xl text-base leading-8 text-[var(--text2-col)] text-center md:text-left pt-8 lg:pt-0">
+        <div className="about-content basis-3/5 flex items-center">
+          <p className="about-content__copy max-w-2xl text-base leading-8 text-[var(--text2-col)] text-center md:text-left pt-8 lg:pt-0">
             {t('about.description1')}
             <br />
             {t('about.description2')}

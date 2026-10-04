@@ -8,9 +8,9 @@ const ABSOLUTE_URL_PATTERN = /^(?:[a-z]+:)?\/\//i
 
 export const SITE_NAME = DEFAULT_SITE_NAME
 export const PERSON_NAME = 'Aurel De Vince'
-export const PERSON_ROLE = 'Data Analyst, Data Scientist, and Economic Analyst'
+export const PERSON_ROLE = 'Applied Economist and PhD Researcher'
 export const PERSON_DESCRIPTION =
-  'Portfolio of Aurel De Vince, showcasing data analysis, econometrics, machine learning, and research-driven projects.'
+  'Aurel De Vince, applied economist and PhD researcher, turns fragmented economic data into comparable indicators, econometric analysis and decision support for firms, territories and institutions.'
 export const PERSON_SAME_AS = [
   'https://github.com/aurvl',
   'https://www.linkedin.com/in/aurel-vehi/',

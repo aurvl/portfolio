@@ -1,0 +1,268 @@
+/* ------------------------------------------------------------------ *
+ * /projects in the homepage V2 style. Everything is scoped to .home-v2
+ * (set on the page layout), so the blog keeps its shared field styles.
+ * Tokens (--hv-*) come from home-v2.css.
+ * ------------------------------------------------------------------ */
+
+/* --- Summary --- */
+.home-v2 .projects-v2__summary {
+  border-top: 0;
+  padding: 96px 0 64px;
+}
+
+.home-v2 .projects-v2__intro {
+  max-width: 680px;
+}
+
+.home-v2 .projects-v2__intro p {
+  margin: 14px 0 0;
+  font-size: 19px;
+  color: var(--hv-muted);
+}
+
+.home-v2 .projects-v2__metrics {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.home-v2 .projects-v2__metric {
+  padding: 18px 20px;
+}
+
+.home-v2 .projects-v2__metric-value {
+  margin: 0;
+  font-family: var(--hv-display);
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--hv-accent);
+}
+
+.home-v2 .projects-v2__metric-label {
+  margin: 8px 0 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--hv-muted);
+}
+
+.home-v2 .projects-v2__activity {
+  margin-top: 16px;
+  padding: 18px 20px;
+}
+
+.home-v2 .projects-v2__activity-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--hv-ink);
+}
+
+.home-v2 .projects-v2__activity-subtitle {
+  margin: 2px 0 0;
+  font-size: 14px;
+  color: var(--hv-muted);
+}
+
+/* --- Catalogue and filters --- */
+.home-v2 .projects-v2__catalog {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  min-width: 0;
+}
+
+.home-v2 .field-label {
+  margin: 0;
+  font-size: 13.5px;
+  font-weight: 560;
+  color: var(--hv-muted);
+}
+
+.home-v2 .search-field__box,
+.home-v2 .filter-field__select {
+  border: 1px solid var(--hv-line-2);
+  border-radius: 3px;
+  background: var(--hv-surface);
+  color: var(--hv-ink);
+  box-shadow: none;
+}
+
+.home-v2 .search-field__box:focus-within,
+.home-v2 .filter-field__select:focus {
+  border-color: var(--hv-accent);
+  box-shadow: 0 0 0 3px var(--hv-accent-soft);
+}
+
+.home-v2 .search-field__box input {
+  color: var(--hv-ink);
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.home-v2 .search-field__box input::placeholder {
+  color: var(--hv-faint);
+}
+
+.home-v2 .filter-field__select {
+  padding: 9px 12px;
+  font-size: 14.5px;
+}
+
+.home-v2 .filter-field__select option {
+  background: var(--hv-surface);
+  color: var(--hv-ink);
+}
+
+.home-v2 .projects-v2__count {
+  border-radius: 3px;
+  background: var(--hv-accent-soft);
+  color: var(--hv-accent-ink);
+  font-size: 12.5px;
+  letter-spacing: 0.02em;
+}
+
+.home-v2 .projects-v2__showing {
+  color: var(--hv-faint);
+}
+
+.home-v2 .projects-v2__divider {
+  margin: 8px 0 0;
+  border-color: var(--hv-line);
+}
+
+/* --- Project cards (same badge and keyword tags as before) --- */
+.home-v2 .project-card {
+  padding: 10px;
+  gap: 10px;
+  border: 1px solid var(--hv-line-2);
+  border-radius: 3px;
+  background: var(--hv-surface);
+}
+
+.home-v2 .project-card:hover {
+  border-color: var(--hv-line-3);
+  background: var(--hv-surface);
+}
+
+.home-v2 .project-card__cover {
+  border-radius: 2px;
+}
+
+.home-v2 .project-card__title {
+  margin-top: 4px;
+  font-size: 19px;
+  font-weight: 580;
+  letter-spacing: -0.015em;
+  color: var(--hv-ink);
+}
+
+.home-v2 .project-card__title:hover {
+  color: var(--hv-accent-ink);
+}
+
+.home-v2 .project-card__summary {
+  border-top-color: var(--hv-line);
+  color: var(--hv-muted);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.home-v2 .project-card__level {
+  font-size: 13.5px;
+  color: var(--hv-muted);
+}
+
+.home-v2 .project-card__level span {
+  font-weight: 560;
+}
+
+.home-v2 .project-card__date {
+  font-size: 13px;
+  color: var(--hv-faint);
+}
+
+.home-v2 .project-card__more {
+  height: auto;
+  padding: 4px 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--hv-accent-ink);
+  font-size: 13.5px;
+  font-weight: 560;
+}
+
+/* Same hover as the homepage links: blue-to-violet text. */
+.home-v2 .project-card__more:hover,
+.home-v2 .project-card:hover .project-card__more {
+  background: linear-gradient(90deg, var(--hv-accent) 0%, #7b4bd6 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.home-v2 .project-card__more:hover svg,
+.home-v2 .project-card:hover .project-card__more svg {
+  color: #7b4bd6;
+}
+
+.home-v2 .projects-v2__empty {
+  padding: 40px 24px;
+  text-align: center;
+}
+
+.home-v2 .projects-v2__empty h3 {
+  margin: 0;
+  font-family: var(--hv-display);
+  font-weight: 700;
+  font-size: 22px;
+}
+
+.home-v2 .projects-v2__empty p {
+  margin: 10px 0 0;
+  color: var(--hv-muted);
+}
+
+/* --- Project window (detail dialog) --- */
+.home-v2 .project-window {
+  border-radius: 4px;
+  border-color: var(--hv-line-2);
+  background: var(--hv-surface);
+}
+
+.home-v2 .project-window__header {
+  border-radius: 3px;
+  background: var(--hv-surface-2);
+}
+
+.home-v2 .project-window__header h2 {
+  font-family: var(--hv-display);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+/* --- Responsive --- */
+@media (max-width: 1024px) {
+  .home-v2 .projects-v2__metrics {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 760px) {
+  .home-v2 .projects-v2__summary {
+    padding: 64px 0 48px;
+  }
+
+  .home-v2 .projects-v2__intro p {
+    font-size: 17px;
+  }
+
+  .home-v2 .projects-v2__metric-value {
+    font-size: 26px;
+  }
+}

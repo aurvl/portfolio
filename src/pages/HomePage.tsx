@@ -1,14 +1,19 @@
-import { useEffect } from 'react'
-import { useTranslation } from 'react-i18next'
+import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
-import MainLayout from "../components/layout/MainLayout"
+import { useHomeContent } from '../hooks/useHomeContent'
+import MainLayout from '../components/layout/MainLayout'
 import Seo from '../components/seo/Seo'
-import HeroSection from "../components/home/HeroSection"
-import AboutSection from "../components/home/AboutSection"
-import SkillsSection from "../components/home/SkillsSection"
-import FeaturedProjects from "../components/home/FeaturedProjects"
-import RecentPosts from "../components/home/RecentPosts"
-import FormContactSection from "../components/home/FormContactSection"
+import HomeHero from '../components/home-v2/HomeHero'
+import StackMarquee from '../components/home-v2/StackMarquee'
+import MethodSection from '../components/home-v2/MethodSection'
+import DoctoralResearchSection from '../components/home-v2/DoctoralResearchSection'
+import PublicationsSection from '../components/home-v2/PublicationsSection'
+import WorkSection from '../components/home-v2/WorkSection'
+import NowBuildingSection from '../components/home-v2/NowBuildingSection'
+import HelpSection from '../components/home-v2/HelpSection'
+import ProfileSection from '../components/home-v2/ProfileSection'
+import BlogPostsSection from '../components/home-v2/BlogPostsSection'
+import ContactSection from '../components/home-v2/ContactSection'
 import {
   PERSON_DESCRIPTION,
   PERSON_NAME,
@@ -17,42 +22,44 @@ import {
   buildAbsoluteSiteUrl,
 } from '../lib/site'
 
+
+function scrollToSection(sectionId: string) {
+  document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+}
+
 function HomePage() {
-  const { t, i18n } = useTranslation()
   const location = useLocation()
+  const [activeStep, setActiveStep] = useState(0)
+  const { content, lang } = useHomeContent()
+  const { nav } = content
   const homeSections = [
-    { id: 'home', label: t('nav.home') },
-    { id: 'about', label: t('nav.about') },
-    { id: 'skills', label: t('nav.skills') },
-    { id: 'featured-projects', label: t('nav.projects') },
-    { id: 'recent-posts', label: t('nav.blog') },
-    { id: 'contact-form', label: t('nav.contact'), hidden: true },
+    { id: 'home', label: 'Home', hidden: true },
+    { id: 'approach', label: nav.method },
+    { id: 'research', label: nav.research },
+    { id: 'work', label: nav.work },
+    { id: 'about', label: nav.about },
+    { id: 'blog-posts', label: nav.blog },
+    { id: 'contact-form', label: nav.contact, hidden: true },
   ]
 
   useEffect(() => {
     if (!location.hash) return
 
-    const targetId = location.hash.slice(1)
-    const target = document.getElementById(targetId)
-
-    if (!target) return
-
-    const timeoutId = window.setTimeout(() => {
-      target.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-      })
-    }, 0)
+    const timeoutId = window.setTimeout(() => scrollToSection(location.hash.slice(1)), 0)
 
     return () => window.clearTimeout(timeoutId)
   }, [location.hash])
 
   return (
-    <MainLayout sections={homeSections}>
+    <MainLayout
+      sections={homeSections}
+      className="home-v2"
+      cta={{ label: nav.cta, targetId: 'contact-form' }}
+    >
       <Seo
         title={`${PERSON_NAME} | ${PERSON_ROLE}`}
         description={PERSON_DESCRIPTION}
-        lang={i18n.language}
+        lang={lang}
         image={buildAbsoluteSiteUrl('assets/images/hero-image.png')}
         jsonLd={[
           {
@@ -72,30 +79,48 @@ function HomePage() {
           },
         ]}
       />
+
       <section id="home">
-        <HeroSection />
+        <HomeHero onNavigate={scrollToSection} />
       </section>
 
-      <section id="about">
-        <AboutSection />
+      <StackMarquee />
+
+      <section id="approach" className="hv-section hv-section--pattern">
+        <MethodSection activeStep={activeStep} onSelectStep={setActiveStep} />
       </section>
 
-      <section id="skills">
-        <SkillsSection />
+      <section id="research" className="hv-section">
+        <DoctoralResearchSection />
       </section>
 
-      <section id="featured-projects">
-        <FeaturedProjects />
+      <section id="publications" className="hv-section hv-section--tight">
+        <PublicationsSection />
       </section>
 
-      <section id="recent-posts">
-        <RecentPosts />
+      <section id="work" className="hv-section">
+        <WorkSection />
       </section>
 
-      <section id="contact-form">
-        <FormContactSection />
+      <section id="now" className="hv-section hv-section--tight hv-section--pattern hv-section--pattern-left">
+        <NowBuildingSection />
       </section>
-      
+
+      <section id="help" className="hv-section">
+        <HelpSection onNavigate={scrollToSection} />
+      </section>
+
+      <section id="about" className="hv-section">
+        <ProfileSection />
+      </section>
+
+      <section id="blog-posts" className="hv-section hv-section--tight">
+        <BlogPostsSection />
+      </section>
+
+      <section id="contact-form" className="hv-section hv-section--contact">
+        <ContactSection />
+      </section>
     </MainLayout>
   )
 }

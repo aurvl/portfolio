@@ -43,41 +43,31 @@ const GITHUB_CONTRIBUTION_YEAR = '2026'
 
 const CALENDAR_THEME_COLORS = {
   dark: {
-    cellBorder: '#1d1f22',
-    monthBorder: 'rgba(255, 255, 255, 0.18)',
-    zeroDay: '#161b22',
-    monthLabel: 'rgba(200, 198, 195, 0.75)',
-    gradientStart: '#0e4429',
-    gradientEnd: '#39d353',
+    cellBorder: '#1a1b1d',
+    monthBorder: 'rgba(255, 255, 255, 0.12)',
+    zeroDay: '#202124',
+    monthLabel: 'rgba(163, 161, 155, 0.9)',
+    gradientStart: '#1d3a5f',
+    gradientEnd: '#5b9df0',
   },
   light: {
     cellBorder: '#ffffff',
-    monthBorder: 'rgba(15,60,50,0.2)',
-    zeroDay: '#eef2f1',
-    monthLabel: 'rgba(15,60,50,0.5)',
-    gradientStart: '#c8e8e2',
-    gradientEnd: '#0a6b62',
+    monthBorder: 'rgba(20, 20, 19, 0.14)',
+    zeroDay: '#f3f2ef',
+    monthLabel: 'rgba(95, 94, 89, 0.9)',
+    gradientStart: '#cfe0f4',
+    gradientEnd: '#0a5fc2',
   },
 } as const
 
 function SummaryMetricCard({ icon, value, label }: SummaryMetricCardProps) {
   return (
-    <article className="rounded-lg p-2 shadow-[var(--shadow-soft)] backdrop-blur-[var(--blur-strength)]">
-      <div className="flex flex-col items-center justify-center group">
-        <p className="text-3xl font-bold leading-none text-[var(--keyw-col-window)] 
-        transition-all duration-300 group-hover:text-4xl">
-          {value}
-        </p>
-
-        <div className="flex flex-col items-center justify-center gap-1">
-          <div className="flex shrink-0 items-center justify-center rounded-xl text-[var(--text2-col)]">
-            {icon}
-          </div>
-          <p className="text-center text-sm text-[var(--text2-col)]">
-            {label}
-          </p>
-        </div>
-      </div>
+    <article className="hv-card projects-v2__metric">
+      <p className="projects-v2__metric-value">{value}</p>
+      <p className="projects-v2__metric-label">
+        <span aria-hidden="true">{icon}</span>
+        {label}
+      </p>
     </article>
   )
 }
@@ -384,7 +374,7 @@ function ProjectActivityChart() {
   }, [activityData, calendarCellHeight, isLoading, showCalendarDayLabels, theme])
 
   return (
-    <section className="mt-8 min-w-0 overflow-x-hidden">
+    <section className="hv-card projects-v2__activity min-w-0 overflow-x-hidden">
       <button
         type="button"
         onClick={() => setIsCollapsed((current) => !current)}
@@ -393,10 +383,10 @@ function ProjectActivityChart() {
         aria-controls="project-activity-chart"
       >
         <div className="min-w-0">
-          <p className="text-lg font-semibold text-[var(--text-col)]">
+          <p className="projects-v2__activity-title">
             {activityTitle}
           </p>
-          <p className="text-sm text-[var(--text2-col)]">
+          <p className="projects-v2__activity-subtitle">
             {activitySubtitle}
           </p>
         </div>
@@ -451,33 +441,33 @@ function ProjectsSummary() {
 
   return (
     <div className="min-w-0 overflow-x-hidden">
-      <div>
-        <h2 className="mb-4 text-3xl font-bold">
+      <div className="projects-v2__intro">
+        <h1 className="hv-h2">
           {t('projects.catalog.summary.title')}
-        </h2>
-        <p className="text-[var(--text2-col)]">
+        </h1>
+        <p>
           {t('projects.catalog.summary.description')}
         </p>
       </div>
 
-      <div className="mt-6 grid grid-cols-2 gap-3 md:grid-cols-4 max-w-4xl mx-auto">
+      <div className="projects-v2__metrics">
         <SummaryMetricCard
-          icon={<IoHammerSharp size={24} />}
+          icon={<IoHammerSharp size={15} />}
           value={numberOfProjects.toString()}
           label={t('projects.catalog.summary.metrics.projectsLabel')}
         />
         <SummaryMetricCard
-          icon={<TbBrandReactNative size={24} />}
+          icon={<TbBrandReactNative size={15} />}
           value={numberOfTools.toString()}
           label={t('projects.catalog.summary.metrics.toolsLabel')}
         />
         <SummaryMetricCard
-          icon={<IoStarHalfOutline size={24} />}
+          icon={<IoStarHalfOutline size={15} />}
           value={`${averageTechnicalLevel.toFixed(1)} / 3`}
           label={t('projects.catalog.summary.metrics.averageTechnicalLevelLabel')}
         />
         <SummaryMetricCard
-          icon={<GiBackwardTime size={24} />}
+          icon={<GiBackwardTime size={15} />}
           value={lastThreeMonthsProjects.toString()}
           label={t('projects.catalog.summary.metrics.lastThreeMonthsLabel')}
         />

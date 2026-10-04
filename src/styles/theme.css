@@ -22,7 +22,7 @@
 }
 
 .navbar-logo {
-  height: 32px;
+  height: 24px;
   width: auto;
   display: block;
   object-fit: contain;
@@ -113,6 +113,27 @@
 .nav-title-text {
     font-weight: 600;
     font-size: 14px;
+}
+
+/* Language select: sized here because the global `select { font: inherit }` overrides utilities. */
+select.language-switcher {
+  font-size: 11px;
+  line-height: 1.2;
+}
+
+/* Tablets: keep the full navbar, just tighter so links don't touch the logo or the controls. */
+@media (min-width: 768px) and (max-width: 1100px) {
+  .navbar-links {
+    gap: 14px;
+  }
+
+  .navbar-links .nav-title-text {
+    font-size: 13px;
+  }
+
+  .navbar-logo {
+    height: 22px;
+  }
 }
 
 .nav-link-animated {

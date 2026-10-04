@@ -55,7 +55,7 @@ function ProjectFilters({
   const { t } = useTranslation()
 
   return (
-    <div className="flex min-w-0 flex-col gap-4">
+    <div className="projects-v2__filters flex min-w-0 flex-col gap-4">
       <div className="flex min-w-0 w-full flex-wrap items-center justify-start gap-6">
         <SearchField
           label={t('projects.catalog.filters.search')}
@@ -99,18 +99,18 @@ function ProjectFilters({
 
         <div className="flex flex-col gap-2">
           <p
-            className="m-auto rounded-lg bg-[var(--fields-bg-col)] px-4 py-2 text-sm font-bold
+            className="projects-v2__count m-auto rounded-lg bg-[var(--fields-bg-col)] px-4 py-2 text-sm font-bold
             uppercase text-[var(--accent-lgtblue)]"
           >
             {t('projects.catalog.resultsCount', { count: resultsCount })}
           </p>
-          <p className="text-sm text-[var(--text2-col)]">
+          <p className="projects-v2__showing text-sm text-[var(--text2-col)]">
             {t('projects.catalog.showingCount', { visible: visibleCount, total: resultsCount })}
           </p>
         </div>
       </div>
 
-      <span className="my-5 block w-full border-b border-[var(--glass-border)]"></span>
+      <span className="projects-v2__divider my-5 block w-full border-b border-[var(--glass-border)]"></span>
     </div>
   )
 }

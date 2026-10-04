@@ -200,7 +200,7 @@ function ProjectWindow({ project, isOpen, onClose }: ProjectWindowProps) {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 80 }}
               transition={{ duration: 0.28, ease: 'easeOut' }}
-              className="pointer-events-auto relative flex max-h-[calc(100vh-3rem)] min-w-0 w-full max-w-5xl flex-col overflow-hidden rounded-[5px]
+              className="project-window pointer-events-auto relative flex max-h-[calc(100vh-3rem)] min-w-0 w-full max-w-5xl flex-col overflow-hidden rounded-[5px]
               border border-[var(--glass-border)] bg-[var(--win-bg)] shadow-2xl"
             >
               <div className="min-w-0 overflow-x-hidden overflow-y-auto px-4 pb-6 pt-0 md:px-6">
@@ -219,7 +219,7 @@ function ProjectWindow({ project, isOpen, onClose }: ProjectWindowProps) {
                 </div>
 
                 <div className="flex min-w-0 flex-col gap-6">
-                  <div className="flex flex-col gap-6 rounded-lg bg-[var(--bg2-color)] p-4 md:items-center">
+                  <div className="project-window__header flex flex-col gap-6 rounded-lg bg-[var(--bg2-color)] p-4 md:items-center">
                     <div className="flex min-w-0 flex-col items-center text-center">
                       <h2
                         id="project-window-title"

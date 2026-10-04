@@ -1,17 +1,19 @@
 import type { ReactNode } from 'react'
-import Navbar, { type NavbarSection } from './Navbar'
+import Navbar, { type NavbarCta, type NavbarSection } from './Navbar'
 import Footer from './Footer'
 import BackToTopButton from './BackToTopButton'
 
 type MainLayoutProps = {
   children: ReactNode
   sections: NavbarSection[]
+  className?: string
+  cta?: NavbarCta
 }
 
-function MainLayout({ children, sections }: MainLayoutProps) {
+function MainLayout({ children, sections, className, cta }: MainLayoutProps) {
   return (
-    <div className="min-h-screen bg-[var(--bg-color)] text-[var(--text-color)]">
-      <Navbar sections={sections} />
+    <div className={`min-h-screen bg-[var(--bg-color)] text-[var(--text-color)] ${className ?? ''}`}>
+      <Navbar sections={sections} cta={cta} />
       <main>{children}</main>
       <Footer />
       <BackToTopButton />

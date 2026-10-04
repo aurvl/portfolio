@@ -49,7 +49,7 @@ function SeriesPage() {
   ]
 
   return (
-    <MainLayout sections={sections}>
+    <MainLayout sections={sections} className="home-v2">
       <Seo
         title={
           currentSeries
@@ -80,7 +80,7 @@ function SeriesPage() {
         <div className="mb-8">
           <Link
             to="/blog"
-            className="inline-flex items-center gap-2 rounded-lg border border-[var(--glass-border)] bg-[var(--glass-bg)] px-4 py-2 text-sm font-semibold text-[var(--text-col)] backdrop-blur-xl transition-colors duration-200 hover:border-[var(--accent-lgtblue)]"
+            className="blog-v2__nav-btn inline-flex items-center gap-2 rounded-lg border border-[var(--glass-border)] bg-[var(--glass-bg)] px-4 py-2 text-sm font-semibold text-[var(--text-col)] backdrop-blur-xl transition-colors duration-200 hover:border-[var(--accent-lgtblue)]"
           >
             <FiArrowLeft />
             {t('blog.backToBlog')}
@@ -88,7 +88,7 @@ function SeriesPage() {
         </div>
 
         <div className="p-6 backdrop-blur-xl md:p-8">
-          <h1 className="text-4xl font-semibold tracking-tight bg-gradient-to-r from-[var(--accent-lgtblue)] to-[#ff8c42] bg-clip-text text-transparent inline-block">
+          <h1 className="blog-v2__series-title text-4xl font-semibold tracking-tight bg-gradient-to-r from-[var(--accent-lgtblue)] to-[#ff8c42] bg-clip-text text-transparent inline-block">
             {currentSeries
               ? getLocalizedField(currentSeries.title, i18n.language)
               : t('blog.series.fallbackTitle')}
@@ -106,7 +106,7 @@ function SeriesPage() {
               </div>
             ))
           ) : (
-            <div className="rounded-[22px] border border-[var(--glass-border)] bg-[var(--glass-bg)]/65 px-6 py-10 text-center">
+            <div className="blog-v2__state-box rounded-[22px] border border-[var(--glass-border)] bg-[var(--glass-bg)]/65 px-6 py-10 text-center">
               <h2 className="text-xl font-semibold text-[var(--text-col)]">
                 {t('blog.catalog.empty.title')}
               </h2>

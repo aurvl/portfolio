@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { motion } from 'framer-motion'
 import { FaLinkedin } from 'react-icons/fa'
+import { FaThreads } from 'react-icons/fa6'
 import { BsDiscord, BsGithub } from 'react-icons/bs'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
@@ -10,8 +11,10 @@ import { getImageDimensions } from '../../lib/imageMetadata'
 type FloatingLink = {
   id: number
   label: ReactNode
+  ariaLabel: string
   href: string
   color: string
+  iconColor: string
   top: string
   left: string
 }
@@ -21,67 +24,73 @@ type ParticlePosition = {
   y: number
 }
 
+const HERO_IMAGE = 'assets/images/hero-image.png'
+const ICON_SIZE = 48
+
 const floatingLinks: FloatingLink[] = [
   {
     id: 1,
-    label: <FaLinkedin size={24} color="#ffffff" />,
+    label: <FaLinkedin size={23} />,
+    ariaLabel: 'LinkedIn',
     href: 'https://www.linkedin.com/in/aurel-vehi/',
     color: '#0071B3',
+    iconColor: '#ffffff',
     top: '37%',
-    left: '-19%',
+    left: '-18%',
   },
   {
     id: 2,
-    label: <BsGithub size={24} color="#000000" />,
+    label: <BsGithub size={23} />,
+    ariaLabel: 'GitHub',
     href: 'https://github.com/aurvl',
     color: '#ffffff',
-    top: '88%',
-    left: '5%',
+    iconColor: '#0e1928',
+    top: '84%',
+    left: '4%',
   },
   {
     id: 3,
-    label: <BsDiscord size={24} color="#ffffff" />,
+    label: <BsDiscord size={23} />,
+    ariaLabel: 'Discord',
     href: 'https://discord.gg/7CgCeVsv',
     color: '#545FE8',
+    iconColor: '#ffffff',
+    top: '-4%',
+    left: '80%',
+  },
+  {
+    id: 4,
+    label: <FaThreads size={23} />,
+    ariaLabel: 'Threads',
+    href: 'https://www.threads.com/@aur_rel_?igshid=NTc4MTIwNjQ2YQ==',
+    color: '#111111',
+    iconColor: '#ffffff',
     top: '79%',
     left: '78%',
   },
 ]
 
-const ICON_SIZE = 48
-const HERO_IMAGE = 'assets/images/hero-image.png'
-
-function clamp(value: number, min: number, max: number) {
-  return Math.max(min, Math.min(value, max))
-}
-
 function HeroSection() {
   const { t } = useTranslation()
   const heroImageDimensions = getImageDimensions(HERO_IMAGE)
-
   const dragAreaRef = useRef<HTMLDivElement | null>(null)
   const mobileAreaRef = useRef<HTMLDivElement | null>(null)
-
   const [isSmallScreen, setIsSmallScreen] = useState(false)
   const [positions, setPositions] = useState<Record<number, ParticlePosition>>({
     1: { x: 20, y: 30 },
     2: { x: 120, y: 140 },
     3: { x: 200, y: 70 },
+    4: { x: 80, y: 180 },
   })
 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(max-width: 767px)')
+    const updateScreenSize = () => setIsSmallScreen(mediaQuery.matches)
 
-    const updateScreen = (event?: MediaQueryList | MediaQueryListEvent) => {
-      setIsSmallScreen(event ? event.matches : mediaQuery.matches)
-    }
+    updateScreenSize()
+    mediaQuery.addEventListener('change', updateScreenSize)
 
-    updateScreen(mediaQuery)
-    mediaQuery.addEventListener('change', updateScreen)
-
-    return () => {
-      mediaQuery.removeEventListener('change', updateScreen)
-    }
+    return () => mediaQuery.removeEventListener('change', updateScreenSize)
   }, [])
 
   useEffect(() => {
@@ -97,7 +106,8 @@ function HeroSection() {
     setPositions({
       1: { x: maxX * 0.15, y: maxY * 0.25 },
       2: { x: maxX * 0.55, y: maxY * 0.7 },
-      3: { x: maxX * 0.78, y: maxY * 0.35 },
+      3: { x: maxX * 0.78, y: maxY * 0.12 },
+      4: { x: maxX * 0.28, y: maxY * 0.78 },
     })
   }, [isSmallScreen])
 
@@ -112,125 +122,129 @@ function HeroSection() {
       const maxX = Math.max(0, rect.width - ICON_SIZE)
       const maxY = Math.max(0, rect.height - ICON_SIZE)
 
-      setPositions((prev) => {
-        const next: Record<number, ParticlePosition> = {}
+      setPositions((previousPositions) => {
+        const nextPositions: Record<number, ParticlePosition> = {}
 
         for (const link of floatingLinks) {
-          const current = prev[link.id] ?? { x: 0, y: 0 }
+          const current = previousPositions[link.id] ?? { x: 0, y: 0 }
+          const x = Math.max(0, Math.min(current.x + (Math.random() - 0.5) * 24, maxX))
+          const y = Math.max(0, Math.min(current.y + (Math.random() - 0.5) * 24, maxY))
 
-          const dx = (Math.random() - 0.5) * 24
-          const dy = (Math.random() - 0.5) * 24
-
-          next[link.id] = {
-            x: clamp(current.x + dx, 0, maxX),
-            y: clamp(current.y + dy, 0, maxY),
-          }
+          nextPositions[link.id] = { x, y }
         }
 
-        return next
+        return nextPositions
       })
     }, 260)
 
-    return () => {
-      window.clearInterval(interval)
-    }
+    return () => window.clearInterval(interval)
   }, [isSmallScreen])
 
   return (
-    <section id="home" className="section-shell flex flex-wrap items-center py-16 md:py-24 scroll-mt-[80px]">
-      <div className="lg:basis-4/5 p-8 md:p-8 md:basis-2/3">
-        <p className="mb-3 text-sm uppercase tracking-[0.24em] text-[var(--text2-col)]">
-          {t('hero.eyebrow')}
-        </p>
-
-        <h1 className="mb-4 text-4xl font-semibold tracking-tight md:text-6xl">
+    <section className="section-shell research-hero scroll-mt-20" aria-labelledby="hero-title">
+      <div className="research-hero__copy">
+        <motion.h1
+          id="hero-title"
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
           {t('hero.title')}
-        </h1>
+        </motion.h1>
 
-        <h2 className="mb-4 text-xl font-semibold tracking-tight md:text-4xl">
+        <motion.p
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.08 }}
+          className="research-hero__role"
+        >
           {t('hero.subtitle')}
-        </h2>
+        </motion.p>
 
-        <p className="max-w-2xl text-base leading-8 text-[var(--text2-col)]">
+        <motion.p
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.16 }}
+          className="research-hero__description"
+        >
           {t('hero.description')}
-        </p>
+        </motion.p>
 
-        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-          <a
-            href="#contact-form"
-            className="button-shadow btn btn-primary border-class flex items-center justify-center rounded-[5px] bg-[#3784d8] px-8 py-3 font-semibold text-white sm:min-w-[180px]"
-          >
-            {t('hero.ctaContact')}
-          </a>
-          <Link
-            to="/projects"
-            className="button-shadow btn btn-secondary border-class flex items-center justify-center rounded-[5px] px-8 py-3 font-semibold text-white sm:min-w-[180px]"
-          >
-            {t('hero.ctaProjects')}
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.24 }}
+          className="research-hero__actions"
+        >
+          <Link to="/research" className="research-button research-button--primary">
+            {t('hero.ctaResearch')}
           </Link>
-        </div>
+          <a href="#selected-work" className="research-button research-button--secondary">
+            {t('hero.ctaProjects')}
+          </a>
+        </motion.div>
       </div>
 
-      <div
+      <motion.div
+        initial={{ opacity: 0, scale: 0.96 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.65, delay: 0.12 }}
         ref={mobileAreaRef}
-        className="lg:basis-1/5 p-8 md:p-2 md:basis-1/3 relative min-h-[260px]"
+        className="research-hero__portrait-stage"
       >
-        <div ref={dragAreaRef} className="relative mx-auto flex items-center justify-center">
+        <div ref={dragAreaRef} className="research-hero__portrait-frame research-hero__portrait-frame--round">
           <img
             src={withBasePath(HERO_IMAGE)}
             alt={t('hero.title')}
             width={heroImageDimensions?.width}
             height={heroImageDimensions?.height}
-            className="h-full w-full rounded-full object-cover"
           />
-
-          {!isSmallScreen &&
-            floatingLinks.map((link) => (
-              <motion.a
-                key={link.id}
-                href={link.href}
-                drag
-                dragConstraints={dragAreaRef}
-                dragElastic={0.08}
-                whileHover={{ scale: 1.06 }}
-                whileTap={{ scale: 0.96 }}
-                className="absolute flex h-12 w-12 items-center justify-center rounded-lg border border-[var(--glass-border)] text-lg font-semibold text-white shadow-lg"
-                style={{
-                  top: link.top,
-                  left: link.left,
-                  backgroundColor: link.color,
-                }}
-              >
-                {link.label}
-              </motion.a>
-            ))}
-        </div>
-
-        {isSmallScreen &&
-          floatingLinks.map((link) => (
+          {!isSmallScreen && floatingLinks.map((link) => (
             <motion.a
               key={link.id}
               href={link.href}
-              animate={{
-                x: positions[link.id]?.x ?? 0,
-                y: positions[link.id]?.y ?? 0,
-              }}
-              transition={{
-                duration: 0.28,
-                ease: 'linear',
-              }}
-              whileHover={{ scale: 1.06 }}
-              whileTap={{ scale: 0.96 }}
-              className="absolute top-0 left-0 flex h-12 w-12 items-center justify-center rounded-lg border border-[var(--glass-border)] text-lg font-semibold text-white shadow-lg"
+              target="_blank"
+              rel="noreferrer"
+              aria-label={link.ariaLabel}
+              drag
+              dragConstraints={dragAreaRef}
+              dragElastic={0.08}
+              whileHover={{ scale: 1.08 }}
+              whileTap={{ scale: 0.94 }}
+              className="research-social-link"
               style={{
+                top: link.top,
+                left: link.left,
                 backgroundColor: link.color,
+                color: link.iconColor,
               }}
             >
               {link.label}
             </motion.a>
           ))}
-      </div>
+        </div>
 
+        {isSmallScreen && floatingLinks.map((link) => (
+          <motion.a
+            key={link.id}
+            href={link.href}
+            target="_blank"
+            rel="noreferrer"
+            aria-label={link.ariaLabel}
+            animate={{
+              x: positions[link.id]?.x ?? 0,
+              y: positions[link.id]?.y ?? 0,
+            }}
+            transition={{ duration: 0.28, ease: 'linear' }}
+            whileHover={{ scale: 1.08 }}
+            whileTap={{ scale: 0.94 }}
+            className="research-social-link research-social-link--mobile"
+            style={{ backgroundColor: link.color, color: link.iconColor }}
+          >
+            {link.label}
+          </motion.a>
+        ))}
+      </motion.div>
     </section>
   )
 }

@@ -6,6 +6,7 @@ const ProjectsPage = lazy(() => import('./pages/ProjectsPage'))
 const BlogPage = lazy(() => import('./pages/BlogPage'))
 const BlogPostPage = lazy(() => import('./pages/BlogPostPage'))
 const SeriesPage = lazy(() => import('./pages/SeriesPage'))
+const ResearchPage = lazy(() => import('./pages/ResearchPage'))
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/blog/:slug" element={<BlogPostPage />} />
         <Route path="/series/:seriesSlug" element={<SeriesPage />} />
         <Route path="/projects" element={<ProjectsPage />} />
+        <Route path="/research" element={<ResearchPage />} />
       </Routes>
     </Suspense>
   )

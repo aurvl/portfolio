@@ -5,36 +5,173 @@
   },
   "nav": {
     "home": "Accueil",
+    "research": "Recherche",
+    "publications": "Publications",
     "about": "À propos",
     "skills": "Compétences",
-    "projects": "Projets",
-    "blog": "Blog",
+    "projects": "Travaux",
+    "blog": "Notes",
     "contact": "Contact"
   },
   "footer": {
     "copyright": "© 2026 Aurel De Vince. Tous droits reservés."
   },
   "hero": {
-    "eyebrow": "Hello !",
+    "eyebrow": "Doctorat · Projet OISE · ESTIA",
     "title": "Je suis Aurel De Vince",
-    "subtitle": "Data Analyst, Data Scientist et analyste économique",
-    "description": "Je conçois des workflows analytiques qui transforment des données complexes en insights clairs, outils concrets et livrables utiles à la décision.",
+    "subtitle": "Doctorant en économie appliquée et économétrie",
+    "description": "J’étudie les transformations des entreprises et des territoires par l’innovation, la durabilité et les dynamiques transfrontalières, à partir de données, d’indicateurs et de méthodes économétriques.",
     "stats": {
       "profile": "Profil économie et data",
       "projects": "{{count}}+ projets réalisés",
       "skills": "{{count}}+ compétences clés"
     },
     "ctaContact": "Me contacter",
-    "ctaProjects": "Voir mes projets"
+    "ctaResearch": "Découvrir la recherche",
+    "ctaProjects": "Explorer les travaux",
+    "caption": "Économie appliquée · innovation · territoires"
   },
   "about": {
     "eyebrow": "À propos de moi",
     "imageAlt": "Portrait d'Aurel De Vince",
-    "description1": "Je suis data scientist et analyste économique, avec une formation en économétrie, en modélisation statistique et en data science. Mon parcours s’est construit entre recherche, analyse rigoureuse et développement de solutions analytiques sur des enjeux économiques et environnementaux.",
-    "description2": "Je suis capable de couvrir l'ensemble de la chaine analytique, de la collecte et du traitement des données jusqu’à la modélisation, la production d’indicateurs, la prévision et la restitution.",
-    "description3": "Ce que j’apporte : de la rigueur, de la clarté, des solutions utiles et des résultats directement exploitables pour la décision.",
+    "description1": "Je suis doctorant en économie appliquée et économétrie. Mon travail relie données, méthodes quantitatives et analyse économique pour rendre les transformations des entreprises et des territoires plus observables et discutables.",
+    "description2": "Mon parcours couvre la chaîne analytique : collecte et structuration des données, modélisation, construction d’indicateurs, visualisation et restitution des limites comme des résultats.",
+    "description3": "Je privilégie une recherche utile à la décision, sans dissocier la rigueur méthodologique du contexte économique auquel elle répond.",
     "contact": "En savoir plus",
     "resume": "Consulter mon CV"
+  },
+  "researchPreview": {
+    "eyebrow": "Programme de recherche",
+    "title": "Observer les transformations économiques, sans perdre leur contexte.",
+    "description": "Mon doctorat s’inscrit dans le projet OISE : la construction d’un observatoire économique transfrontalier consacré à l’innovation, à la durabilité et à la performance des entreprises et du territoire.",
+    "link": "Voir l’orientation de recherche",
+    "axes": {
+      "enterprise": {
+        "title": "Entreprises, innovation et performance",
+        "description": "Comprendre les trajectoires de transformation, les capacités d’innovation et les conditions de performance durable."
+      },
+      "territory": {
+        "title": "Territoires et durabilité",
+        "description": "Lire les interdépendances entre activités économiques, ressources, inégalités et dynamiques transfrontalières."
+      },
+      "measurement": {
+        "title": "Mesure et décision",
+        "description": "Concevoir des indicateurs et des analyses dont les hypothèses, l’incertitude et les limites restent visibles."
+      }
+    }
+  },
+  "approach": {
+    "eyebrow": "Approche",
+    "title": "De la question économique à un résultat réellement exploitable.",
+    "description": "Les outils ne précèdent pas le problème. Chaque travail commence par un mécanisme à comprendre et se termine par une restitution qui rend les conclusions comme les incertitudes lisibles.",
+    "steps": {
+      "question": {
+        "title": "Situer la question",
+        "description": "Définir le phénomène, les acteurs concernés et la décision que l’analyse peut éclairer."
+      },
+      "evidence": {
+        "title": "Construire l’évidence",
+        "description": "Qualifier les données, leur périmètre, leurs angles morts et leurs conditions de comparaison."
+      },
+      "method": {
+        "title": "Choisir une méthode proportionnée",
+        "description": "Employer l’économétrie, la statistique ou la modélisation lorsque leurs hypothèses répondent réellement au problème."
+      },
+      "decision": {
+        "title": "Restituer avec prudence",
+        "description": "Faire apparaître résultats, incertitudes, limites et pistes d’action sans transformer une estimation en certitude."
+      }
+    }
+  },
+  "selectedWork": {
+    "eyebrow": "Travaux sélectionnés",
+    "title": "Études à venir et formats de recherche.",
+    "description": "Trois placeholders de V1 pour les études qui seront publiées au fil du doctorat.",
+    "placeholder": "Placeholder V1",
+    "catalogLink": "Explorer le catalogue existant",
+    "items": {
+      "territorial": {
+        "title": "Trajectoires économiques transfrontalières",
+        "description": "Placeholder pour une étude des flux, complémentarités et écarts entre territoires voisins.",
+        "type": "Étude territoriale"
+      },
+      "innovation": {
+        "title": "Capacités d’innovation des entreprises",
+        "description": "Placeholder pour une étude sur les signaux d’innovation, leur mesure et leurs limites.",
+        "type": "Diagnostic exploratoire"
+      },
+      "sustainability": {
+        "title": "Durabilité et performance",
+        "description": "Placeholder pour une étude qui mettrait en regard des indicateurs économiques, sociaux et environnementaux.",
+        "type": "Analyse appliquée"
+      },
+      "indicator": {
+        "title": "Construire un indicateur lisible",
+        "description": "Placeholder pour un travail sur la conception, l’interprétation et l’incertitude d’un indicateur composite.",
+        "type": "Méthode et mesure"
+      }
+    }
+  },
+  "publications": {
+    "eyebrow": "Publications scientifiques",
+    "title": "Références scientifiques",
+    "referenceLabel": "Publication scientifique",
+    "blueCarbonReference": "Hilmi, N., Vehi, L.A.D.V., Treskova, M. et al. Global assessment shows blue carbon wealth dominated by ocean processes and unevenly distributed across countries. Communications Sustainability 1, 114 (2026).",
+    "blueCarbonUrl": "https://doi.org/10.1038/s44458-026-00117-8"
+  },
+  "researchPage": {
+    "seoTitle": "Recherche en économie appliquée",
+    "seoDescription": "Travaux de recherche d’Aurel De Vince sur l’innovation, la durabilité et les dynamiques territoriales transfrontalières.",
+    "eyebrow": "Recherche",
+    "title": "Économie appliquée, indicateurs et dynamiques territoriales.",
+    "description": "Dans le cadre du projet OISE à l’ESTIA, mon doctorat porte sur les conditions de construction d’un observatoire économique transfrontalier, utile à la compréhension des entreprises, du territoire et de leurs transformations.",
+    "notice": "Cette page présente une orientation de recherche. Les résultats, données, partenaires et livrables en cours ne sont publiés qu’une fois vérifiables et communicables.",
+    "agenda": {
+      "eyebrow": "Agenda",
+      "title": "Trois fonctions pour l’observatoire",
+      "items": {
+        "observe": {
+          "title": "Observer",
+          "description": "Structurer des données et des indicateurs pour suivre les évolutions économiques, environnementales et territoriales."
+        },
+        "understand": {
+          "title": "Comprendre",
+          "description": "Étudier les mécanismes qui relient innovation, durabilité, performance et contexte territorial."
+        },
+        "support": {
+          "title": "Éclairer",
+          "description": "Produire des sorties interprétables pour nourrir le dialogue entre entreprises, institutions et recherche."
+        }
+      }
+    },
+    "principles": {
+      "eyebrow": "Principes",
+      "title": "Une recherche conçue pour rester discutable.",
+      "items": {
+        "transparent": {
+          "title": "Transparente",
+          "description": "Les hypothèses, les sources et les choix de mesure font partie du résultat."
+        },
+        "contextual": {
+          "title": "Contextualisée",
+          "description": "Un indicateur ne prend sens qu’au regard du territoire, des acteurs et de l’échelle à laquelle il est lu."
+        },
+        "useful": {
+          "title": "Utile",
+          "description": "L’objectif n’est pas de produire un score opaque, mais d’ouvrir une compréhension et une décision mieux informées."
+        }
+      }
+    },
+    "publications": {
+      "eyebrow": "Publications",
+      "title": "Références scientifiques",
+      "blueCarbonReference": "Hilmi, N., Vehi, L.A.D.V., Treskova, M. et al. Global assessment shows blue carbon wealth dominated by ocean processes and unevenly distributed across countries. Communications Sustainability 1, 114 (2026). https://doi.org/10.1038/s44458-026-00117-8"
+    },
+    "cta": {
+      "description": "Les travaux publiés et les notes rendent compte de cette trajectoire au fil de son développement.",
+      "work": "Explorer les travaux",
+      "notes": "Lire les notes"
+    }
   },
   "skills": {
     "eyebrow": "Compétences",
@@ -102,14 +239,14 @@
       "powerbi": "Dashboards, reporting, workflows de business intelligence",
       "tableau": "Visualisation de données, dashboards, data storytelling",
       "office": "Productivite, documentation et workflows de reporting",
-      "excel": "Analyse sur tableur, formules, reporting, dashboards",
+      "vba": "Automatisation Excel, macros VBA, workflows de reporting",
       "googlecloud": "Services cloud, deploiement et outillage autour de la data"
     }
   },
   "projects": {
     "eyebrow": "Portfolio",
-    "title": "Projets récents",
-    "viewAll": "Voir tous les projets",
+    "title": "Travaux sélectionnés",
+    "viewAll": "Explorer tous les travaux",
     "fallbackDomain": "Projet",
     "technicalLevel": "Niveau technique",
     "readMore": "Voir plus",
