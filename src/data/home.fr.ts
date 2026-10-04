@@ -1,4 +1,4 @@
-import { DOI_BLUE_CARBON, type HomeContent } from './home'
+import { DOI_BLUE_CARBON, getPublications, selectedWork, type HomeContent, type WorkItem } from './home'
 
 // French homepage content, same shape as homeEn in home.ts.
 export const homeFr: HomeContent = {
@@ -143,19 +143,7 @@ export const homeFr: HomeContent = {
     intro: 'Les travaux évalués par les pairs que j’ai co-écrits.',
     readArticle: 'Lire l’article (DOI)',
     allPublications: 'Toutes les publications',
-    items: [
-      {
-        kind: 'Article évalué par les pairs',
-        status: 'Publié · 2026',
-        title: 'Global assessment shows blue carbon wealth dominated by ocean processes and unevenly distributed across countries',
-        authorsBefore: 'Hilmi, N., ',
-        me: 'Vehi, L.A.D.V.',
-        authorsAfter: ', Treskova, M. et al.',
-        journal: 'Communications Sustainability',
-        reference: '1, 114 (2026)',
-        url: DOI_BLUE_CARBON,
-      },
-    ],
+    items: getPublications('fr'),
   },
 
   work: {
@@ -166,40 +154,8 @@ export const homeFr: HomeContent = {
     relatedLabel: 'Études liées',
     browseAll: 'Voir les {count} projets',
     sketchLabels: ['Scores de fraude des sinistres', 'seuil de contrôle'],
-    items: [
-      {
-        slug: 'insurance-claim-fraud-counterfactual-simulator',
-        state: 'done',
-        title: 'Fraude à l’assurance & aide à la décision contrefactuelle',
-        summary: 'Un workflow de bout en bout qui consolide des dossiers de sinistre hétérogènes, score le risque de fraude et explique chaque décision par des scénarios contrefactuels.',
-        tools: 'PostgreSQL · XGBoost · FastAPI',
-        details: [
-          { label: 'Problème', value: 'Les dossiers arrivent en JSON, PDF et images, dispersés entre plusieurs systèmes.' },
-          { label: 'Conséquence', value: 'Les équipes fraude examinent à la main et peinent à justifier leurs décisions.' },
-          { label: 'Solution', value: 'Une base PostgreSQL, un score de fraude calibré et des explications contrefactuelles.' },
-          { label: 'Résultat', value: 'Un outil d’aide à la décision pour les équipes sinistres et fraude' },
-        ],
-      },
-      {
-        slug: 'bayesian-linear-regression-econometrics',
-        state: 'done',
-        title: 'Économétrie bayésienne, implémentée de zéro',
-        summary: 'MCO, Ridge, régression bayésienne et Bayes empirique implémentés à la main sur des données économiques, pour rendre visibles le shrinkage et l’incertitude des paramètres.',
-        tools: 'NumPy · SciPy',
-      },
-      {
-        slug: 'technological-employment-gender-inequalities',
-        state: 'done',
-        title: 'Emploi technologique & inégalités de genre',
-        summary: 'Étude d’économétrie spatiale sur la façon dont l’emploi technologique et les qualifications STEM influencent le chômage féminin dans les régions européennes, localement et entre voisines.',
-        tools: 'Données spatiales · Économétrie',
-      },
-    ],
-    related: [
-      { slug: 'environmental-attention-index-pta', title: 'Indice d’attention environnementale', detail: 'Indicateur composite · accords commerciaux' },
-      { slug: 'belgian-trade-time-series', title: 'Commerce belge, 1995–2023', detail: 'Séries temporelles · prévision à 10 trimestres' },
-      { slug: 'phillips-curve-europe-policy', title: 'Courbe de Phillips en Europe', detail: 'Économétrie · analyse de politique' },
-    ],
+    items: selectedWork.fr.items as WorkItem[],
+    related: selectedWork.fr.related,
   },
 
   nowBuilding: { title: 'En construction', updatedPrefix: 'Mis à jour en' },

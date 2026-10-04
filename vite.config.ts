@@ -5,7 +5,7 @@ import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
 const DEFAULT_PRODUCTION_BASE = '/portfolio/'
-const NOW_BUILDING_FILE = 'src/data/nowBuilding.ts'
+const NOW_BUILDING_FILE = 'src/data/now-building.json'
 
 // Date shown as "Updated <month year>" in the homepage "Now building" section:
 // the last commit touching the file, or its modification time while it has local edits.

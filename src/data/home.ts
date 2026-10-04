@@ -1,4 +1,21 @@
 // Homepage V2 content. English lives here, French in home.fr.ts (same shape).
+// Selected work, publications and "now building" live in JSON files so the
+// Portfolio Manager can edit them: selected-work.json, publications.json, now-building.json.
+import publicationsData from './publications.json'
+import selectedWorkData from './selected-work.json'
+import type { AppLanguage } from '../types/i18n'
+
+export const selectedWork = selectedWorkData
+
+type PublicationEntry = (typeof publicationsData)[number]
+
+export function getPublications(lang: AppLanguage) {
+  return (publicationsData as PublicationEntry[]).map(({ kind, status, ...entry }) => ({
+    ...entry,
+    kind: kind[lang],
+    status: status[lang],
+  }))
+}
 // Positioning and claims come from new_vision/; keep them defensible before publishing.
 
 export const DOI_BLUE_CARBON = 'https://doi.org/10.1038/s44458-026-00117-8'
@@ -327,19 +344,7 @@ export const homeEn: HomeContent = {
     intro: 'Peer-reviewed research I have co-authored.',
     readArticle: 'Read the article (DOI)',
     allPublications: 'All publications',
-    items: [
-      {
-        kind: 'Peer-reviewed article',
-        status: 'Published · 2026',
-        title: 'Global assessment shows blue carbon wealth dominated by ocean processes and unevenly distributed across countries',
-        authorsBefore: 'Hilmi, N., ',
-        me: 'Vehi, L.A.D.V.',
-        authorsAfter: ', Treskova, M. et al.',
-        journal: 'Communications Sustainability',
-        reference: '1, 114 (2026)',
-        url: DOI_BLUE_CARBON,
-      },
-    ],
+    items: getPublications('en'),
   },
 
   work: {
@@ -350,40 +355,8 @@ export const homeEn: HomeContent = {
     relatedLabel: 'Related studies',
     browseAll: 'Browse all {count} projects',
     sketchLabels: ['Claim fraud scores', 'review threshold'],
-    items: [
-      {
-        slug: 'insurance-claim-fraud-counterfactual-simulator',
-        state: 'done',
-        title: 'Insurance Fraud & Counterfactual Decision Support',
-        summary: 'An end-to-end workflow that consolidates heterogeneous claim files, scores fraud risk and explains each decision with counterfactual scenarios.',
-        tools: 'PostgreSQL · XGBoost · FastAPI',
-        details: [
-          { label: 'Problem', value: 'Claim files arrive as CRM JSON, PDFs and images, scattered across systems.' },
-          { label: 'Consequence', value: 'Fraud teams review suspicious claims by hand and struggle to justify decisions.' },
-          { label: 'Solution', value: 'One PostgreSQL base, a tuned fraud score and counterfactual explanations.' },
-          { label: 'Output', value: 'A decision-support tool for claims and fraud teams' },
-        ],
-      },
-      {
-        slug: 'bayesian-linear-regression-econometrics',
-        state: 'done',
-        title: 'Bayesian Econometrics, from scratch',
-        summary: 'OLS, Ridge, Bayesian regression and Empirical Bayes implemented from first principles on economic data, to make shrinkage and parameter uncertainty visible.',
-        tools: 'NumPy · SciPy',
-      },
-      {
-        slug: 'technological-employment-gender-inequalities',
-        state: 'done',
-        title: 'Technology jobs & gender inequality',
-        summary: 'Spatial econometrics study of how technology employment and STEM qualifications shape female unemployment across European regions, locally and between neighbours.',
-        tools: 'Spatial data · Econometrics',
-      },
-    ],
-    related: [
-      { slug: 'environmental-attention-index-pta', title: 'Environmental Attention Index', detail: 'Composite indicator · trade agreements' },
-      { slug: 'belgian-trade-time-series', title: 'Belgian trade, 1995–2023', detail: 'Time series · 10-quarter forecast' },
-      { slug: 'phillips-curve-europe-policy', title: 'Phillips curve in Europe', detail: 'Econometrics · policy analysis' },
-    ],
+    items: selectedWork.en.items as WorkItem[],
+    related: selectedWork.en.related,
   },
 
   nowBuilding: { title: 'Now building', updatedPrefix: 'Updated' },

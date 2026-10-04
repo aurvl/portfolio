@@ -1,0 +1,26 @@
+{
+  "en": [
+    {
+      "state": "progress",
+      "title": "FMarketMonitor",
+      "detail": "The monitoring layer of an economic intelligence system on U.S. markets."
+    },
+    {
+      "state": "prep",
+      "title": "AI adoption in European firms",
+      "detail": "Applied study on Eurostat ICT data: who adopts AI, and why gaps persist."
+    }
+  ],
+  "fr": [
+    {
+      "state": "progress",
+      "title": "FMarketMonitor",
+      "detail": "La couche de suivi d’un système d’intelligence économique sur les marchés américains."
+    },
+    {
+      "state": "prep",
+      "title": "Adoption de l’IA dans les entreprises européennes",
+      "detail": "Étude appliquée sur les données Eurostat TIC : qui adopte l’IA, et pourquoi les écarts persistent."
+    }
+  ]
+}
