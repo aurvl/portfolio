@@ -66,6 +66,27 @@ context = [
     and in_frame(f["geometry"])
 ]
 
+# France-Spain border: the edges French and Spanish regions share (identical vertices in GISCO data).
+def country_rings(code):
+    return [ring for f in level2 if f["properties"]["CNTR_CODE"] == code for ring in rings(f["geometry"])]
+
+
+french_points = {tuple(p) for ring in country_rings("FR") for p in ring}
+border_lines = []
+for ring in country_rings("ES"):
+    line = []
+    for point in ring:
+        if tuple(point) in french_points:
+            line.append(project(*point))
+        elif len(line) > 1:
+            border_lines.append(line)
+            line = []
+        else:
+            line = []
+    if len(line) > 1:
+        border_lines.append(line)
+border = "".join("M" + "L".join(f"{x} {y}" for x, y in line) for line in border_lines)
+
 # Label anchors (lon, lat), placed by hand inside each region.
 LABELS = {"FRI": (0.55, 45.45), "ES21": (-2.75, 43.0), "ES22": (-1.6, 42.62), "border": (0.75, 42.55)}
 
@@ -75,6 +96,7 @@ OUT.write_text(json.dumps({
     "height": HEIGHT,
     "regions": regions,
     "context": context,
+    "border": border,
     "source": "Eurostat GISCO, NUTS 2024 · © EuroGeographics for the administrative boundaries",
 }), encoding="utf-8")
 print(f"Wrote {OUT.name}: {WIDTH}x{HEIGHT}, {len(regions)} regions, {len(context)} context areas")

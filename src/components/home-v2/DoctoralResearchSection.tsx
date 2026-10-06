@@ -11,11 +11,12 @@ const REGIONS = [
 
 function EuroregionMap() {
   const { doctoralResearch } = useHomeContent().content
-  const { width, height, regions, context, labels } = euroregionMap as unknown as {
+  const { width, height, regions, context, border, labels } = euroregionMap as unknown as {
     width: number
     height: number
     regions: Record<string, string>
     context: string[]
+    border: string
     labels: Record<string, [number, number]>
   }
 
@@ -34,6 +35,7 @@ function EuroregionMap() {
           {REGIONS.map((region) => (
             <path key={region.id} d={regions[region.id]} fill={region.tone} fillOpacity={region.opacity} stroke={region.tone} strokeWidth="1.2" strokeLinejoin="round" />
           ))}
+          <path d={border} className="hv-map__border" />
         </g>
         <g className="hv-map-label">
           {REGIONS.map((region) => (
@@ -42,7 +44,7 @@ function EuroregionMap() {
             </text>
           ))}
         </g>
-        <text x={labels.border[0]} y={labels.border[1]} textAnchor="middle" className="hv-graph-mono">
+        <text x={labels.border[0]} y={labels.border[1]} textAnchor="middle" className="hv-graph-mono hv-map__border-label">
           {doctoralResearch.borderLabel}
         </text>
       </svg>

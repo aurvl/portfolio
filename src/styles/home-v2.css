@@ -496,7 +496,19 @@
   margin-top: 6px;
   font-size: 10.5px;
   color: var(--hv-faint);
-  text-align: right;
+  text-align: center;
+}
+
+.home-v2 .hv-map__border {
+  fill: none;
+  stroke: #d63a3a;
+  stroke-width: 1.6;
+  stroke-dasharray: 7 3 1.5 3;
+  stroke-linecap: round;
+}
+
+.home-v2 .hv-map__border-label {
+  fill: #d63a3a;
 }
 
 /* --- Stack marquee --- */
