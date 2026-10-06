@@ -474,6 +474,31 @@
   fill: var(--hv-ink);
 }
 
+/* Euroregion map (real NUTS boundaries) */
+.home-v2 .hv-map {
+  margin: 0;
+}
+
+.home-v2 .hv-research__visual .hv-map svg {
+  max-height: 420px;
+  margin-inline: auto;
+}
+
+.home-v2 .hv-map__context {
+  fill: var(--hv-ink);
+  fill-opacity: 0.035;
+  stroke: var(--hv-ink);
+  stroke-opacity: 0.14;
+  stroke-width: 0.8;
+}
+
+.home-v2 .hv-map__source {
+  margin-top: 6px;
+  font-size: 10.5px;
+  color: var(--hv-faint);
+  text-align: right;
+}
+
 /* --- Stack marquee --- */
 .home-v2 .hv-stack {
   padding: 40px 0 44px;

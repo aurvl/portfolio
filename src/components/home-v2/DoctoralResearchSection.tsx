@@ -1,22 +1,53 @@
 import { useHomeContent } from '../../hooks/useHomeContent'
 import Reveal from './Reveal'
+import euroregionMap from '../../data/euroregion-map.json'
+
+// Real boundaries: Eurostat GISCO NUTS 2024 (regenerate with scripts/build_euroregion_map.py).
+const REGIONS = [
+  { id: 'FRI', name: 'Nouvelle-Aquitaine', tone: 'var(--hv-t1)', opacity: 0.16 },
+  { id: 'ES21', name: 'Euskadi', tone: 'var(--hv-t2)', opacity: 0.24 },
+  { id: 'ES22', name: 'Navarre', tone: 'var(--hv-t2)', opacity: 0.4 },
+] as const
 
 function EuroregionMap() {
   const { doctoralResearch } = useHomeContent().content
+  const { width, height, regions, context, labels } = euroregionMap as unknown as {
+    width: number
+    height: number
+    regions: Record<string, string>
+    context: string[]
+    labels: Record<string, [number, number]>
+  }
 
   return (
-    <svg viewBox="0 0 420 250" role="img" aria-label={doctoralResearch.mapLabel}>
-      <path d="M60 30 C 160 10, 300 20, 360 60 C 390 90, 380 130, 330 150 C 260 160, 200 150, 150 160 C 110 168, 70 140, 55 110 C 45 80, 40 45, 60 30Z" fill="var(--hv-t1)" fillOpacity=".16" stroke="var(--hv-t1)" strokeWidth="1.5" />
-      <path d="M55 165 C 90 160, 130 170, 160 180 C 170 200, 150 228, 110 232 C 75 234, 45 215, 40 192 C 38 178, 44 168, 55 165Z" fill="var(--hv-t2)" fillOpacity=".2" stroke="var(--hv-t2)" strokeWidth="1.5" />
-      <path d="M165 178 C 200 166, 250 168, 280 182 C 295 205, 270 236, 225 240 C 190 242, 165 225, 160 205 C 158 192, 160 184, 165 178Z" fill="var(--hv-t3)" fillOpacity=".35" stroke="var(--hv-t2)" strokeWidth="1.5" />
-      <path d="M40 162 C 120 158, 220 160, 300 172" fill="none" stroke="var(--hv-ink)" strokeOpacity=".35" strokeDasharray="5 5" />
-      <g className="hv-map-label">
-        <text x="170" y="90">Nouvelle-Aquitaine</text>
-        <text x="62" y="204">Euskadi</text>
-        <text x="196" y="212">Navarre</text>
-      </g>
-      <text x="306" y="168" className="hv-graph-mono">{doctoralResearch.borderLabel}</text>
-    </svg>
+    <figure className="hv-map">
+      <svg viewBox={`0 0 ${width} ${height}`} role="img" aria-label={doctoralResearch.mapLabel}>
+        <defs>
+          <clipPath id="hv-map-frame">
+            <rect width={width} height={height} />
+          </clipPath>
+        </defs>
+        <g clipPath="url(#hv-map-frame)">
+          {context.map((d, index) => (
+            <path key={index} d={d} className="hv-map__context" />
+          ))}
+          {REGIONS.map((region) => (
+            <path key={region.id} d={regions[region.id]} fill={region.tone} fillOpacity={region.opacity} stroke={region.tone} strokeWidth="1.2" strokeLinejoin="round" />
+          ))}
+        </g>
+        <g className="hv-map-label">
+          {REGIONS.map((region) => (
+            <text key={region.id} x={labels[region.id][0]} y={labels[region.id][1]} textAnchor="middle">
+              {region.name}
+            </text>
+          ))}
+        </g>
+        <text x={labels.border[0]} y={labels.border[1]} textAnchor="middle" className="hv-graph-mono">
+          {doctoralResearch.borderLabel}
+        </text>
+      </svg>
+      <figcaption className="hv-map__source">Eurostat GISCO, NUTS 2024 · © EuroGeographics</figcaption>
+    </figure>
   )
 }
 

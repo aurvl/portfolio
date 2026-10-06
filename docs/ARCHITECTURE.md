@@ -53,6 +53,8 @@ can edit them without touching TypeScript.
 - `vite.config.ts` defines `__NOW_BUILDING_UPDATED_AT__`: the date of the last commit touching
   `now-building.json`, or the file's modification time while it has local edits. CI checks out the full
   history (`fetch-depth: 0`) for this.
+- `scripts/build_euroregion_map.py` (run by hand) rebuilds `src/data/euroregion-map.json`, the Doctoral research
+  map, from Eurostat GISCO NUTS 2024 boundaries.
 - Base path: `/portfolio/` in production, `/` in dev, overridable with `VITE_PUBLIC_BASE_PATH`.
 
 ## Runtime
