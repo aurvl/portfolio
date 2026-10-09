@@ -7,7 +7,7 @@ export type LastBlogPostsProps = {
 
 const LastBlogPosts = ({ posts }: LastBlogPostsProps) => {
   return (
-    <div className="px-8 pb-16 md:px-7">
+    <div className="last-blog-posts px-8 pb-16 md:px-7">
       <PostGrid posts={posts} />
     </div>
   )

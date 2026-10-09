@@ -12,13 +12,13 @@ type FieldProps = {
 
 function FilterField({ title, options, value, onChange }: FieldProps) {
   return (
-    <div className="flex min-w-0 w-full max-w-full flex-col gap-2 sm:w-auto">
-      <p className="text-[var(--text2-col)]">{title}</p>
+    <div className="filter-field flex min-w-0 w-full max-w-full flex-col gap-2 sm:w-auto">
+      <p className="field-label text-[var(--text2-col)]">{title}</p>
       <select
         value={value}
         onChange={(event) => onChange(event.target.value)}
         className="
-        w-full max-w-full rounded-lg border border-[var(--statboxborder-col)] bg-[var(--fields-bg-col)]
+        filter-field__select w-full max-w-full rounded-lg border border-[var(--statboxborder-col)] bg-[var(--fields-bg-col)]
         transition
         focus:ring-2 focus:ring-[var(--accent-lgtblue)]
         focus:border-[var(--accent-lgtblue)]

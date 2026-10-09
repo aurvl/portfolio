@@ -22,7 +22,7 @@ function BlogSeriesCard({ title, link, imgs, summary, contentNumb }: BlogSeriesC
   return (
     <Link
       to={link}
-      className="flex h-full min-w-0 flex-col overflow-hidden rounded-xl bdc border-2 bg-[var(--series-bg)] group transition-colors duration-300 hover:border-[var(--keyw-col-window)] hover:bg-[var(--series-bg)]"
+      className="series-card flex h-full min-w-0 flex-col overflow-hidden rounded-xl bdc border-2 bg-[var(--series-bg)] group transition-colors duration-300 hover:border-[var(--keyw-col-window)] hover:bg-[var(--series-bg)]"
     >
       <div className="overflow-hidden">
         <img
@@ -38,20 +38,20 @@ function BlogSeriesCard({ title, link, imgs, summary, contentNumb }: BlogSeriesC
         />
       </div>
 
-      <div className="flex flex-1 flex-col border-t-2 border-[var(--glass-border)] p-5 transition-all duration-300">
-        <h3 className="mb-2 text-2xl font-semibold tracking-tight transition-colors duration-300 group-hover:text-[var(--text-col)]">
+      <div className="series-card__body flex flex-1 flex-col border-t-2 border-[var(--glass-border)] p-5 transition-all duration-300">
+        <h3 className="series-card__title mb-2 text-2xl font-semibold tracking-tight transition-colors duration-300 group-hover:text-[var(--text-col)]">
           {title}
         </h3>
 
-        <p className="mb-2 flex-1 transition-colors duration-300 group-hover:text-[var(--text-col)]">
+        <p className="series-card__summary mb-2 flex-1 transition-colors duration-300 group-hover:text-[var(--text-col)]">
           {summary}
         </p>
 
         <div className="flex items-center justify-between gap-3">
-          <p className="text-[var(--accent-lgtpurple)]">
+          <p className="series-card__more text-[var(--accent-lgtpurple)]">
             {t('blog.series.readMore')} <GoLinkExternal className="ml-1 inline" />
           </p>
-          <p className="text-[var(--text2-col)]">
+          <p className="series-card__count text-[var(--text2-col)]">
             {t('blog.series.postCount', { count: contentNumb })}
           </p>
         </div>

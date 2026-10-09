@@ -10,7 +10,7 @@ type PostContentProps = {
 
 function PostContent({ content, postSlug }: PostContentProps) {
   return (
-    <article className="min-w-0 rounded-lg bg-[var(--glass-bg)]/5 p-6 backdrop-blur-xl md:p-8">
+    <article className="blog-post-content min-w-0 rounded-lg bg-[var(--glass-bg)]/5 p-6 backdrop-blur-xl md:p-8">
       <MdContentRenderer content={content} widgets={blogWidgetRegistry} />
       <BlogPostResources postSlug={postSlug} />
     </article>

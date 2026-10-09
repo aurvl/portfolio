@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next'
+import { openConsentBanner } from '../../lib/consent'
 
 function Footer() {
   const { t } = useTranslation()
@@ -26,12 +27,12 @@ function Footer() {
             LinkedIn
           </a>
           <a
-            href="https://discord.gg/7CgCeVsv"
+            href="https://www.threads.com/@aur_rel_"
             target="_blank"
             rel="noreferrer"
             className="transition hover:text-[var(--text-col)]"
           >
-            Discord
+            Threads
           </a>
           <a
             href="mailto:aurelvehi@outlook.fr"
@@ -39,6 +40,13 @@ function Footer() {
           >
             Email
           </a>
+          <button
+            type="button"
+            onClick={openConsentBanner}
+            className="transition hover:text-[var(--text-col)]"
+          >
+            {t('consent.settings')}
+          </button>
         </div>
       </div>
     </footer>

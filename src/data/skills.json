@@ -537,7 +537,7 @@
             },
             "description": {
               "en": "Containers, reproducible environments, and deployment packaging.",
-              "fr": "Conteneurs, environnements reproductibles et packaging de d\u00e9ploiement."
+              "fr": "Conteneurs, environnements reproductibles et packaging de déploiement."
             }
           },
           "tags": [
@@ -636,32 +636,55 @@
         },
         {
           "id": "SK022",
-          "slug": "excel",
+          "slug": "vba",
           "icon": {
             "src": "https://upload.wikimedia.org/wikipedia/commons/e/e3/Microsoft_Office_Excel_%282019%E2%80%932025%29.svg",
             "alt": {
-              "en": "Excel logo",
-              "fr": "Logo Excel"
+              "en": "VBA logo",
+              "fr": "Logo VBA"
             }
           },
           "content": {
             "label": {
-              "en": "Excel",
-              "fr": "Excel"
+              "en": "VBA",
+              "fr": "VBA"
             },
             "description": {
-              "en": "Spreadsheet analysis, formulas, and reporting support.",
-              "fr": "Analyse sur tableur, formules et support au reporting."
+              "en": "Excel automation with VBA macros and reporting workflows.",
+              "fr": "Automatisation d'Excel avec des macros VBA et des workflows de reporting."
             }
           },
           "tags": [
-            "spreadsheet",
+            "automation",
             "reporting"
+          ]
+        },
+        {
+          "id": "SK026",
+          "slug": "latex",
+          "icon": {
+            "src": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/latex/latex-original.svg",
+            "alt": {
+              "en": "LaTeX logo",
+              "fr": "Logo LaTeX"
+            }
+          },
+          "content": {
+            "label": {
+              "en": "LaTeX",
+              "fr": "LaTeX"
+            },
+            "description": {
+              "en": "Scientific writing: papers, reports, equations and reproducible documents.",
+              "fr": "Rédaction scientifique : articles, rapports, équations et documents reproductibles."
+            }
+          },
+          "tags": [
+            "writing",
+            "research"
           ]
         }
       ]
     }
   ]
 }
-
-

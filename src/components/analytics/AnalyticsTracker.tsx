@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
+import { useAnalyticsConsent } from '../../lib/consent'
 import { getClarityProjectId, getGoogleAnalyticsMeasurementId } from '../../lib/site'
 
 declare global {
@@ -16,8 +17,12 @@ type ClarityFunction = ((...args: unknown[]) => void) & { q?: unknown[][] }
 
 function AnalyticsTracker() {
   const location = useLocation()
-  const measurementId = getGoogleAnalyticsMeasurementId().trim()
-  const clarityProjectId = getClarityProjectId().trim()
+  // Nothing is loaded or tracked until the visitor accepts the cookie banner, and never on a
+  // local preview (dev server, local builds) so tests do not pollute the statistics.
+  const isLiveSite = import.meta.env.PROD && !['localhost', '127.0.0.1'].includes(window.location.hostname)
+  const hasConsent = useAnalyticsConsent() === 'granted' && isLiveSite
+  const measurementId = hasConsent ? getGoogleAnalyticsMeasurementId().trim() : ''
+  const clarityProjectId = hasConsent ? getClarityProjectId().trim() : ''
 
   useEffect(() => {
     if (!measurementId) {
@@ -59,6 +64,10 @@ function AnalyticsTracker() {
       }) as ClarityFunction)
 
     clarityWindow.clarity = clarity
+
+    // This effect only runs after the visitor accepted the banner. Since Oct 2025 Clarity needs an
+    // explicit signal for EEA/UK/CH visitors, otherwise each page view counts as a separate visitor.
+    clarity('consentv2', { ad_Storage: 'denied', analytics_Storage: 'granted' })
 
     if (!document.getElementById(CLARITY_SCRIPT_ID)) {
       const script = document.createElement('script')

@@ -3,120 +3,16 @@
     "language": "Language",
     "themeToggle": "Toggle theme"
   },
-  "nav": {
-    "home": "Home",
-    "about": "About",
-    "skills": "Skills",
-    "projects": "Projects",
-    "blog": "Blog",
-    "contact": "Contact"
-  },
   "footer": {
-    "copyright": "© 2026 Aurel De Vince. All rights reserved."
-  },
-  "hero": {
-    "eyebrow": "Hello!",
-    "title": "I'm Aurel De Vince",
-    "subtitle": "Data Analyst, Data Scientist, and Economic Analyst",
-    "description": "I design analytical workflows that turn complex datasets into clear insights, practical tools, and decision-ready outputs.",
-    "stats": {
-      "profile": "Economics and data profile",
-      "projects": "{{count}}+ completed projects",
-      "skills": "{{count}}+ core skills"
-    },
-    "ctaContact": "Contact me",
-    "ctaProjects": "View my projects"
-  },
-  "about": {
-    "eyebrow": "About me",
-    "imageAlt": "Portrait of Aurel De Vince",
-    "description1": "I am a data scientist and economic analyst with training in econometrics, statistical modeling, and data science. My background has been built through research, rigorous analysis, and the development of analytical solutions for economic and environmental issues.",
-    "description2": "I am able to cover the full analytical chain, from data collection and processing to modeling, indicator production, forecasting, and reporting.",
-    "description3": "What I bring: rigor, clarity, useful solutions, and results that are directly actionable for decision-making.",    
-    "contact": "Reach out",
-    "resume": "View my resume"
-  },
-  "skills": {
-    "eyebrow": "Skills",
-    "title": "Skills, expertise, and technologies",
-    "description": "My background combines advanced quantitative methods, hands-on project experience, and certifications that validate my command of the tools I use.",
-    "tabs": {
-      "experience": "Experience",
-      "certifications": "Certifications",
-      "dataTools": "Data, ML, and databases",
-      "webTools": "Web, BI, and tools"
-    },
-    "experience": {
-      "ecos": {
-        "title": "Data Research Analyst",
-        "period": "Mar 2025 - Oct 2025",
-        "contractType": "Internship",
-        "location": "Nice, France - Monaco"
-      },
-      "csm": {
-        "title": "Project Officer and Econometrician",
-        "period": "Oct 2024 - Dec 2024",
-        "contractType": "Contract",
-        "location": "Monaco"
-      },
-      "fsTutor": {
-        "title": "Private Math Tutor",
-        "period": "Mar 2023 - Jun 2024",
-        "contractType": "Contract",
-        "location": "Nice, France"
-      },
-      "fsFinance": {
-        "title": "Finance and Data Analyst",
-        "period": "Jul 2023 - Sep 2023",
-        "contractType": "Internship",
-        "location": "Nice, France"
-      }
-    },
-    "certifications": {
-      "credentialId": "Credential ID: {{id}}",
-      "verificationCode": "Verification code: {{code}}",
-      "issued": "Issued: {{date}}",
-      "issuedExpires": "Issued: {{issued}} • Expires: {{expires}}",
-      "introStatsR": "Introduction to Statistics with R",
-      "pix": "Pix Certificate"
-    },
-    "tools": {
-      "python": "Data cleaning, EDA, data analysis, machine learning, deep learning",
-      "r": "Statistics, econometrics, data analysis, visualization",
-      "stata": "Applied econometrics, statistical analysis, academic workflows",
-      "julia": "Scientific computing, numerical methods, data workflows",
-      "mysql": "SQL queries, relational databases, data extraction",
-      "postgresql": "Database design, querying, analytics-ready data models",
-      "mongodb": "Document databases, flexible storage, NoSQL workflows",
-      "pandas": "Data wrangling, transformation, tabular analysis",
-      "scikitlearn": "Classical machine learning, preprocessing, evaluation",
-      "tensorflow": "Deep learning, neural networks, model prototyping",
-      "pytorch": "Deep learning experiments, research-oriented modeling",
-      "fastapi": "API development, model serving, backend endpoints",
-      "git": "Version control, collaboration, project history",
-      "vscode": "Code editing, debugging, project workflow management",
-      "html": "Semantic page structure and web content layout",
-      "javascript": "Frontend interactivity, UI logic, dynamic behavior",
-      "react": "Component-based UI development, state management, performance optimization",
-      "streamlit": "Interactive data apps and fast analytical interfaces",
-      "powerbi": "Dashboards, reporting, business intelligence workflows",
-      "tableau": "Data visualization, dashboards, storytelling",
-      "office": "Productivity, documentation, and reporting workflows",
-      "excel": "Spreadsheet analysis, formulas, reporting, dashboards",
-      "googlecloud": "Cloud services, deployment, and data-related tooling"
-    }
+    "copyright": "© 2026 Aurel Vehi. All rights reserved."
   },
   "projects": {
-    "eyebrow": "Portfolio",
-    "title": "Featured projects",
-    "viewAll": "View all projects",
     "fallbackDomain": "Project",
     "technicalLevel": "Technical level",
     "readMore": "Read more",
     "window": {
       "close": "Close project window",
       "emptySection": "No detailed content is available for this section yet.",
-      "noLinks": "No public links are available for this project.",
       "locked": {
         "title": "Locked content",
         "description": "This project is intentionally not exposed through a public link yet. Leave your email below to receive access details or the next available material directly.",
@@ -142,51 +38,20 @@
       }
     },
     "catalog": {
-      "summary": {
-        "title": "A portfolio,  concrete work, line by line.",
-        "description": "Filter, Browse, Discover!",
-        "activity": {
-          "githubTitle": "GitHub activity in {{year}}",
-          "githubSubtitle": "Based on my public GitHub contributions",
-          "projectsTitle": "Project activity over the last 12 months",
-          "projectsSubtitle": "Based on my portfolio projects",
-          "loading": "Loading GitHub activity..."
-        },
-        "metrics": {
-          "projects_one": "{{count}} realized project",
-          "projects_other": "{{count}} realized projects",
-          "tools_one": "{{count}} tool used",
-          "tools_other": "{{count}} tools used",
-          "averageTechnicalLevel": "{{count}} / 3 avg. tech. level ",
-          "lastThreeMonths_one": "{{count}} project in the last 3 months",
-          "lastThreeMonths_other": "{{count}} projects in the last 3 months",
-          "projectsLabel": "realized projects",
-          "toolsLabel": "tools used",
-          "averageTechnicalLevelLabel": "avg. tech. level",
-          "lastThreeMonthsLabel": "in the last 3 months"
-        }
-      },
       "filters": {
         "search": "Search",
         "searchPlaceholder": "Title, keywords...",
         "domain": "Domain",
         "tag": "Tag",
-        "tools": "Tools",
-        "technicalLevel": "Tech.",
         "sortBy": "Sort by",
         "year": "Year",
         "allDomains": "All",
         "allTags": "All",
-        "allTools": "All",
-        "allTechnicalLevels": "All",
         "allYears": "All",
-        "technicalLevelOption": "{{count}} ★",
         "sortNewest": "Newest first",
         "sortOldest": "Oldest first",
         "sortTitleAsc": "Title A-Z",
-        "sortTitleDesc": "Title Z-A",
-        "sortTechnicalDesc": "Technical level: high to low",
-        "sortTechnicalAsc": "Technical level: low to high"
+        "sortTitleDesc": "Title Z-A"
       },
       "resultsCount_one": "{{count}} result",
       "resultsCount_other": "{{count}} results",
@@ -199,10 +64,6 @@
     }
   },
   "blog": {
-    "eyebrow": "Blog",
-    "title": "Recent posts",
-    "description": "Here are a few of my latest articles. Open a post to explore the topic in more detail.",
-    "viewAll": "View all blog posts",
     "minRead": "{{count}} min read",
     "readMore": "Read the article",
     "loading": "Loading posts...",
@@ -242,8 +103,8 @@
     },
     "section": {
       "featured": {
-        "title": "Featured",
-        "subtitle": "Popular articles"
+        "title": "Latest",
+        "subtitle": "Latest articles"
       },
       "series": {
         "title": "Article Series",
@@ -278,25 +139,11 @@
       "fallbackTitle": "Series"
     }
   },
-  "contact": {
-    "eyebrow": "Contact",
-    "title": "Get in touch",
-    "description": "Feel free to reach out if you have a question, a project idea, or a collaboration opportunity.",
-    "name": "Name",
-    "email": "Email",
-    "message": "Message",
-    "namePlaceholder": "e.g. John Doe",
-    "emailPlaceholder": "e.g. john.doe@example.com",
-    "messagePlaceholder": "Write your message...",
-    "submit": "Send",
-    "validationAlert": "The email address must contain an @ symbol.",
-    "hints": {
-      "emailRequired": "Please enter your email address.",
-      "emailInvalid": "Your email address must contain an @ symbol.",
-      "messageRequired": "Please write a message."
-    }
-  },
-  "a11y": {
-    "segmentedTabs": "Segmented tabs"
+  "consent": {
+    "title": "Cookies.",
+    "text": "I use audience statistics (Google Analytics, Microsoft Clarity) to understand how the site is used. Nothing is loaded unless you accept.",
+    "accept": "Accept",
+    "decline": "Decline",
+    "settings": "Cookies"
   }
 }

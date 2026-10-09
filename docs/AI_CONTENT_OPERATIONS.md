@@ -10,6 +10,7 @@ Use the repository scripts and documented schemas. Do not improvise a parallel w
 
 Before editing content, read:
 
+0. `AGENTS.md` (editorial rules for the V2 site)
 1. `docs/CONTENT_WORKFLOW.md`
 2. `docs/CONTENT_RULES.md`
 3. `docs/CONTENT_SCHEMA.md`
@@ -27,6 +28,8 @@ Agents may edit:
 - `src/data/blog-resources.json`
 - `src/data/series.json`
 - `src/data/domain.json`
+- `src/data/home.ts`, `src/data/home.fr.ts`
+- `src/data/selected-work.json`, `src/data/publications.json`, `src/data/now-building.json`
 
 Agents must not manually edit generated outputs:
 
@@ -34,6 +37,7 @@ Agents must not manually edit generated outputs:
 - `public/sitemap.xml`
 - `public/robots.txt`
 - `public/404.html`
+- the legacy redirect pages written by `scripts/generate-seo.ts`
 
 ## Required workflow
 
@@ -53,6 +57,12 @@ For a new blog post:
 4. Confirm the cover path and series slug if used
 5. Run `npm run content:validate`
 6. Run `npm run build`
+
+For a homepage change:
+
+1. Edit `home.ts` and `home.fr.ts`, or the homepage JSON files, in both languages
+2. Follow the Homepage sections of `docs/CONTENT_SCHEMA.md` and `docs/CONTENT_RULES.md`
+3. Run `npm run build` and check the homepage in both languages
 
 ## Non-negotiable invariants
 

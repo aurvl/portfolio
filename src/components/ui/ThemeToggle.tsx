@@ -14,9 +14,9 @@ function ThemeToggle() {
       aria-label={t('navbar.themeToggle')}
       aria-pressed={!isDarkTheme}
       title={t('navbar.themeToggle')}
-      className="border-class toggle-btn rounded-lg px-2 py-2 text-sm text-[var(--text2-col)] transition hover:text-[var(--toggle-hover)]"
+      className="border-class toggle-btn rounded-md p-1.5 text-sm text-[var(--text2-col)] transition hover:text-[var(--toggle-hover)]"
     >
-      {isDarkTheme ? <LuSunMedium size={24} /> : <LuMoonStar size={24} />}
+      {isDarkTheme ? <LuSunMedium size={18} /> : <LuMoonStar size={18} />}
     </button>
   )
 }

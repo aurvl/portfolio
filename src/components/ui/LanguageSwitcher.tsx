@@ -1,5 +1,6 @@
 import type { ChangeEvent } from 'react'
 import { useTranslation } from 'react-i18next'
+import { IoLanguage } from 'react-icons/io5'
 import i18n from '../../lib/i18n'
 import type { AppLanguage } from '../../types/i18n'
 
@@ -14,7 +15,8 @@ function LanguageSwitcher() {
   }
 
   return (
-    <div className="relative">
+    <div className="relative flex items-center gap-1 text-[var(--text2-col)]">
+      <IoLanguage size={13} aria-hidden="true" />
       <label className="sr-only" htmlFor="language-switcher">
         {t('navbar.language')}
       </label>
@@ -24,13 +26,13 @@ function LanguageSwitcher() {
         value={currentLanguage}
         onChange={handleLanguageChange}
         aria-label={t('navbar.language')}
-        className="rounded-lg bg-transparent px-3 py-2 text-[var(--text2-col)] focus:outline-none"
+        className="language-switcher rounded-md bg-transparent py-0.5 pr-1 text-[var(--text2-col)] focus:outline-none"
       >
         <option className="bg-[var(--bg2-color)]" value="en">
-          EN
+          English
         </option>
         <option className="bg-[var(--bg2-color)]" value="fr">
-          FR
+          Français
         </option>
       </select>
     </div>

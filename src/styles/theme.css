@@ -22,7 +22,7 @@
 }
 
 .navbar-logo {
-  height: 32px;
+  height: 24px;
   width: auto;
   display: block;
   object-fit: contain;
@@ -31,6 +31,28 @@
 
 :root[data-theme='light'] .navbar-logo {
   mix-blend-mode: normal;
+}
+
+/* Logo test: AV monogram + name. */
+.navbar-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.navbar-mark img {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+.navbar-mark__name {
+  font-family: 'Bricolage Grotesque', Inter, sans-serif;
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: -0.01em;
+  color: var(--text-color);
+  white-space: nowrap;
 }
 
 .navbar-shell {
@@ -113,6 +135,45 @@
 .nav-title-text {
     font-weight: 600;
     font-size: 14px;
+}
+
+/* Desktop and tablet: three columns so the links sit at the true centre of the page,
+   even though the logo and the right-hand controls have different widths. */
+@media (min-width: 768px) {
+  .navbar-shell {
+    display: grid;
+    grid-template-columns: minmax(max-content, 1fr) auto minmax(max-content, 1fr);
+    column-gap: 16px;
+  }
+
+  .navbar-shell > .navbar-brand {
+    justify-self: start;
+  }
+
+  .navbar-shell > .navbar-actions {
+    justify-self: end;
+  }
+}
+
+/* Language select: sized here because the global `select { font: inherit }` overrides utilities. */
+select.language-switcher {
+  font-size: 11px;
+  line-height: 1.2;
+}
+
+/* Tablets: keep the full navbar, just tighter so links don't touch the logo or the controls. */
+@media (min-width: 768px) and (max-width: 1100px) {
+  .navbar-links {
+    gap: 14px;
+  }
+
+  .navbar-links .nav-title-text {
+    font-size: 13px;
+  }
+
+  .navbar-logo {
+    height: 22px;
+  }
 }
 
 .nav-link-animated {

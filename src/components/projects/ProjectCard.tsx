@@ -92,13 +92,13 @@ function ProjectCard({ project, onOpenProject, cardId }: ProjectCardProps) {
             }
           : undefined
       }
-      className={`flex min-w-0 w-full h-full
+      className={`project-card flex min-w-0 w-full h-full
       ${isInteractive ? 'cursor-pointer' : 'cursor-default'} flex-col gap-2 rounded-lg border
       border-[var(--glass-border)] p-2 underline-none transition-all duration-200 ease-in-out
       hover:border-[var(--accent-lgtblue)] hover:bg-[var(--btn-sobre-col)]`}
     >
       <div className="flex flex-1 flex-col gap-2">
-        <div className="relative h-48 overflow-hidden">
+        <div className="project-card__media relative h-48 overflow-hidden">
           <img
             src={withBasePath(imageSource)}
             alt={coverAlt}
@@ -108,7 +108,7 @@ function ProjectCard({ project, onOpenProject, cardId }: ProjectCardProps) {
             onError={(event) => {
               event.currentTarget.src = DEFAULT_PROJECT_COVER
             }}
-            className="block h-full w-full rounded-lg object-cover"
+            className="project-card__cover block h-full w-full rounded-lg object-cover"
           />
 
           <span
@@ -119,7 +119,7 @@ function ProjectCard({ project, onOpenProject, cardId }: ProjectCardProps) {
           </span>
         </div>
 
-        <h3 className="project-title mt-2 line-clamp-2 text-xl font-semibold leading-tight transition-colors duration-200 ease-in-out hover:text-[var(--accent-blue)]">
+        <h3 className="project-card__title project-title mt-2 line-clamp-2 text-xl font-semibold leading-tight transition-colors duration-200 ease-in-out hover:text-[var(--accent-blue)]">
           {content.title}
         </h3>
 
@@ -134,33 +134,15 @@ function ProjectCard({ project, onOpenProject, cardId }: ProjectCardProps) {
           ))}
         </div>
 
-        <p className="project-summary mt-2 line-clamp-4 border-t border-t-[var(--glass-border)] pt-2 text-sm leading-6 text-[var(--text2-col)]">
+        <p className="project-card__summary project-summary mt-2 line-clamp-4 border-t border-t-[var(--glass-border)] pt-2 text-sm leading-6 text-[var(--text2-col)]">
           {content.summary}
         </p>
       </div>
 
       <div className="mt-auto flex flex-col">
-        <div className="flex min-h-[2rem] items-center gap-4">
-          <span className="font-semibold">{t('projects.technicalLevel')}:</span>
-
-          <div className="flex text-lg tracking-[0.24em] text-[var(--accent-blue)]">
-            {[1, 2, 3].map((star) => (
-              <span
-                key={star}
-                className={
-                  star <= project.technicalLevel
-                    ? 'text-[var(--accent-blue)]'
-                    : 'text-[var(--text2-col)]'
-                }
-              >
-                {star <= project.technicalLevel ? '\u2605' : '\u2606'}
-              </span>
-            ))}
-          </div>
-        </div>
 
         <div className="flex items-end justify-between gap-3">
-          <span className="flex items-center text-sm text-[var(--text2-col)] capitalize">
+          <span className="project-card__date flex items-center text-sm text-[var(--text2-col)] capitalize">
             {new Date(project.date).toLocaleDateString(i18n.language, {
               month: 'short',
               year: '2-digit',
@@ -171,7 +153,7 @@ function ProjectCard({ project, onOpenProject, cardId }: ProjectCardProps) {
             <button
               type="button"
               onClick={handleReadMore}
-              className="ml-auto flex shrink-0 items-center rounded-lg bg-[rgb(var(--domain-col-rgb)/0.2)]
+              className="project-card__more ml-auto flex shrink-0 items-center rounded-lg bg-[rgb(var(--domain-col-rgb)/0.2)]
               px-5 py-2 text-sm font-semibold text-[var(--text2-col)] no-underline
               transition-colors duration-200 ease-in-out hover:bg-[rgb(var(--domain-col-rgb)/0.7)]
               hover:text-[var(--text-col)]"

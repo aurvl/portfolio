@@ -32,18 +32,18 @@ function PostCard({ post }: PostCardProps) {
         onError={(event) => {
           event.currentTarget.src = DEFAULT_POST_IMAGE
         }}
-        className="mb-4 h-40 w-full rounded-[5px] object-cover"
+        className="post-card__cover mb-4 h-40 w-full rounded-[5px] object-cover"
       />
-      <h3 className="text-2xl font-semibold underline transition-colors duration-200 ease-in-out hover:text-[var(--accent-blue)]">
+      <h3 className="post-card__title text-2xl font-semibold underline transition-colors duration-200 ease-in-out hover:text-[var(--accent-blue)]">
         {post.title}
       </h3>
-      <p className="flex-1">{post.summary}</p>
-      <p className="flex items-center text-sm text-[var(--text-col)]/40">
+      <p className="post-card__summary flex-1">{post.summary}</p>
+      <p className="post-card__meta flex items-center text-sm text-[var(--text-col)]/40">
         <FaRegCalendarAlt className="mr-2 inline" />
         {formatPostDate(post.date, i18n.language)} {'\u2022'}{' '}
         {t('blog.minRead', { count: post.readTime })}
       </p>
-      <p className="text-[var(--accent-lgtpurple)] hover:underline">
+      <p className="post-card__more text-[var(--accent-lgtpurple)] hover:underline">
         {t('blog.readMore')} <GoLinkExternal className="ml-1 inline" />
       </p>
     </Link>
