@@ -33,7 +33,7 @@
   mix-blend-mode: normal;
 }
 
-/* Logo test: AV monogram + name. */
+/* Logo: glowing curve + name. */
 .navbar-mark {
   display: inline-flex;
   align-items: center;
@@ -41,7 +41,7 @@
 }
 
 .navbar-mark img {
-  width: 20px;
+  width: auto;
   height: 20px;
   display: block;
 }
