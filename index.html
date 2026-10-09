@@ -34,7 +34,7 @@
           .map(function(segment) {
             return segment.replace(/~and~/g, '&');
           })
-          .join('&');
+          .join('?');
         var nextPath = decoded.slice(1) || '/';
 
         window.history.replaceState(
