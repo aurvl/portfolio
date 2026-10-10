@@ -15,8 +15,9 @@ function LanguageSwitcher() {
   }
 
   return (
-    <div className="relative flex items-center gap-1 text-[var(--text2-col)]">
-      <IoLanguage size={13} aria-hidden="true" />
+    // On mobile only the icon shows; the select covers it invisibly and opens the native picker.
+    <div className="language-picker relative flex items-center gap-1 text-[var(--text2-col)]">
+      <IoLanguage size={13} className="language-picker__icon" aria-hidden="true" />
       <label className="sr-only" htmlFor="language-switcher">
         {t('navbar.language')}
       </label>

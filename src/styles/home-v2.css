@@ -993,6 +993,20 @@
   color: var(--hv-faint);
 }
 
+/* "View project" stays on one line; the tools list wraps on its side instead. */
+.home-v2 .hv-work__foot {
+  gap: 12px;
+}
+
+.home-v2 .hv-work__foot > span:first-child {
+  min-width: 0;
+}
+
+.home-v2 .hv-work__foot .hv-link {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
 .home-v2 .hv-related {
   margin-top: 28px;
   display: grid;
