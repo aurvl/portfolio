@@ -1,51 +1,67 @@
 ---
 slug: "insurance-claim-fraud-counterfactual-simulator"
 lang: "fr"
-title: "Fraude assurance : détection et aide à la décision par contre-factuels"
-summary: "Workflow complet de fraude assurance combinant intake JSON, PDF et image, analytics PostgreSQL, scoring optimisé et contre-factuels pour aider les équipes sinistres à prioriser les dossiers à risque."
+title: "Fraude à l'assurance : détecter et justifier les sinistres suspects"
+summary: "Une méthode de détection et d'explication de la fraude, construite sur les données sinistres existantes d'un assureur, pour que les équipes sachent quels dossiers examiner et pourquoi."
 ---
 
 # Overview
 
-## Contexte métier
-Ce projet est construit autour d'un vrai workflow assurance, et non autour d'un simple notebook de fraude. Un dossier sinistre arrive avec des champs CRM structurés, une pièce jointe PDF et une image. La question métier n'est donc pas seulement de savoir si le dossier paraît suspect, mais de structurer tout le cycle d'ingestion, de stockage, d'analyse, de scoring et d'explication.
+## La situation de l'assureur
+L'assureur dispose déjà de son flux de données : les dossiers sinistres arrivent (formulaires, PDF, photos) et sont stockés dans une base PostgreSQL qui relie clients, contrats et sinistres. Ce qui lui manque, ce n'est pas la donnée, c'est une méthode : rien ne dit aujourd'hui quels dossiers sont suspects, ni pourquoi.
 
-L'objectif principal est l'aide à la décision. Le projet vise à aider les équipes fraude et sinistres à prioriser les dossiers à risque, à comprendre ce qui pousse un dossier vers une suspicion de fraude et à documenter pourquoi un fichier mérite ou non une revue plus approfondie. Le modèle n'est donc qu'une brique d'un système métier plus large.
+Les gestionnaires examinent donc les sinistres au cas par cas, sans priorité claire, et ont du mal à justifier un contrôle auprès d'un client ou de leur hiérarchie.
 
-## Pourquoi le projet compte
-Le portefeuille historique synthétique contient `54 248` sinistres, avec un taux de fraude proche de `7,0 %`. Les sinistres identifiés comme frauduleux présentent un coût moyen d'environ `15,6k`, contre `6,3k` pour les sinistres non frauduleux. À l'échelle du portefeuille, l'exposition moyenne à la fraude atteint environ `8,5M` par an, ce qui donne une vraie justification business au travail de priorisation et de détection.
+## L'enjeu
+Le portefeuille compte `54 248` sinistres, dont environ `7,0 %` sont frauduleux. Un sinistre frauduleux coûte en moyenne `15 600 €`, contre `6 300 €` pour un sinistre normal. L'exposition à la fraude atteint environ `8,5 M€` par an.
 
-L'exploration met aussi en avant des signaux opérationnels concrets. Les sinistres `bodily injury` (blessures corporelles) et `fire` (incendie) concentrent les taux de fraude les plus élevés, tandis que certains prestataires ressortent avec des niveaux de suspicion durablement supérieurs au reste du réseau. L'enjeu du projet n'est donc pas d'automatiser une réponse binaire seule, mais de construire une couche analytique utile à l'investigation fraude.
+La question posée est donc simple : **comment repérer les dossiers suspects et expliquer pourquoi ils le sont**, sans noyer l'équipe d'enquête sous les fausses alertes ?
+
+## Exemple : un dossier qui arrive
+
+Dossier illustratif, construit à partir des profils de sinistres du projet.
+
+| Ce que contient le dossier | Valeur |
+|---|---|
+| Type de sinistre | Blessures corporelles après un accident de voiture |
+| Montant réclamé | 18 400 € (un sinistre normal coûte 6 300 € en moyenne) |
+| Dernier sinistre du même client | il y a 3 mois |
+| Prestataire | une clinique déjà souvent associée à des dossiers suspects |
+| Pièces jointes | formulaire, devis médical en PDF, photo du véhicule |
+
+Pour le gestionnaire, rien ne distingue ce dossier des dizaines d'autres reçus la même semaine.
+
+:::panel{tone="green" title="Ce que la méthode apporte sur ce dossier"}
+- **Score de fraude : 0,91**, au-dessus du seuil d'alerte de 0,83. Le dossier passe en tête de la liste d'enquête.
+- **Pourquoi il ressort :** un montant trois fois supérieur à la moyenne, un sinistre très rapproché du précédent et un prestataire déjà signalé.
+- **Ce qui aurait changé la décision :** avec un montant d'environ 9 800 € et plus d'un an depuis le dernier sinistre, le dossier n'aurait pas été signalé.
+- **Décision proposée :** demander le devis original à la clinique et vérifier l'historique du client avant de payer.
+:::
 
 # Method
 
-## Workflow
-Le pipeline démarre à partir d'une ingestion multimodale. Les dossiers sont traités sous forme de `JSON + PDF + image`, puis passent dans une couche d'extraction locale qui consolide les informations en enregistrements structurés. PostgreSQL devient le système de référence, avec une structure relationnelle organisée autour des clients, contrats d’assurance et sinistres reportés.
+## 1. Comprendre où se trouve la fraude
+Un premier diagnostic sur les données existantes de l'assureur montre où se concentre le risque : les sinistres `bodily injury` (blessures corporelles) et `fire` (incendie) ont les taux de fraude les plus élevés, et certains prestataires ressortent durablement au-dessus du reste du réseau. Ce diagnostic oriente le reste de la méthode.
 
-Ce choix d'architecture est important car il colle à un usage assureur réaliste.
+## 2. Un score calibré sur la capacité d'enquête
+Plusieurs modèles sont comparés. Le modèle retenu, `XGBoost`, attribue à chaque dossier une probabilité de fraude. Le point clé est le seuil de décision : au lieu du `0,50` par défaut, il est fixé à `0,83`, pour privilégier la précision tout en gardant au moins `20 %` des fraudes détectées. **Chaque alerte coûte du temps d'enquête** : mieux vaut peu d'alertes fiables que beaucoup d'alertes douteuses.
 
-## Choix analytiques et modélisation
-L'analyse commence en SQL. Le projet intègre des scripts d'exploration métier et des vues réutilisables pour répondre à des questions telles que le taux de fraude du portefeuille, l'identification des prestataires suspects, l'exposition par type de sinistre, les dynamiques temporelles ou encore la composition du risque en production. La modélisation vient donc prolonger un diagnostic analytique, au lieu d'être un bloc isolé.
+## 3. Une explication pour chaque dossier signalé
+Un score seul ne convainc personne. Pour chaque dossier à risque, la méthode produit un contre-factuel : ce qui aurait dû être différent pour que le dossier ne soit pas signalé (un montant réclamé plus bas, un délai plus long depuis le dernier sinistre…). Le gestionnaire dispose ainsi d'un argument concret et discutable.
 
-Du côté du modèle, plusieurs candidats et plusieurs stratégies de gestion du déséquilibre sont comparés, puis le seuil de décision est ajusté pour l'usage opérationnel au lieu de rester figé à `0.50`. Le modèle retenu est un modèle `XGBoost` avec oversampling et un seuil réglé à `0.83`, choisi avec un objectif orienté précision sous contrainte d'un rappel minimal (`20%`). C'est une logique plus crédible pour des équipes fraude, où **le coût d'investigation et les faux positifs comptent réellement**.
-
-## Couche production et contre-factuels
-Le service FastAPI expose l'ingestion des documents (JSON, PDF, image), le scoring des sinistres et la génération de contre-factuels. Une fois le dossier reçu, l'API renvoie une probabilité de fraude, une décision du modèle et, lorsque c'est utile, un contre-factuel heuristique montrant ce qu'il faudrait modifier pour rendre le dossier moins suspect.
-
-C'est cette couche finale qui rend le projet vraiment distinctif. Elle transforme un système de scoring en outil d'aide à la décision que l'on peut discuter avec des profils métier avec l'orientation la moins technique possible.
+## 4. Brancher la méthode sur le flux existant
+La méthode est livrée sous forme d'API (FastAPI) qui se branche sur le flux de l'assureur : un dossier entre, l'API renvoie la probabilité de fraude, la décision et, si utile, le contre-factuel. Rien n'est à reconstruire côté données.
 
 # Value
 
-## Ce que le projet démontre
-Le projet montre comment passer d'entrées assurance brutes à une analyse fraude exploitable. Sur le flux pseudo-production réservé, les `100` premiers dossiers scorés font déjà ressortir un petit noyau de cas prioritaires : `4 %` dépassent le seuil de déploiement actif, `17 %` dépassent `0.50`, et les dossiers `bodily injury` portent le score moyen le plus élevé dans cette première tranche opérationnelle. Les prestataires suspects y sont aussi surreprésentés, ce qui offre un angle d'investigation immédiat.
+## Ce que l'assureur y gagne
+Sur un premier lot de `100` dossiers récents, `4 %` dépassent le seuil d'alerte : l'équipe sait où regarder en premier. Les dossiers `bodily injury` y ont le score moyen le plus élevé et les prestataires suspects y sont surreprésentés, ce qui donne une piste d'enquête immédiate.
 
-La couche contre-factuelle apporte un signal business supplémentaire. {purple}Dans plusieurs cas à haut risque, la prédiction bascule avec des changements plausibles comme une baisse du montant réclamé ou un délai plus long depuis le précédent sinistre{/purple}. Cela ne constitue pas une vérité légale, mais aide à expliquer quels facteurs poussent réellement la suspicion et quels dossiers méritent une attention renforcée.
+{purple}Dans plusieurs dossiers à haut risque, la décision bascule avec des changements plausibles, comme un montant réclamé plus bas ou un délai plus long depuis le sinistre précédent{/purple}. Ce n'est pas une preuve de fraude, mais une explication que l'équipe peut vérifier.
 
-- [v] Le projet relie des données structurées, des documents, des images, du SQL analytique et une API FastAPI dans un même workflow assurance.
-- [v] Le seuil de décision optimisé et le classement par niveau de risque rendent le modèle exploitable par des équipes sinistres, pas seulement intéressant en phase d’analyse.
-- [v] La couche contre-factuelle donne une explication concrète de ce qu’il faudrait modifier pour réduire la suspicion de fraude.
+- [v] Une liste de dossiers à examiner en priorité, adaptée au nombre d'enquêteurs disponibles.
+- [v] Une raison lisible pour chaque alerte, présentable à un gestionnaire ou à un client.
+- [v] Une méthode qui s'ajoute aux outils existants de l'assureur, sans refonte de ses données.
 
-## Valeur portfolio
-Du point de vue du portfolio, ce projet démontre bien plus qu'un entraînement de modèle. Il montre une capacité à construire un workflow assurance de bout en bout combinant données structurées, documents, images, stockage relationnel, SQL analytique, API de production, scoring fraude optimisé et logique d'explication dans un même système cohérent.
-
-Il est particulièrement pertinent pour des rôles à l'intersection de la data science, de la data engineering et du travail produit orienté métier. Le signal le plus fort n'est pas seulement qu'un modèle a été entraîné, mais que tout le workflow a été pensé pour être compréhensible, opérable et utile pour l'analyse de la fraude.
+## Ce que le projet montre
+Le projet montre une démarche de conseil : partir de la situation réelle d'un client, identifier ce qui manque, et proposer une méthode qui répond à sa contrainte principale, le temps d'enquête. La modélisation est au service de la décision, pas l'inverse.

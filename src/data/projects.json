@@ -139,8 +139,8 @@
     "cover": {
       "src": "/assets/projects/images/insurance-claim-fraud-counterfactual-simulator-cover.jpg",
       "alt": {
-        "en": "Insurance claim fraud analytics and counterfactual decision-support project cover",
-        "fr": "Visuel du projet fraude assurance et aide à la décision par contre-factuels"
+        "en": "Insurance fraud detection and explanation project cover",
+        "fr": "Visuel du projet de détection et d'explication de la fraude à l'assurance"
       }
     },
     "links": {
@@ -152,7 +152,7 @@
     "taxonomy": {
       "domains": [
         "Fraud Analytics",
-        "Data Engineering"
+        "Decision Support"
       ],
       "tools": [
         "Python",
@@ -166,26 +166,26 @@
           "insurance",
           "fraud",
           "counterfactuals",
-          "postgres"
+          "explainability"
         ],
         "fr": [
           "assurance",
           "fraude",
           "contrefactuels",
-          "postgres"
+          "explicabilité"
         ]
       }
     },
     "content": {
       "en": {
-        "title": "Insurance Claim Fraud Detection & Counterfactual Decision Support",
-        "summary": "End-to-end insurance fraud workflow combining JSON, PDF, and image intake, PostgreSQL analytics, tuned scoring, and counterfactual explanations to help claim teams investigate risky files and justify decisions.",
-        "description": "Designed an end-to-end insurance fraud workflow where claim packages arrive as CRM JSON, PDFs, and images, are consolidated into PostgreSQL, explored through analytical SQL, scored through a tuned fraud model, and explained with counterfactual scenarios. The project is positioned as a business-facing decision-support tool for claims and fraud teams rather than a standalone modeling exercise."
+        "title": "Insurance Fraud: Detecting and Justifying Suspicious Claims",
+        "summary": "A fraud detection and explanation method built on an insurer's existing claims data: a score calibrated on investigation capacity and a counterfactual reason for every flagged file.",
+        "description": "The insurer already stores its claims in PostgreSQL but has no reliable way to tell which ones are suspicious. The project proposes a method on top of that data: a diagnostic of where fraud concentrates, an XGBoost score whose threshold is set for the investigation team's capacity, and a counterfactual explanation for every flagged file, delivered as an API that plugs into the existing flow."
       },
       "fr": {
-        "title": "Fraude assurance : détection et aide à la décision par contre-factuels",
-        "summary": "Workflow complet de fraude assurance combinant intake JSON, PDF et image, analytics PostgreSQL, scoring optimisé et contre-factuels pour aider les équipes sinistres à prioriser les dossiers à risque.",
-        "description": "Conception d'un workflow complet de fraude assurance dans lequel des dossiers sinistres arrivent sous forme de JSON CRM, PDF et images, sont consolidés dans PostgreSQL, explorés via SQL analytique, scorés par un modèle fraude optimisé, puis expliqués par des scénarios contre-factuels. Le projet est pensé comme un outil d'aide à la décision pour les équipes sinistres et fraude, et non comme un simple exercice de modélisation."
+        "title": "Fraude à l'assurance : détecter et justifier les sinistres suspects",
+        "summary": "Une méthode de détection et d'explication de la fraude construite sur les données sinistres existantes d'un assureur : un score calibré sur la capacité d'enquête et une raison contre-factuelle pour chaque dossier signalé.",
+        "description": "L'assureur stocke déjà ses sinistres dans PostgreSQL, mais n'a pas de méthode fiable pour savoir lesquels sont suspects. Le projet propose une méthode sur ces données : un diagnostic de la concentration de la fraude, un score XGBoost dont le seuil est fixé selon la capacité de l'équipe d'enquête, et une explication contre-factuelle pour chaque dossier signalé, livrée sous forme d'API qui se branche sur le flux existant."
       }
     },
     "window": {

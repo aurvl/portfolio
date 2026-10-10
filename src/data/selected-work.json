@@ -4,25 +4,25 @@
       {
         "slug": "insurance-claim-fraud-counterfactual-simulator",
         "state": "done",
-        "title": "Insurance Fraud & Counterfactual Decision Support",
-        "summary": "An end-to-end workflow that consolidates heterogeneous claim files, scores fraud risk and explains each decision with counterfactual scenarios.",
-        "tools": "PostgreSQL · XGBoost · FastAPI",
+        "title": "Insurance Fraud: Detecting and Justifying Suspicious Claims",
+        "summary": "A fraud detection and explanation method built on an insurer's existing claims data, so teams know which files to review and why.",
+        "tools": "XGBoost · Counterfactuals · FastAPI",
         "details": [
           {
             "label": "Problem",
-            "value": "Claim files arrive as CRM JSON, PDFs and images, scattered across systems."
+            "value": "The insurer already stores every claim but has no reliable way to spot the suspicious ones."
           },
           {
             "label": "Consequence",
-            "value": "Fraud teams review suspicious claims by hand and struggle to justify decisions."
+            "value": "Handlers review files one by one, with no clear priority and no argument to justify an investigation."
           },
           {
             "label": "Solution",
-            "value": "One PostgreSQL base, a tuned fraud score and counterfactual explanations."
+            "value": "A fraud score calibrated on investigation capacity, with a counterfactual explanation for every flagged file."
           },
           {
             "label": "Output",
-            "value": "A decision-support tool for claims and fraud teams"
+            "value": "A priority list of files to review, each with the reason it was flagged"
           }
         ]
       },
@@ -64,25 +64,25 @@
       {
         "slug": "insurance-claim-fraud-counterfactual-simulator",
         "state": "done",
-        "title": "Fraude à l’assurance & aide à la décision contrefactuelle",
-        "summary": "Un workflow de bout en bout qui consolide des dossiers de sinistre hétérogènes, score le risque de fraude et explique chaque décision par des scénarios contrefactuels.",
-        "tools": "PostgreSQL · XGBoost · FastAPI",
+        "title": "Fraude à l'assurance : détecter et justifier les sinistres suspects",
+        "summary": "Une méthode de détection et d'explication de la fraude, construite sur les données sinistres existantes d'un assureur, pour que les équipes sachent quels dossiers examiner et pourquoi.",
+        "tools": "XGBoost · Contre-factuels · FastAPI",
         "details": [
           {
             "label": "Problème",
-            "value": "Les dossiers arrivent en JSON, PDF et images, dispersés entre plusieurs systèmes."
+            "value": "L'assureur stocke déjà tous ses sinistres, mais n'a pas de méthode fiable pour repérer ceux qui sont suspects."
           },
           {
             "label": "Conséquence",
-            "value": "Les équipes fraude examinent à la main et peinent à justifier leurs décisions."
+            "value": "Les gestionnaires examinent les dossiers au cas par cas, sans priorité claire ni argument pour justifier un contrôle."
           },
           {
             "label": "Solution",
-            "value": "Une base PostgreSQL, un score de fraude calibré et des explications contrefactuelles."
+            "value": "Un score de fraude calibré sur la capacité d'enquête de l'équipe, et une explication contre-factuelle pour chaque dossier signalé."
           },
           {
             "label": "Résultat",
-            "value": "Un outil d’aide à la décision pour les équipes sinistres et fraude"
+            "value": "Une liste de dossiers à examiner en priorité, chacun avec la raison qui l'a fait ressortir"
           }
         ]
       },
