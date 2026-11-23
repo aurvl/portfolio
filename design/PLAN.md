@@ -79,119 +79,33 @@ Modifier : `Navbar`, `MainLayout`, `HomePage`, `ProjectsPage`, `BlogPage`, `Publ
 `Footer`, `useSiteNav`, `main.tsx`.
 
 ## 3. Étapes
-- [ ] 0. Cadrage (voir « Décisions ») : `.gitignore` (`design/screens/`, `design/*.svg`, `design/*.png`, `design/svgs/`),
-      note « V2 obsolète » en tête de `docs/DESIGN_SYSTEM.md`, proposition de mapping des anciennes sections
-      (validation avant toute suppression), conversion `hero-bamboo.jpg` → `.webp`.
-- [x] 1. Fondations : `src/styles/v3/tokens.css` (importé par `globals.css`) : `@theme static` (couleurs, rayons,
-      ombres, `--font-sans` Geist, `--font-serif` Source Serif 4 changeable en une ligne), `@font-face` Geist,
-      dark via `:root:not([data-theme='light'])` (même logique que le thème existant). Source Serif 4 ajoutée à
-      l'import Google Fonts existant (aucune dépendance). Aucune page changée. Lint + build verts.
-      Thème : **clair par défaut** (sombre si le système le demande ou via le toggle), `app/providers.tsx` +
-      petit script dans `index.html` contre le flash sombre. `hero-bamboo.webp` (2400 px, 1,2 Mo) remplace le `.jpg`.
-      Pas de scope `.home-v2` : les tokens sont globaux mais nouveaux (aucun conflit avec `--hv-*`).
-- [x] 2a. `src/data/placeholders.ts` (fictif, `IS_PLACEHOLDER_DATA`) : profil, parcours, textes About,
-      latest things, publications, 6 projets (type `Project`), en FR/EN. Les composants atomes
-      (`Avatar`, `SocialIcons`, `UtilityPill`, boutons) restent à faire.
-- [x] 2. Atomes : `ui/Avatar.tsx` (cercle, gris `--color-placeholder` sans image), `ui/SocialIcons.tsx` (6 ronds bleus
-      depuis `SOCIAL_LINKS`, qui reçoit ORCID et ResearchGate), `ui/UtilityPill.tsx` (langue + thème, réutilise
-      `i18n.changeLanguage` et `useTheme`), `ui/Button.tsx` (variantes `primary`, `secondary`, `outline`, `pill` ;
-      `<a>` si `href`). Aide `lib/cn.ts`. Styles dans `src/styles/v3/atoms.css` (importé par `globals.css`).
-      Les anciens `LanguageSwitcher`/`ThemeToggle` restent utilisés par la navbar V2 jusqu'à l'étape 3.
-      Aucun atome n'est encore affiché dans une page : vérification visuelle à faire à l'étape 3 (navbar) et 5 (About).
-      Lint + build verts.
-- [x] 3. Navbar pilule + `MainLayout`. `Navbar.tsx` réécrite : capsule bleue centrée (Accueil / À propos / Recherche /
-      Projets & Blog / CV / Contact), onglet actif bleu clair, `IntersectionObserver` et `aria-current` conservés,
-      « CV » = lien `download` direct, « Projets & Blog » actif sur `/projects` et `/blog` (`matchPaths`). Mobile
-      (< 768 px) : bouton compact (section courante + chevron) qui ouvre un panneau, fermé par Échap.
-      `MainLayout` : `UtilityPill` fixe en haut à droite, props `navPlacement` (`top`/`bottom`, bas = en fin de page,
-      non fixe, pour l'étape 8) et `overlayNavbar` (hero sous la navbar, étape 4) ; sinon `padding-top`
-      (`--navbar-offset`). Le CTA `cta` disparaît (Contact est dans le menu) ; les 6 pages sont mises à jour.
-      `useSiteNav` renvoie les nouvelles entrées (libellés `projectsBlog` et `cv` ajoutés en EN/FR dans
-      `home.ts`/`home.fr.ts`). `AnimatedLogo` déplacé de la navbar au footer. Styles : `src/styles/v3/navbar.css`.
-      Vérifié avec Playwright (desktop et 390 px, thème sombre). À faire plus tard : thème clair, navbar basse
-      (étape 8), nettoyage du CSS `navbar-*` V2 de `theme.css`/`responsive.css` et de `LanguageSwitcher`/`ThemeToggle`
-      devenus inutilisés (étape 15). Les sections V2 de l'accueil gardent leurs ids (`about`, `research`,
-      `contact-form`) jusqu'à la réécriture de l'étape 9. Lint + build verts.
-- [x] 4. Landing : `components/home-v3/LandingHero.tsx` (photo bambous voilée à 70 %, avatar, nom, poste, `SocialIcons`,
-      bouton « En savoir plus » à cheval sur le bord bas de la bannière) et `LatestThings.tsx` (3 cartes horizontales :
-      titre, description, date, vignette carrée ; lien vers la page concernée). Libellés dans `placeholders.ts`
-      (`getLandingLabels`) ; titres des cartes fictives raccourcis pour tenir sur 2 lignes.
-      Correction après revue visuelle : sur ordinateur (≥ 900 px) la landing tient exactement dans la fenêtre
-      (`100dvh`, bannière 62,5 %, cartes dans le reste). Tout est dimensionné avec `--landing-unit` (= 1 % de la
-      largeur de la maquette 1512 px, `clamp(8px, min(1vw, 1.54dvh), 19.2px)`) : proportions de la maquette
-      conservées à toute taille. Sous 900 px, mise en page mobile qui défile.
-      Navbar masquée sur la landing (`MainLayout hideNavbar` ; le morph viendra à l'étape 6). Anciennes sections V2
-      retirées de `HomePage` (fichiers conservés, suppression à l'étape 15). `html.snap-home` : scroll-snap vertical
-      mandatory (landing, puis pied de page en attendant l'About) ; « En savoir plus » défile d'un écran.
-      `UtilityPill` : marge portée à 2 rem (haut et droite).
-      Seconde correction : barre de défilement masquée sur la landing (`html.snap-home` ; une barre classique retirait
-      15 px de largeur et décalait le contenu), calcul de `--landing-unit` commenté en détail (min largeur/hauteur),
-      pilule `flex: none` + `max-width`. Mesures sur 1855×960, 1512×982, 1440×900, 1280×800 et 390 px : centre de
-      l'avatar = centre de la fenêtre à 0,3 px, cartes dans la fenêtre sur ordinateur.
-      Troisième correction : bannière indépendante du thème (fond `--color-banner-veil` fixe sous la photo à 70 %, nom et
-      poste en blanc avec `text-shadow`) ; avatar = `hero-image.png`, la photo de l'ancien hero (la décision 7 citait à tort `about-image.png`) ; pictogrammes des ronds bleus via
-      `--color-social-icon` (foncé en clair, blanc en sombre). Contraste sur #55A1F5 : foncé 6,9:1, blanc 2,7:1.
-      Vérifié avec Playwright à 1512×982, 1440×900, 1280×800 et 390 px. Lint + build verts.
-- [x] 5. About : `home-v3/AboutSection.tsx` + `Timeline.tsx` (ordre vertical, étape en cours en bleu, prochaine étape en
-      pointillé, `aria-current`), styles dans `src/styles/v3/about.css`. Bannière bambous voilée, avatar à cheval sur
-      le bord, 6 ronds sociaux, titre « About Me », intertitres serif, bouton CV (`getResumeDownloadUrl`),
-      « Explore my Work » (→ `/projects`), « Get in touch » (ancre `#contact`, sans effet tant que l'étape 8 n'existe
-      pas), « View my papers » (→ `/publications`) dont la flèche sautille (`@keyframes`, coupée par
-      `prefers-reduced-motion`, en pause au survol). Textes, parcours et libellés = placeholders
-      (`getAboutLabels` ajouté). Avatar : `profile.avatarSrc` (`hero-image.png`), la même photo que la landing, partout
-      sur le site (décision du propriétaire ; `about-image.png` refusée). Sur ordinateur, même unité que la landing (`--about-unit`) : l'écran tient dans la fenêtre. Mesuré dans une
-      iframe à 1512×982, 1440×900, 1280×800 (le bouton CV reste dans la fenêtre) et 390 px (défile). `HomePage` affiche
-      Landing puis About (snap). Navbar toujours masquée sur l'accueil (étape 6). Lint + build verts.
-      Limite : la fenêtre Playwright était bloquée à un viewport 3× trop grand (dpr 0,33), donc captures prises via
-      iframe ; thème sombre et rendu mobile complet du bas de page non revérifiés.
-- [x] 5b. About mobile (< 1024 px, voir `design/BRIEF.md` § 6b). Navbar : on GARDE le menu compact en haut ; le seuil de
-      la capsule complète passe de 768 à 1024 px (`navbar.css`), ce qui corrige la navbar qui passait sous la
-      `UtilityPill` à 768 px (tablettes = menu compact). Navbar visible sur l'About dès que la landing est quittée
-      (`IntersectionObserver` dans `HomePage`, sans animation : le morph reste l'étape 6). `AboutSection` : éléments
-      `about__mobile-only` / `about__desktop-only`, bascule à 1024 px (le desktop ne change pas, mesures identiques à
-      1280 et 1512 px). Mobile : nom + accroche 2 lignes, pastilles « Je travaille sur » (→ `/projects?tag=`),
-      `ui/Collapsible` (« Lire la suite », `aria-expanded`), `JourneyCard` (frise horizontale + CV dans la carte),
-      `NextDoors` (cartes Recherche / Projets + lien discret « Une question ? Me contacter »), icônes sociales
-      masquées. `ProjectsPage` lit `?tag=` au chargement (`?project=` intact). **Thèmes = placeholders à remplacer par
-      les vrais thèmes du propriétaire au moment du vrai contenu (étape 16)** : ce sont des mots-clés présents dans les
-      projets fictifs ET dans `projects.json` (le hub lit encore les vrais projets jusqu'à l'étape 10), donc le filtre
-      répond déjà. Vérifié via iframe à 390, 768, 1023, 1280, 1512 px, clair et sombre. Lint + build verts.
-      En-tête de l'About (tous formats, un seul composant `about__header`) : avatar à cheval sur le bord de la bannière,
-      nom (titre principal, `h2`) à droite de l'avatar, POSÉ SUR LA PHOTO, bas du nom juste au-dessus du bord
-      (`position: absolute; bottom: 100%`), blanc avec `text-shadow` et léger dégradé sombre en bas de la bannière,
-      quel que soit le thème (même règle que la landing). Le poste est juste sous le bord, sur le fond de la page, en
-      couleur de thème. Mobile : un nom sur 2 ou 3 lignes monte sur la photo (3 lignes à 390 px, sans toucher la navbar).
-      Desktop : icônes sociales à cheval sur le bord, à droite (maquette 02), « About Me » en sous-titre (`h3`).
-      Mesuré à 390, 768, 1512 px, clair et sombre : nom blanc, bas du nom 4 à 5 px au-dessus du bord, poste dessous ;
-      bouton CV dans la fenêtre à 1512 (931 / 982).
-      Style éditorial (BRIEF §2 « Style éditorial (prioritaire) ») : tokens ajoutés (`--radius-sharp/small`,
-      `--color-on-brand`, `--label-*`, `--duration-fast`), variantes `solid` / `line` / `link` de `Button`, classes
-      `.eyebrow` et `.tabular` (`atoms.css`). Appliqué à : About (blocs « Mon parcours » et « Pour aller plus loin »
-      selon le schéma du propriétaire, thèmes en étiquettes à filet, titres serif, liens soulignés, sautillement de
-      « View my papers » plus discret), Latest things (filet fin au lieu des cartes, titres serif, dates
-      `tabular-nums`, étiquette de section), nom de la landing en serif, survol des ronds sociaux en simple
-      opacité. « En savoir plus » : inchangé, à la demande du propriétaire. Navbar : inchangée (signature).
-      Info du CV « PDF · 1 p. » : nombre de pages lu dans le PDF actuel (à revérifier si le CV change).
-      Corrections About mobile / tablette : « Mon parcours » = frise horizontale interactive (`JourneyCard`) dans le
-      style de la timeline desktop (points sur une ligne, années dessous, point choisi bleu plein avec halo). Clic ou
-      tap sur un point = descriptif juste dessous (12 px sous l'année) avec une pointe alignée sous le point
-      (`--caret-position`, `--step-count`) ; 2026 par défaut ; flèches gauche/droite + Début/Fin ; ARIA
-      tablist / tab / tabpanel. « Pour aller plus loin » : deux boutons « Research → » et « Projects → », sans
-      compteurs. « Research » : contour et texte bleus, rideau bleu déployé de gauche à droite (300 ms, ease-out)
-      au survol, au focus clavier et au tap, texte blanc, sans animation si `prefers-reduced-motion` ; ajouté comme
-      exception assumée au BRIEF §2. Bleus d'action (`--color-action-blue`, `--color-action-fill`) plus foncés que
-      #55A1F5 pour le contraste (4,7:1 en clair, 8,7:1 en sombre, 5:1 sous le texte blanc). Vérifié à 390 et 768 px,
-      clair et sombre. L'étape actuelle (2026) reste TOUJOURS bleue (point plein + halo) même si une autre étape est
-      choisie ; l'étape choisie se marque par un anneau foncé et l'année en gras. Boutons « Research » / « Projects »
-      réduits de 25 % en hauteur (55,8 px → 42,6 px). Bouton CV : mention « PDF · 1 p. » supprimée ; MÊME bouton
-      (plein, rectangulaire, « Download my Resume ») sur mobile et sur desktop ; icône de fichier de CV fournie par
-      le propriétaire (`ui/ResumeIcon.tsx`) à la place de l'icône de téléchargement. Sautillement : « View my papers »
-      (desktop) et « Research » / « Projects » (mobile) font sauter le BOUTON ENTIER (`@keyframes about-hop`, deux
-      rebonds de 12 et 6 px puis une pause, 2,2 s), au lieu de la seule flèche ; arrêt au survol / focus / tap ;
-      aucune animation avec `prefers-reduced-motion`. Sur desktop, ce bouton et
-      « View my papers » sont donc tous deux pleins (le BRIEF dit un seul plein par écran : écart décidé par le
-      propriétaire).
-- [ ] 6. Transitions : morph vers la navbar (landing uniquement), scrolls fluides, `prefers-reduced-motion`.
+- [x] 0. Cadrage : `.gitignore` (`design/screens/`, `*.svg`, `*.png`, `svgs/`), note V3 en tête de
+      `docs/DESIGN_SYSTEM.md`, `hero-bamboo.jpg` → `.webp`. Le mapping des anciennes sections est dans les
+      Décisions (4) ; reste à le faire valider avant de supprimer les fichiers `home-v2` (étape 15).
+- [x] 1. Fondations : `src/styles/v3/tokens.css` (`@theme static`, Geist + Source Serif 4, clair par défaut, sombre
+      via toggle ou système, script anti-flash dans `index.html`), `hero-bamboo.webp`. Tokens globaux, sans conflit
+      avec les `--hv-*` du V2.
+- [x] 2. Placeholders et atomes : `src/data/placeholders.ts` (tout est fictif, FR/EN, `IS_PLACEHOLDER_DATA`),
+      `ui/Avatar`, `SocialIcons` (6 réseaux), `UtilityPill`, `Button`, `lib/cn.ts`, `atoms.css`. Les anciens
+      `LanguageSwitcher` / `ThemeToggle` sont à supprimer à l'étape 15.
+- [x] 3. Navbar pilule + `MainLayout` : `Navbar` (6 entrées, `matchPaths`, CV = téléchargement direct), props
+      `navPlacement` (le bas = étape 8) et `overlayNavbar`. À reprendre : navbar basse (8), CSS `navbar-*` du V2 (15) ;
+      les sections V2 gardent leurs ids jusqu'à l'étape 9.
+- [x] 4. Landing : `LandingHero` + `LatestThings`, tout dimensionné avec `--landing-unit` (tient dans la fenêtre sur
+      ordinateur, défile sous 900 px), `html.snap-home` (scroll-snap), bannière indépendante du thème, avatar =
+      `hero-image.png` (décision 7). Anciennes sections V2 retirées de `HomePage` (fichiers supprimés à l'étape 15).
+- [x] 5. About desktop : `AboutSection`, `Timeline`, en-tête commun (avatar à cheval sur la bannière, nom sur la
+      photo, poste dessous), mêmes unités que la landing. Bouton CV plein identique partout (`ResumeIcon`), « View my
+      papers » qui saute. À reprendre : « Get in touch » n'a pas de cible tant que le Contact (8) n'existe pas.
+- [x] 5b. About mobile et tablette (< 1024 px, BRIEF §6b) et style éditorial (BRIEF §2) : menu compact en haut,
+      capsule complète dès 1024 px, accroche, thèmes cliquables (`/projects?tag=`), textes repliables, frise
+      interactive, boutons « Research » (rideau) et « Projects ». Variantes `solid` / `line` / `link`. À reprendre :
+      thèmes « Je travaille sur » = placeholders (16) ; deux boutons pleins sur desktop (écart voulu par le
+      propriétaire) ; `BackToTop`, cookies et `Footer` encore en V2.
+- [x] 6. Transition landing → About (`MorphNavbar`, exception du BRIEF §2) : « Learn more » devient la navbar, piloté
+      par le scroll (zone morte 12 %, suit la page au départ, ressort, onglets un par un) ; sur mobile la pilule
+      s'agrandit en menu (`CompactMenu`). À reprendre : ressenti à la molette et au doigt (non testé), menu vers le
+      haut pour la navbar basse (8), scrolls fluides vers les autres sections (7 à 9).
 - [ ] 7. Publications (section + page + « Back to about »).
 - [ ] 8. Contact (Formspree, navbar en fin de page).
 - [ ] 9. Assemblage `HomePage` one-page en CSS scroll-snap, ancres, hash, SEO.
