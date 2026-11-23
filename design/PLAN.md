@@ -82,9 +82,17 @@ Modifier : `Navbar`, `MainLayout`, `HomePage`, `ProjectsPage`, `BlogPage`, `Publ
 - [ ] 0. Cadrage (voir « Décisions ») : `.gitignore` (`design/screens/`, `design/*.svg`, `design/*.png`, `design/svgs/`),
       note « V2 obsolète » en tête de `docs/DESIGN_SYSTEM.md`, proposition de mapping des anciennes sections
       (validation avant toute suppression), conversion `hero-bamboo.jpg` → `.webp`.
-- [ ] 1. Fondations : `@theme` (couleurs, rayons, ombres, **police serif changeable en une ligne**), Geist
-      (fichiers du stash, OFL), dark, scope v3. Aucune page changée.
-- [ ] 2. `placeholders.ts` (marqué fictif) + atomes : `Avatar`, `SocialIcons`, `UtilityPill`, boutons pilule.
+- [x] 1. Fondations : `src/styles/v3/tokens.css` (importé par `globals.css`) : `@theme static` (couleurs, rayons,
+      ombres, `--font-sans` Geist, `--font-serif` Source Serif 4 changeable en une ligne), `@font-face` Geist,
+      dark via `:root:not([data-theme='light'])` (même logique que le thème existant). Source Serif 4 ajoutée à
+      l'import Google Fonts existant (aucune dépendance). Aucune page changée. Lint + build verts.
+      Thème : **clair par défaut** (sombre si le système le demande ou via le toggle), `app/providers.tsx` +
+      petit script dans `index.html` contre le flash sombre. `hero-bamboo.webp` (2400 px, 1,2 Mo) remplace le `.jpg`.
+      Pas de scope `.home-v2` : les tokens sont globaux mais nouveaux (aucun conflit avec `--hv-*`).
+- [x] 2a. `src/data/placeholders.ts` (fictif, `IS_PLACEHOLDER_DATA`) : profil, parcours, textes About,
+      latest things, publications, 6 projets (type `Project`), en FR/EN. Les composants atomes
+      (`Avatar`, `SocialIcons`, `UtilityPill`, boutons) restent à faire.
+- [ ] 2. Atomes (reste de l'étape 2) : `Avatar`, `SocialIcons`, `UtilityPill`, boutons pilule.
 - [ ] 3. Navbar pilule + `MainLayout` (haut/bas, mobile compact, `useSiteNav`, `AnimatedLogo` retiré de la navbar).
 - [ ] 4. Landing : `LandingHero` + `LatestThings`.
 - [ ] 5. About + `Timeline` + bouton qui sautille.

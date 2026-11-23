@@ -1,0 +1,73 @@
+/* ------------------------------------------------------------------ *
+ * Design v3 : tokens (couleurs, rayons, ombres, polices).
+ * Spécification : design/BRIEF.md §2.
+ * Tailwind v4 lit le bloc @theme et crée les classes correspondantes
+ * (ex. bg-page, text-ink, rounded-pill, shadow-card, font-serif).
+ * Le mode sombre redéfinit les mêmes variables : les classes ne changent pas.
+ * ------------------------------------------------------------------ */
+
+@font-face {
+  font-family: 'Geist';
+  src: url('../../assets/fonts/Geist-latin.woff2') format('woff2');
+  font-weight: 100 900;
+  font-display: swap;
+  /* unicode-range : ce fichier ne charge que les caractères latins de base */
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Geist';
+  src: url('../../assets/fonts/Geist-latin-ext.woff2') format('woff2');
+  font-weight: 100 900;
+  font-display: swap;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@theme static {
+  /* Polices : pour changer la serif du site, modifier uniquement la ligne --font-serif */
+  --font-sans: 'Geist', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+
+  /* Couleurs (valeurs du mode clair ; le mode sombre est plus bas) */
+  --color-page: #fafaf8;
+  --color-page-alt: #f6f2f2;
+  --color-surface: #ffffff;
+  --color-ink: #141413;
+  --color-muted: #5c5b57;
+  --color-line: rgba(20, 20, 19, 0.12);
+  --color-brand: #55a1f5;
+  --color-brand-ink: #0b3d75;
+  --color-brand-soft: color-mix(in srgb, #55a1f5 30%, transparent);
+  --color-placeholder: #d9d9d9;
+  --color-night: #0d0e10;
+  --color-night-ink: #ffffff;
+
+  /* Rayons : pilules pour navbar, boutons et sélecteurs ; cartes arrondies */
+  --radius-field: 0.75rem;
+  --radius-card: 1.25rem;
+  --radius-card-lg: 1.75rem;
+  --radius-pill: 999px;
+
+  /* Ombres légères */
+  --shadow-pill: 0 4px 14px rgba(20, 20, 19, 0.12);
+  --shadow-card: 0 6px 24px rgba(20, 20, 19, 0.08);
+  --shadow-lifted: 0 14px 40px rgba(20, 20, 19, 0.16);
+}
+
+/* Mode sombre : même mécanisme que le reste du site (attribut data-theme posé sur <html>).
+   Le clair est le thème par défaut ; le sombre s'active par le toggle ou le réglage système. */
+:root[data-theme='dark'] {
+  --color-page: #121418;
+  --color-page-alt: #181b20;
+  --color-surface: #1b1f25;
+  --color-ink: #f2f4f7;
+  --color-muted: #a3a9b3;
+  --color-line: rgba(255, 255, 255, 0.14);
+  --color-brand-ink: #dbeaff;
+  --color-placeholder: #3a3f47;
+  --color-night: #050607;
+
+  --shadow-pill: 0 4px 14px rgba(0, 0, 0, 0.5);
+  --shadow-card: 0 6px 24px rgba(0, 0, 0, 0.4);
+  --shadow-lifted: 0 14px 40px rgba(0, 0, 0, 0.6);
+}

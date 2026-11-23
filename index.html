@@ -6,6 +6,21 @@
     <link rel="icon" type="image/png" sizes="512x512" href="/favicon-glow.png" />
     <link rel="apple-touch-icon" href="/favicon-glow.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      // Pose le thème avant le premier affichage (évite un flash sombre). Même logique que app/providers.tsx.
+      (function () {
+        var theme = 'light';
+        try {
+          var stored = localStorage.getItem('portfolio-theme');
+          if (stored === 'light' || stored === 'dark') {
+            theme = stored;
+          } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            theme = 'dark';
+          }
+        } catch (error) {}
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
     <meta
       name="description"
       content="Aurel Vehi, applied economist and PhD researcher (ESTIA, University of Bordeaux): turning fragmented economic data into comparable indicators, econometric analysis and decision support."
