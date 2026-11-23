@@ -156,7 +156,7 @@ html.snap-home .papers {
    La liste défile normalement ; pendant les transitions elle est fixée à l'écran (useBambooScene : is-pinned-*).
    Elle passe SOUS le cadre de la scène (z-index plus bas) : en défilant, elle disparaît derrière la bande de photo. */
 
-@media (min-width: 1024px) {
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
   .papers--in-scene {
     position: relative;
     z-index: 1;

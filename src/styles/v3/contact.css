@@ -236,7 +236,7 @@ html.snap-home .contact {
 
 /* ---------- Ordinateur (≥ 1024 px) ---------- */
 
-@media (min-width: 1024px) {
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
   .contact__content {
     padding-block: 3rem 3rem;
   }
@@ -257,7 +257,9 @@ html.snap-home .contact {
    remonte sur la fin de la liste de Recherche : elle se colle au moment où la photo commence à se rouvrir.
    Le padding du bas garde l'espace vide sous la photo (lu en JS pour arrêter la photo à cet endroit). */
 
-@media (min-width: 1024px) {
+/* Le padding du contenu ne change que sur ordinateur à la souris : une tablette (iPad en paysage) garde le grand
+   espace du haut (navbar) et du bas (bouton « Send » au-dessus de la navbar) du mobile */
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
   .contact--in-scene {
     position: sticky;
     top: 0;
@@ -279,3 +281,4 @@ html.snap-home .contact {
     pointer-events: auto;
   }
 }
+@media (min-width: 1024px) {

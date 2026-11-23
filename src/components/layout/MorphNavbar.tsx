@@ -318,7 +318,8 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore, sce
     const row = rowRef.current
     if (!row) return
 
-    const isCompact = window.matchMedia('(max-width: 1023.98px)').matches
+    // Pilule compacte partout sauf sur ordinateur à la souris (même condition que HomePage et que les CSS)
+    const isCompact = !window.matchMedia('(min-width: 1024px) and (hover: hover) and (pointer: fine)').matches
     const rem = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16
     const pill = menuGeometry.current
     // offsetWidth / offsetHeight et non getBoundingClientRect : ce dernier inclut la rotation du balancement. Mesurée

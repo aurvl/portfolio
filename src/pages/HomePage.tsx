@@ -46,7 +46,10 @@ function HomePage() {
 
   // La scène « entrer dans la forêt » n'existe que sur ordinateur (≥ 1024 px). sceneProgress (0 = landing, 1 = About,
   // 2 = Recherche, 3 = Contact) sert aussi à la navbar, pour que « Learn more » voyage au même rythme que la photo.
-  const isSceneActive = useMediaQuery('(min-width: 1024px)')
+  // « Ordinateur » = écran large ET souris / trackpad (hover + pointeur précis). Un iPad en paysage (1180 px, mais au doigt)
+  // n'en fait pas partie : il garde la version tactile (sections normales, transition déclenchée), car une animation liée
+  // à chaque pixel de scroll rampe et saute au doigt. La même condition est dans les @media des CSS (scene.css, etc.).
+  const isSceneActive = useMediaQuery('(min-width: 1024px) and (hover: hover) and (pointer: fine)')
   const sceneRef = useRef<HTMLDivElement>(null)
   const sceneProgress = useBambooScene(sceneRef, isSceneActive, reducedMotion)
 

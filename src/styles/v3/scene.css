@@ -12,7 +12,7 @@ html {
   position: relative;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
   /* --papers-band-height : hauteur de la bande de photo pendant l'écran Recherche (lue en JS pour le clip-path,
      et utilisée par la liste et par les ronds sociaux) */
   .scene {

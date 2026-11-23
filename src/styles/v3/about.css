@@ -650,7 +650,7 @@
 
 /* ---------- Ordinateur (≥ 1024 px) : un seul écran, proportions de la maquette ---------- */
 
-@media (min-width: 1024px) {
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
   .about {
     /* Même unité que la landing : 1 % de la largeur de la maquette, bornée aussi par la hauteur de la fenêtre.
        grid-template-rows : bannière de 21,5 unités (325 px sur 1512), le reste pour le contenu. */
@@ -763,13 +763,13 @@
 /* ---------- Bascule mobile / ordinateur (seuil 1024 px) ----------
    Placées en fin de fichier : à spécificité égale, elles l'emportent sur les « display » plus haut. */
 
-@media (max-width: 1023.98px) {
+@media not all and (min-width: 1024px) and (hover: hover) and (pointer: fine) {
   .about__desktop-only {
     display: none;
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
   .about__mobile-only {
     display: none;
   }
@@ -779,6 +779,12 @@
   .collapsible__chevron,
   .next-doors__card {
     transition: none;
+
+  /* Tablette large (iPad en paysage) : le contenu est centré dans une colonne de lecture de 52 rem, comme la section
+     Research, au lieu de s'étirer collé à gauche sur toute la largeur. La bannière reste pleine largeur. */
+  .about__grid {
+    width: min(100% - 2rem, 52rem);
+  }
   }
 
   .next-doors__card:hover {
