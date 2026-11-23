@@ -27,3 +27,11 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+scripts/__pycache__/
+
+# Design v3: seuls les .md de design/ sont suivis (le repo est public)
+design/screens/
+design/svgs/
+design/*.svg
+design/*.png

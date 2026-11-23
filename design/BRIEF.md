@@ -1,0 +1,130 @@
+# BRIEF — Refonte visuelle du portfolio (v3)
+
+> Ce document décrit le NOUVEAU design. Le repo existant reste la base technique :
+> routes, i18n, thème, blog, séries, SEO, scripts de contenu → on garde et on réutilise.
+> On remplace la COUCHE VISUELLE (pages, composants de présentation, styles).
+
+## 0. Fichiers de référence
+
+| Fichier | Contenu |
+|---|---|
+| `design/screens/00-vue-ensemble-flux.jpg` | Vue d'ensemble : tous les écrans + flèches + annotations d'animation |
+| `design/screens/01-accueil-landing.jpg` | Écran d'arrivée (plein écran) |
+| `design/screens/02-about.jpg` | About me (après scroll / clic "En savoir plus") |
+| `design/screens/03-publications.jpg` | Research papers |
+| `design/screens/04a-projets-blog-haut.jpg` | Hub Projets & Blog — haut (à la une) |
+| `design/screens/04b-projets-blog-bas.jpg` | Hub Projets & Blog — bas (recherche + cartes projets) |
+| `design/screens/05-contact.jpg` | Contact |
+| `public/assets/images/hero-bamboo.webp` | Photo de fond (bambous, vue en contre-plongée) |
+
+⚠️ Ne JAMAIS ouvrir les `.svg` de `design/` (25 Mo de base64). Les `.jpg` de `design/screens/` suffisent.
+
+## 1. Règle de contenu : PLACEHOLDERS d'abord
+
+Objectif de cette phase : **valider le visuel**, pas le contenu.
+
+- **Repris du repo tel quel** : navigation (libellés + routes via `useSiteNav` / `routes.ts`),
+  liens des réseaux sociaux (déjà dans le repo, ex. `lib/site.ts`), sélecteur de langue,
+  toggle de thème, i18n, pipeline blog + séries (posts markdown, `useBlogIndex`, `series.json`).
+- **En placeholder** : tout ce qui est perso → nom, poste, photo, bio, parcours (timeline),
+  projets, publications, "Latest things", textes de l'about.
+- Les placeholders vivent dans **un seul endroit** (ex. `src/data/placeholders.ts`),
+  **typés avec les types existants** (`types/project.ts`, etc.), pour qu'on puisse
+  rebrancher les vraies données plus tard en changeant juste la source.
+- Placeholders lisibles et réalistes en longueur (pas 3 mots là où il y aura 3 lignes),
+  et bilingues FR/EN si le composant passe par l'i18n.
+
+## 2. Direction visuelle
+
+- **Ambiance** : site de chercheur (doit parler aux chercheurs et institutions : sérieux,
+  lisible, éditorial) mais **cool et personnel** : nature, lumière, coins arrondis, bleu vif.
+- **Fond hero** : photo bambous, légèrement voilée (opacité ~70 % sur fond clair).
+- **Couleurs relevées dans la maquette** :
+  - Bleu principal (navbar, icônes sociales, boutons) : `#55A1F5`
+  - Fond de page : `#FAFAF8` (hub projets : `#F6F2F2` en pied)
+  - Placeholder avatar / gris : `#D9D9D9`
+  - Bouton secondaire : bleu très clair (≈ `#55A1F5` à 30 %) avec texte foncé
+  - Bloc de recherche du hub : fond noir, texte blanc
+- **Typo** : titres en sans-serif grasse (type Inter/Geist), intertitres éditoriaux
+  ("What is Lorem Ipsum?", titres d'articles à la une) en **serif**. Réutiliser Geist
+  (déjà dans le repo) pour le sans ; proposer une serif (ex. Source Serif 4) — à valider.
+- **Formes** : pilules (navbar, boutons, sélecteur), cartes à coins arrondis, ombres légères.
+- Tous les tokens dans `@theme` (Tailwind v4), y compris une variante **dark** (le toggle existe).
+
+## 3. Composants globaux
+
+- **Navbar "pilule"** : capsule bleue centrée, ~7 onglets texte blanc, onglet actif =
+  fond bleu clair + texte noir. Libellés réels depuis le repo.
+- **Pilule en haut à droite** (grise translucide, sur chaque écran) = **sélecteur de langue
+  FR/EN + toggle thème clair/sombre** (réutiliser la logique existante).
+- **Icônes sociales** : ronds bleus, icône blanche. Réseaux réels depuis le repo.
+- **Avatar** : cercle (placeholder gris tant qu'il n'y a pas de photo).
+
+## 4. Écrans et comportements
+
+### 4.1 Accueil — landing (`01`)
+- **Desktop : un seul écran, non scrollable en apparence** ("not scrollable / one page").
+- Hero bambous sur ~60 % de la hauteur ; au centre : avatar, NOM & PRÉNOMS, poste,
+  rangée d'icônes sociales, bouton pilule **"En savoir plus"**.
+- Sous le hero : bloc **"Latest things"** = 3 cartes horizontales (titre, description,
+  date, vignette carrée à droite). Placeholders.
+- **Transition** : au scroll vers le bas OU au clic sur "En savoir plus" → animation fluide
+  vers l'About, et **le bouton "En savoir plus" se transforme en navbar** (morph, ex.
+  `layoutId` framer-motion, déjà installé).
+
+### 4.2 About (`02`)
+- Navbar en haut, hero bambous réduit en bandeau, avatar qui chevauche le bandeau à gauche,
+  icônes sociales alignées à droite sur la ligne du bandeau.
+- Colonne gauche : **timeline verticale du parcours** (points sur une ligne, l'étape
+  active a un point bleu plein) + bouton **"View my Resume"** (icône document).
+- Colonne droite : "About Me" + sections texte (intertitres serif).
+- Boutons : **"Explore my Work"** (primaire bleu clair) et **"Get in touch"** (contour).
+- Bouton **"View my papers ↓"** en bas à droite : **il sautille** en boucle pour attirer
+  l'attention (respecter `prefers-reduced-motion`).
+- Clic "Explore my Work" → animation fluide vers le hub Projets & Blog.
+- Clic "Get in touch" → scroll animé vers le Contact.
+- Clic "View my papers" OU scroll → section Publications.
+
+### 4.3 Publications (`03`)
+- Même en-tête (navbar + bandeau + icônes).
+- Bouton **"Back to about ↑"** à gauche (ou scroll vers le haut pour revenir).
+- Titre "My research Papers" + liste de cartes : titre serif, résumé, mention à droite.
+- Placeholders (s'inspirer de la structure de `publications.json` pour les champs).
+
+### 4.4 Hub Projets & Blog (`04a` + `04b`)
+- **Cette page centralise projets ET articles de blog.**
+- En-tête : navbar sur bandeau bambous fin, titre "Project & Blog posts",
+  champ **"Search a project"** en pilule à droite.
+- **Section "À la une"** — mise en page inspirée d'une revue scientifique (Nature) :
+  - 1 grand article vedette (bloc texte sombre à gauche, grande image à droite)
+  - une rangée de 4 articles (image, titre serif souligné, chapô)
+  - une colonne "couverture" à droite avec 2 boutons (ex. "Contents" / "Subscribe")
+  - ⚠️ Reprendre uniquement la **composition** : aucun logo, nom, texte ou image de Nature.
+    Contenu = mes projets/articles (placeholders).
+  - Dans "à la une", un **second bloc "derniers articles du blog"** + un bouton vers la
+    **vue Séries** (la page Séries existe déjà dans le repo : la garder, la restyler).
+- **Zone de recherche** (bloc noir : champ, filtre déroulant, bouton Search, lien
+  recherche avancée, liens rapides) : elle **apparaît après clic sur "Search a project"**
+  et la page **défile jusqu'à elle**. Sinon, après "à la une", on arrive au footer.
+  Réutiliser la logique de filtres existante (recherche, domaine, tag, année, tri).
+- **Cartes projets** (grille 3 colonnes) : image avec étiquette de domaine en surimpression,
+  titre, tags en majuscules (petites pilules), séparateur, description, date en bas à
+  gauche, "Read more ↗" en bas à droite. Le style actuel des cartes est proche : le garder
+  comme base.
+
+### 4.5 Contact (`05`)
+- Hero bambous quasi plein écran ; avatar à gauche, NOM & PRÉNOMS + poste + icônes à droite.
+- Grand bloc blanc central = **formulaire de contact** (nom, email, sujet, message, envoyer).
+  Envoi : garder le mécanisme existant s'il y en a un, sinon UI seule pour l'instant.
+- **La navbar est en bas de l'écran** sur cette vue.
+
+## 5. Ordre des sections de l'accueil (à confirmer)
+Landing → About → Publications → Contact, en une seule page avec ancres et scroll fluide.
+Hub Projets & Blog, Séries et articles = routes séparées (existantes).
+
+## 6. Responsive
+Pas de maquette mobile : proposer une adaptation (navbar → menu compact, colonnes empilées,
+timeline au-dessus du texte, grille 1 colonne). Sur mobile, la landing peut scroller.
+
+## 7. Hors périmètre de cette phase
+Contenu réel, SEO, analytics, scripts de contenu : ne pas toucher sauf si une route change.
