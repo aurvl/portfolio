@@ -117,6 +117,13 @@ Modifier : `Navbar`, `MainLayout`, `HomePage`, `ProjectsPage`, `BlogPage`, `Publ
       bas au milieu (2ᵉ voyage de `MorphNavbar`, emplacement vide `data-morph-slot` en fin de page), sur tous les
       formats ; sur mobile son menu s'ouvre vers le haut. « Get in touch » y mène. À reprendre : `/contact` n'existe pas (la
       navbar des autres pages pointe vers `/#contact-form`), envoi non testé en réel, mobile à vérifier (13).
+- [x] 8b. Footer v3 (toutes les pages) : `Footer` + `footer.css`. Fin de bandeau bambous en haut (même photo et même
+      voile, même fichier que les bannières donc déjà en cache), puis marque / Navigation (entrées de `useSiteNav`
+      sans Accueil ni Contact, CV = lien direct) / Profils (ORCID, ResearchGate, GitHub, Threads) / Contact (Email,
+      LinkedIn, « Me contacter → »), ligne du bas : © + Cookies, FR | EN, « ↑ Haut de page ». Desktop 4 colonnes,
+      tablette 2 colonnes, mobile centré. `BackToTopButton` se masque quand le pied de page est à l'écran. Textes
+      FR/EN dans `locales/`. À reprendre : les anciens styles V2 du footer disparaissent à l'étape 15 ; le nom du
+      pied de page est le vrai (hors placeholders).
 - [ ] 9. Assemblage `HomePage` one-page en CSS scroll-snap, ancres, hash, SEO.
 - [ ] 10. Hub : en-tête, `FeaturedHub`, grille `ProjectCard`.
 - [ ] 11. `SearchPanel` branché sur les filtres ; deep-link `?project=` intact.
