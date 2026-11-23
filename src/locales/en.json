@@ -4,7 +4,15 @@
     "themeToggle": "Toggle theme"
   },
   "footer": {
-    "copyright": "© 2026 Aurel Vehi. All rights reserved."
+    "tagline": "PhD researcher in applied economics",
+    "navigation": "Navigation",
+    "profiles": "Profiles",
+    "contact": "Contact",
+    "email": "Email",
+    "contactMe": "Get in touch",
+    "resume": "Resume (PDF)",
+    "copyright": "© 2026 Aurel Vehi",
+    "backToTop": "Back to top"
   },
   "projects": {
     "fallbackDomain": "Project",

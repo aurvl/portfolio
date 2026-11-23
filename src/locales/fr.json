@@ -4,7 +4,15 @@
     "themeToggle": "Changer de theme"
   },
   "footer": {
-    "copyright": "© 2026 Aurel Vehi. Tous droits réservés."
+    "tagline": "Doctorant en économie appliquée",
+    "navigation": "Navigation",
+    "profiles": "Profils",
+    "contact": "Contact",
+    "email": "Email",
+    "contactMe": "Me contacter",
+    "resume": "CV (PDF)",
+    "copyright": "© 2026 Aurel Vehi",
+    "backToTop": "Haut de page"
   },
   "projects": {
     "fallbackDomain": "Projet",

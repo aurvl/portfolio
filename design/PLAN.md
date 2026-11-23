@@ -117,6 +117,13 @@ Modifier : `Navbar`, `MainLayout`, `HomePage`, `ProjectsPage`, `BlogPage`, `Publ
       bas au milieu (2ᵉ voyage de `MorphNavbar`, emplacement vide `data-morph-slot` en fin de page), sur tous les
       formats ; sur mobile son menu s'ouvre vers le haut. « Get in touch » y mène. À reprendre : `/contact` n'existe pas (la
       navbar des autres pages pointe vers `/#contact-form`), envoi non testé en réel, mobile à vérifier (13).
+- [x] 8b. Footer v3 (toutes les pages) : `Footer` + `footer.css`. Fin de bandeau bambous en haut (même photo et même
+      voile, même fichier que les bannières donc déjà en cache), puis marque / Navigation (entrées de `useSiteNav`
+      sans Accueil ni Contact, CV = lien direct) / Profils (ORCID, ResearchGate, GitHub, Threads) / Contact (Email,
+      LinkedIn, « Me contacter → »), ligne du bas : © + Cookies, FR | EN, « ↑ Haut de page ». Desktop 4 colonnes,
+      tablette 2 colonnes, mobile centré. `BackToTopButton` se masque quand le pied de page est à l'écran. Textes
+      FR/EN dans `locales/`. À reprendre : les anciens styles V2 du footer disparaissent à l'étape 15 ; le nom du
+      pied de page est le vrai (hors placeholders).
 - [ ] 9. Assemblage `HomePage` one-page en CSS scroll-snap, ancres, hash, SEO.
 - [ ] 10. Hub : en-tête, `FeaturedHub`, grille `ProjectCard`.
 - [ ] 11. `SearchPanel` branché sur les filtres ; deep-link `?project=` intact.
@@ -133,6 +140,61 @@ Chaque étape : `npm run lint` + `npm run build` verts, résumé court, mise à 
 Règles de lisibilité (CSS vertical, commentaires français sur les techniques complexes, `cn()`/`clsx`, ordre
 des propriétés) : voir `CLAUDE.md`, section « Style de code ». Elles s'appliquent dès l'étape 1, et chaque
 étape les vérifie avant de se terminer.
+
+## 3b. Transitions immersives « entrer dans la forêt » — EXPÉRIENCE VALIDÉE
+Concept validé par le propriétaire (le 2026-11-23, rendu des étapes E1 et E2 jugé bon). Il remplace le morph « Learn more »
+seul : la photo de bambous est le fil conducteur de toutes les pages. Spécification complète : `design/BRIEF.md` §6c
+(elle n'existe QUE sur la branche `experiment/bamboo-transitions`, commit `75c5c36`, section « 6c. Transitions
+immersives »).
+
+**Décisions** : option A (scène collante + scroll-snap natif, décision 10 inchangée, jamais de détournement de la
+molette) ; bouton Précédent du navigateur non animé (accepté pour l'instant) ; zone morte supprimée ; sur mobile on
+garde le zoom des bambous ET le resserrement de la bannière (glissement avatar / nom supprimable si risqué) ; photo en
+trois tailles 1200 / 1920 / 2400 px (`srcset`) + préchargement ; on n'anime que `transform`, `opacity`, `clip-path` ;
+aucune nouvelle dépendance ; `prefers-reduced-motion` = fondu simple ; navigateur sans View Transitions = navigation
+normale sans animation.
+
+**Où est le code (à ne pas perdre)** : E1 et E2 sont faites mais NON COMMITÉES, rangées dans
+`git stash` (`stash@{0}`, message « wip scene experiment (steps 1-2 + landing fix), not committed »). Pour les
+récupérer : `git switch experiment/bamboo-transitions` puis `git stash pop`, puis commiter sur cette branche. Ensuite
+on fusionnera la branche dans `redesign/researcher-friendly`. Fichiers concernés : `src/components/ui/BambooPhoto.tsx`,
+`src/hooks/useBambooScene.ts`, `src/hooks/useMediaQuery.ts`, `src/styles/v3/scene.css` (+ import dans `globals.css`),
+`public/assets/images/hero-bamboo-1200.webp` et `-1920.webp` (générées depuis l'original 2400 px : 379 Ko et 800 Ko),
+`index.html` (préchargement `imagesrcset`), et des modifications de `HomePage`, `LandingHero`, `AboutSection`,
+`PublicationsSection`, `ContactSection`, `MorphNavbar`, `placeholders.ts` (les vignettes fictives pointent vers la
+version 1200 px, sinon le fichier de 1,25 Mo se télécharge pour rien).
+
+- [x] E1. Scène collante (≥ 1024 px) : `.scene` de 200 dvh, cadre `position: sticky` de 100 dvh, photo commune au-dessus
+      de la landing et de l'About, zones `#home` / `#about` (ancres, onglet actif de la navbar, points d'arrêt du
+      `scroll-snap`), photo en `srcset` (`BambooPhoto`) + préchargement. Sous 1024 px rien ne change.
+- [x] E2. Animation Landing → About pilotée par `useBambooScene` (`useScroll` sur la scène) : bannière resserrée par
+      `clip-path` (609 → 323 px à 1651 px de large) avec zoom +16 %, l'avatar, le nom, le poste et les réseaux DE LA
+      LANDING glissent vers leur place d'About (l'état initial de la landing n'est jamais modifié), relais par fondu
+      avec l'en-tête de l'About entre 92 % et 100 %, « Latest things » s'efface, le contenu de l'About apparaît (35 %
+      → 85 %), le poste passe du blanc au sombre entre 78 % et 92 %. `MorphNavbar` prend la progression de la scène
+      (`sceneProgress`, `isSceneActive`), zone morte supprimée, plus de « suit la page » dans la scène.
+- [ ] E3. Finir le branchement de `MorphNavbar` sur la scène : valider le rythme (voyage du bouton, étirement,
+      élargissement) ; le bouton « Learn more » croise brièvement l'avatar vers 35 % (jugé transitoire, à revoir si
+      gênant) ; refaire la vérification du second voyage vers le bas au Contact avec la scène ; vérifier l'onglet actif
+      (zones `#home` / `#about`) et le clic sur « Learn more » (scroll fluide jusqu'à `#about`).
+- [ ] E4. Mobile et tablette (< 1024 px) : garder le zoom des bambous et le resserrement de la bannière (`clip-path`),
+      sans la scène collante si elle casse la landing qui défile (sous 900 px de haut) ; glissement avatar / nom
+      optionnel (le supprimer si risqué) ; `prefers-reduced-motion` complet (aujourd'hui : bascule à mi-parcours sans
+      glissement ni zoom, seuls les fondus restent progressifs) ; fluidité à vérifier sur mobile réel.
+- [ ] E5. View Transitions entre pages (About → Projets, Recherche, articles, séries…) : `viewTransition` de
+      react-router (v7.13 installée, `BrowserRouter` : à confirmer par un test) sur les `Link` et `navigate` ; le
+      bandeau bambous est un élément partagé (`view-transition-name`, un seul par page) ; sens zoom avant / arrière
+      d'après la profondeur de la route (accueil < hub et publications < article et série), posé sur `<html>` avant
+      la navigation ; navbar et pilule langue / thème avec leur propre nom (pas de scintillement) ; animations
+      `transform` + `opacity` seulement ; détection de `document.startViewTransition` (sans support : navigation
+      normale) ; `prefers-reduced-motion` = fondu simple. Le bouton Précédent du navigateur n'est pas animé
+      (limite acceptée). Le bandeau doit aussi exister (même photo) sur les pages hub / blog quand elles seront refaites
+      (étapes 10 à 12).
+- [ ] E6. Vérifications et intégration : Playwright (clair / sombre, desktop, tablette, 390 px), `npm run lint` +
+      `npm run build`, performance (DevTools, 60 images / s sur la scène), calage `scroll-snap` sur Safari, accessibilité
+      (titre `h1` / `h2` dupliqué entre landing et About, `inert`, focus), nom long qui passe sur deux lignes au relais
+      (vrai nom attendu à l'étape 16), puis commiter sur `experiment/bamboo-transitions`, fusionner dans
+      `redesign/researcher-friendly`, mettre à jour `docs/` et ce fichier.
 
 ## 4. Décisions (réponses du propriétaire)
 0. `design/` : seuls les `.md` (BRIEF, PLAN, PROMPTS) sont suivis par git. `design/screens/` et tous les exports
