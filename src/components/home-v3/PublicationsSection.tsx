@@ -12,8 +12,9 @@ import Button from '../ui/Button'
 import SocialIcons from '../ui/SocialIcons'
 
 type PublicationsSectionProps = {
-  // Remonte vers l'About (scroll fluide sur l'accueil, navigation vers /#about depuis la page)
-  onBackToAbout: () => void
+  // Bouton « retour à l'About » : seulement sur la page /publications (navigation vers /#about). Sur l'accueil on
+  // n'en met pas : il suffit de remonter pour revenir sur l'About.
+  onBackToAbout?: () => void
   // true (ordinateur, accueil) : la photo et les ronds sociaux viennent de la scène, l'ancre « research » est posée par elle
   inScene?: boolean
 }
@@ -37,7 +38,7 @@ function PublicationsSection({ onBackToAbout, inScene = false }: PublicationsSec
   return (
     <section
       id={inScene ? undefined : 'research'}
-      className={cn('papers', inScene && 'papers--in-scene')}
+      className={cn('papers', inScene && 'papers--in-scene', !onBackToAbout && 'papers--no-side')}
       aria-labelledby="papers-title"
     >
       <div className="papers__banner">
@@ -47,16 +48,18 @@ function PublicationsSection({ onBackToAbout, inScene = false }: PublicationsSec
       <div className="papers__grid">
         {inScene ? null : <SocialIcons className="papers__social" />}
 
-        <div className="papers__side">
-          <Button
-            variant="line"
-            className="papers__back"
-            onClick={onBackToAbout}
-            icon={<FiArrowUp />}
-          >
-            {labels.backToAbout}
-          </Button>
-        </div>
+        {onBackToAbout ? (
+          <div className="papers__side">
+            <Button
+              variant="line"
+              className="papers__back"
+              onClick={onBackToAbout}
+              icon={<FiArrowUp />}
+            >
+              {labels.backToAbout}
+            </Button>
+          </div>
+        ) : null}
 
         <div className="papers__main">
           <p className="eyebrow">{labels.eyebrow}</p>

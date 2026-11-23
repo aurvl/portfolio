@@ -52,12 +52,12 @@ function HomePage() {
   const isSceneActive = useMediaQuery('(min-width: 1024px) and (hover: hover) and (pointer: fine)')
   const sceneRef = useRef<HTMLDivElement>(null)
   const sceneProgress = useBambooScene(sceneRef, isSceneActive, reducedMotion)
-
-  // Scroll-snap sur la page entière : la molette s'arrête sur chaque écran (landing, puis suite).
-  // La classe est posée sur <html> (seul élément qui peut porter le snap de la page) et retirée en partant.
   // Sous 1024 px : sections normales ; la transition Landing → About est DÉCLENCHÉE (jouée dans le temps, 0 → 1) au lieu
   // d'être liée au scroll, et chaque bannière zoome / s'ouvre selon sa position
   const mobileProgress = useBambooMobile(!isSceneActive, reducedMotion)
+
+  // Scroll-snap sur la page entière : la molette s'arrête sur chaque écran (landing, puis suite).
+  // La classe est posée sur <html> (seul élément qui peut porter le snap de la page) et retirée en partant.
   useEffect(() => {
     document.documentElement.classList.add('snap-home')
 
@@ -164,10 +164,7 @@ function HomePage() {
               id="research"
               className="papers-track"
             >
-              <PublicationsSection
-                inScene
-                onBackToAbout={() => scrollToSection('about')}
-              />
+              <PublicationsSection inScene />
             </div>
 
             <ContactSection inScene />
@@ -195,7 +192,7 @@ function HomePage() {
 
       {isSceneActive ? null : (
         <>
-          <PublicationsSection onBackToAbout={() => scrollToSection('about')} />
+          <PublicationsSection />
           <ContactSection />
         </>
       )}
