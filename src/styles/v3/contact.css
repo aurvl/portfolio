@@ -55,7 +55,9 @@ html.snap-home .contact {
   align-content: center;
   width: min(100% - 2rem, 56rem);
   margin-inline: auto;
-  padding-block: 5.5rem 3rem;
+  /* Le bas est plus grand : la navbar descend se poser en bas de l'écran, on peut ainsi défiler assez bas pour que
+     le bouton « Send » passe au-dessus d'elle au lieu d'être caché derrière */
+  padding-block: 5.5rem 7.5rem;
 }
 
 /* ---------- Identité : avatar, nom, poste, ronds sociaux ---------- */
@@ -94,6 +96,43 @@ html.snap-home .contact {
 
 .contact__social {
   gap: 0.75rem;
+}
+
+/* Mobile (< 768 px) : à côté de l'avatar il reste trop peu de largeur et les ronds sociaux passent sur deux lignes.
+   On les descend SOUS l'avatar et le nom, sur toute la largeur, et ils tiennent sur une seule ligne.
+   display: contents : le bloc « who » disparaît de la mise en page, ses enfants (nom, poste, ronds) deviennent
+   des cellules de la grille de l'identité ; grid-row : span 2 = l'avatar couvre les lignes du nom et du poste. */
+@media (max-width: 767.98px) {
+  .contact__identity {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-content: start;
+    gap: 0.35rem 1.25rem;
+  }
+
+  .contact__avatar {
+    grid-row: span 2;
+  }
+
+  .contact__who {
+    display: contents;
+  }
+
+  .contact__name {
+    align-self: end;
+  }
+
+  .contact__role {
+    align-self: start;
+  }
+
+  .contact__social {
+    grid-column: 1 / -1;
+    flex-wrap: nowrap;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 0.65rem;
+  }
 }
 
 /* ---------- Formulaire : grand bloc plein au centre ---------- */
@@ -177,6 +216,15 @@ html.snap-home .contact {
   padding-block: 0.5rem;
 }
 
+/* Mobile (< 768 px) : le message d'aide et le bouton « Send » sont centrés, l'un sous l'autre */
+@media (max-width: 767.98px) {
+  .contact__footer {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+}
+
 .contact .btn[disabled] {
   cursor: not-allowed;
   opacity: 0.5;
@@ -236,11 +284,15 @@ html.snap-home .contact {
 
 /* ---------- Ordinateur (≥ 1024 px) ---------- */
 
+/* Le padding du contenu ne change que sur ordinateur à la souris : une tablette (iPad en paysage) garde le grand
+   espace du haut (navbar) et du bas (bouton « Send » au-dessus de la navbar) du mobile */
 @media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
   .contact__content {
     padding-block: 3rem 3rem;
   }
+}
 
+@media (min-width: 1024px) {
   .contact__avatar {
     width: 8.5rem;
   }
@@ -257,8 +309,6 @@ html.snap-home .contact {
    remonte sur la fin de la liste de Recherche : elle se colle au moment où la photo commence à se rouvrir.
    Le padding du bas garde l'espace vide sous la photo (lu en JS pour arrêter la photo à cet endroit). */
 
-/* Le padding du contenu ne change que sur ordinateur à la souris : une tablette (iPad en paysage) garde le grand
-   espace du haut (navbar) et du bas (bouton « Send » au-dessus de la navbar) du mobile */
 @media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
   .contact--in-scene {
     position: sticky;
@@ -281,4 +331,3 @@ html.snap-home .contact {
     pointer-events: auto;
   }
 }
-@media (min-width: 1024px) {
