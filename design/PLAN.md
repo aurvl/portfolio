@@ -203,6 +203,13 @@ version 1200 px, sinon le fichier de 1,25 Mo se télécharge pour rien).
             mouvement (calage au repos). Le bouton suit la page sur les 40 premiers px, puis
             vole jusqu'en haut (position pilotée par le TEMPS, pas par le scroll) et se transforme en barre ; « Latest things »
             s'efface pendant le vol. Mesures de départ lues dans la mise en page (stables avec la barre d'adresse Safari).
+      - [!] E4a, ÉTAT RÉEL SUR iOS (23-24/11/2026) : la transition marche sur ordinateur et dans Chrome simulé, mais le
+            propriétaire ne voit pas le morph sur iPhone / iPad. Diagnostic sur appareil (encart ?debug=1, mouvement réduit
+            NON, mode tactile OUI) : la progression atteint bien 1.00 mais Safari iOS n'affiche pas les animations JavaScript
+            pendant l'élan natif du doigt (6 événements de scroll pour 695 px). Dernier correctif (commit 450a19c) : couper
+            l'élan et dérouler la page nous-mêmes en 0,6 s (html.is-gliding) ; NON confirmé sur appareil. Pistes si ça
+            échoue : animations 100 % CSS / WAAPI (thread compositeur) au lieu de JS, ou View Transitions API. Encart de
+            diagnostic : src/components/debug/DebugOverlay.tsx (temporaire, branché sur ?debug=1 dans HomePage).
       - [ ] E4b. About → Recherche → Contact : PAS encore au principe « déclencher ». Aujourd'hui ces passages sont de
             simples défilements ; seules les bannières réagissent, liées à leur POSITION dans la page (zoom ×1,16 →
             ×1,30 → ×1,45 plafonné pour la netteté, ouverture du cadre à l'arrivée) et la navbar descend se loger en
