@@ -30,6 +30,14 @@ html.snap-home footer {
   scroll-snap-align: end;
 }
 
+/* Pendant le défilement jusqu'à l'About (useBambooMobile) : la page est verrouillée et le calage désactivé le temps de
+   l'animation (0,6 s), pour couper l'élan natif de l'iPhone qui empêche d'afficher les animations. Placé après
+   html.snap-home : à spécificité égale, la dernière règle l'emporte. */
+html.is-gliding {
+  overflow: hidden;
+  scroll-snap-type: none;
+}
+
 /* ---------- Mobile et petits écrans : la landing peut défiler ---------- */
 
 .landing {

@@ -7,7 +7,8 @@
 // rampe, zigzague et reste coincée à mi-chemin. Ici il n'existe que deux états, « landing » (0) et « about » (1) :
 //   - dès que le scroll dépasse TRIGGER_PX, la transition complète se joue seule en ~600 ms (ressort, léger rebond) :
 //     le bouton voyage jusqu'à la pilule, l'identité de la landing s'efface, les bambous zooment et la bannière
-//     se resserre. Au même moment la page défile en douceur jusqu'à l'About (scroll natif, rien n'est bloqué) ;
+//     se resserre. Au même moment la page défile jusqu'à l'About, déroulée par nous pendant 0,6 s (la page est
+//     verrouillée ce court instant : sur iPhone, l'élan natif empêche Safari d'afficher les animations) ;
 //   - quand on revient tout en haut, la même transition se joue à l'envers ;
 //   - si le doigt s'arrête entre les deux, la page termine d'elle-même le mouvement (calage au repos).
 // La valeur 0 → 1 jouée dans le temps (`progress`) est partagée avec la navbar (MorphNavbar).
@@ -60,6 +61,8 @@ const SPRING = { type: 'spring', duration: 0.6, bounce: 0.15 } as const
 const FADE = { duration: 0.25, ease: 'linear' } as const
 // Attente (ms) sans aucun scroll avant de terminer le mouvement à la place du doigt
 const SETTLE_DELAY_MS = 140
+// Durée du défilement jusqu'à l'About, la même que celle de la transition (ressort de 0,6 s)
+const GLIDE_MS = 600
 
 // Netteté : la photo fait 2400 × 1600 px. Au-delà de 1,45 fois cette taille en pixels d'écran elle devient floue ;
 // on réduit alors le zoom de la bannière (jusqu'à zéro sur un écran très dense) pour ne jamais dépasser ce seuil.
@@ -170,10 +173,43 @@ export function useBambooMobile(isActive: boolean, reducedMotion: boolean): Moti
       return about ? about.getBoundingClientRect().top + window.scrollY : Infinity
     }
 
-    // Défilement en douceur (scroll natif : on ne bloque jamais le doigt ni la molette). Mouvement réduit : direct.
+    // DÉFILEMENT JUSQU'À L'ABOUT, fait par nous, image par image (durée GLIDE_MS). Pourquoi pas le défilement natif :
+    // sur iPhone et iPad, pendant l'élan du doigt, Safari n'affiche plus les animations JavaScript (il ne rafraîchit
+    // presque rien : 6 événements de scroll pour 700 px). Le bouton qui vole et les bambous qui zooment ne se voyaient
+    // donc pas, on ne voyait qu'un scroll normal. On coupe l'élan natif (scrollTo sur place + html verrouillé pendant
+    // le mouvement, calage désactivé) et on déroule nous-mêmes la page : le navigateur peut alors afficher l'animation.
+    // Le verrou dure GLIDE_MS (0,6 s) ; mouvement réduit : saut direct, sans animation.
+    let glideFrame = 0
+    let isGliding = false
+    const root = document.documentElement
+    const stopGlide = () => {
+      window.cancelAnimationFrame(glideFrame)
+      if (isGliding) root.classList.remove('is-gliding')
+      isGliding = false
+    }
     const glideTo = (top: number) => {
-      if (Math.abs(window.scrollY - top) < 8) return
-      window.scrollTo({ top, behavior: reducedMotion ? 'auto' : 'smooth' })
+      const from = window.scrollY
+      if (Math.abs(from - top) < 8) return
+      stopGlide()
+      if (reducedMotion) {
+        window.scrollTo({ top, behavior: 'instant' })
+        return
+      }
+
+      isGliding = true
+      root.classList.add('is-gliding')
+      window.scrollTo({ top: from, behavior: 'instant' })
+      const startedAt = performance.now()
+      const step = (now: number) => {
+        const amount = clamp01((now - startedAt) / GLIDE_MS)
+        window.scrollTo({ top: from + (top - from) * smooth(amount), behavior: 'instant' })
+        if (amount < 1) {
+          glideFrame = window.requestAnimationFrame(step)
+        } else {
+          stopGlide()
+        }
+      }
+      glideFrame = window.requestAnimationFrame(step)
     }
 
     const play = (next: 0 | 1) => {
@@ -185,7 +221,7 @@ export function useBambooMobile(isActive: boolean, reducedMotion: boolean): Moti
     // Au repos (plus aucun scroll, doigt levé) : pas d'état intermédiaire possible. Dans la zone de la landing,
     // on termine le mouvement à la place du doigt, vers l'About ou vers le haut selon le côté le plus proche.
     const settle = () => {
-      if (isTouching) return
+      if (isTouching || isGliding) return
 
       const aboutTop = getAboutTop()
       const y = window.scrollY
@@ -242,6 +278,7 @@ export function useBambooMobile(isActive: boolean, reducedMotion: boolean): Moti
 
     return () => {
       window.clearTimeout(settleTimer)
+      stopGlide()
       playback?.stop()
       stopListening()
       stopProgress()
