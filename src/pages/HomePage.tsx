@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import { useReducedMotion } from 'framer-motion'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { placeholders } from '../data/placeholders'
+import { useBambooMobile } from '../hooks/useBambooMobile'
 import { useBambooScene } from '../hooks/useBambooScene'
 import { useHomeContent } from '../hooks/useHomeContent'
 import { useMediaQuery } from '../hooks/useMediaQuery'
@@ -51,6 +52,9 @@ function HomePage() {
 
   // Scroll-snap sur la page entière : la molette s'arrête sur chaque écran (landing, puis suite).
   // La classe est posée sur <html> (seul élément qui peut porter le snap de la page) et retirée en partant.
+  // Sous 1024 px : sections normales ; la transition Landing → About est DÉCLENCHÉE (jouée dans le temps, 0 → 1) au lieu
+  // d'être liée au scroll, et chaque bannière zoome / s'ouvre selon sa position
+  const mobileProgress = useBambooMobile(!isSceneActive, reducedMotion)
   useEffect(() => {
     document.documentElement.classList.add('snap-home')
 
@@ -76,7 +80,7 @@ function HomePage() {
           reducedMotion={reducedMotion}
           learnMoreLabel={learnMoreLabel}
           onLearnMore={scrollToNextScreen}
-          sceneProgress={sceneProgress}
+          sceneProgress={isSceneActive ? sceneProgress : mobileProgress}
           isSceneActive={isSceneActive}
         />
       }

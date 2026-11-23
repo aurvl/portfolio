@@ -18,19 +18,33 @@ html.snap-home .contact {
   flex-direction: column;
   /* La photo s'arrête au-dessus du bas de la fenêtre : la navbar à cheval sur son bord reste entière à l'écran,
      avec un peu de fond de page dessous (maquette 05-contact.png) */
-  min-height: calc(100dvh - var(--contact-photo-gap));
-  overflow: hidden;
+  min-height: calc(100svh - var(--contact-photo-gap));
+  /* clip et non hidden : hidden ferait de ce bloc un conteneur de défilement et empêcherait la photo de se coller à
+     l'écran (position: sticky ci-dessous) */
+  overflow: clip;
+}
+
+/* Cadre de la photo, voilée à 70 % sur fond sombre fixe : comme les autres bannières, indépendante du thème.
+   Il s'ouvre par le haut au scroll (clip-path posé par useBambooMobile) ; le texte n'est jamais rogné */
+.contact__photo-frame {
+  position: absolute;
+  inset: 0;
+  overflow: clip;
   background: var(--color-banner-veil);
 }
 
-/* Photo en fond, voilée à 70 % sur fond sombre fixe : comme les autres bannières, indépendante du thème */
+/* position: sticky + top: 0 : la photo reste collée en haut de l'écran pendant qu'on fait défiler le formulaire (le
+   bloc est plus haut que l'écran). Elle garde ainsi la hauteur de la fenêtre au lieu d'être étirée sur tout le bloc,
+   ce qui l'agrandissait trop et la rendait floue. */
 .contact__photo {
-  position: absolute;
-  inset: 0;
+  position: sticky;
+  top: 0;
+  display: block;
   width: 100%;
-  height: 100%;
+  height: 100svh;
   object-fit: cover;
   opacity: 0.7;
+  will-change: transform;
 }
 
 .contact__content {

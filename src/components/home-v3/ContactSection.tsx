@@ -63,7 +63,16 @@ function ContactSection({ inScene = false }: ContactSectionProps) {
       className={cn('contact', inScene && 'contact--in-scene')}
       aria-labelledby="contact-title"
     >
-      {inScene ? null : <BambooPhoto className="contact__photo" />}
+      {inScene ? null : (
+        <div className="contact__photo-frame">
+          {/* sizes : la photo est collée à l'écran, de la hauteur de la fenêtre ; avec « cover » sa largeur vaut 1,5 fois
+              cette hauteur. Sans cette indication le navigateur prendrait le plus petit fichier (flou). */}
+          <BambooPhoto
+            className="contact__photo"
+            sizes="150vh"
+          />
+        </div>
+      )}
 
       <div className="contact__content">
         <header className="contact__identity">

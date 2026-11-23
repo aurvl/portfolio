@@ -19,6 +19,7 @@ import {
   type MotionValue,
 } from 'framer-motion'
 import { useNavbarModel } from '../../hooks/useNavbarModel'
+import { cn } from '../../lib/cn'
 import CompactMenu, { MENU_RADIUS, type MenuGeometry } from './CompactMenu'
 import type { NavbarSection } from './Navbar'
 
@@ -64,6 +65,19 @@ const TAB_STAGGER = 0.028 // décalage entre deux onglets
 const TAB_FADE = 0.08 // durée d'apparition d'un onglet
 const WOBBLE_DEGREES = 2.5 // inclinaison maximale pendant le vol : très légère
 const FLIGHT_ARC_PX = 90 // écart latéral maximal du bouton au milieu de la montée (ordinateur)
+
+// Position d'un élément dans la page (px depuis le haut du document), lue dans la mise en page : elle ne dépend
+// ni du scroll ni de la barre d'adresse du navigateur
+function getDocumentTop(element: HTMLElement) {
+  let top = 0
+  let node: HTMLElement | null = element
+  while (node) {
+    top += node.offsetTop
+    node = node.offsetParent as HTMLElement | null
+  }
+
+  return top
+}
 
 const clamp01 = (value: number) => Math.min(1, Math.max(0, value))
 const lerp = (from: number, to: number, amount: number) => from + (to - from) * amount
@@ -135,11 +149,11 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore, sce
   // PROGRESSION 0 → 1, liée au scroll, sans zone morte (le scroll-snap natif évite déjà les déclenchements par
   // erreur). Sur ordinateur, c'est celle de la scène (la même que la photo, donc tout voyage au même rythme) ;
   // sur mobile et tablette, c'est le scroll sur toute la hauteur de la landing.
-  const progress = useTransform([scrollY, tick, sceneProgress], ([scrollTop, , sceneValue]: number[]) => {
-    const current = geometry.current
-    if (!current) return 0
-    if (current.inScene) return clamp01(sceneValue)
-    return clamp01(scrollTop / current.range)
+  const progress = useTransform([tick, sceneProgress], ([, sceneValue]: number[]) => {
+    if (!geometry.current) return 0
+    // Ordinateur : progression de la scène (liée au scroll). Mobile et tablette : transition DÉCLENCHÉE, jouée dans
+    // le temps (useBambooMobile) : le bouton ne suit plus le doigt, il fait tout son voyage d'un coup
+    return clamp01(sceneValue)
   })
 
   // Phase 1 : le voyage (0 → 1 sur les 65 premiers % de la progression)
@@ -208,9 +222,11 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore, sce
   const height = useTransform([travel, widen, menu.expand, contactTravel, tick], ([flight, spread, expanded, downAmount]: number[]) => {
     const current = geometry.current
     if (!current) return 0
+    // Mobile : pas d'étirement pendant la montée, le bouton ne déborde jamais sur le contenu sous lui
+    const flightStretch = current.isCompact ? 0 : 0.22 * Math.sin(flight * Math.PI)
     const base =
       lerp(current.height0, current.height1, spread) *
-      (1 + 0.22 * Math.sin(flight * Math.PI)) *
+      (1 + flightStretch) *
       (1 + 0.22 * Math.sin(downAmount * Math.PI))
     const menuExtra = current.isCompact ? (current.menuHeight - current.height1) * Math.max(0, expanded) : 0
     return base + menuExtra
@@ -243,8 +259,42 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore, sce
   })
 
   // Petit balancement pendant le vol (quelques degrés au plus), pour le côté ludique ; nul au départ et à l'arrivée
-  const wobble = useTransform([travel, contactTravel], ([flight, downAmount]: number[]) =>
-    (Math.sin(flight * Math.PI * 2) + Math.sin(downAmount * Math.PI * 2)) * WOBBLE_DEGREES,
+  // (mobile : pas de balancement pendant la montée, seulement pendant la descente vers le Contact)
+  const wobble = useTransform([travel, contactTravel, tick], ([flight, downAmount]: number[]) => {
+    const flightWobble = geometry.current?.isCompact ? 0 : Math.sin(flight * Math.PI * 2)
+
+    return (flightWobble + Math.sin(downAmount * Math.PI * 2)) * WOBBLE_DEGREES
+  })
+
+  // MOBILE ET TABLETTE : l'élément n'est plus `position: fixed` mais `position: sticky` dans un rail aussi haut que la
+  // page (voir navbar.css). Pourquoi : sur iPhone, un élément fixe piloté par JavaScript ne suit pas la page pendant
+  // l'élan du doigt (les événements de scroll arrivent en retard, surtout avec le scroll-snap) : le bouton traînait,
+  // puis sautait. Avec `sticky`, c'est le navigateur qui le fait défiler AVEC la page, sans retard, puis le colle en
+  // haut (1 rem). Le JavaScript ne pilote plus que la forme (largeur, hauteur, côté gauche), jamais la position verticale
+  // de la montée. Le bouton reste donc sous le contenu de la landing : il ne le chevauche jamais.
+  // marginTop = sa place de départ dans la page (le bouton d'origine) ; x = son bord gauche ; y = seulement la descente
+  // vers l'écran Contact (de la position collée en haut jusqu'à l'emplacement du bas).
+  const stickyStart = useTransform(tick, () => {
+    const current = geometry.current
+    if (!current) return 0
+
+    return reducedRef.current ? current.top1 : Math.max(current.top1, current.top0)
+  })
+  const compactX = useTransform([centerX, width], ([center, currentWidth]: number[]) => center - currentWidth / 2)
+  const compactY = useTransform(
+    [contactTravel, tick, scrollY, menu.expand],
+    ([downAmount, , scrollTop, expanded]: number[]) => {
+      const current = geometry.current
+      if (!current?.hasContact || downAmount <= 0) return 0
+
+      // Mobile : la navbar part se loger tout en bas de la page, sur son emplacement (sous la photo du Contact), et
+      // défile avec la page. Elle n'est plus clouée en bas de l'écran : elle ne gêne donc pas pendant qu'on lit ou
+      // qu'on écrit dans le formulaire. Arrivé au bout, on la retrouve là, prête à repartir ailleurs.
+      const topWhenDown = Math.max(current.top1, current.slotTop - scrollTop)
+      const menuExtra = opensUpRef.current ? (current.menuHeight - current.height1) * Math.max(0, expanded) : 0
+
+      return lerp(current.top1, topWhenDown, smooth(downAmount)) - menuExtra * downAmount - current.top1
+    },
   )
 
   // Opacité de l'ensemble : invisible tant que les mesures ne sont pas prises ; en mode « sans animation »,
@@ -276,7 +326,13 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore, sce
     const finalWidth = isCompact && pill ? pill.pillWidth : row.offsetWidth
     const finalHeight = isCompact && pill ? pill.pillHeight : row.offsetHeight
     const anchor = document.querySelector<HTMLElement>('[data-morph-anchor]')
+    // Mobile : place de départ lue dans la MISE EN PAGE (offsetTop, indépendante du scroll). getBoundingClientRect +
+    // scrollY se désaccordent sur iPhone quand la barre d'adresse se replie en plein scroll, et décalaient le bouton.
+    // Le fantôme est posé en bas de la bannière, centré, décalé de la moitié de sa taille (voir landing.css).
     const start = anchor?.getBoundingClientRect()
+    const anchorWidth = anchor?.offsetWidth ?? 0
+    const anchorHeight = anchor?.offsetHeight ?? 0
+    const layoutTop = anchor ? getDocumentTop(anchor) + anchorHeight / 2 : 0
     const landing = document.getElementById('home')
     // Dans la scène, la place de départ se mesure par rapport au cadre collé (il ne bouge pas à l'écran pendant la scène)
     const inScene = sceneActiveRef.current
@@ -295,11 +351,11 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore, sce
     const center1 = isCompact ? rem + finalWidth / 2 : viewportWidth / 2
 
     geometry.current = {
-      top0: start ? (inScene ? start.top - stageTop : start.top + window.scrollY) : top1,
-      center0: start ? start.left + start.width / 2 : center1,
-      left0: start ? start.left : rem,
-      width0: start ? start.width : finalWidth,
-      height0: start ? start.height : finalHeight,
+      top0: start ? (inScene ? start.top - stageTop : layoutTop) : top1,
+      center0: start ? (inScene ? start.left + start.width / 2 : viewportWidth / 2) : center1,
+      left0: start ? (inScene ? start.left : (viewportWidth - anchorWidth) / 2) : rem,
+      width0: start ? (inScene ? start.width : anchorWidth) : finalWidth,
+      height0: start ? (inScene ? start.height : anchorHeight) : finalHeight,
       top1,
       center1,
       left1: rem,
@@ -329,7 +385,22 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore, sce
     remeasure.current = measure
 
     measure()
-    window.addEventListener('resize', measure)
+    // Safari iOS change la hauteur de la fenêtre pendant le scroll (barre d'adresse qui se replie) : remesurer à ce
+    // moment-là ferait sauter le bouton. Un simple changement de hauteur est donc remesuré seulement une fois le
+    // scroll calmé ; un changement de largeur (rotation, redimensionnement) l'est tout de suite.
+    let lastWidth = document.documentElement.clientWidth
+    let settleTimer: number | undefined
+    const handleResize = () => {
+      const width = document.documentElement.clientWidth
+      window.clearTimeout(settleTimer)
+      if (width !== lastWidth) {
+        lastWidth = width
+        measure()
+        return
+      }
+      settleTimer = window.setTimeout(measure, 250)
+    }
+    window.addEventListener('resize', handleResize)
     // Les polices peuvent changer la taille du bouton après le premier affichage
     void document.fonts?.ready.then(measure)
 
@@ -344,7 +415,8 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore, sce
     if (scene) observer.observe(scene)
 
     return () => {
-      window.removeEventListener('resize', measure)
+      window.clearTimeout(settleTimer)
+      window.removeEventListener('resize', handleResize)
       observer.disconnect()
     }
   }, [reducedMotion, isSceneActive, currentLabel, sections, measure])
@@ -355,10 +427,15 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore, sce
     remeasure.current()
   }, [])
 
-  return (
+  const isStickyLayout = !isSceneActive
+  const header = (
     <motion.header
-      className="site-nav site-nav--morph"
-      style={{ top, left: centerX, x: '-50%', width, height, rotate: wobble, opacity: fade, borderRadius }}
+      className={cn('site-nav site-nav--morph', isStickyLayout && 'site-nav--morph-sticky')}
+      style={
+        isStickyLayout
+          ? { x: compactX, y: compactY, marginTop: stickyStart, width, height, rotate: wobble, opacity: fade, borderRadius }
+          : { top, left: centerX, x: '-50%', width, height, rotate: wobble, opacity: fade, borderRadius }
+      }
     >
       <div className="site-nav__clip">
         {reducedMotion ? null : (
@@ -408,6 +485,8 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore, sce
       />
     </motion.header>
   )
+
+  return isStickyLayout ? <div className="site-nav-rail">{header}</div> : header
 }
 
 export default MorphNavbar

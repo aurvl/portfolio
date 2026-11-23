@@ -26,11 +26,13 @@ function LandingHero({ onLearnMore, isButtonInNavbar = false, inScene = false }:
   return (
     <header className="landing-hero">
       {inScene ? null : (
-        <BambooPhoto
-          className="landing-hero__background"
-          loading="eager"
-          fetchPriority="high"
-        />
+        <div className="landing-hero__photo">
+          <BambooPhoto
+            className="landing-hero__background"
+            loading="eager"
+            fetchPriority="high"
+          />
+        </div>
       )}
       <div className="landing-hero__content">
         <Avatar

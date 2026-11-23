@@ -42,6 +42,14 @@ html.snap-home footer {
   place-items: center;
   min-height: 32rem;
   padding: 5.5rem 1rem 4rem;
+}
+
+/* Cadre de la photo (mobile et tablette) : porte le fond sombre et se resserre par le bas au scroll
+   (clip-path posé par useBambooMobile) ; le texte, lui, n'est jamais rogné */
+.landing-hero__photo {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
   background: var(--color-banner-veil);
 }
 
@@ -49,12 +57,13 @@ html.snap-home footer {
    et sombre. La bannière est une photo : sa lisibilité ne doit pas dépendre du thème, donc ni le voile
    ni le texte blanc par-dessus ne changent quand on bascule clair / sombre. Seul le reste de la page suit le thème. */
 .landing-hero__background {
-  position: absolute;
-  inset: 0;
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
   opacity: 0.7;
+  /* will-change : le zoom au scroll (transform) reste fluide sur téléphone */
+  will-change: transform;
 }
 
 .landing-hero__content {
