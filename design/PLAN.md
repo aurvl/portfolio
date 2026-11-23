@@ -104,14 +104,19 @@ Modifier : `Navbar`, `MainLayout`, `HomePage`, `ProjectsPage`, `BlogPage`, `Publ
       propriétaire) ; `BackToTop`, cookies et `Footer` encore en V2.
 - [x] 6. Transition landing → About (`MorphNavbar`, exception du BRIEF §2) : « Learn more » devient la navbar, piloté
       par le scroll (zone morte 12 %, suit la page au départ, ressort, onglets un par un) ; sur mobile la pilule
-      s'agrandit en menu (`CompactMenu`). À reprendre : ressenti à la molette et au doigt (non testé), menu vers le
-      haut pour la navbar basse (8), scrolls fluides vers les autres sections (7 à 9).
+      s'agrandit en menu (`CompactMenu`). À reprendre : ressenti à la molette et au doigt (non testé), scrolls fluides
+      vers les autres sections (9).
 - [x] 7. Publications : `PublicationsSection` (id `research`, bannière + ronds sociaux, articles séparés par des
       filets, « Back to about » en filet) sur l'accueil après l'About et sur `/publications` (navbar directe) ;
       « View my papers » défile vers elle ; styles dans `papers.css`. À reprendre : titre du bouton « Back to about »
       (↑ ici, ↓ sur la maquette), ORCID seulement via les ronds sociaux, bloc travaux en cours / thèse (contenu réel),
       mobile non vérifié (13).
-- [ ] 8. Contact (Formspree, navbar en fin de page).
+- [x] 8. Contact : `ContactSection` (id `contact-form`, photo plein écran, identité, formulaire Formspree inchangé
+      sans les 3 cartes « routes », bouton plein unique) en dernier écran de l'accueil. Le formulaire passe sur deux
+      colonnes dès 768 px (message à droite). La MÊME navbar se décroche du haut au scroll et descend se poser en
+      bas au milieu (2ᵉ voyage de `MorphNavbar`, emplacement vide `data-morph-slot` en fin de page), sur tous les
+      formats ; sur mobile son menu s'ouvre vers le haut. « Get in touch » y mène. À reprendre : `/contact` n'existe pas (la
+      navbar des autres pages pointe vers `/#contact-form`), envoi non testé en réel, mobile à vérifier (13).
 - [ ] 9. Assemblage `HomePage` one-page en CSS scroll-snap, ancres, hash, SEO.
 - [ ] 10. Hub : en-tête, `FeaturedHub`, grille `ProjectCard`.
 - [ ] 11. `SearchPanel` branché sur les filtres ; deep-link `?project=` intact.

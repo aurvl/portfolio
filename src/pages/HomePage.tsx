@@ -11,6 +11,7 @@ import LandingHero from '../components/home-v3/LandingHero'
 import LatestThings from '../components/home-v3/LatestThings'
 import AboutSection from '../components/home-v3/AboutSection'
 import PublicationsSection from '../components/home-v3/PublicationsSection'
+import ContactSection from '../components/home-v3/ContactSection'
 import {
   PERSON_DESCRIPTION,
   PERSON_NAME,
@@ -106,11 +107,13 @@ function HomePage() {
 
       <AboutSection
         onExploreWork={() => navigate('/projects')}
-        onGetInTouch={() => scrollToSection('contact')}
+        onGetInTouch={() => scrollToSection('contact-form')}
         onViewPapers={() => scrollToSection('research')}
       />
 
       <PublicationsSection onBackToAbout={() => scrollToSection('about')} />
+
+      <ContactSection />
     </MainLayout>
   )
 }
