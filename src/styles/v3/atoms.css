@@ -70,7 +70,14 @@
      backdrop-filter : floute ce qui passe derrière. */
   background: color-mix(in srgb, var(--color-banner-veil) 70%, transparent);
   backdrop-filter: blur(10px);
+  /* Liseré clair : sépare la pilule d'un fond sombre (même couleur que son propre fond) */
+  border: 1px solid color-mix(in srgb, #ffffff 28%, transparent);
   border-radius: var(--radius-pill);
+}
+
+/* Thème sombre : la page est déjà sombre, un fond sombre disparaîtrait. On passe à un gris clair translucide. */
+:root[data-theme='dark'] .utility-pill {
+  background: color-mix(in srgb, #ffffff 26%, transparent);
 }
 
 .utility-pill__language {
