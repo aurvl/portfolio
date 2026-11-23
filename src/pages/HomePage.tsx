@@ -11,6 +11,7 @@ import MainLayout from '../components/layout/MainLayout'
 import MorphNavbar from '../components/layout/MorphNavbar'
 import Seo from '../components/seo/Seo'
 import BambooPhoto from '../components/ui/BambooPhoto'
+import DebugOverlay from '../components/debug/DebugOverlay'
 import LandingHero from '../components/home-v3/LandingHero'
 import LatestThings from '../components/home-v3/LatestThings'
 import AboutSection from '../components/home-v3/AboutSection'
@@ -198,6 +199,13 @@ function HomePage() {
       )}
 
       <ContactNavSlot inScene={isSceneActive} />
+      {new URLSearchParams(location.search).has('debug') ? (
+        <DebugOverlay
+          isSceneActive={isSceneActive}
+          reducedMotion={reducedMotion}
+          progress={mobileProgress}
+        />
+      ) : null}
     </MainLayout>
   )
 }
