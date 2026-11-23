@@ -48,7 +48,7 @@
   /* Pictogrammes des ronds bleus : foncés en clair (contraste 6,9:1 sur le bleu de marque), blancs en sombre */
   --color-social-icon: #141413;
 
-  /* Rayons : pilules pour navbar, boutons et sélecteurs ; cartes arrondies */
+  /* Rayons : pilules pour navbar, boutons et sélecteurs ; cartes arrondies (style actuel du reste du site) */
   --radius-field: 0.75rem;
   --radius-card: 1.25rem;
   --radius-card-lg: 1.75rem;
@@ -58,6 +58,19 @@
   --shadow-pill: 0 4px 14px rgba(20, 20, 19, 0.12);
   --shadow-card: 0 6px 24px rgba(20, 20, 19, 0.08);
   --shadow-lifted: 0 14px 40px rgba(20, 20, 19, 0.16);
+
+  /* Style éditorial sobre (design/BRIEF.md §2) : pour l'instant appliqué à la seule section About.
+     Rayons de 0 à 4 px, pas d'ombre, étiquettes en petites majuscules espacées, animations courtes. */
+  --radius-sharp: 2px;
+  --radius-small: 4px;
+  --color-on-brand: #141413;
+  /* Bleu d'action (contour et texte du bouton « Research ») : assez foncé pour lire du texte dessus en clair (4,7:1) ;
+     --color-action-fill est le fond du rideau, sous du texte blanc (5:1). */
+  --color-action-blue: #1d6fd1;
+  --color-action-fill: #1d6fd1;
+  --label-size: 0.75rem;
+  --label-spacing: 0.14em;
+  --duration-fast: 160ms;
 }
 
 /* Mode sombre : même mécanisme que le reste du site (attribut data-theme posé sur <html>).
@@ -72,6 +85,7 @@
   --color-brand-ink: #dbeaff;
   --color-placeholder: #3a3f47;
   --color-social-icon: #ffffff;
+  --color-action-blue: #7ab6f7;
   --color-night: #050607;
 
   --shadow-pill: 0 4px 14px rgba(0, 0, 0, 0.5);

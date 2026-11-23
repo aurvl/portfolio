@@ -51,6 +51,33 @@ Objectif de cette phase : **valider le visuel**, pas le contenu.
 - **Formes** : pilules (navbar, boutons, sélecteur), cartes à coins arrondis, ombres légères.
 - Tous les tokens dans `@theme` (Tailwind v4), y compris une variante **dark** (le toggle existe).
 
+### Style éditorial (prioritaire)
+Direction : éditorial sobre inspiré de Nature, moderne mais pas générique. Où ce style contredit les lignes
+« Formes » et « Ambiance » ci-dessus (coins arrondis, pilules, ombres), c'est lui qui l'emporte.
+- **Signature conservée (personnalité)** : photo bambous, bleu `#55A1F5`, navbar pilule, `UtilityPill`.
+  Ce sont les SEULS éléments en pilule. (Avatar et ronds sociaux restent des cercles, comme sur les maquettes.)
+- **Contenu** : hiérarchie par la typographie et des filets fins (1 px), pas par des boîtes. Pas de carte pour
+  du texte ou des listes de liens.
+- **Rayons** : 0 à 4 px max hors signature (`--radius-sharp` 2 px, `--radius-small` 4 px). Aucune ombre hors navbar.
+- **Titres** en serif, grands et contrastés. **Étiquettes** au-dessus des titres en petites majuscules
+  espacées (`--label-size`, `--label-spacing`), couleur atténuée (classe `.eyebrow`).
+- **Boutons** : un seul bouton plein par écran (rectangulaire, coins quasi droits : variante `solid`).
+  Les autres actions sont des liens soulignés avec flèche (`link`) ou des boutons à simple filet (`line`).
+- **Chiffres alignés** (`tabular-nums`, classe `.tabular`) pour les dates, années et compteurs.
+- **Animations** discrètes et courtes (opacité, soulignement, ≤ 200 ms, `--duration-fast`). Pas de rebond,
+  d'agrandissement au survol ni d'effet « glass ».
+- **Exception** : les boutons « View my papers » (desktop) et « Research » / « Projects » (mobile et tablette)
+  SAUTENT en boucle (le bouton entier, deux rebonds puis une pause) pour inviter au clic ; arrêt au survol, au
+  focus et au tap ; aucune animation si `prefers-reduced-motion`.
+- Exception décidée par le propriétaire : le bouton « En savoir plus » de la landing garde son style actuel
+  (pilule bleue pleine).
+- **Exception assumée : le « rideau » du bouton « Research »** (« Pour aller plus loin », mobile et tablette).
+  Contour et texte bleus ; au survol (desktop), au focus clavier et au tap (mobile), le fond bleu se déploie de
+  GAUCHE à DROITE comme un rideau et le texte passe en blanc (~300 ms, ease-out). Sans animation si
+  `prefers-reduced-motion`. À NE PAS retirer lors d'une mise en conformité du style éditorial. La technique est
+  commentée dans `about.css` (`.next-doors__door--curtain`) ; le bleu (`--color-action-fill`, 5:1 sous du texte
+  blanc) est plus foncé que `#55A1F5`, qui ne passerait pas en contraste.
+
 ## 3. Composants globaux
 
 - **Navbar "pilule"** : capsule bleue centrée, ~7 onglets texte blanc, onglet actif =
@@ -125,6 +152,22 @@ Hub Projets & Blog, Séries et articles = routes séparées (existantes).
 ## 6. Responsive
 Pas de maquette mobile : proposer une adaptation (navbar → menu compact, colonnes empilées,
 timeline au-dessus du texte, grille 1 colonne). Sur mobile, la landing peut scroller.
+
+## 6b. Stratégie mobile (< 1024 px)
+S'applique à TOUS les écrans. Sous 1024 px (mobiles ET tablettes, 768–1023 px compris), l'interface passe en mode mobile ;
+la capsule complète en haut n'existe qu'à partir de 1024 px (à 768 px elle passait sous la pilule langue / thème).
+
+1. **Navigation : on garde la navbar compacte EN HAUT** : pilule bleue « section courante ▾ » qui ouvre un menu
+   déroulant (Accueil / À propos / Recherche / Projets & Blog / CV / Contact), fermé par Échap. Pas de barre fixe en bas.
+2. **Dire en une phrase, détailler sur demande** : une accroche courte (2 lignes max), puis des sections repliables
+   (« Lire la suite »). Le texte complet reste dans la page (SEO, accessibilité) ; seul l'affichage est limité.
+3. **Tout ce qui est mentionné est cliquable** : les thèmes « Je travaille sur » sont des pastilles qui ouvrent le hub
+   Projets filtré sur ce thème (`/projects?tag=<thème>`, filtres existants).
+4. **Chaque section se termine par une porte vers la suite** : cartes avec aperçu (ex. « 3 articles », « 6 projets »),
+   à la place des boutons isolés en bas de page. Le contact reste accessible par un lien discret sous les cartes.
+5. **Icônes sociales** : seulement sur la landing et le contact en mobile (masquées ailleurs, dont l'About).
+
+Le desktop (≥ 1024 px) ne change pas.
 
 ## 7. Hors périmètre de cette phase
 Contenu réel, SEO, analytics, scripts de contenu : ne pas toucher sauf si une route change.

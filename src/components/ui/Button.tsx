@@ -3,7 +3,10 @@
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from 'react'
 import { cn } from '../../lib/cn'
 
-export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'pill'
+// Variantes éditoriales (design/BRIEF.md §2) : `solid` = bouton plein rectangulaire (un seul par écran),
+// `line` = simple filet, `link` = texte souligné avec flèche. Les autres variantes sont l'ancien style,
+// toujours utilisé par le bouton « En savoir plus » de la landing.
+export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'pill' | 'solid' | 'line' | 'link'
 
 type CommonProps = {
   variant?: ButtonVariant

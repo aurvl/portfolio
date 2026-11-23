@@ -107,6 +107,79 @@ const aboutSections: LocalizedField<PlaceholderAboutSection[]> = {
   ],
 }
 
+// ---------------------------------------------------------------- Libellés de l'About
+
+export type PlaceholderAboutLabels = {
+  title: string
+  exploreWork: string
+  getInTouch: string
+  viewPapers: string
+  timelineLabel: string
+  // Version mobile (< 1024 px)
+  hook: string
+  workingOn: string
+  journeyTitle: string
+  downloadResume: string
+  journeyPlace: string
+  readMore: string
+  readLess: string
+  nextTitle: string
+  papersDoor: string
+  projectsDoor: string
+  contactLink: string
+}
+
+const aboutLabels: LocalizedField<PlaceholderAboutLabels> = {
+  en: {
+    title: 'About Me',
+    exploreWork: 'Explore my Work',
+    getInTouch: 'Get in touch',
+    viewPapers: 'View my papers',
+    timelineLabel: 'Career timeline',
+    hook: 'Placeholder researcher in applied economics, who measures one fictional thing and explains it simply.',
+    workingOn: 'I work on',
+    journeyTitle: 'My journey',
+    downloadResume: 'Download my Resume',
+    journeyPlace: 'Placeholder University, 2026–',
+    readMore: 'Read more',
+    readLess: 'Read less',
+    nextTitle: 'Go further',
+    papersDoor: 'Research',
+    projectsDoor: 'Projects',
+    contactLink: 'A question? Get in touch',
+  },
+  fr: {
+    title: 'À propos',
+    exploreWork: 'Découvrir mes travaux',
+    getInTouch: 'Me contacter',
+    viewPapers: 'Voir mes articles',
+    timelineLabel: 'Parcours',
+    hook: 'Chercheur fictif en économie appliquée, qui mesure une chose fictive et l’explique simplement.',
+    workingOn: 'Je travaille sur',
+    journeyTitle: 'Mon parcours',
+    downloadResume: 'Télécharger mon CV',
+    journeyPlace: 'Université fictive, 2026–',
+    readMore: 'Lire la suite',
+    readLess: 'Réduire',
+    nextTitle: 'Pour aller plus loin',
+    papersDoor: 'Recherche',
+    projectsDoor: 'Projets',
+    contactLink: 'Une question ? Me contacter',
+  },
+}
+
+// ---------------------------------------------------------------- Thèmes « Je travaille sur »
+
+// Une pastille ouvre /projects?tag=<thème> : le filtre existant compare ce texte, tel quel, aux mots-clés des projets.
+// Ces thèmes sont donc des mots-clés qui existent dans les projets fictifs ci-dessous ET dans les projets actuels
+// du hub (le hub lit encore projects.json jusqu'à l'étape 10), pour que le filtre renvoie des résultats.
+// Les mots-clés réels français n'ont pas d'accents (« prevision ») : on garde la même écriture.
+// À remplacer par les vrais thèmes du propriétaire au moment du vrai contenu (étape 16).
+const themes: LocalizedField<string[]> = {
+  en: ['regression', 'forecasting', 'classification', 'visualization'],
+  fr: ['regression', 'prevision', 'classification', 'visualisation'],
+}
+
 // ---------------------------------------------------------------- Libellés de la landing
 
 export type PlaceholderLandingLabels = {
@@ -237,7 +310,13 @@ const publications: PlaceholderPublication[] = [
 
 // Type existant `Project` : les composants de carte actuels peuvent les afficher tels quels.
 // Les images de couverture réutilisent des fichiers déjà présents dans public/.
-function buildPlaceholderProject(index: number, coverSrc: string, domains: string[]): Project {
+// themeIndexes : positions dans `themes` (0 = régression, 1 = prévision, 2 = classification, 3 = visualisation)
+function buildPlaceholderProject(
+  index: number,
+  coverSrc: string,
+  domains: string[],
+  themeIndexes: number[],
+): Project {
   return {
     id: `PLACEHOLDER-${index}`,
     slug: `placeholder-project-${index}`,
@@ -254,8 +333,8 @@ function buildPlaceholderProject(index: number, coverSrc: string, domains: strin
       domains,
       tools: ['Python', 'R'],
       keywords: {
-        en: ['placeholder', 'sample', 'layout'],
-        fr: ['fictif', 'exemple', 'mise en page'],
+        en: ['placeholder', ...themeIndexes.map((themeIndex) => themes.en[themeIndex])],
+        fr: ['fictif', ...themeIndexes.map((themeIndex) => themes.fr[themeIndex])],
       },
     },
     content: {
@@ -274,12 +353,12 @@ function buildPlaceholderProject(index: number, coverSrc: string, domains: strin
 }
 
 const projects: Project[] = [
-  buildPlaceholderProject(1, '/assets/projects/images/bayesian-linear-regression-econometrics-cover.jpg', ['Econometrics']),
-  buildPlaceholderProject(2, '/assets/blog/images/blog6.jpg', ['Economic Intelligence']),
-  buildPlaceholderProject(3, '/assets/images/hero-bamboo.webp', ['Data Engineering']),
-  buildPlaceholderProject(4, '/assets/projects/images/bayesian-linear-regression-econometrics-cover.jpg', ['Applied Statistics']),
-  buildPlaceholderProject(5, '/assets/blog/images/blog6.jpg', ['Data Visualization']),
-  buildPlaceholderProject(6, '/assets/images/hero-bamboo.webp', ['Econometrics', 'Classification']),
+  buildPlaceholderProject(1, '/assets/projects/images/bayesian-linear-regression-econometrics-cover.jpg', ['Econometrics'], [0]),
+  buildPlaceholderProject(2, '/assets/blog/images/blog6.jpg', ['Economic Intelligence'], [1, 2]),
+  buildPlaceholderProject(3, '/assets/images/hero-bamboo.webp', ['Data Engineering'], [2]),
+  buildPlaceholderProject(4, '/assets/projects/images/bayesian-linear-regression-econometrics-cover.jpg', ['Applied Statistics'], [0, 1]),
+  buildPlaceholderProject(5, '/assets/blog/images/blog6.jpg', ['Data Visualization'], [3]),
+  buildPlaceholderProject(6, '/assets/images/hero-bamboo.webp', ['Econometrics', 'Classification'], [0, 3]),
 ]
 
 // ---------------------------------------------------------------- Accès par langue
@@ -288,6 +367,8 @@ export const placeholders = {
   getProfile: (lang: AppLanguage) => profile[lang],
   getTimeline: (lang: AppLanguage) => timeline[lang],
   getAboutSections: (lang: AppLanguage) => aboutSections[lang],
+  getAboutLabels: (lang: AppLanguage) => aboutLabels[lang],
+  getThemes: (lang: AppLanguage) => themes[lang],
   getLandingLabels: (lang: AppLanguage) => landingLabels[lang],
   getLatestThings: (lang: AppLanguage) => latestThings[lang],
   getPublications: (lang: AppLanguage) =>

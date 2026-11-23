@@ -1,4 +1,4 @@
-// Bloc « Latest things » sous la bannière : 3 cartes horizontales (titre, description, date, vignette).
+// Bloc « Latest things » sous la bannière : 3 entrées séparées par un filet (titre, description, date, vignette).
 // Apparaît sur la page d'accueil, juste sous LandingHero (design/screens/01-accueil-landing.png).
 import { Link } from 'react-router-dom'
 import { placeholders } from '../../data/placeholders'
@@ -17,7 +17,7 @@ function LatestThings() {
     >
       <h2
         id="latest-things-title"
-        className="latest-things__title"
+        className="eyebrow latest-things__title"
       >
         {labels.latestThings}
       </h2>
@@ -33,7 +33,7 @@ function LatestThings() {
                 <h3 className="latest-card__title">{item.title}</h3>
                 <p className="latest-card__description">{item.description}</p>
                 <time
-                  className="latest-card__date"
+                  className="latest-card__date tabular"
                   dateTime={item.date}
                 >
                   {new Date(item.date).toLocaleDateString(content.blog.dateLocale, {

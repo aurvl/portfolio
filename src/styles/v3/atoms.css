@@ -40,12 +40,11 @@
   color: var(--color-social-icon);
   background: var(--color-brand);
   border-radius: 50%;
-  transition: transform 150ms ease, box-shadow 150ms ease;
+  transition: opacity var(--duration-fast) ease;
 }
 
 .social-icons__link:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-pill);
+  opacity: 0.82;
 }
 
 .social-icons__link:focus-visible,
@@ -204,8 +203,83 @@
     transition: none;
   }
 
-  .btn:hover,
-  .social-icons__link:hover {
+  .btn:hover {
     transform: none;
   }
+}
+
+/* ---------- Style éditorial (design/BRIEF.md §2) ----------
+   Variantes ajoutées à côté des anciennes : coins quasi droits, ni pilule, ni ombre, ni déplacement au survol.
+   Un seul bouton `solid` par écran ; les autres actions sont des `link` (souligné + flèche) ou des `line` (filet). */
+
+.btn--solid,
+.btn--line,
+.btn--link {
+  border-radius: var(--radius-sharp);
+  font-weight: 600;
+  transition: opacity var(--duration-fast) ease, color var(--duration-fast) ease;
+}
+
+.btn--solid:hover,
+.btn--line:hover,
+.btn--link:hover {
+  transform: none;
+}
+
+/* Plein : bleu de marque, texte foncé (le blanc manquerait de contraste sur ce bleu) */
+.btn--solid {
+  padding: 0.8rem 1.5rem;
+  color: var(--color-on-brand);
+  background: var(--color-brand);
+}
+
+.btn--solid:hover {
+  opacity: 0.88;
+}
+
+/* Filet : fond transparent, trait fin de la couleur du texte */
+.btn--line {
+  padding: 0.7rem 1.1rem;
+  color: var(--color-ink);
+  background: transparent;
+  border-color: var(--color-ink);
+}
+
+.btn--line:hover {
+  color: var(--color-brand-ink);
+  border-color: var(--color-brand-ink);
+}
+
+/* Lien d'action : texte souligné suivi d'une flèche, sans boîte */
+.btn--link {
+  padding: 0.25rem 0;
+  font-weight: 500;
+  color: var(--color-ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  background: transparent;
+}
+
+.btn--link:hover {
+  color: var(--color-brand-ink);
+  text-decoration-thickness: 2px;
+}
+
+/* Étiquette au-dessus d'un titre : petites majuscules espacées, couleur atténuée */
+.eyebrow {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--label-size);
+  font-weight: 600;
+  line-height: 1.2;
+  /* letter-spacing + majuscules : étiquette éditoriale discrète */
+  letter-spacing: var(--label-spacing);
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+/* Chiffres de même largeur : dates, années et compteurs restent alignés */
+.tabular {
+  font-variant-numeric: tabular-nums;
 }

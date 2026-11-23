@@ -21,7 +21,8 @@ html.snap-home::-webkit-scrollbar {
   display: none;
 }
 
-html.snap-home .landing {
+html.snap-home .landing,
+html.snap-home .about {
   scroll-snap-align: start;
 }
 
@@ -72,7 +73,7 @@ html.snap-home footer {
 
 .landing-hero__name {
   margin: 0;
-  font-family: var(--font-sans);
+  font-family: var(--font-serif);
   font-size: 1.75rem;
   font-weight: 700;
   line-height: 1.1;
@@ -119,11 +120,7 @@ html.snap-home footer {
 }
 
 .latest-things__title {
-  margin: 0 0 1rem;
-  font-family: var(--font-serif);
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: var(--color-ink);
+  margin: 0 0 0.75rem;
 }
 
 .latest-things__list {
@@ -141,18 +138,18 @@ html.snap-home footer {
   justify-content: space-between;
   gap: 1rem;
   height: 100%;
-  padding: 0.6rem;
+  padding: 0.85rem 0 0;
   color: var(--color-ink);
   text-decoration: none;
-  background: var(--color-surface);
-  border: 1px solid var(--color-line);
-  border-radius: var(--radius-card);
-  transition: transform 150ms ease, box-shadow 150ms ease;
+  /* Style éditorial : un filet fin en haut remplace la carte (ni fond, ni bordure, ni ombre) */
+  border-top: 1px solid var(--color-ink);
 }
 
-.latest-card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-card);
+/* Survol discret : le titre se souligne, rien ne bouge */
+.latest-card:hover .latest-card__title {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
 }
 
 .latest-card:focus-visible {
@@ -169,10 +166,10 @@ html.snap-home footer {
 
 .latest-card__title {
   margin: 0;
-  font-size: 1.1rem;
-  font-weight: 700;
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 600;
   line-height: 1.2;
-  text-transform: uppercase;
 }
 
 .latest-card__description {
@@ -198,7 +195,7 @@ html.snap-home footer {
   width: 6rem;
   height: 6rem;
   object-fit: cover;
-  border-radius: var(--radius-field);
+  border-radius: var(--radius-sharp);
 }
 
 /* ---------- Ordinateur : un seul écran, proportions de la maquette ---------- */
@@ -282,18 +279,17 @@ html.snap-home footer {
     align-items: center;
     gap: calc(var(--landing-unit) * 0.6);
     height: calc(var(--landing-unit) * 8.05);
-    padding: calc(var(--landing-unit) * 0.4) calc(var(--landing-unit) * 0.5);
-    border-radius: calc(var(--landing-unit) * 1.1);
+    padding: calc(var(--landing-unit) * 0.7) 0 0;
   }
 
   .latest-card__text {
     align-self: stretch;
     overflow: hidden;
-    padding: calc(var(--landing-unit) * 0.1) 0 calc(var(--landing-unit) * 0.1) calc(var(--landing-unit) * 0.35);
+    padding: 0;
   }
 
   .latest-card__title {
-    font-size: calc(var(--landing-unit) * 1.25);
+    font-size: calc(var(--landing-unit) * 1.3);
     line-height: 1.15;
   }
 
@@ -313,16 +309,8 @@ html.snap-home footer {
   .latest-card__thumbnail {
     width: calc(var(--landing-unit) * 6.8);
     height: calc(var(--landing-unit) * 6.8);
-    border-radius: calc(var(--landing-unit) * 0.8);
+    border-radius: var(--radius-sharp);
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .latest-card {
-    transition: none;
-  }
 
-  .latest-card:hover {
-    transform: none;
-  }
-}

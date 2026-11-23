@@ -132,7 +132,65 @@ Modifier : `Navbar`, `MainLayout`, `HomePage`, `ProjectsPage`, `BlogPage`, `Publ
       poste en blanc avec `text-shadow`) ; avatar = `hero-image.png`, la photo de l'ancien hero (la décision 7 citait à tort `about-image.png`) ; pictogrammes des ronds bleus via
       `--color-social-icon` (foncé en clair, blanc en sombre). Contraste sur #55A1F5 : foncé 6,9:1, blanc 2,7:1.
       Vérifié avec Playwright à 1512×982, 1440×900, 1280×800 et 390 px. Lint + build verts.
-- [ ] 5. About + `Timeline` + bouton qui sautille.
+- [x] 5. About : `home-v3/AboutSection.tsx` + `Timeline.tsx` (ordre vertical, étape en cours en bleu, prochaine étape en
+      pointillé, `aria-current`), styles dans `src/styles/v3/about.css`. Bannière bambous voilée, avatar à cheval sur
+      le bord, 6 ronds sociaux, titre « About Me », intertitres serif, bouton CV (`getResumeDownloadUrl`),
+      « Explore my Work » (→ `/projects`), « Get in touch » (ancre `#contact`, sans effet tant que l'étape 8 n'existe
+      pas), « View my papers » (→ `/publications`) dont la flèche sautille (`@keyframes`, coupée par
+      `prefers-reduced-motion`, en pause au survol). Textes, parcours et libellés = placeholders
+      (`getAboutLabels` ajouté). Avatar : `profile.avatarSrc` (`hero-image.png`), la même photo que la landing, partout
+      sur le site (décision du propriétaire ; `about-image.png` refusée). Sur ordinateur, même unité que la landing (`--about-unit`) : l'écran tient dans la fenêtre. Mesuré dans une
+      iframe à 1512×982, 1440×900, 1280×800 (le bouton CV reste dans la fenêtre) et 390 px (défile). `HomePage` affiche
+      Landing puis About (snap). Navbar toujours masquée sur l'accueil (étape 6). Lint + build verts.
+      Limite : la fenêtre Playwright était bloquée à un viewport 3× trop grand (dpr 0,33), donc captures prises via
+      iframe ; thème sombre et rendu mobile complet du bas de page non revérifiés.
+- [x] 5b. About mobile (< 1024 px, voir `design/BRIEF.md` § 6b). Navbar : on GARDE le menu compact en haut ; le seuil de
+      la capsule complète passe de 768 à 1024 px (`navbar.css`), ce qui corrige la navbar qui passait sous la
+      `UtilityPill` à 768 px (tablettes = menu compact). Navbar visible sur l'About dès que la landing est quittée
+      (`IntersectionObserver` dans `HomePage`, sans animation : le morph reste l'étape 6). `AboutSection` : éléments
+      `about__mobile-only` / `about__desktop-only`, bascule à 1024 px (le desktop ne change pas, mesures identiques à
+      1280 et 1512 px). Mobile : nom + accroche 2 lignes, pastilles « Je travaille sur » (→ `/projects?tag=`),
+      `ui/Collapsible` (« Lire la suite », `aria-expanded`), `JourneyCard` (frise horizontale + CV dans la carte),
+      `NextDoors` (cartes Recherche / Projets + lien discret « Une question ? Me contacter »), icônes sociales
+      masquées. `ProjectsPage` lit `?tag=` au chargement (`?project=` intact). **Thèmes = placeholders à remplacer par
+      les vrais thèmes du propriétaire au moment du vrai contenu (étape 16)** : ce sont des mots-clés présents dans les
+      projets fictifs ET dans `projects.json` (le hub lit encore les vrais projets jusqu'à l'étape 10), donc le filtre
+      répond déjà. Vérifié via iframe à 390, 768, 1023, 1280, 1512 px, clair et sombre. Lint + build verts.
+      En-tête de l'About (tous formats, un seul composant `about__header`) : avatar à cheval sur le bord de la bannière,
+      nom (titre principal, `h2`) à droite de l'avatar, POSÉ SUR LA PHOTO, bas du nom juste au-dessus du bord
+      (`position: absolute; bottom: 100%`), blanc avec `text-shadow` et léger dégradé sombre en bas de la bannière,
+      quel que soit le thème (même règle que la landing). Le poste est juste sous le bord, sur le fond de la page, en
+      couleur de thème. Mobile : un nom sur 2 ou 3 lignes monte sur la photo (3 lignes à 390 px, sans toucher la navbar).
+      Desktop : icônes sociales à cheval sur le bord, à droite (maquette 02), « About Me » en sous-titre (`h3`).
+      Mesuré à 390, 768, 1512 px, clair et sombre : nom blanc, bas du nom 4 à 5 px au-dessus du bord, poste dessous ;
+      bouton CV dans la fenêtre à 1512 (931 / 982).
+      Style éditorial (BRIEF §2 « Style éditorial (prioritaire) ») : tokens ajoutés (`--radius-sharp/small`,
+      `--color-on-brand`, `--label-*`, `--duration-fast`), variantes `solid` / `line` / `link` de `Button`, classes
+      `.eyebrow` et `.tabular` (`atoms.css`). Appliqué à : About (blocs « Mon parcours » et « Pour aller plus loin »
+      selon le schéma du propriétaire, thèmes en étiquettes à filet, titres serif, liens soulignés, sautillement de
+      « View my papers » plus discret), Latest things (filet fin au lieu des cartes, titres serif, dates
+      `tabular-nums`, étiquette de section), nom de la landing en serif, survol des ronds sociaux en simple
+      opacité. « En savoir plus » : inchangé, à la demande du propriétaire. Navbar : inchangée (signature).
+      Info du CV « PDF · 1 p. » : nombre de pages lu dans le PDF actuel (à revérifier si le CV change).
+      Corrections About mobile / tablette : « Mon parcours » = frise horizontale interactive (`JourneyCard`) dans le
+      style de la timeline desktop (points sur une ligne, années dessous, point choisi bleu plein avec halo). Clic ou
+      tap sur un point = descriptif juste dessous (12 px sous l'année) avec une pointe alignée sous le point
+      (`--caret-position`, `--step-count`) ; 2026 par défaut ; flèches gauche/droite + Début/Fin ; ARIA
+      tablist / tab / tabpanel. « Pour aller plus loin » : deux boutons « Research → » et « Projects → », sans
+      compteurs. « Research » : contour et texte bleus, rideau bleu déployé de gauche à droite (300 ms, ease-out)
+      au survol, au focus clavier et au tap, texte blanc, sans animation si `prefers-reduced-motion` ; ajouté comme
+      exception assumée au BRIEF §2. Bleus d'action (`--color-action-blue`, `--color-action-fill`) plus foncés que
+      #55A1F5 pour le contraste (4,7:1 en clair, 8,7:1 en sombre, 5:1 sous le texte blanc). Vérifié à 390 et 768 px,
+      clair et sombre. L'étape actuelle (2026) reste TOUJOURS bleue (point plein + halo) même si une autre étape est
+      choisie ; l'étape choisie se marque par un anneau foncé et l'année en gras. Boutons « Research » / « Projects »
+      réduits de 25 % en hauteur (55,8 px → 42,6 px). Bouton CV : mention « PDF · 1 p. » supprimée ; MÊME bouton
+      (plein, rectangulaire, « Download my Resume ») sur mobile et sur desktop ; icône de fichier de CV fournie par
+      le propriétaire (`ui/ResumeIcon.tsx`) à la place de l'icône de téléchargement. Sautillement : « View my papers »
+      (desktop) et « Research » / « Projects » (mobile) font sauter le BOUTON ENTIER (`@keyframes about-hop`, deux
+      rebonds de 12 et 6 px puis une pause, 2,2 s), au lieu de la seule flèche ; arrêt au survol / focus / tap ;
+      aucune animation avec `prefers-reduced-motion`. Sur desktop, ce bouton et
+      « View my papers » sont donc tous deux pleins (le BRIEF dit un seul plein par écran : écart décidé par le
+      propriétaire).
 - [ ] 6. Transitions : morph vers la navbar (landing uniquement), scrolls fluides, `prefers-reduced-motion`.
 - [ ] 7. Publications (section + page + « Back to about »).
 - [ ] 8. Contact (Formspree, navbar en fin de page).

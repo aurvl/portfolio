@@ -158,9 +158,11 @@
   max-width: calc(100% - 2rem);
 }
 
-/* ---------- Ordinateur : navbar centrée, pilule complète ---------- */
+/* ---------- Ordinateur (≥ 1024 px) : navbar centrée, pilule complète ----------
+   Sous 1024 px (mobile et tablette) : menu compact en haut. À 768 px, la capsule complète
+   passait sous la pilule langue / thème ; elle n'apparaît donc qu'à partir de 1024 px. */
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .site-nav {
     /* left/right à 0 + margin auto : centre la capsule sans transform */
     right: 0;

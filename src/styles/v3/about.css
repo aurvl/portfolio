@@ -1,0 +1,787 @@
+/* ------------------------------------------------------------------ *
+ * Design v3 : section About (bannière, avatar, parcours, textes, boutons).
+ * Référence : design/screens/02-about.png (cadre 1512 × 982).
+ * ------------------------------------------------------------------ */
+
+.about {
+  position: relative;
+  min-height: 100dvh;
+  padding-bottom: 3rem;
+  background: var(--color-page);
+}
+
+.about__banner {
+  height: 12rem;
+  overflow: hidden;
+  background: var(--color-banner-veil);
+}
+
+/* Dégradé sombre en bas de la bannière : le nom blanc posé dessus reste lisible, même sur les zones claires de la photo */
+.about__banner {
+  position: relative;
+}
+
+.about__banner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 45%, rgba(0, 0, 0, 0.4));
+}
+
+/* Photo voilée à 70 % sur fond sombre fixe : comme la landing, indépendante du thème */
+.about__banner-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.7;
+}
+
+.about__grid {
+  /* position + z-index : l'image voilée (opacity) crée sa propre couche qui passerait par-dessus l'avatar
+     et les ronds sociaux ; on remonte la grille pour qu'ils chevauchent bien la bannière */
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2rem;
+  width: min(100% - 2rem, 70rem);
+  margin-inline: auto;
+}
+
+/* ---------- En-tête : avatar à gauche, nom et poste à sa droite ---------- */
+
+.about__header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.about__avatar {
+  flex: none;
+  width: 7rem;
+  /* Marge négative : l'avatar remonte et chevauche le bas de la bannière */
+  margin-top: -3.5rem;
+  border: 4px solid var(--color-page);
+}
+
+.about__identity {
+  display: flex;
+  flex: 1;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  min-width: 0;
+}
+
+/* Le haut de ce bloc est exactement le bord de la bannière : le poste est dessous, le nom est posé au-dessus */
+.about__identity-text {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+
+/* Nom sur la photo : position absolue, bas du nom collé au bord de la bannière (bottom: 100% = juste au-dessus
+   du haut du bloc). Si le nom passe sur 2 ou 3 lignes, elles montent sur la photo.
+   Toujours blanc avec une ombre, quel que soit le thème : la bannière est une photo sous un voile sombre. */
+.about__name {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 0.15em);
+  left: 0;
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.15;
+  color: #ffffff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+}
+
+/* Poste sous le bord de la bannière, sur le fond de la page */
+.about__role {
+  margin: 0;
+  padding-top: 0.75rem;
+  font-size: 1rem;
+  line-height: 1.3;
+  color: var(--color-ink);
+}
+
+/* ---------- Colonne de gauche ---------- */
+
+.about__side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
+.about__resume {
+  align-self: flex-start;
+}
+
+/* ---------- Parcours ---------- */
+
+/* Tout est en « em » : en changeant seulement font-size (sur ordinateur, via l'unité de la maquette),
+   la ligne, les points et les espaces suivent la taille du texte */
+.timeline {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.3em;
+  margin: 0;
+  padding: 0 0 0 1.6em;
+  font-size: 0.95rem;
+  list-style: none;
+}
+
+/* Ligne verticale fine derrière les points */
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 0.25em;
+  bottom: 0.25em;
+  left: 0.3em;
+  width: 1px;
+  background: var(--color-line);
+}
+
+.timeline__step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1em;
+  line-height: 1.3;
+  color: var(--color-ink);
+}
+
+/* Point de l'étape, centré sur la ligne */
+.timeline__step::before {
+  content: '';
+  position: absolute;
+  top: 0.35em;
+  left: -1.6em;
+  width: 0.65em;
+  height: 0.65em;
+  background: var(--color-page);
+  border: 1px solid var(--color-line);
+  border-radius: 50%;
+}
+
+.timeline__when {
+  font-size: 0.85em;
+  color: var(--color-muted);
+}
+
+/* Étape en cours : point bleu plein avec un halo */
+.timeline__step.is-current {
+  color: var(--color-brand-ink);
+}
+
+.timeline__step.is-current::before {
+  background: var(--color-brand);
+  border-color: var(--color-brand);
+  box-shadow: 0 0 0 4px var(--color-brand-soft);
+}
+
+/* Prochaine étape : point carré en pointillé, pour dire « pas encore là » */
+.timeline__step.is-next::before {
+  border-style: dashed;
+  border-radius: 0.15rem;
+}
+
+/* ---------- Colonne de droite ---------- */
+
+.about__main {
+  display: flex;
+  flex-direction: column;
+}
+
+.about__social {
+  flex: none;
+  gap: 0.75rem;
+}
+
+/* « About Me » : titre de section, sous l'en-tête (le nom reste le titre principal) */
+.about__title {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-serif);
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--color-ink);
+}
+
+.about__block {
+  margin-top: 1.25rem;
+}
+
+.about__heading {
+  margin: 0 0 0.35rem;
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--color-ink);
+}
+
+.about__text {
+  margin: 0;
+  max-width: 62ch;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--color-ink);
+}
+
+.about__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+/* ---------- Mobile et tablette (< 1024 px) : voir design/BRIEF.md, « Stratégie mobile » ---------- */
+
+/* line-clamp : l'accroche tient sur 2 lignes maximum, le détail est plus bas ; elle est
+   sous l'en-tête, sur toute la largeur */
+.about__hook {
+  display: -webkit-box;
+  margin: 0.5rem 0 0;
+  overflow: hidden;
+  font-size: 1rem;
+  line-height: 1.45;
+  color: var(--color-muted);
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.about__themes {
+  margin-top: 1.5rem;
+}
+
+.about__theme-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.6rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Thème cliquable : petite étiquette à filet fin et coins quasi droits (ouvre le hub Projets filtré) */
+.about__theme {
+  display: inline-block;
+  padding: 0.3rem 0.7rem;
+  font-size: 0.9rem;
+  color: var(--color-ink);
+  text-decoration: none;
+  text-transform: capitalize;
+  border: 1px solid color-mix(in srgb, var(--color-ink) 35%, transparent);
+  border-radius: var(--radius-sharp);
+  transition: color var(--duration-fast) ease, border-color var(--duration-fast) ease;
+}
+
+.about__theme:hover {
+  color: var(--color-brand-ink);
+  border-color: var(--color-brand-ink);
+}
+
+.about__theme:focus-visible {
+  outline: 2px solid var(--color-brand-ink);
+  outline-offset: 2px;
+}
+
+/* ---------- Texte replié (« Lire la suite ») ---------- */
+
+.collapsible__heading {
+  margin: 0 0 0.35rem;
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--color-ink);
+}
+
+/* line-clamp : 2 lignes tant que le bloc est replié ; le texte complet reste dans la page */
+.collapsible__text {
+  display: -webkit-box;
+  margin: 0;
+  overflow: hidden;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--color-ink);
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.collapsible.is-open .collapsible__text {
+  display: block;
+}
+
+/* Bouton de dépliage : texte souligné, comme les autres actions secondaires */
+.collapsible__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.4rem;
+  padding: 0.25rem 0;
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--color-ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+}
+
+.collapsible__toggle:hover {
+  color: var(--color-brand-ink);
+}
+
+.collapsible__toggle:focus-visible {
+  outline: 2px solid var(--color-brand-ink);
+  outline-offset: 2px;
+}
+
+.collapsible__chevron {
+  transition: transform var(--duration-fast) ease;
+}
+
+.collapsible.is-open .collapsible__chevron {
+  transform: rotate(180deg);
+}
+
+/* ---------- « Mon parcours » : filet fin en haut, aucune boîte ---------- */
+
+.journey {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  margin-top: 2rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--color-line);
+}
+
+/* Frise horizontale, même style que la timeline desktop : points sur une ligne, années dessous,
+   point choisi en bleu plein avec halo. Chaque étape occupe une colonne de même largeur (grid) :
+   --step-count (nombre d'étapes) est fourni par le composant, la ligne va du centre de la première colonne
+   au centre de la dernière. */
+.journey__timeline {
+  position: relative;
+}
+
+.journey__strip {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(var(--step-count), minmax(0, 1fr));
+}
+
+.journey__strip::before {
+  content: '';
+  position: absolute;
+  top: calc(0.9rem - 0.5px);
+  right: calc(50% / var(--step-count));
+  left: calc(50% / var(--step-count));
+  height: 1px;
+  background: var(--color-line);
+}
+
+/* Zone cliquable large (au moins 44 px de haut) pour le tactile */
+.journey__tab {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  min-height: 44px;
+  padding: 0.55rem 0 0.1rem;
+  font: inherit;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+}
+
+.journey__tab:focus-visible {
+  outline: 2px solid var(--color-brand-ink);
+  outline-offset: -2px;
+}
+
+.journey__dot {
+  width: 0.7rem;
+  height: 0.7rem;
+  background: var(--color-page);
+  border: 1px solid color-mix(in srgb, var(--color-ink) 35%, transparent);
+  border-radius: 50%;
+  transition: background-color var(--duration-fast) ease, border-color var(--duration-fast) ease;
+}
+
+.journey__tab.is-next .journey__dot {
+  border-style: dashed;
+  border-radius: 0.15rem;
+}
+
+.journey__year {
+  font-size: 0.8rem;
+  color: var(--color-muted);
+}
+
+/* Étape actuelle (le présent, 2026) : TOUJOURS bleue (point plein avec halo, année bleue), même si une autre
+   étape est choisie : c'est le repère « vous êtes ici » de la frise */
+.journey__tab.is-current .journey__dot {
+  background: var(--color-brand);
+  border-color: var(--color-brand);
+  box-shadow: 0 0 0 4px var(--color-brand-soft);
+}
+
+.journey__tab.is-current .journey__year {
+  font-weight: 600;
+  color: var(--color-brand-ink);
+}
+
+/* Étape choisie (dont on lit le descriptif) : anneau foncé et année en gras. Si c'est aussi l'étape actuelle,
+   elle garde son bleu et gagne seulement le gras. */
+.journey__tab.is-selected:not(.is-current) .journey__dot {
+  border-color: var(--color-ink);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-ink) 18%, transparent);
+}
+
+.journey__tab.is-selected .journey__year {
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.journey__tab.is-current.is-selected .journey__year {
+  color: var(--color-brand-ink);
+}
+
+/* Descriptif juste sous la frise (écart de 10 px) : un filet fin avec une pointe qui désigne le point choisi.
+   --caret-position (calculée par le composant) place la pointe au centre de la colonne de l'étape. */
+.journey__panel {
+  position: relative;
+  margin-top: 0.65rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--color-line);
+}
+
+/* Pointe : un carré tourné de 45°, dont seuls les deux côtés du haut ont un trait, posé sur le filet */
+.journey__panel::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: var(--caret-position);
+  width: 8px;
+  height: 8px;
+  background: var(--color-page);
+  border-top: 1px solid var(--color-line);
+  border-left: 1px solid var(--color-line);
+  transform: translateX(-50%) rotate(45deg);
+  transition: left var(--duration-fast) ease;
+}
+
+.journey__what {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--color-ink);
+}
+
+.journey__place {
+  margin: 0.15rem 0 0;
+  font-size: 0.95rem;
+  color: var(--color-muted);
+}
+
+.journey__resume {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+}
+
+/* ---------- « Pour aller plus loin » ---------- */
+
+.next-doors {
+  margin-top: 2rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--color-line);
+}
+
+.next-doors__list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin: 0.85rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Bouton à filet : « Projects → », le trait remplace la carte, coins quasi droits, pas d'ombre */
+.next-doors__door {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  /* Hauteur réduite de 25 % (55,8 px → 41,9 px) : interligne serré + padding vertical plus petit */
+  padding: 0.65rem 1rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--color-ink);
+  text-decoration: none;
+  border: 1px solid var(--color-ink);
+  border-radius: var(--radius-sharp);
+  transition: color var(--duration-fast) ease, border-color var(--duration-fast) ease;
+}
+
+.next-doors__door:hover {
+  color: var(--color-brand-ink);
+  border-color: var(--color-brand-ink);
+}
+
+.next-doors__door:focus-visible {
+  outline: 2px solid var(--color-brand-ink);
+  outline-offset: 2px;
+}
+
+/* EXCEPTION ASSUMÉE du style éditorial (design/BRIEF.md §2) : le « rideau » du bouton « Research ».
+   Technique : le fond bleu est un dégradé uni (deux fois la même couleur) posé à gauche, dont la LARGEUR
+   (background-size) passe de 0 % à 100 % au survol, au focus clavier et au tap (:active) : le bleu se
+   déploie de gauche à droite, comme un rideau, en ~300 ms (ease-out). En même temps le texte passe en blanc.
+   Le bleu de remplissage (--color-action-fill) est assez foncé pour que le blanc reste lisible (5:1). */
+.next-doors__door--curtain {
+  color: var(--color-action-blue);
+  background-image: linear-gradient(var(--color-action-fill), var(--color-action-fill));
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: 0% 100%;
+  border-color: var(--color-action-blue);
+  transition: background-size 300ms ease-out, color 300ms ease-out;
+}
+
+.next-doors__door--curtain:hover,
+.next-doors__door--curtain:focus-visible,
+.next-doors__door--curtain:active {
+  color: #ffffff;
+  background-size: 100% 100%;
+  border-color: var(--color-action-fill);
+}
+
+/* prefers-reduced-motion : le changement est instantané, sans déploiement */
+@media (prefers-reduced-motion: reduce) {
+  .next-doors__door--curtain {
+    transition: none;
+  }
+}
+
+.next-doors__door-arrow {
+  flex: none;
+}
+
+/* Lien vers le contact : séparé des deux boutons par un filet */
+.next-doors__contact {
+  margin-top: 1.25rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--color-line);
+}
+
+/* ---------- Boutons qui sautent : « View my papers » (ordinateur), « Research » et « Projects » (mobile) ---------- */
+
+.about__papers {
+  position: absolute;
+  right: 1rem;
+  bottom: 1.5rem;
+}
+
+/* @keyframes : le bouton ENTIER fait deux rebonds (un grand, un petit), puis une pause : « clique-moi ».
+   translateY négatif = vers le haut ; chaque montée ralentit (ease-out) et chaque descente accélère (ease-in),
+   comme une vraie balle. Les boutons « Research » et « Projects » utilisent la même animation. */
+@keyframes about-hop {
+  0% {
+    transform: translateY(0);
+    animation-timing-function: ease-out;
+  }
+
+  12% {
+    transform: translateY(-12px);
+    animation-timing-function: ease-in;
+  }
+
+  24% {
+    transform: translateY(0);
+    animation-timing-function: ease-out;
+  }
+
+  34% {
+    transform: translateY(-6px);
+    animation-timing-function: ease-in;
+  }
+
+  44%,
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.about__papers,
+.next-doors__door {
+  animation: about-hop 2.2s infinite;
+}
+
+/* Au survol, au focus clavier et au tap, le bouton arrête de sauter (le rideau de « Research » prend le relais) */
+.about__papers:hover,
+.about__papers:focus-visible,
+.next-doors__door:hover,
+.next-doors__door:focus-visible,
+.next-doors__door:active {
+  animation-play-state: paused;
+}
+
+/* prefers-reduced-motion : aucune animation pour les personnes qui l'ont demandé */
+@media (prefers-reduced-motion: reduce) {
+  .about__papers,
+  .next-doors__door {
+    animation: none;
+  }
+}
+
+/* ---------- Ordinateur (≥ 1024 px) : un seul écran, proportions de la maquette ---------- */
+
+@media (min-width: 1024px) {
+  .about {
+    /* Même unité que la landing : 1 % de la largeur de la maquette, bornée aussi par la hauteur de la fenêtre.
+       grid-template-rows : bannière de 21,5 unités (325 px sur 1512), le reste pour le contenu. */
+    --about-unit: clamp(8px, min(1vw, 1.54dvh), 19.2px);
+    display: grid;
+    grid-template-rows: calc(var(--about-unit) * 21.5) 1fr;
+    height: 100dvh;
+    min-height: 0;
+    padding-bottom: 0;
+    overflow: hidden;
+  }
+
+  .about__banner {
+    height: auto;
+  }
+
+  .about__grid {
+    grid-template-columns: calc(var(--about-unit) * 17) minmax(0, 1fr);
+    column-gap: calc(var(--about-unit) * 2);
+    row-gap: calc(var(--about-unit) * 0.8);
+    width: calc(var(--about-unit) * 76);
+    min-height: 0;
+  }
+
+  /* L'en-tête occupe toute la largeur et reprend les deux colonnes du dessous : l'avatar est au-dessus de la
+     colonne du parcours, le nom s'aligne sur le début du texte */
+  .about__header {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: calc(var(--about-unit) * 17) minmax(0, 1fr);
+    column-gap: calc(var(--about-unit) * 2);
+  }
+
+  .about__side {
+    gap: calc(var(--about-unit) * 1.1);
+  }
+
+  .about__avatar {
+    width: calc(var(--about-unit) * 14.5);
+    margin-top: calc(var(--about-unit) * -9.5);
+  }
+
+  .about__name {
+    font-size: calc(var(--about-unit) * 2.2);
+  }
+
+  .about__role {
+    padding-top: calc(var(--about-unit) * 0.8);
+    font-size: calc(var(--about-unit) * 1.3);
+  }
+
+  /* Icônes à cheval sur le bord de la bannière (maquette 02) : remontées de la moitié de leur hauteur */
+  .about__social {
+    gap: calc(var(--about-unit) * 1.4);
+    margin-top: calc(var(--about-unit) * -1.5);
+  }
+
+  .about__social .social-icons__link {
+    width: calc(var(--about-unit) * 3.05);
+    height: calc(var(--about-unit) * 3.05);
+    font-size: calc(var(--about-unit) * 1.4);
+  }
+
+  .about__title {
+    margin-bottom: calc(var(--about-unit) * 0.2);
+    font-size: calc(var(--about-unit) * 1.9);
+  }
+
+  .about__block {
+    margin-top: calc(var(--about-unit) * 0.8);
+  }
+
+  .about__heading {
+    font-size: calc(var(--about-unit) * 1.6);
+  }
+
+  .about__text {
+    max-width: none;
+    font-size: calc(var(--about-unit) * 1.05);
+    line-height: 1.5;
+  }
+
+  .about__actions {
+    justify-content: flex-start;
+    gap: calc(var(--about-unit) * 2);
+    margin-top: calc(var(--about-unit) * 2);
+  }
+
+  .about__timeline {
+    gap: 1.1em;
+    font-size: calc(var(--about-unit) * 1.05);
+  }
+
+  .about__resume,
+  .about__actions .btn {
+    font-size: calc(var(--about-unit) * 1.05);
+  }
+
+  .about__papers {
+    padding: calc(var(--about-unit) * 0.7) calc(var(--about-unit) * 1.8);
+    font-size: calc(var(--about-unit) * 1.05);
+  }
+
+  .about__papers {
+    right: calc(var(--about-unit) * 10.5);
+    bottom: calc(var(--about-unit) * 2.8);
+  }
+}
+
+/* ---------- Bascule mobile / ordinateur (seuil 1024 px) ----------
+   Placées en fin de fichier : à spécificité égale, elles l'emportent sur les « display » plus haut. */
+
+@media (max-width: 1023.98px) {
+  .about__desktop-only {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .about__mobile-only {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .collapsible__chevron,
+  .next-doors__card {
+    transition: none;
+  }
+
+  .next-doors__card:hover {
+    transform: none;
+  }
+}

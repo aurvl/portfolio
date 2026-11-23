@@ -59,7 +59,8 @@ function ProjectsPage() {
   const navigate = useNavigate()
   const [searchValue, setSearchValue] = useState('')
   const [selectedDomain, setSelectedDomain] = useState('')
-  const [selectedTag, setSelectedTag] = useState('')
+  // ?tag=<mot-clé> : arrivée depuis une pastille « Je travaille sur » de l'About, filtre déjà appliqué
+  const [selectedTag, setSelectedTag] = useState(() => new URLSearchParams(location.search).get('tag') ?? '')
   const [selectedSort, setSelectedSort] = useState<SortValue>('date-desc')
   const [selectedYear, setSelectedYear] = useState('')
   const [visibleProjectsCount, setVisibleProjectsCount] = useState(PAGE_SIZE)

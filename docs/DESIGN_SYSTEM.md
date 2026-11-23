@@ -1,5 +1,23 @@
 # Design system (V2)
 
+> **V3 en cours (branche `redesign/researcher-friendly`)** : tout ce qui suit décrit le V2 et sera réécrit à
+> l'étape 15 du plan (`design/PLAN.md`). La référence actuelle est `design/BRIEF.md`.
+
+## V3 : tokens et style éditorial (résumé)
+
+Tokens dans `src/styles/v3/tokens.css` (`@theme`), styles dans `src/styles/v3/*.css`.
+
+- Couleurs : `--color-page`, `--color-ink`, `--color-muted`, `--color-line`, `--color-brand` (`#55a1f5`),
+  `--color-brand-ink`, `--color-on-brand` (texte posé sur le bleu), variantes sombres sous `:root[data-theme='dark']`.
+- Polices : `--font-sans` (Geist), `--font-serif` (Source Serif 4, changeable en une ligne).
+- Rayons : `--radius-sharp` (2 px), `--radius-small` (4 px) pour le style éditorial ; `--radius-pill` pour la
+  navbar et la pilule utilitaire. `--radius-field/card/card-lg` et `--shadow-*` appartiennent à l'ancien style
+  V3 (utilisés par la landing et la navbar) et disparaîtront avec lui.
+- Étiquettes : `--label-size`, `--label-spacing` ; classe `.eyebrow`. Chiffres alignés : `.tabular`.
+- Animations : `--duration-fast` (160 ms), opacité et soulignement seulement.
+- Boutons (`ui/Button.tsx`) : `solid` (un seul par écran), `line`, `link` pour le style éditorial ; les variantes
+  `primary`, `secondary`, `outline`, `pill` sont l'ancien style.
+
 The V2 look: Codex-like and calm. Warm neutrals, one blue accent, small radii, sparse text, visuals that
 explain. Keep it; do not reintroduce the V1 style (glass cards, large radii, mono everywhere).
 One deliberate exception: interactive blog widgets keep their own dark card style
