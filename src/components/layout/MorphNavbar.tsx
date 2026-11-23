@@ -40,8 +40,10 @@ type Geometry = {
   // Taille du menu compact ouvert (mobile et tablette)
   menuWidth: number
   menuHeight: number
-  // Hauteur de scroll sur laquelle se joue toute l'animation : toute la hauteur de la landing
+  // Hauteur de scroll sur laquelle se joue toute l'animation (hors scène) : toute la hauteur de la landing
   range: number
+  // Vrai sur ordinateur : la landing est dans la scène collée à l'écran (useBambooScene), le bouton ne suit plus la page
+  inScene: boolean
   // Écran Contact : le scroll où il commence à entrer (son haut touche le bas de la fenêtre), celui où il
   // remplit la fenêtre, la place de la navbar dans la page (emplacement vide en bas de l'écran) et la fenêtre
   hasContact: boolean
@@ -51,10 +53,6 @@ type Geometry = {
   viewportWidth: number
   viewportHeight: number
 }
-
-// ZONE MORTE : rien ne bouge pendant les premiers 12 % du scroll de la landing. Un petit mouvement
-// de trackpad ne déclenche donc rien ; l'animation se déroule ensuite sur les 88 % restants.
-const DEAD_ZONE = 0.12
 
 // Découpage de l'animation, en fraction de la progression (0 = bouton, 1 = navbar finie).
 // Les effets sont échelonnés : le texte reste, le bouton voyage, et seulement à la fin il s'élargit.
@@ -96,9 +94,12 @@ type MorphNavbarProps = {
   reducedMotion: boolean
   learnMoreLabel: string
   onLearnMore: () => void
+  // Progression 0 → 1 de la scène « entrer dans la forêt » (ordinateur) ; isSceneActive dit si elle s'applique
+  sceneProgress: MotionValue<number>
+  isSceneActive: boolean
 }
 
-function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore }: MorphNavbarProps) {
+function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore, sceneProgress, isSceneActive }: MorphNavbarProps) {
   const { renderItem, currentLabel, menu } = useNavbarModel(sections, reducedMotion)
 
   // Les mesures vivent dans des « refs » : les transformations ci-dessous les lisent à chaque image,
@@ -107,6 +108,7 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore }: M
   const menuGeometry = useRef<MenuGeometry | null>(null)
   const remeasure = useRef<() => void>(() => {})
   const reducedRef = useRef(reducedMotion)
+  const sceneActiveRef = useRef(isSceneActive)
   const rowRef = useRef<HTMLElement>(null)
   const tick = useMotionValue(0)
   const isReady = useMotionValue(0)
@@ -126,13 +128,14 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore }: M
     .sort((a, b) => Math.abs(a.index - middle) - Math.abs(b.index - middle) || a.index - b.index)
     .map((entry) => entry.id)
 
-  // PROGRESSION 0 → 1, liée au scroll. Deux changements par rapport à avant : (1) elle se mesure sur TOUTE la
-  // hauteur de la landing (et non plus sur les premiers pixels) ; (2) elle ne démarre qu'après la zone morte de 12 %.
-  const progress = useTransform([scrollY, tick], ([scrollTop]: number[]) => {
+  // PROGRESSION 0 → 1, liée au scroll, sans zone morte (le scroll-snap natif évite déjà les déclenchements par
+  // erreur). Sur ordinateur, c'est celle de la scène (la même que la photo, donc tout voyage au même rythme) ;
+  // sur mobile et tablette, c'est le scroll sur toute la hauteur de la landing.
+  const progress = useTransform([scrollY, tick, sceneProgress], ([scrollTop, , sceneValue]: number[]) => {
     const current = geometry.current
     if (!current) return 0
-    const landingProgress = clamp01(scrollTop / current.range)
-    return clamp01((landingProgress - DEAD_ZONE) / (1 - DEAD_ZONE))
+    if (current.inScene) return clamp01(sceneValue)
+    return clamp01(scrollTop / current.range)
   })
 
   // Phase 1 : le voyage (0 → 1 sur les 65 premiers % de la progression)
@@ -155,8 +158,9 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore }: M
     return reducedRef.current ? (amount > 0.5 ? 1 : 0) : amount
   })
 
-  // POSITION VERTICALE. Le bouton n'est pas figé à l'écran : au départ il SUIT LA PAGE (il défile avec la landing,
-  // comme s'il y était collé), sinon il resterait en place pendant que les « Latest things » glissent dessous.
+  // POSITION VERTICALE. Hors scène (mobile), le bouton n'est pas figé à l'écran : au départ il SUIT LA PAGE (il défile
+  // avec la landing, comme s'il y était collé), sinon il resterait en place pendant que les « Latest things » glissent
+  // dessous. Dans la scène (ordinateur), la landing est collée à l'écran : le bouton reste à sa place de départ.
   // Pendant le voyage, il remonte ensuite plus vite que la page jusqu'à sa place en haut ; max(…) l'empêche
   // de sortir de l'écran par le haut.
   //
@@ -168,7 +172,7 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore }: M
     ([amount, , scrollTop, downAmount, expanded]: number[]) => {
       const current = geometry.current
       if (!current) return 0
-      const followingPage = current.top0 - scrollTop
+      const followingPage = current.inScene ? current.top0 : current.top0 - scrollTop
       const topWhenUp = Math.max(current.top1, lerp(followingPage, current.top1, smooth(amount)))
       if (!current.hasContact || downAmount <= 0) return topWhenUp
 
@@ -264,6 +268,9 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore }: M
     const anchor = document.querySelector<HTMLElement>('[data-morph-anchor]')
     const start = anchor?.getBoundingClientRect()
     const landing = document.getElementById('home')
+    // Dans la scène, la place de départ se mesure par rapport au cadre collé (il ne bouge pas à l'écran pendant la scène)
+    const inScene = sceneActiveRef.current
+    const stageTop = document.querySelector('.scene__stage')?.getBoundingClientRect().top ?? 0
     const viewportWidth = document.documentElement.clientWidth
 
     // Emplacement vide de la navbar en bas du Contact : on lui donne la hauteur de la navbar, pour que la page
@@ -278,7 +285,7 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore }: M
     const center1 = isCompact ? rem + finalWidth / 2 : viewportWidth / 2
 
     geometry.current = {
-      top0: start ? start.top + window.scrollY : top1,
+      top0: start ? (inScene ? start.top - stageTop : start.top + window.scrollY) : top1,
       center0: start ? start.left + start.width / 2 : center1,
       left0: start ? start.left : rem,
       width0: start ? start.width : finalWidth,
@@ -292,6 +299,7 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore }: M
       menuWidth: pill?.menuWidth ?? finalWidth,
       menuHeight: pill?.menuHeight ?? finalHeight,
       range: Math.max(1, landing?.offsetHeight ?? window.innerHeight),
+      inScene,
       hasContact: Boolean(slot && contact),
       contactFrom: contactTop - viewportHeight,
       contactTo: contactTop,
@@ -307,6 +315,7 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore }: M
 
   useLayoutEffect(() => {
     reducedRef.current = reducedMotion
+    sceneActiveRef.current = isSceneActive
     remeasure.current = measure
 
     measure()
@@ -325,7 +334,7 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore }: M
       window.removeEventListener('resize', measure)
       observer.disconnect()
     }
-  }, [reducedMotion, currentLabel, sections, measure])
+  }, [reducedMotion, isSceneActive, currentLabel, sections, measure])
 
   // CompactMenu nous envoie les tailles de la pilule et du menu : on les garde et on remesure le tout
   const handleMenuMeasured = useCallback((measured: MenuGeometry) => {

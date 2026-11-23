@@ -8,6 +8,7 @@ import { placeholders } from '../../data/placeholders'
 import { useHomeContent } from '../../hooks/useHomeContent'
 import { withBasePath } from '../../lib/site'
 import Avatar from '../ui/Avatar'
+import BambooPhoto from '../ui/BambooPhoto'
 import Button from '../ui/Button'
 import SocialIcons from '../ui/SocialIcons'
 
@@ -42,13 +43,7 @@ function ContactSection() {
       className="contact"
       aria-labelledby="contact-title"
     >
-      <img
-        className="contact__photo"
-        src={withBasePath('assets/images/hero-bamboo.webp')}
-        alt=""
-        loading="lazy"
-        decoding="async"
-      />
+      <BambooPhoto className="contact__photo" />
 
       <div className="contact__content">
         <header className="contact__identity">

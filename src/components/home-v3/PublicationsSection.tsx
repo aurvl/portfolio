@@ -4,7 +4,7 @@
 import { FiArrowUp, FiArrowUpRight } from 'react-icons/fi'
 import { placeholders } from '../../data/placeholders'
 import { useHomeContent } from '../../hooks/useHomeContent'
-import { withBasePath } from '../../lib/site'
+import BambooPhoto from '../ui/BambooPhoto'
 import Button from '../ui/Button'
 import SocialIcons from '../ui/SocialIcons'
 
@@ -25,13 +25,7 @@ function PublicationsSection({ onBackToAbout }: PublicationsSectionProps) {
       aria-labelledby="papers-title"
     >
       <div className="papers__banner">
-        <img
-          className="papers__banner-image"
-          src={withBasePath('assets/images/hero-bamboo.webp')}
-          alt=""
-          loading="lazy"
-          decoding="async"
-        />
+        <BambooPhoto className="papers__banner-image" />
       </div>
 
       <div className="papers__grid">

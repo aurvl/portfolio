@@ -187,8 +187,14 @@ Le desktop (≥ 1024 px) ne change pas.
 
 ## 6c. Transitions immersives (« entrer dans la forêt ») — EXPÉRIENCE, branche `experiment/bamboo-transitions`
 
-> Statut : concept à valider. Rien n'est codé tant que le propriétaire n'a pas donné son feu vert. Cette section
-> complète §2 (exceptions d'animation) ; si le concept est retenu, elle remplace le morph « Learn more » seul.
+> Statut : concept validé (option A). Cette section complète §2 (exceptions d'animation) ; si le rendu est retenu,
+> elle remplace le morph « Learn more » seul.
+> Décisions du propriétaire : option A (scène collante + scroll-snap natif, la décision 10 reste en vigueur) ; le
+> bouton Précédent du navigateur n'est pas animé (accepté pour l'instant) ; zone morte supprimée ; sur mobile on garde
+> le zoom des bambous ET le resserrement de la bannière (le glissement de l'avatar et du nom peut être supprimé) ;
+> photo en trois tailles (1200 / 1920 / 2400 px, `srcset`) + préchargement.
+> Avancement : étapes 1 (scène collante, calage, photo responsive) et 2 (animation Landing → About) faites sur
+> ordinateur ; restent le mobile et le mouvement réduit complet (étape 4) et les View Transitions entre pages (étape 5).
 
 **Idée.** La photo de bambous est l'élément commun à toutes les pages. Elle est le fil conducteur : comme une
 « morph » PowerPoint, on reste dans le même univers et la scène se transforme autour d'elle. Aller plus loin dans le

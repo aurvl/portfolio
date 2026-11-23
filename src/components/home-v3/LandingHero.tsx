@@ -4,6 +4,7 @@ import { placeholders } from '../../data/placeholders'
 import { useHomeContent } from '../../hooks/useHomeContent'
 import { withBasePath } from '../../lib/site'
 import Avatar from '../ui/Avatar'
+import BambooPhoto from '../ui/BambooPhoto'
 import Button from '../ui/Button'
 import SocialIcons from '../ui/SocialIcons'
 
@@ -12,22 +13,25 @@ type LandingHeroProps = {
   // true : le vrai bouton est celui de MorphNavbar (il voyage jusqu'à la navbar) ; ici on ne garde qu'un
   // « fantôme » invisible, à la même place et à la même taille, pour que MorphNavbar sache d'où partir.
   isButtonInNavbar?: boolean
+  // true (ordinateur) : la photo vient de la scène de l'accueil (HomePage). L'identité (avatar, nom, poste, réseaux)
+  // reste ici, intacte, et c'est elle qui glisse jusqu'à sa place dans l'About (useBambooScene).
+  inScene?: boolean
 }
 
-function LandingHero({ onLearnMore, isButtonInNavbar = false }: LandingHeroProps) {
+function LandingHero({ onLearnMore, isButtonInNavbar = false, inScene = false }: LandingHeroProps) {
   const { lang } = useHomeContent()
   const profile = placeholders.getProfile(lang)
   const labels = placeholders.getLandingLabels(lang)
 
   return (
     <header className="landing-hero">
-      <img
-        className="landing-hero__background"
-        src={withBasePath('assets/images/hero-bamboo.webp')}
-        alt=""
-        fetchPriority="high"
-        decoding="async"
-      />
+      {inScene ? null : (
+        <BambooPhoto
+          className="landing-hero__background"
+          loading="eager"
+          fetchPriority="high"
+        />
+      )}
       <div className="landing-hero__content">
         <Avatar
           className="landing-hero__avatar"

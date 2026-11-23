@@ -6,6 +6,16 @@
     <link rel="icon" type="image/png" sizes="512x512" href="/favicon-glow.png" />
     <link rel="apple-touch-icon" href="/favicon-glow.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Préchargement de la photo de bambous (commune à toutes les pages) : mêmes tailles que BambooPhoto.tsx.
+         imagesrcset + imagesizes : le navigateur ne télécharge QUE la taille adaptée à l'écran. -->
+    <link
+      rel="preload"
+      as="image"
+      type="image/webp"
+      fetchpriority="high"
+      imagesrcset="%BASE_URL%assets/images/hero-bamboo-1200.webp 1200w, %BASE_URL%assets/images/hero-bamboo-1920.webp 1920w, %BASE_URL%assets/images/hero-bamboo.webp 2400w"
+      imagesizes="100vw"
+    />
     <script>
       // Pose le thème avant le premier affichage (évite un flash sombre). Même logique que app/providers.tsx.
       (function () {

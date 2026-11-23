@@ -1,12 +1,15 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useReducedMotion } from 'framer-motion'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { placeholders } from '../data/placeholders'
+import { useBambooScene } from '../hooks/useBambooScene'
 import { useHomeContent } from '../hooks/useHomeContent'
+import { useMediaQuery } from '../hooks/useMediaQuery'
 import { useSiteNav } from '../hooks/useSiteNav'
 import MainLayout from '../components/layout/MainLayout'
 import MorphNavbar from '../components/layout/MorphNavbar'
 import Seo from '../components/seo/Seo'
+import BambooPhoto from '../components/ui/BambooPhoto'
 import LandingHero from '../components/home-v3/LandingHero'
 import LatestThings from '../components/home-v3/LatestThings'
 import AboutSection from '../components/home-v3/AboutSection'
@@ -40,6 +43,12 @@ function HomePage() {
   const reducedMotion = useReducedMotion() ?? false
   const learnMoreLabel = placeholders.getLandingLabels(lang).learnMore
 
+  // La scène « entrer dans la forêt » n'existe que sur ordinateur (≥ 1024 px). sceneProgress (0 = landing, 1 = About)
+  // sert aussi à la navbar, pour que « Learn more » voyage au même rythme que la photo.
+  const isSceneActive = useMediaQuery('(min-width: 1024px)')
+  const sceneRef = useRef<HTMLDivElement>(null)
+  const sceneProgress = useBambooScene(sceneRef, isSceneActive, reducedMotion)
+
   // Scroll-snap sur la page entière : la molette s'arrête sur chaque écran (landing, puis suite).
   // La classe est posée sur <html> (seul élément qui peut porter le snap de la page) et retirée en partant.
   useEffect(() => {
@@ -67,6 +76,8 @@ function HomePage() {
           reducedMotion={reducedMotion}
           learnMoreLabel={learnMoreLabel}
           onLearnMore={scrollToNextScreen}
+          sceneProgress={sceneProgress}
+          isSceneActive={isSceneActive}
         />
       }
     >
@@ -94,22 +105,57 @@ function HomePage() {
         ]}
       />
 
-      <section
-        id="home"
-        className="landing"
+      {/* Scène (ordinateur) : landing et About empilés dans un cadre collé à l'écran, sur une photo commune.
+          Sous 1024 px : deux sections normales, l'une sous l'autre (scene.css). */}
+      <div
+        ref={sceneRef}
+        className="scene"
       >
-        <LandingHero
-          onLearnMore={scrollToNextScreen}
-          isButtonInNavbar={!reducedMotion}
-        />
-        <LatestThings />
-      </section>
+        <div className="scene__stage">
+          {isSceneActive ? (
+            <div className="scene__photo">
+              <BambooPhoto
+                className="scene__photo-image"
+                loading="eager"
+                fetchPriority="high"
+              />
+            </div>
+          ) : null}
 
-      <AboutSection
-        onExploreWork={() => navigate('/projects')}
-        onGetInTouch={() => scrollToSection('contact-form')}
-        onViewPapers={() => scrollToSection('research')}
-      />
+          <section
+            id={isSceneActive ? undefined : 'home'}
+            className="landing"
+          >
+            <LandingHero
+              onLearnMore={scrollToNextScreen}
+              isButtonInNavbar={!reducedMotion}
+              inScene={isSceneActive}
+            />
+            <LatestThings />
+          </section>
+
+          <AboutSection
+            inScene={isSceneActive}
+            onExploreWork={() => navigate('/projects')}
+            onGetInTouch={() => scrollToSection('contact-form')}
+            onViewPapers={() => scrollToSection('research')}
+          />
+        </div>
+
+        {/* Ancres et points d'arrêt du scroll : #home = début de la scène, #about = fin de la transition */}
+        {isSceneActive ? (
+          <>
+            <div
+              id="home"
+              className="scene__zone scene__zone--home"
+            />
+            <div
+              id="about"
+              className="scene__zone scene__zone--about"
+            />
+          </>
+        ) : null}
+      </div>
 
       <PublicationsSection onBackToAbout={() => scrollToSection('about')} />
 

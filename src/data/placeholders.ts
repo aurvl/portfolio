@@ -229,7 +229,7 @@ const latestThings: LocalizedField<LatestThing[]> = {
       title: 'Research note',
       description: 'A fictional note about work in progress, with a short description and a date.',
       date: '2026-06-21',
-      thumbnailSrc: '/assets/images/hero-bamboo.webp',
+      thumbnailSrc: '/assets/images/hero-bamboo-1200.webp',
       thumbnailAlt: 'Placeholder thumbnail',
       href: '/publications',
     },
@@ -258,7 +258,7 @@ const latestThings: LocalizedField<LatestThing[]> = {
       title: 'Note de recherche',
       description: 'Une note fictive sur un travail en cours, avec une courte description et une date.',
       date: '2026-06-21',
-      thumbnailSrc: '/assets/images/hero-bamboo.webp',
+      thumbnailSrc: '/assets/images/hero-bamboo-1200.webp',
       thumbnailAlt: 'Vignette fictive',
       href: '/publications',
     },
@@ -388,10 +388,10 @@ function buildPlaceholderProject(
 const projects: Project[] = [
   buildPlaceholderProject(1, '/assets/projects/images/bayesian-linear-regression-econometrics-cover.jpg', ['Econometrics'], [0]),
   buildPlaceholderProject(2, '/assets/blog/images/blog6.jpg', ['Economic Intelligence'], [1, 2]),
-  buildPlaceholderProject(3, '/assets/images/hero-bamboo.webp', ['Data Engineering'], [2]),
+  buildPlaceholderProject(3, '/assets/images/hero-bamboo-1200.webp', ['Data Engineering'], [2]),
   buildPlaceholderProject(4, '/assets/projects/images/bayesian-linear-regression-econometrics-cover.jpg', ['Applied Statistics'], [0, 1]),
   buildPlaceholderProject(5, '/assets/blog/images/blog6.jpg', ['Data Visualization'], [3]),
-  buildPlaceholderProject(6, '/assets/images/hero-bamboo.webp', ['Econometrics', 'Classification'], [0, 3]),
+  buildPlaceholderProject(6, '/assets/images/hero-bamboo-1200.webp', ['Econometrics', 'Classification'], [0, 3]),
 ]
 
 // ---------------------------------------------------------------- Accès par langue

@@ -7,6 +7,7 @@ import { placeholders } from '../../data/placeholders'
 import { useHomeContent } from '../../hooks/useHomeContent'
 import { getResumeDownloadUrl, withBasePath } from '../../lib/site'
 import Avatar from '../ui/Avatar'
+import BambooPhoto from '../ui/BambooPhoto'
 import Button from '../ui/Button'
 import Collapsible from '../ui/Collapsible'
 import ResumeIcon from '../ui/ResumeIcon'
@@ -19,9 +20,12 @@ type AboutSectionProps = {
   onExploreWork: () => void
   onGetInTouch: () => void
   onViewPapers: () => void
+  // true (ordinateur) : la photo vient de la scène de l'accueil (HomePage) et l'ancre « about » est posée par elle ;
+  // l'avatar, le nom, le poste et les réseaux sont ceux qui glissent depuis la landing (useBambooScene).
+  inScene?: boolean
 }
 
-function AboutSection({ onExploreWork, onGetInTouch, onViewPapers }: AboutSectionProps) {
+function AboutSection({ onExploreWork, onGetInTouch, onViewPapers, inScene = false }: AboutSectionProps) {
   const { lang } = useHomeContent()
   const profile = placeholders.getProfile(lang)
   const labels = placeholders.getAboutLabels(lang)
@@ -35,18 +39,12 @@ function AboutSection({ onExploreWork, onGetInTouch, onViewPapers }: AboutSectio
 
   return (
     <section
-      id="about"
+      id={inScene ? undefined : 'about'}
       className="about"
       aria-labelledby="about-title"
     >
       <div className="about__banner">
-        <img
-          className="about__banner-image"
-          src={withBasePath('assets/images/hero-bamboo.webp')}
-          alt=""
-          loading="lazy"
-          decoding="async"
-        />
+        {inScene ? null : <BambooPhoto className="about__banner-image" />}
       </div>
 
       <div className="about__grid">
