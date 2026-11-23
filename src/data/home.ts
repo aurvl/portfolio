@@ -25,6 +25,8 @@ export const SOCIAL_LINKS = {
   github: 'https://github.com/aurvl',
   threads: 'https://www.threads.com/@aur_rel_',
   email: 'aurelvehi@outlook.fr',
+  orcid: 'https://orcid.org/0009-0006-2676-2400',
+  researchgate: 'https://www.researchgate.net/profile/Aurel-Vehi',
 }
 
 export type MethodStep = {
@@ -61,7 +63,7 @@ export type NowItem = {
 export type Evidence = { label: string; href: string }
 
 export type HomeContent = {
-  nav: { home: string; method: string; research: string; work: string; about: string; blog: string; contact: string; cta: string }
+  nav: { home: string; projectsBlog: string; cv: string; method: string; research: string; work: string; about: string; blog: string; contact: string; cta: string }
   hero: {
     role: string
     affiliation: string
@@ -203,7 +205,7 @@ export type HomeContent = {
 }
 
 export const homeEn: HomeContent = {
-  nav: { home: 'Home', method: 'Method', research: 'Research', work: 'Work', about: 'About', blog: 'Blog', contact: 'Contact', cta: 'Get in touch' },
+  nav: { home: 'Home', projectsBlog: 'Projects & Blog', cv: 'CV', method: 'Method', research: 'Research', work: 'Work', about: 'About', blog: 'Blog', contact: 'Contact', cta: 'Get in touch' },
 
   hero: {
     role: 'Applied economist',

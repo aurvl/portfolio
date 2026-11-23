@@ -1,0 +1,202 @@
+/* ------------------------------------------------------------------ *
+ * Design v3 : atomes (Avatar, SocialIcons, UtilityPill, boutons).
+ * Référence : design/screens/02-about.png.
+ * ------------------------------------------------------------------ */
+
+/* ---------- Avatar ---------- */
+
+.avatar {
+  display: block;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: var(--color-placeholder);
+  border-radius: 50%;
+}
+
+.avatar__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---------- Réseaux sociaux ---------- */
+
+.social-icons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.social-icons__link {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1.15rem;
+  color: var(--color-social-icon);
+  background: var(--color-brand);
+  border-radius: 50%;
+  transition: transform 150ms ease, box-shadow 150ms ease;
+}
+
+.social-icons__link:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-pill);
+}
+
+.social-icons__link:focus-visible,
+.utility-pill__theme:focus-visible,
+.btn:focus-visible {
+  outline: 2px solid var(--color-brand-ink);
+  outline-offset: 2px;
+}
+
+/* ---------- Pilule utilitaire (langue + thème) ---------- */
+
+.utility-pill {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  white-space: nowrap;
+  gap: 0.25rem;
+  padding: 0.35rem 0.5rem 0.35rem 0.85rem;
+  color: #ffffff;
+  /* backdrop-filter : floute le fond (bambous) derrière la pilule pour qu'elle reste lisible */
+  background: color-mix(in srgb, #ffffff 30%, transparent);
+  backdrop-filter: blur(10px);
+  border-radius: var(--radius-pill);
+}
+
+.utility-pill__language {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.utility-pill__select {
+  appearance: none;
+  padding: 0.25rem 0.25rem;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.utility-pill__select:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+  border-radius: var(--radius-pill);
+}
+
+/* Les options du menu natif gardent un fond lisible en clair comme en sombre */
+.utility-pill__select option {
+  color: var(--color-ink);
+  background: var(--color-surface);
+}
+
+.utility-pill__theme {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 150ms ease;
+}
+
+.utility-pill__theme:hover {
+  background: color-mix(in srgb, #ffffff 25%, transparent);
+}
+
+/* ---------- Boutons ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.5rem;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  transition: transform 150ms ease, box-shadow 150ms ease, background-color 150ms ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn__icon {
+  display: inline-flex;
+}
+
+/* Primaire : bleu plein, texte clair (ex. « View my papers ↓ ») */
+.btn--primary {
+  color: #ffffff;
+  background: var(--color-brand);
+  box-shadow: var(--shadow-pill);
+}
+
+/* Secondaire : bleu clair translucide (ex. « Explore my Work ») */
+.btn--secondary {
+  color: var(--color-brand-ink);
+  background: var(--color-brand-soft);
+}
+
+.btn--secondary:hover {
+  background: color-mix(in srgb, var(--color-brand) 42%, transparent);
+}
+
+/* Contour : fond de la page, fin trait (ex. « Get in touch ») */
+.btn--outline {
+  color: var(--color-ink);
+  background: var(--color-surface);
+  border-color: var(--color-line);
+}
+
+.btn--outline:hover {
+  border-color: var(--color-brand);
+}
+
+/* Pilule : petit bouton arrondi avec icône (ex. « View my Resume ») */
+.btn--pill {
+  padding: 0.55rem 1.1rem;
+  font-size: 0.95rem;
+  color: var(--color-ink);
+  background: color-mix(in srgb, var(--color-brand) 14%, var(--color-surface));
+  border-color: var(--color-line);
+}
+
+.btn--pill:hover {
+  background: var(--color-brand-soft);
+}
+
+/* prefers-reduced-motion : on retire les petits déplacements au survol */
+@media (prefers-reduced-motion: reduce) {
+  .btn,
+  .social-icons__link,
+  .utility-pill__theme {
+    transition: none;
+  }
+
+  .btn:hover,
+  .social-icons__link:hover {
+    transform: none;
+  }
+}

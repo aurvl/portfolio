@@ -35,3 +35,6 @@ design/screens/
 design/svgs/
 design/*.svg
 design/*.png
+
+# Fichier local
+structure.md

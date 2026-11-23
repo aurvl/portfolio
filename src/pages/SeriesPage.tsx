@@ -43,10 +43,10 @@ function SeriesPage() {
     })
   const rows = chunkPosts(seriesPosts, 3)
 
-  const { pageSections: sections, pageCta } = useSiteNav()
+  const { pageSections: sections } = useSiteNav()
 
   return (
-    <MainLayout sections={sections} className="home-v2" cta={pageCta}>
+    <MainLayout sections={sections} className="home-v2">
       <Seo
         title={
           currentSeries

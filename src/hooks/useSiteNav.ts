@@ -1,32 +1,32 @@
-import type { NavbarCta, NavbarSection } from '../components/layout/Navbar'
+import type { NavbarSection } from '../components/layout/Navbar'
+import { getResumeDownloadUrl } from '../lib/site'
 import { useHomeContent } from './useHomeContent'
 
-// One menu for the whole site. On the homepage the items scroll to sections;
-// elsewhere they link back to the homepage sections or to the Work and Blog pages.
+// Un seul menu pour tout le site : Accueil / À propos / Recherche / Projets & Blog / CV / Contact.
+// Sur l'accueil, les entrées défilent vers les sections ; ailleurs, elles renvoient vers l'accueil
+// ou vers les pages Projets & Blog. « CV » est toujours un lien direct vers le PDF.
 export function useSiteNav() {
-  const { nav } = useHomeContent().content
+  const { content, lang } = useHomeContent()
+  const { nav } = content
+  const resumeUrl = getResumeDownloadUrl(lang)
 
   const homeSections: NavbarSection[] = [
-    { id: 'home', label: nav.home, hidden: true },
-    { id: 'approach', label: nav.method },
-    { id: 'research', label: nav.research },
-    { id: 'work', label: nav.work },
+    { id: 'home', label: nav.home },
     { id: 'about', label: nav.about },
-    { id: 'blog-posts', label: nav.blog },
-    { id: 'contact-form', label: nav.contact, hidden: true },
+    { id: 'research', label: nav.research },
+    { id: 'projects', label: nav.projectsBlog, href: '/projects', matchPaths: ['/projects', '/blog'] },
+    { id: 'cv', label: nav.cv, href: resumeUrl, download: true },
+    { id: 'contact-form', label: nav.contact },
   ]
 
   const pageSections: NavbarSection[] = [
-    { id: 'home', label: nav.home, href: '/', hidden: true },
-    { id: 'approach', label: nav.method, href: '/#approach' },
-    { id: 'research', label: nav.research, href: '/#research' },
-    { id: 'work', label: nav.work, href: '/projects' },
+    { id: 'home', label: nav.home, href: '/' },
     { id: 'about', label: nav.about, href: '/#about' },
-    { id: 'blog', label: nav.blog, href: '/blog' },
+    { id: 'research', label: nav.research, href: '/#research' },
+    { id: 'projects', label: nav.projectsBlog, href: '/projects', matchPaths: ['/projects', '/blog'] },
+    { id: 'cv', label: nav.cv, href: resumeUrl, download: true },
+    { id: 'contact-form', label: nav.contact, href: '/#contact-form' },
   ]
 
-  const homeCta: NavbarCta = { label: nav.cta, targetId: 'contact-form' }
-  const pageCta: NavbarCta = { label: nav.cta, href: '/#contact-form' }
-
-  return { homeSections, pageSections, homeCta, pageCta }
+  return { homeSections, pageSections }
 }

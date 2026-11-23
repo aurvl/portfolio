@@ -2,7 +2,7 @@ import { DOI_BLUE_CARBON, getPublications, selectedWork, type HomeContent, type 
 
 // French homepage content, same shape as homeEn in home.ts.
 export const homeFr: HomeContent = {
-  nav: { home: 'Accueil', method: 'Méthode', research: 'Recherche', work: 'Travaux', about: 'Profil', blog: 'Blog', contact: 'Contact', cta: 'Me contacter' },
+  nav: { home: 'Accueil', projectsBlog: 'Projets & Blog', cv: 'CV', method: 'Méthode', research: 'Recherche', work: 'Travaux', about: 'Profil', blog: 'Blog', contact: 'Contact', cta: 'Me contacter' },
 
   hero: {
     role: 'Économiste appliqué',

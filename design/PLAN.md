@@ -92,9 +92,46 @@ Modifier : `Navbar`, `MainLayout`, `HomePage`, `ProjectsPage`, `BlogPage`, `Publ
 - [x] 2a. `src/data/placeholders.ts` (fictif, `IS_PLACEHOLDER_DATA`) : profil, parcours, textes About,
       latest things, publications, 6 projets (type `Project`), en FR/EN. Les composants atomes
       (`Avatar`, `SocialIcons`, `UtilityPill`, boutons) restent à faire.
-- [ ] 2. Atomes (reste de l'étape 2) : `Avatar`, `SocialIcons`, `UtilityPill`, boutons pilule.
-- [ ] 3. Navbar pilule + `MainLayout` (haut/bas, mobile compact, `useSiteNav`, `AnimatedLogo` retiré de la navbar).
-- [ ] 4. Landing : `LandingHero` + `LatestThings`.
+- [x] 2. Atomes : `ui/Avatar.tsx` (cercle, gris `--color-placeholder` sans image), `ui/SocialIcons.tsx` (6 ronds bleus
+      depuis `SOCIAL_LINKS`, qui reçoit ORCID et ResearchGate), `ui/UtilityPill.tsx` (langue + thème, réutilise
+      `i18n.changeLanguage` et `useTheme`), `ui/Button.tsx` (variantes `primary`, `secondary`, `outline`, `pill` ;
+      `<a>` si `href`). Aide `lib/cn.ts`. Styles dans `src/styles/v3/atoms.css` (importé par `globals.css`).
+      Les anciens `LanguageSwitcher`/`ThemeToggle` restent utilisés par la navbar V2 jusqu'à l'étape 3.
+      Aucun atome n'est encore affiché dans une page : vérification visuelle à faire à l'étape 3 (navbar) et 5 (About).
+      Lint + build verts.
+- [x] 3. Navbar pilule + `MainLayout`. `Navbar.tsx` réécrite : capsule bleue centrée (Accueil / À propos / Recherche /
+      Projets & Blog / CV / Contact), onglet actif bleu clair, `IntersectionObserver` et `aria-current` conservés,
+      « CV » = lien `download` direct, « Projets & Blog » actif sur `/projects` et `/blog` (`matchPaths`). Mobile
+      (< 768 px) : bouton compact (section courante + chevron) qui ouvre un panneau, fermé par Échap.
+      `MainLayout` : `UtilityPill` fixe en haut à droite, props `navPlacement` (`top`/`bottom`, bas = en fin de page,
+      non fixe, pour l'étape 8) et `overlayNavbar` (hero sous la navbar, étape 4) ; sinon `padding-top`
+      (`--navbar-offset`). Le CTA `cta` disparaît (Contact est dans le menu) ; les 6 pages sont mises à jour.
+      `useSiteNav` renvoie les nouvelles entrées (libellés `projectsBlog` et `cv` ajoutés en EN/FR dans
+      `home.ts`/`home.fr.ts`). `AnimatedLogo` déplacé de la navbar au footer. Styles : `src/styles/v3/navbar.css`.
+      Vérifié avec Playwright (desktop et 390 px, thème sombre). À faire plus tard : thème clair, navbar basse
+      (étape 8), nettoyage du CSS `navbar-*` V2 de `theme.css`/`responsive.css` et de `LanguageSwitcher`/`ThemeToggle`
+      devenus inutilisés (étape 15). Les sections V2 de l'accueil gardent leurs ids (`about`, `research`,
+      `contact-form`) jusqu'à la réécriture de l'étape 9. Lint + build verts.
+- [x] 4. Landing : `components/home-v3/LandingHero.tsx` (photo bambous voilée à 70 %, avatar, nom, poste, `SocialIcons`,
+      bouton « En savoir plus » à cheval sur le bord bas de la bannière) et `LatestThings.tsx` (3 cartes horizontales :
+      titre, description, date, vignette carrée ; lien vers la page concernée). Libellés dans `placeholders.ts`
+      (`getLandingLabels`) ; titres des cartes fictives raccourcis pour tenir sur 2 lignes.
+      Correction après revue visuelle : sur ordinateur (≥ 900 px) la landing tient exactement dans la fenêtre
+      (`100dvh`, bannière 62,5 %, cartes dans le reste). Tout est dimensionné avec `--landing-unit` (= 1 % de la
+      largeur de la maquette 1512 px, `clamp(8px, min(1vw, 1.54dvh), 19.2px)`) : proportions de la maquette
+      conservées à toute taille. Sous 900 px, mise en page mobile qui défile.
+      Navbar masquée sur la landing (`MainLayout hideNavbar` ; le morph viendra à l'étape 6). Anciennes sections V2
+      retirées de `HomePage` (fichiers conservés, suppression à l'étape 15). `html.snap-home` : scroll-snap vertical
+      mandatory (landing, puis pied de page en attendant l'About) ; « En savoir plus » défile d'un écran.
+      `UtilityPill` : marge portée à 2 rem (haut et droite).
+      Seconde correction : barre de défilement masquée sur la landing (`html.snap-home` ; une barre classique retirait
+      15 px de largeur et décalait le contenu), calcul de `--landing-unit` commenté en détail (min largeur/hauteur),
+      pilule `flex: none` + `max-width`. Mesures sur 1855×960, 1512×982, 1440×900, 1280×800 et 390 px : centre de
+      l'avatar = centre de la fenêtre à 0,3 px, cartes dans la fenêtre sur ordinateur.
+      Troisième correction : bannière indépendante du thème (fond `--color-banner-veil` fixe sous la photo à 70 %, nom et
+      poste en blanc avec `text-shadow`) ; avatar = `hero-image.png`, la photo de l'ancien hero (la décision 7 citait à tort `about-image.png`) ; pictogrammes des ronds bleus via
+      `--color-social-icon` (foncé en clair, blanc en sombre). Contraste sur #55A1F5 : foncé 6,9:1, blanc 2,7:1.
+      Vérifié avec Playwright à 1512×982, 1440×900, 1280×800 et 390 px. Lint + build verts.
 - [ ] 5. About + `Timeline` + bouton qui sautille.
 - [ ] 6. Transitions : morph vers la navbar (landing uniquement), scrolls fluides, `prefers-reduced-motion`.
 - [ ] 7. Publications (section + page + « Back to about »).
@@ -136,7 +173,7 @@ des propriétés) : voir `CLAUDE.md`, section « Style de code ». Elles s'appli
    (`https://orcid.org/0009-0006-2676-2400`) + ResearchGate (`https://www.researchgate.net/profile/Aurel-Vehi`).
    Logos `SiOrcid` et `SiResearchgate` de `react-icons/si` : vérifiés dans la version installée, aucune
    nouvelle dépendance.
-7. Avatar : photo existante `about-image.png`.
+7. Avatar : photo `hero-image.png` (celle de l'ancien hero ; `about-image.png` était une erreur).
 12. Stash `zed-inspired WIP` : polices Geist (`Geist-latin.woff2`, `Geist-latin-ext.woff2`) et
     `LICENSE-Geist-OFL.txt` récupérées dans `src/assets/fonts/`, build vérifié, stash supprimé.
 8. `hero-bamboo.webp` s'il existe, sinon conversion du `.jpg` (présent aujourd'hui : `hero-bamboo.jpg` seul).

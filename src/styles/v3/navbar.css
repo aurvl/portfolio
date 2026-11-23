@@ -1,0 +1,200 @@
+/* ------------------------------------------------------------------ *
+ * Design v3 : navbar pilule et pilule utilitaire fixée en haut à droite.
+ * Référence : design/screens/02-about.png (en haut) et 05 (navbar en bas).
+ * ------------------------------------------------------------------ */
+
+:root {
+  --navbar-offset: 5.5rem;
+  /* Hauteur de la capsule : espace vertical au-dessus et au-dessous du texte des onglets */
+  --navbar-tab-padding-y: 0.25rem;
+}
+
+/* Réserve la place de la navbar fixe pour les pages qui n'ont pas de hero dessous */
+.site-main--below-navbar {
+  padding-top: var(--navbar-offset);
+}
+
+/* ---------- Navbar ---------- */
+
+.site-nav {
+  /* position: fixed + z-index 50 : la navbar reste au-dessus du contenu et des bannières */
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 50;
+}
+
+/* Version basse (Contact) : pas fixe, elle termine simplement la page */
+.site-nav--bottom {
+  position: static;
+  display: flex;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+.site-nav__pill {
+  display: none;
+}
+
+.site-nav__list {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.site-nav__link {
+  display: inline-block;
+  padding: var(--navbar-tab-padding-y) 1.1rem;
+  font-family: var(--font-sans);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #ffffff;
+  text-decoration: none;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius-pill);
+  transition: background-color 150ms ease;
+}
+
+.site-nav__link:hover {
+  background: color-mix(in srgb, #ffffff 22%, transparent);
+}
+
+/* Onglet actif : bleu clair, texte bleu nuit fixe (lisible en clair comme en sombre) */
+.site-nav__link.is-active {
+  color: #0b3d75;
+  background: color-mix(in srgb, #ffffff 62%, var(--color-brand));
+}
+
+.site-nav__link:focus-visible,
+.site-nav__menu-button:focus-visible,
+.site-nav__panel-link:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
+/* ---------- Version compacte (mobile) ---------- */
+
+.site-nav__compact {
+  position: relative;
+}
+
+.site-nav__menu-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  cursor: pointer;
+  background: var(--color-brand);
+  border: 0;
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-pill);
+}
+
+.site-nav__chevron {
+  transition: transform 150ms ease;
+}
+
+.site-nav__chevron.is-open {
+  transform: rotate(180deg);
+}
+
+.site-nav__panel {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  min-width: 12rem;
+  margin: 0;
+  padding: 0.5rem;
+  list-style: none;
+  background: var(--color-brand);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-lifted);
+}
+
+/* En bas de page, le panneau s'ouvre vers le haut pour rester visible */
+.site-nav--bottom .site-nav__panel {
+  top: auto;
+  bottom: calc(100% + 0.5rem);
+}
+
+.site-nav__panel-link {
+  display: block;
+  width: 100%;
+  padding: 0.65rem 1rem;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius-field);
+}
+
+.site-nav__panel-link.is-active {
+  color: #0b3d75;
+  background: color-mix(in srgb, #ffffff 62%, var(--color-brand));
+}
+
+/* ---------- Pilule utilitaire fixe (haut droite) ---------- */
+
+.site-utility {
+  /* fixed : la pilule reste en haut à droite, avec une marge, quelle que soit la taille de l'écran */
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 50;
+  max-width: calc(100% - 2rem);
+}
+
+/* ---------- Ordinateur : navbar centrée, pilule complète ---------- */
+
+@media (min-width: 768px) {
+  .site-nav {
+    /* left/right à 0 + margin auto : centre la capsule sans transform */
+    right: 0;
+    left: 0;
+    width: fit-content;
+    margin-inline: auto;
+  }
+
+  .site-nav--bottom {
+    width: auto;
+    margin-inline: 0;
+  }
+
+  .site-nav__pill {
+    display: block;
+    padding: 0.35rem 0.5rem;
+    background: var(--color-brand);
+    border-radius: var(--radius-pill);
+    box-shadow: var(--shadow-pill);
+  }
+
+  .site-nav__compact {
+    display: none;
+  }
+
+  .site-utility {
+    top: 1.5rem;
+    right: 2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-nav__link,
+  .site-nav__chevron {
+    transition: none;
+  }
+}

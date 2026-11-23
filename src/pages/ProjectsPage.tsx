@@ -64,7 +64,7 @@ function ProjectsPage() {
   const [selectedYear, setSelectedYear] = useState('')
   const [visibleProjectsCount, setVisibleProjectsCount] = useState(PAGE_SIZE)
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
-  const { pageSections, pageCta } = useSiteNav()
+  const { pageSections } = useSiteNav()
 
   const domainOptions: FilterOption[] = [
     { value: '', label: t('projects.catalog.filters.allDomains') },
@@ -180,7 +180,7 @@ function ProjectsPage() {
   }
 
   return (
-    <MainLayout sections={pageSections} className="home-v2" cta={pageCta}>
+    <MainLayout sections={pageSections} className="home-v2">
       <Seo
         title={`${page.seoTitle} | ${PERSON_NAME}`}
         description={page.seoDescription}

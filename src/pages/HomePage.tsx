@@ -1,20 +1,11 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useHomeContent } from '../hooks/useHomeContent'
 import { useSiteNav } from '../hooks/useSiteNav'
 import MainLayout from '../components/layout/MainLayout'
 import Seo from '../components/seo/Seo'
-import HomeHero from '../components/home-v2/HomeHero'
-import StackMarquee from '../components/home-v2/StackMarquee'
-import MethodSection from '../components/home-v2/MethodSection'
-import DoctoralResearchSection from '../components/home-v2/DoctoralResearchSection'
-import PublicationsSection from '../components/home-v2/PublicationsSection'
-import WorkSection from '../components/home-v2/WorkSection'
-import NowBuildingSection from '../components/home-v2/NowBuildingSection'
-import HelpSection from '../components/home-v2/HelpSection'
-import ProfileSection from '../components/home-v2/ProfileSection'
-import BlogPostsSection from '../components/home-v2/BlogPostsSection'
-import ContactSection from '../components/home-v2/ContactSection'
+import LandingHero from '../components/home-v3/LandingHero'
+import LatestThings from '../components/home-v3/LatestThings'
 import {
   PERSON_DESCRIPTION,
   PERSON_NAME,
@@ -25,15 +16,27 @@ import {
 } from '../lib/site'
 
 
+// Passe à l'écran suivant : un écran de hauteur de fenêtre plus bas que la landing.
+function scrollToNextScreen() {
+  window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })
+}
+
 function scrollToSection(sectionId: string) {
   document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
 }
 
 function HomePage() {
   const location = useLocation()
-  const [activeStep, setActiveStep] = useState(0)
   const { lang } = useHomeContent()
-  const { homeSections, homeCta } = useSiteNav()
+  const { homeSections } = useSiteNav()
+
+  // Scroll-snap sur la page entière : la molette s'arrête sur chaque écran (landing, puis suite).
+  // La classe est posée sur <html> (seul élément qui peut porter le snap de la page) et retirée en partant.
+  useEffect(() => {
+    document.documentElement.classList.add('snap-home')
+
+    return () => document.documentElement.classList.remove('snap-home')
+  }, [])
 
   useEffect(() => {
     if (!location.hash) return
@@ -47,7 +50,7 @@ function HomePage() {
     <MainLayout
       sections={homeSections}
       className="home-v2"
-      cta={homeCta}
+      hideNavbar
     >
       <Seo
         title={`${PERSON_NAME} | ${PERSON_ROLE}`}
@@ -73,46 +76,12 @@ function HomePage() {
         ]}
       />
 
-      <section id="home">
-        <HomeHero onNavigate={scrollToSection} />
-      </section>
-
-      <StackMarquee />
-
-      <section id="approach" className="hv-section hv-section--pattern">
-        <MethodSection activeStep={activeStep} onSelectStep={setActiveStep} />
-      </section>
-
-      <section id="research" className="hv-section">
-        <DoctoralResearchSection />
-      </section>
-
-      <section id="publications" className="hv-section hv-section--tight">
-        <PublicationsSection />
-      </section>
-
-      <section id="work" className="hv-section">
-        <WorkSection />
-      </section>
-
-      <section id="now" className="hv-section hv-section--tight hv-section--pattern hv-section--pattern-left">
-        <NowBuildingSection />
-      </section>
-
-      <section id="help" className="hv-section">
-        <HelpSection onNavigate={scrollToSection} />
-      </section>
-
-      <section id="about" className="hv-section">
-        <ProfileSection />
-      </section>
-
-      <section id="blog-posts" className="hv-section hv-section--tight">
-        <BlogPostsSection />
-      </section>
-
-      <section id="contact-form" className="hv-section hv-section--contact">
-        <ContactSection />
+      <section
+        id="home"
+        className="landing"
+      >
+        <LandingHero onLearnMore={scrollToNextScreen} />
+        <LatestThings />
       </section>
     </MainLayout>
   )

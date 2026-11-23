@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { openConsentBanner } from '../../lib/consent'
+import AnimatedLogo from './AnimatedLogo'
 
 function Footer() {
   const { t } = useTranslation()
@@ -7,7 +8,10 @@ function Footer() {
   return (
     <footer className="border-t border-[var(--glass-border)] py-8">
       <div className="section-shell flex flex-col items-center justify-center gap-4 text-sm text-[var(--text2-col)] md:flex-row md:items-center md:justify-between">
-        <p>{t('footer.copyright')}</p>
+        <div className="flex flex-col items-center gap-2 md:items-start">
+          <AnimatedLogo />
+          <p>{t('footer.copyright')}</p>
+        </div>
 
         <div className="flex items-center gap-4">
           <a

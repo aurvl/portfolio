@@ -24,7 +24,7 @@ function BlogPage() {
   const [selectedTag, setSelectedTag] = useState('')
   const [visiblePostsCount, setVisiblePostsCount] = useState(PAGE_SIZE)
 
-  const { pageSections: blogSections, pageCta } = useSiteNav()
+  const { pageSections: blogSections } = useSiteNav()
 
   const normalizedSearch = searchValue.trim().toLowerCase()
   const isSearchMode = normalizedSearch.length > 0
@@ -51,7 +51,7 @@ function BlogPage() {
   ]
 
   return (
-    <MainLayout sections={blogSections} className="home-v2" cta={pageCta}>
+    <MainLayout sections={blogSections} className="home-v2">
       <Seo
         title={
           i18n.language === 'fr'

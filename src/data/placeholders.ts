@@ -29,8 +29,8 @@ const profile: LocalizedField<PlaceholderProfile> = {
     role: 'Placeholder role · Researcher in applied economics',
     affiliation: 'Placeholder institution, Placeholder city',
     tagline: 'A short sentence, written for the placeholder profile, that says what this person works on.',
-    avatarSrc: null,
-    avatarAlt: 'Placeholder portrait',
+    avatarSrc: '/assets/images/hero-image.png',
+    avatarAlt: 'Portrait',
     resumeLabel: 'View my Resume',
   },
   fr: {
@@ -39,8 +39,8 @@ const profile: LocalizedField<PlaceholderProfile> = {
     role: 'Poste fictif · Chercheur en économie appliquée',
     affiliation: 'Institution fictive, Ville fictive',
     tagline: 'Une courte phrase, écrite pour le profil fictif, qui dit sur quoi travaille cette personne.',
-    avatarSrc: null,
-    avatarAlt: 'Portrait fictif',
+    avatarSrc: '/assets/images/hero-image.png',
+    avatarAlt: 'Portrait',
     resumeLabel: 'Voir mon CV',
   },
 }
@@ -107,6 +107,18 @@ const aboutSections: LocalizedField<PlaceholderAboutSection[]> = {
   ],
 }
 
+// ---------------------------------------------------------------- Libellés de la landing
+
+export type PlaceholderLandingLabels = {
+  learnMore: string
+  latestThings: string
+}
+
+const landingLabels: LocalizedField<PlaceholderLandingLabels> = {
+  en: { learnMore: 'Learn more', latestThings: 'Latest things' },
+  fr: { learnMore: 'En savoir plus', latestThings: 'Dernières nouveautés' },
+}
+
 // ---------------------------------------------------------------- Latest things
 
 export type LatestThing = {
@@ -123,7 +135,7 @@ const latestThings: LocalizedField<LatestThing[]> = {
   en: [
     {
       id: 'latest-1',
-      title: 'Placeholder project update',
+      title: 'Project update',
       description: 'A two-line description of a fictional update, long enough to test how the card wraps next to its thumbnail.',
       date: '2026-09-12',
       thumbnailSrc: '/assets/projects/images/bayesian-linear-regression-econometrics-cover.jpg',
@@ -132,7 +144,7 @@ const latestThings: LocalizedField<LatestThing[]> = {
     },
     {
       id: 'latest-2',
-      title: 'Placeholder blog post',
+      title: 'New blog post',
       description: 'A fictional blog post summary, written to show how a longer description is cut on the card.',
       date: '2026-08-03',
       thumbnailSrc: '/assets/blog/images/blog6.jpg',
@@ -141,7 +153,7 @@ const latestThings: LocalizedField<LatestThing[]> = {
     },
     {
       id: 'latest-3',
-      title: 'Placeholder research note',
+      title: 'Research note',
       description: 'A fictional note about work in progress, with a short description and a date.',
       date: '2026-06-21',
       thumbnailSrc: '/assets/images/hero-bamboo.webp',
@@ -152,7 +164,7 @@ const latestThings: LocalizedField<LatestThing[]> = {
   fr: [
     {
       id: 'latest-1',
-      title: 'Mise à jour de projet fictive',
+      title: 'Mise à jour projet',
       description: 'Une description de deux lignes pour une mise à jour fictive, assez longue pour tester le retour à la ligne à côté de la vignette.',
       date: '2026-09-12',
       thumbnailSrc: '/assets/projects/images/bayesian-linear-regression-econometrics-cover.jpg',
@@ -161,7 +173,7 @@ const latestThings: LocalizedField<LatestThing[]> = {
     },
     {
       id: 'latest-2',
-      title: 'Article de blog fictif',
+      title: 'Nouvel article',
       description: 'Un résumé d’article fictif, écrit pour voir comment une description plus longue est coupée sur la carte.',
       date: '2026-08-03',
       thumbnailSrc: '/assets/blog/images/blog6.jpg',
@@ -170,7 +182,7 @@ const latestThings: LocalizedField<LatestThing[]> = {
     },
     {
       id: 'latest-3',
-      title: 'Note de recherche fictive',
+      title: 'Note de recherche',
       description: 'Une note fictive sur un travail en cours, avec une courte description et une date.',
       date: '2026-06-21',
       thumbnailSrc: '/assets/images/hero-bamboo.webp',
@@ -276,6 +288,7 @@ export const placeholders = {
   getProfile: (lang: AppLanguage) => profile[lang],
   getTimeline: (lang: AppLanguage) => timeline[lang],
   getAboutSections: (lang: AppLanguage) => aboutSections[lang],
+  getLandingLabels: (lang: AppLanguage) => landingLabels[lang],
   getLatestThings: (lang: AppLanguage) => latestThings[lang],
   getPublications: (lang: AppLanguage) =>
     publications.map(({ kind, status, ...entry }) => ({

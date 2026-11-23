@@ -63,7 +63,7 @@ function BlogPostPage() {
   const [content, setContent] = useState<string | null>(null)
   const [isContentLoading, setIsContentLoading] = useState(true)
 
-  const { pageSections: blogSections, pageCta } = useSiteNav()
+  const { pageSections: blogSections } = useSiteNav()
 
   const post = useMemo(
     () => index.find((item) => item.slug === slug) ?? null,
@@ -138,7 +138,7 @@ function BlogPostPage() {
 
   if (!slug || (!post && !isIndexLoading)) {
     return (
-      <MainLayout sections={blogSections} className="home-v2" cta={pageCta}>
+      <MainLayout sections={blogSections} className="home-v2">
         <section className="section-shell py-15 md:py-12">
           <div className="blog-v2__notfound rounded-[24px] border border-[var(--glass-border)] bg-[var(--glass-bg)]/70 px-8 py-12 text-center backdrop-blur-xl">
             <h1 className="text-3xl font-semibold text-[var(--text-col)]">
@@ -171,7 +171,7 @@ function BlogPostPage() {
   } as CSSProperties
 
   return (
-    <MainLayout sections={blogSections} className="home-v2" cta={pageCta}>
+    <MainLayout sections={blogSections} className="home-v2">
       <Seo
         title={post.title}
         description={post.summary}

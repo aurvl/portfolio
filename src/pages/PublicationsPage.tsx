@@ -24,7 +24,7 @@ function readStoredView(): ViewMode {
 function PublicationsPage() {
   const { content, lang } = useHomeContent()
   const { publications, publicationsPage: page } = content
-  const { pageSections, pageCta } = useSiteNav()
+  const { pageSections } = useSiteNav()
   const [view, setView] = useState<ViewMode>(readStoredView)
 
   const changeView = (nextView: ViewMode) => {
@@ -37,7 +37,7 @@ function PublicationsPage() {
   }
 
   return (
-    <MainLayout sections={pageSections} className="home-v2" cta={pageCta}>
+    <MainLayout sections={pageSections} className="home-v2">
       <Seo
         title={`${page.seoTitle} | ${PERSON_NAME}`}
         description={page.seoDescription}

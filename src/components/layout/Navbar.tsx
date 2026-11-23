@@ -1,76 +1,66 @@
+// Navbar « pilule » bleue du design v3, centrée en haut de l'écran (ou en bas de page sur Contact).
+// Sur mobile : un bouton compact qui ouvre un petit panneau avec les mêmes entrées.
 import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import AnimatedLogo from './AnimatedLogo'
-import LanguageSwitcher from '../ui/LanguageSwitcher'
-import ThemeToggle from '../ui/ThemeToggle'
+import { LuChevronDown } from 'react-icons/lu'
+import { cn } from '../../lib/cn'
 
 export type NavbarSection = {
   id: string
   label: string
+  // Page ou lien : sans `href`, l'entrée fait défiler vers la section de la page courante.
   href?: string
-  hidden?: boolean
-}
-
-export type NavbarCta = {
-  label: string
-  // Scroll to a section of the current page, or navigate to another page.
-  targetId?: string
-  href?: string
+  // Lien de téléchargement direct (ex. le CV), jamais « actif ».
+  download?: boolean
+  // Chemins pour lesquels l'entrée est active (ex. /projects et /blog).
+  matchPaths?: string[]
 }
 
 type NavbarProps = {
   sections: NavbarSection[]
-  cta?: NavbarCta
+  placement?: 'top' | 'bottom'
 }
 
-function Navbar({ sections, cta }: NavbarProps) {
+function scrollToSection(sectionId: string) {
+  document.getElementById(sectionId)?.scrollIntoView({
+    behavior: 'smooth',
+    block: 'start',
+  })
+}
+
+function Navbar({ sections, placement = 'top' }: NavbarProps) {
   const location = useLocation()
-  const [activeSection, setActiveSection] = useState(
-    sections.find((section) => section.hidden !== true && section.href === undefined)?.id ??
-      sections.find((section) => section.hidden !== true)?.id ??
-      ''
-  )
+  const [activeSection, setActiveSection] = useState(sections[0]?.id ?? '')
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
-  const scrollToSection = (sectionId: string) => {
-    const section = document.getElementById(sectionId)
+  const isHrefActive = (section: NavbarSection) => {
+    if (section.download || !section.href) return false
 
-    if (section) {
-      section.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-      })
-    }
-  }
-
-  const handleSectionClick = (section: NavbarSection) => {
-    setIsMobileMenuOpen(false)
-
-    if (!section.href) {
-      scrollToSection(section.id)
-    }
-  }
-
-  const isHrefActive = (href: string) => {
-    if (href === '/') {
-      return location.pathname === '/'
+    if (section.matchPaths?.some((path) => location.pathname.startsWith(path))) {
+      return true
     }
 
-    const [pathname, hash] = href.split('#')
+    const [pathname, hash] = section.href.split('#')
 
     if (hash) {
       return location.pathname === pathname && location.hash === `#${hash}`
     }
 
-    return location.pathname === href
+    return location.pathname === section.href
   }
 
-  useEffect(() => {
-    if (sections.length === 0) return
+  const isActive = (section: NavbarSection) =>
+    section.href ? isHrefActive(section) : activeSection === section.id
 
+  // Suit la section visible à l'écran pour mettre en avant l'onglet correspondant.
+  // L'observateur ne regarde qu'une bande au milieu de l'écran (marges négatives).
+  useEffect(() => {
     const pageSections = sections
-      .map((item) => document.getElementById(item.id))
-      .filter((section): section is HTMLElement => section !== null)
+      .filter((section) => !section.href)
+      .map((section) => document.getElementById(section.id))
+      .filter((element): element is HTMLElement => element !== null)
+
+    if (pageSections.length === 0) return
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -80,35 +70,13 @@ function Navbar({ sections, cta }: NavbarProps) {
           setActiveSection(visibleEntry.target.id)
         }
       },
-      {
-        root: null,
-        rootMargin: '-35% 0px -45% 0px',
-        threshold: 0.1,
-      }
+      { root: null, rootMargin: '-35% 0px -45% 0px', threshold: 0.1 }
     )
 
-    pageSections.forEach((section) => observer.observe(section))
+    pageSections.forEach((element) => observer.observe(element))
 
-    return () => {
-      pageSections.forEach((section) => observer.unobserve(section))
-    }
+    return () => observer.disconnect()
   }, [sections])
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(max-width: 450px)')
-
-    const handleViewportChange = (event: MediaQueryListEvent) => {
-      if (!event.matches) {
-        setIsMobileMenuOpen(false)
-      }
-    }
-
-    mediaQuery.addEventListener('change', handleViewportChange)
-
-    return () => {
-      mediaQuery.removeEventListener('change', handleViewportChange)
-    }
-  }, [])
 
   useEffect(() => {
     if (!isMobileMenuOpen) return
@@ -121,133 +89,85 @@ function Navbar({ sections, cta }: NavbarProps) {
 
     document.addEventListener('keydown', handleKeyDown)
 
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown)
-    }
+    return () => document.removeEventListener('keydown', handleKeyDown)
   }, [isMobileMenuOpen])
 
-  const firstSection = sections[0]
+  const renderItem = (section: NavbarSection, linkClass: string) => {
+    const active = isActive(section)
+    const className = cn(linkClass, active && 'is-active')
+    const close = () => setIsMobileMenuOpen(false)
+
+    if (section.download && section.href) {
+      return (
+        <a className={className} href={section.href} download onClick={close}>
+          {section.label}
+        </a>
+      )
+    }
+
+    if (section.href) {
+      return (
+        <Link
+          className={className}
+          to={section.href}
+          aria-current={active ? 'page' : undefined}
+          onClick={close}
+        >
+          {section.label}
+        </Link>
+      )
+    }
+
+    return (
+      <button
+        type="button"
+        className={className}
+        aria-current={active ? 'true' : undefined}
+        onClick={() => {
+          close()
+          scrollToSection(section.id)
+        }}
+      >
+        {section.label}
+      </button>
+    )
+  }
+
+  const currentLabel =
+    sections.find((section) => !section.download && isActive(section))?.label ?? sections[0]?.label
 
   return (
-    <header className="sticky top-0 z-50 border-b border-[var(--glass-border)] bg-[var(--glass-bg-strong)] backdrop-blur-xl">
-      <div className="navbar-shell relative flex h-[54px] items-center justify-between">
-        {firstSection?.href ? (
-          <Link to={firstSection.href} className="navbar-brand" onClick={() => setIsMobileMenuOpen(false)}>
-            <AnimatedLogo />
-          </Link>
-        ) : (
-          <button
-            type="button"
-            onClick={() => firstSection && scrollToSection(firstSection.id)}
-            className="navbar-brand"
-          >
-            <AnimatedLogo />
-          </button>
-        )}
+    <header className={cn('site-nav', placement === 'bottom' && 'site-nav--bottom')}>
+      <nav className="site-nav__pill" aria-label="Main">
+        <ul className="site-nav__list">
+          {sections.map((section) => (
+            <li key={section.id}>{renderItem(section, 'site-nav__link')}</li>
+          ))}
+        </ul>
+      </nav>
 
-        <nav className="navbar-links hidden h-full items-center gap-8 md:flex">
-          {sections
-            .filter((section) => section.hidden !== true)
-            .map((section) =>
-            section.href ? (
-              <Link
-                key={section.id}
-                to={section.href}
-                onClick={() => setIsMobileMenuOpen(false)}
-                aria-current={isHrefActive(section.href) ? 'page' : undefined}
-                className={`nav-title-text nav-link-animated ${
-                  isHrefActive(section.href) ? 'active' : ''
-                }`}
-              >
-                {section.label}
-              </Link>
-            ) : (
-              <button
-                key={section.id}
-                type="button"
-                onClick={() => handleSectionClick(section)}
-                className={`nav-title-text nav-link-animated ${
-                  activeSection === section.id ? 'active' : ''
-                }`}
-              >
-                {section.label}
-              </button>
-            )
-          )}
-        </nav>
-
-        <div className="navbar-actions flex items-center gap-3">
-          <button
-            type="button"
-            aria-label={isMobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
-            aria-expanded={isMobileMenuOpen}
-            aria-controls="mobile-navigation-menu"
-            className={`navbar-mobile-toggle border-class toggle-btn ${
-              isMobileMenuOpen ? 'is-open' : ''
-            }`}
-            onClick={() => setIsMobileMenuOpen((currentState) => !currentState)}
-          >
-            <span className="navbar-mobile-toggle__line" aria-hidden="true" />
-            <span className="navbar-mobile-toggle__line" aria-hidden="true" />
-            <span className="navbar-mobile-toggle__line" aria-hidden="true" />
-          </button>
-          <LanguageSwitcher />
-          <ThemeToggle />
-          {cta?.href && (
-            <Link to={cta.href} className="navbar-cta inline-flex items-center" onClick={() => setIsMobileMenuOpen(false)}>
-              {cta.label}
-            </Link>
-          )}
-          {cta?.targetId && !cta.href && (
-            <button
-              type="button"
-              className="navbar-cta"
-              onClick={() => {
-                setIsMobileMenuOpen(false)
-                scrollToSection(cta.targetId ?? '')
-              }}
-            >
-              {cta.label}
-            </button>
-          )}
-        </div>
-
-        <div
-          id="mobile-navigation-menu"
-          className={`navbar-mobile-panel-shell ${isMobileMenuOpen ? 'is-open' : ''}`}
+      <div className="site-nav__compact">
+        <button
+          type="button"
+          className="site-nav__menu-button"
+          aria-expanded={isMobileMenuOpen}
+          aria-controls="site-nav-panel"
+          onClick={() => setIsMobileMenuOpen((open) => !open)}
         >
-          <nav
-            className="navbar-mobile-panel glass-panel-strong"
-            aria-label="Mobile navigation"
-          >
-          {sections
-            .filter((section) => section.hidden !== true)
-            .map((section) =>
-              section.href ? (
-                <Link
-                  key={section.id}
-                  to={section.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  aria-current={isHrefActive(section.href) ? 'page' : undefined}
-                  className={`navbar-mobile-link ${isHrefActive(section.href) ? 'active' : ''}`}
-                >
-                  {section.label}
-                </Link>
-              ) : (
-                <button
-                  key={section.id}
-                  type="button"
-                  onClick={() => handleSectionClick(section)}
-                  className={`navbar-mobile-link ${
-                    activeSection === section.id ? 'active' : ''
-                  }`}
-                >
-                  {section.label}
-                </button>
-              )
-            )}
-          </nav>
-        </div>
+          {currentLabel}
+          <LuChevronDown
+            className={cn('site-nav__chevron', isMobileMenuOpen && 'is-open')}
+            aria-hidden="true"
+          />
+        </button>
+
+        {isMobileMenuOpen ? (
+          <ul id="site-nav-panel" className="site-nav__panel">
+            {sections.map((section) => (
+              <li key={section.id}>{renderItem(section, 'site-nav__panel-link')}</li>
+            ))}
+          </ul>
+        ) : null}
       </div>
     </header>
   )
