@@ -81,7 +81,9 @@ Direction : éditorial sobre inspiré de Nature, moderne mais pas générique. O
   Un clic sur « Learn more » lance le scroll fluide vers l'About, donc la même animation. Zone morte de 12 %,
   animation étalée sur toute la landing, bouton collé à la page au départ (il ne recouvre jamais le contenu).
   Sur mobile et tablette, le menu « About ▾ » s'ouvre en agrandissant la pilule elle-même (ressort, entrées une
-  par une) et se referme en pilule. Avec
+  par une) et se referme en pilule. Même principe sur l'écran Contact : la navbar se décroche du haut, s'étire en
+  descendant (et se penche légèrement), puis se pose en bas au milieu de la page, sur tous les formats ; sur
+  mobile et tablette, son menu s'y ouvre vers le haut. Avec
   `prefers-reduced-motion` : aucun déplacement, la navbar apparaît en fondu. À NE PAS retirer lors d'une mise
   en conformité du style éditorial. Technique commentée dans `MorphNavbar.tsx` ; un « fantôme » invisible du
   bouton dans la landing donne le point de départ exact.

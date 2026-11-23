@@ -60,15 +60,16 @@ function CompactMenu({
   // Mesure deux copies invisibles : la pilule fermée et la liste ouverte, à leur taille naturelle.
   useLayoutEffect(() => {
     const measure = () => {
-      const pill = pillProbeRef.current?.getBoundingClientRect()
-      const list = listProbeRef.current?.getBoundingClientRect()
+      // offsetWidth / offsetHeight : ils ignorent la rotation de la navbar qui voyage (voir MorphNavbar)
+      const pill = pillProbeRef.current
+      const list = listProbeRef.current
       if (!pill || !list) return
 
       const measured = {
-        pillWidth: pill.width,
-        pillHeight: pill.height,
-        menuWidth: Math.max(pill.width, list.width),
-        menuHeight: pill.height + list.height,
+        pillWidth: pill.offsetWidth,
+        pillHeight: pill.offsetHeight,
+        menuWidth: Math.max(pill.offsetWidth, list.offsetWidth),
+        menuHeight: pill.offsetHeight + list.offsetHeight,
       }
       geometry.current = measured
       tick.set(tick.get() + 1)

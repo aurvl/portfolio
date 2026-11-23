@@ -19,6 +19,7 @@ import {
   type MotionValue,
 } from 'framer-motion'
 import { useNavbarModel } from '../../hooks/useNavbarModel'
+import { cn } from '../../lib/cn'
 import CompactMenu, { MENU_RADIUS, type MenuGeometry } from './CompactMenu'
 import type { NavbarSection } from './Navbar'
 
@@ -41,6 +42,14 @@ type Geometry = {
   menuHeight: number
   // Hauteur de scroll sur laquelle se joue toute l'animation : toute la hauteur de la landing
   range: number
+  // Écran Contact : le scroll où il commence à entrer (son haut touche le bas de la fenêtre), celui où il
+  // remplit la fenêtre, la place de la navbar dans la page (emplacement vide en bas de l'écran) et la fenêtre
+  hasContact: boolean
+  contactFrom: number
+  contactTo: number
+  slotTop: number
+  viewportWidth: number
+  viewportHeight: number
 }
 
 // ZONE MORTE : rien ne bouge pendant les premiers 12 % du scroll de la landing. Un petit mouvement
@@ -104,6 +113,8 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore }: M
   const labelSize = useMotionValue(16)
   // Vrai tant que l'élément est un bouton : les onglets sont alors inertes (ni clic, ni tabulation)
   const [isCollapsed, setIsCollapsed] = useState(true)
+  // Vrai quand la navbar est descendue en bas (écran Contact) : son menu compact s'ouvre alors vers le haut
+  const [isAtBottom, setIsAtBottom] = useState(false)
 
   const { scrollY } = useScroll()
 
@@ -134,20 +145,46 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore }: M
   )
   const widen = useSpring(widenTarget, { stiffness: 220, damping: 11, mass: 0.9 })
 
+  // VOYAGE VERS LE BAS (écran Contact), 0 → 1, lui aussi lié au scroll : de l'instant où le Contact commence à
+  // entrer dans la fenêtre jusqu'à ce qu'il la remplisse. La navbar se décroche du haut et descend se poser
+  // sur son emplacement en bas, au milieu. Si on remonte, elle remonte. Sans animation : elle saute à mi-course.
+  const contactTravel = useTransform([scrollY, tick], ([scrollTop]: number[]) => {
+    const current = geometry.current
+    if (!current?.hasContact) return 0
+    const amount = clamp01((scrollTop - current.contactFrom) / Math.max(1, current.contactTo - current.contactFrom))
+    return reducedRef.current ? (amount > 0.5 ? 1 : 0) : amount
+  })
+
   // POSITION VERTICALE. Le bouton n'est pas figé à l'écran : au départ il SUIT LA PAGE (il défile avec la landing,
   // comme s'il y était collé), sinon il resterait en place pendant que les « Latest things » glissent dessous.
   // Pendant le voyage, il remonte ensuite plus vite que la page jusqu'à sa place en haut ; max(…) l'empêche
   // de sortir de l'écran par le haut.
-  const top = useTransform([travel, tick, scrollY], ([amount, , scrollTop]: number[]) => {
-    const current = geometry.current
-    if (!current) return 0
-    const followingPage = current.top0 - scrollTop
-    return Math.max(current.top1, lerp(followingPage, current.top1, smooth(amount)))
-  })
+  //
+  // Écran Contact : la position vise l'emplacement vide laissé en bas de la page (il défile avec elle), sans jamais
+  // descendre sous le bas de la fenêtre. Menu compact ouvert : on remonte du surplus de hauteur, pour que le menu
+  // s'ouvre VERS LE HAUT et que la pilule reste à sa place.
+  const top = useTransform(
+    [travel, tick, scrollY, contactTravel, menu.expand],
+    ([amount, , scrollTop, downAmount, expanded]: number[]) => {
+      const current = geometry.current
+      if (!current) return 0
+      const followingPage = current.top0 - scrollTop
+      const topWhenUp = Math.max(current.top1, lerp(followingPage, current.top1, smooth(amount)))
+      if (!current.hasContact || downAmount <= 0) return topWhenUp
+
+      const lowestTop = current.viewportHeight - current.height1 - current.top1
+      const topWhenDown = Math.max(current.top1, Math.min(current.slotTop - scrollTop, lowestTop))
+      const menuExtra = current.isCompact ? (current.menuHeight - current.height1) * Math.max(0, expanded) : 0
+
+      return lerp(topWhenUp, topWhenDown, smooth(downAmount)) - menuExtra * downAmount
+    },
+  )
 
   // sin(travel × π) vaut 0 au départ et à l'arrivée, 1 au milieu du voyage : c'est l'étirement.
   // Au milieu du vol, le bouton est plus haut (+22 %) et un peu plus étroit (−10 %), comme un ballon qui s'étire.
   // `menu.expand` ajoute l'agrandissement en menu (mobile et tablette) : la pilule elle-même grandit.
+  // Le voyage vers le bas (écran Contact) étire seulement la hauteur : rétrécir la largeur couperait les onglets,
+  // qui sont déjà tous affichés à ce moment-là.
   const width = useTransform([travel, widen, menu.expand, tick], ([flight, spread, expanded]: number[]) => {
     const current = geometry.current
     if (!current) return 0
@@ -156,10 +193,13 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore }: M
     return base + menuExtra
   })
 
-  const height = useTransform([travel, widen, menu.expand, tick], ([flight, spread, expanded]: number[]) => {
+  const height = useTransform([travel, widen, menu.expand, contactTravel, tick], ([flight, spread, expanded, downAmount]: number[]) => {
     const current = geometry.current
     if (!current) return 0
-    const base = lerp(current.height0, current.height1, spread) * (1 + 0.22 * Math.sin(flight * Math.PI))
+    const base =
+      lerp(current.height0, current.height1, spread) *
+      (1 + 0.22 * Math.sin(flight * Math.PI)) *
+      (1 + 0.22 * Math.sin(downAmount * Math.PI))
     const menuExtra = current.isCompact ? (current.menuHeight - current.height1) * Math.max(0, expanded) : 0
     return base + menuExtra
   })
@@ -176,19 +216,26 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore }: M
   // Centre horizontal. Ordinateur : ne bouge pas (la navbar reste centrée, elle s'élargit des deux côtés).
   // Mobile et tablette : on suit le BORD GAUCHE (de celui du bouton jusqu'à la marge de 1 rem) puis on en déduit
   // le centre avec la largeur du moment, pour que le bouton ne dépasse jamais de l'écran pendant qu'il se rétrécit.
-  const centerX = useTransform([travel, width, tick], ([amount, currentWidth]: number[]) => {
+  // Écran Contact, mobile et tablette : la pilule glisse de la gauche vers le milieu de la fenêtre.
+  const centerX = useTransform([travel, width, contactTravel, tick], ([amount, currentWidth, downAmount]: number[]) => {
     const current = geometry.current
     if (!current) return 0
-    if (current.isCompact) return lerp(current.left0, current.left1, smooth(amount)) + currentWidth / 2
+    if (current.isCompact) {
+      const centerWhenUp = lerp(current.left0, current.left1, smooth(amount)) + currentWidth / 2
+      return lerp(centerWhenUp, current.viewportWidth / 2, smooth(downAmount))
+    }
     return lerp(current.center0, current.center1, smooth(amount))
   })
 
   // Petit balancement pendant le vol (quelques degrés au plus), pour le côté ludique ; nul au départ et à l'arrivée
-  const wobble = useTransform(travel, (flight) => Math.sin(flight * Math.PI * 2) * WOBBLE_DEGREES)
+  const wobble = useTransform([travel, contactTravel], ([flight, downAmount]: number[]) =>
+    (Math.sin(flight * Math.PI * 2) + Math.sin(downAmount * Math.PI * 2)) * WOBBLE_DEGREES,
+  )
 
   // Opacité de l'ensemble : invisible tant que les mesures ne sont pas prises ; en mode « sans animation »,
   // fondu simple entre 30 % et 70 % de la progression
-  const fade = useTransform([progress, isReady], ([value, ready]: number[]) =>
+  // `tick` change après chaque mesure : sans lui, l'opacité ne se recalculait pas quand `isReady` passait à 1
+  const fade = useTransform([progress, isReady, tick], ([value, ready]: number[]) =>
     ready * (reducedRef.current ? clamp01((value - 0.3) / 0.4) : 1),
   )
 
@@ -199,6 +246,7 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore }: M
   )
 
   useMotionValueEvent(progress, 'change', (value) => setIsCollapsed(value < LEARN_FADE_START))
+  useMotionValueEvent(contactTravel, 'change', (value) => setIsAtBottom(value > 0.5))
 
   // Mesure le bouton d'origine (« fantôme » invisible de la landing) et la taille finale de la navbar.
   // Les tailles de la pilule et du menu compact sont mesurées par CompactMenu (menuGeometry).
@@ -209,13 +257,22 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore }: M
     const isCompact = window.matchMedia('(max-width: 1023.98px)').matches
     const rem = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16
     const pill = menuGeometry.current
-    const rowRect = row.getBoundingClientRect()
-    const finalWidth = isCompact && pill ? pill.pillWidth : rowRect.width
-    const finalHeight = isCompact && pill ? pill.pillHeight : rowRect.height
+    // offsetWidth / offsetHeight et non getBoundingClientRect : ce dernier inclut la rotation du balancement. Mesurée
+    // en plein vol, la navbar paraîtrait 30 à 40 px plus haute et resterait gonflée une fois posée.
+    const finalWidth = isCompact && pill ? pill.pillWidth : row.offsetWidth
+    const finalHeight = isCompact && pill ? pill.pillHeight : row.offsetHeight
     const anchor = document.querySelector<HTMLElement>('[data-morph-anchor]')
     const start = anchor?.getBoundingClientRect()
     const landing = document.getElementById('home')
     const viewportWidth = document.documentElement.clientWidth
+
+    // Emplacement vide de la navbar en bas du Contact : on lui donne la hauteur de la navbar, pour que la page
+    // ait exactement la même taille que si la navbar s'y trouvait
+    const slot = document.querySelector<HTMLElement>('[data-morph-slot]')
+    const contact = document.getElementById('contact-form')
+    if (slot) slot.style.height = `${finalHeight}px`
+    const viewportHeight = document.documentElement.clientHeight
+    const contactTop = contact ? contact.getBoundingClientRect().top + window.scrollY : 0
 
     const top1 = rem
     const center1 = isCompact ? rem + finalWidth / 2 : viewportWidth / 2
@@ -235,6 +292,12 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore }: M
       menuWidth: pill?.menuWidth ?? finalWidth,
       menuHeight: pill?.menuHeight ?? finalHeight,
       range: Math.max(1, landing?.offsetHeight ?? window.innerHeight),
+      hasContact: Boolean(slot && contact),
+      contactFrom: contactTop - viewportHeight,
+      contactTo: contactTop,
+      slotTop: slot ? slot.getBoundingClientRect().top + window.scrollY : 0,
+      viewportWidth,
+      viewportHeight,
     }
 
     if (anchor) labelSize.set(parseFloat(getComputedStyle(anchor).fontSize) || 16)
@@ -252,12 +315,15 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore }: M
     void document.fonts?.ready.then(measure)
 
     const anchor = document.querySelector<HTMLElement>('[data-morph-anchor]')
-    const observer = anchor ? new ResizeObserver(measure) : null
-    if (anchor) observer?.observe(anchor)
+    const observer = new ResizeObserver(measure)
+    if (anchor) observer.observe(anchor)
+    // Le Contact peut changer de hauteur (police, fenêtre) : on remesure
+    const contactSection = document.getElementById('contact-form')
+    if (contactSection) observer.observe(contactSection)
 
     return () => {
       window.removeEventListener('resize', measure)
-      observer?.disconnect()
+      observer.disconnect()
     }
   }, [reducedMotion, currentLabel, sections, measure])
 
@@ -269,7 +335,7 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore }: M
 
   return (
     <motion.header
-      className="site-nav site-nav--morph"
+      className={cn('site-nav site-nav--morph', isAtBottom && 'site-nav--at-bottom')}
       style={{ top, left: centerX, x: '-50%', width, height, rotate: wobble, opacity: fade, borderRadius }}
     >
       <div className="site-nav__clip">
