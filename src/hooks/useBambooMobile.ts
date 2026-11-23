@@ -95,6 +95,8 @@ export function useBambooMobile(isActive: boolean, reducedMotion: boolean): Moti
     const landingImage = document.querySelector<HTMLElement>(LANDING_BANNER.image)
     const landingIdentity = document.querySelector<HTMLElement>('.landing-hero__content')
     let isLandingInert: boolean | null = null
+    const latestThings = document.querySelector<HTMLElement>('.latest-things')
+    let isLatestInert: boolean | null = null
 
     // LANDING : tout vient de `progress` (jouée dans le temps). L'identité (avatar, nom, poste, réseaux) s'efface sur
     // la première moitié de la transition, avant que l'en-tête de l'About n'entre à l'écran : jamais deux fois le
@@ -108,6 +110,15 @@ export function useBambooMobile(isActive: boolean, reducedMotion: boolean): Moti
         if (shouldBeInert !== isLandingInert) {
           landingIdentity.inert = shouldBeInert
           isLandingInert = shouldBeInert
+        }
+      }
+      // « Latest things » s'efface sur les 40 premiers % : le bouton qui vole vers le haut ne passe jamais sur une carte
+      if (latestThings) {
+        latestThings.style.opacity = String(1 - clamp01(amount / 0.4))
+        const shouldBeInert = amount > 0.4
+        if (shouldBeInert !== isLatestInert) {
+          latestThings.inert = shouldBeInert
+          isLatestInert = shouldBeInert
         }
       }
       if (reducedMotion || !landingFrame || !landingImage) return
@@ -250,6 +261,10 @@ export function useBambooMobile(isActive: boolean, reducedMotion: boolean): Moti
       if (landingIdentity) {
         landingIdentity.style.opacity = ''
         landingIdentity.inert = false
+      }
+      if (latestThings) {
+        latestThings.style.opacity = ''
+        latestThings.inert = false
       }
     }
   }, [isActive, reducedMotion, scrollY, progress])

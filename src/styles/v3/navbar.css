@@ -217,23 +217,6 @@
   box-shadow: var(--shadow-pill);
 }
 
-/* Mobile et tablette : le rail est aussi haut que la page (html est en position: relative, voir scene.css) ;
-   la navbar y est en position: sticky. Le navigateur la fait défiler avec la page puis la colle à 1 rem du haut,
-   sans retard même pendant l'élan du doigt sur iPhone. Son bord gauche (x) et sa place de départ (margin-top)
-   sont posés par MorphNavbar.tsx. */
-.site-nav-rail {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-
-.site-nav.site-nav--morph-sticky {
-  position: sticky;
-  top: 1rem;
-  left: auto;
-  pointer-events: auto;
-}
-
 @media (min-width: 1024px) {
   /* Annule le centrage « left/right 0 + margin auto » de .site-nav : ici left et width viennent du scroll */
   .site-nav.site-nav--morph {

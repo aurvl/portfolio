@@ -19,7 +19,6 @@ import {
   type MotionValue,
 } from 'framer-motion'
 import { useNavbarModel } from '../../hooks/useNavbarModel'
-import { cn } from '../../lib/cn'
 import CompactMenu, { MENU_RADIUS, type MenuGeometry } from './CompactMenu'
 import type { NavbarSection } from './Navbar'
 
@@ -65,6 +64,7 @@ const TAB_STAGGER = 0.028 // décalage entre deux onglets
 const TAB_FADE = 0.08 // durée d'apparition d'un onglet
 const WOBBLE_DEGREES = 2.5 // inclinaison maximale pendant le vol : très légère
 const FLIGHT_ARC_PX = 90 // écart latéral maximal du bouton au milieu de la montée (ordinateur)
+const TOUCH_FOLLOW_PX = 40 // version tactile : le bouton suit la page sur ce scroll seulement (= seuil de déclenchement)
 
 // Position d'un élément dans la page (px depuis le haut du document), lue dans la mise en page : elle ne dépend
 // ni du scroll ni de la barre d'adresse du navigateur
@@ -193,12 +193,21 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore, sce
     ([amount, , scrollTop, downAmount, expanded]: number[]) => {
       const current = geometry.current
       if (!current) return 0
-      const followingPage = current.inScene ? current.top0 : current.top0 - scrollTop
+      // Version tactile : avant le déclenchement (moins de 40 px de scroll) le bouton suit la page ; ensuite il reste à
+      // la place où il était et fait SON voyage, piloté par le temps (la progression `amount` est jouée en 0,6 s) et non
+      // par le scroll. On voit donc le bouton voler jusqu'en haut et se transformer, pendant que la page glisse dessous.
+      const followedScroll = current.inScene ? 0 : Math.min(scrollTop, TOUCH_FOLLOW_PX)
+      const followingPage = current.top0 - followedScroll
       const topWhenUp = Math.max(current.top1, lerp(followingPage, current.top1, smooth(amount)))
       if (!current.hasContact || downAmount <= 0) return topWhenUp
 
+      // Écran Contact. Ordinateur : la barre descend se poser au bas de la fenêtre (elle y reste tant que son emplacement
+      // n'est pas visible). Version tactile : elle part se loger tout en bas de la page, sur son emplacement sous la
+      // photo, et défile avec la page ; elle ne flotte donc pas sur le formulaire pendant qu'on écrit.
       const lowestTop = current.viewportHeight - current.height1 - current.top1
-      const topWhenDown = Math.max(current.top1, Math.min(current.slotTop - scrollTop, lowestTop))
+      const topWhenDown = current.inScene
+        ? Math.max(current.top1, Math.min(current.slotTop - scrollTop, lowestTop))
+        : Math.max(current.top1, current.slotTop - scrollTop)
       const menuExtra =
         current.isCompact && opensUpRef.current ? (current.menuHeight - current.height1) * Math.max(0, expanded) : 0
 
@@ -222,8 +231,8 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore, sce
   const height = useTransform([travel, widen, menu.expand, contactTravel, tick], ([flight, spread, expanded, downAmount]: number[]) => {
     const current = geometry.current
     if (!current) return 0
-    // Mobile : pas d'étirement pendant la montée, le bouton ne déborde jamais sur le contenu sous lui
-    const flightStretch = current.inScene ? 0.22 * Math.sin(flight * Math.PI) : 0
+    // Pilule compacte (téléphone) : pas d'étirement, elle reste petite
+    const flightStretch = current.isCompact ? 0 : 0.22 * Math.sin(flight * Math.PI)
     const base =
       lerp(current.height0, current.height1, spread) *
       (1 + flightStretch) *
@@ -254,49 +263,16 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore, sce
     }
     // Ordinateur : pendant la montée, le bouton fait un léger arc vers la droite (sin vaut 0 au départ et à l'arrivée,
     // 1 au milieu), pour contourner l'avatar de la landing qui glisse vers la gauche au même moment
-    // (version tactile : pas d'arc, le bouton monte droit avec la page)
-    const arc = reducedRef.current || !current.inScene ? 0 : Math.sin(amount * Math.PI) * FLIGHT_ARC_PX
+    const arc = reducedRef.current ? 0 : Math.sin(amount * Math.PI) * FLIGHT_ARC_PX
     return lerp(current.center0, current.center1, smooth(amount)) + arc
   })
 
   // Petit balancement pendant le vol (quelques degrés au plus), pour le côté ludique ; nul au départ et à l'arrivée
-  // (mobile : pas de balancement pendant la montée, seulement pendant la descente vers le Contact)
   const wobble = useTransform([travel, contactTravel, tick], ([flight, downAmount]: number[]) => {
-    const flightWobble = geometry.current?.inScene ? Math.sin(flight * Math.PI * 2) : 0
+    const flightWobble = Math.sin(flight * Math.PI * 2)
 
     return (flightWobble + Math.sin(downAmount * Math.PI * 2)) * WOBBLE_DEGREES
   })
-
-  // MOBILE ET TABLETTE : l'élément n'est plus `position: fixed` mais `position: sticky` dans un rail aussi haut que la
-  // page (voir navbar.css). Pourquoi : sur iPhone, un élément fixe piloté par JavaScript ne suit pas la page pendant
-  // l'élan du doigt (les événements de scroll arrivent en retard, surtout avec le scroll-snap) : le bouton traînait,
-  // puis sautait. Avec `sticky`, c'est le navigateur qui le fait défiler AVEC la page, sans retard, puis le colle en
-  // haut (1 rem). Le JavaScript ne pilote plus que la forme (largeur, hauteur, côté gauche), jamais la position verticale
-  // de la montée. Le bouton reste donc sous le contenu de la landing : il ne le chevauche jamais.
-  // marginTop = sa place de départ dans la page (le bouton d'origine) ; x = son bord gauche ; y = seulement la descente
-  // vers l'écran Contact (de la position collée en haut jusqu'à l'emplacement du bas).
-  const stickyStart = useTransform(tick, () => {
-    const current = geometry.current
-    if (!current) return 0
-
-    return reducedRef.current ? current.top1 : Math.max(current.top1, current.top0)
-  })
-  const compactX = useTransform([centerX, width], ([center, currentWidth]: number[]) => center - currentWidth / 2)
-  const compactY = useTransform(
-    [contactTravel, tick, scrollY, menu.expand],
-    ([downAmount, , scrollTop, expanded]: number[]) => {
-      const current = geometry.current
-      if (!current?.hasContact || downAmount <= 0) return 0
-
-      // Mobile : la navbar part se loger tout en bas de la page, sur son emplacement (sous la photo du Contact), et
-      // défile avec la page. Elle n'est plus clouée en bas de l'écran : elle ne gêne donc pas pendant qu'on lit ou
-      // qu'on écrit dans le formulaire. Arrivé au bout, on la retrouve là, prête à repartir ailleurs.
-      const topWhenDown = Math.max(current.top1, current.slotTop - scrollTop)
-      const menuExtra = opensUpRef.current ? (current.menuHeight - current.height1) * Math.max(0, expanded) : 0
-
-      return lerp(current.top1, topWhenDown, smooth(downAmount)) - menuExtra * downAmount - current.top1
-    },
-  )
 
   // Opacité de l'ensemble : invisible tant que les mesures ne sont pas prises ; en mode « sans animation »,
   // fondu simple entre 30 % et 70 % de la progression
@@ -430,15 +406,10 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore, sce
     remeasure.current()
   }, [])
 
-  const isStickyLayout = !isSceneActive
-  const header = (
+  return (
     <motion.header
-      className={cn('site-nav site-nav--morph', isStickyLayout && 'site-nav--morph-sticky')}
-      style={
-        isStickyLayout
-          ? { x: compactX, y: compactY, marginTop: stickyStart, width, height, rotate: wobble, opacity: fade, borderRadius }
-          : { top, left: centerX, x: '-50%', width, height, rotate: wobble, opacity: fade, borderRadius }
-      }
+      className="site-nav site-nav--morph"
+      style={{ top, left: centerX, x: '-50%', width, height, rotate: wobble, opacity: fade, borderRadius }}
     >
       <div className="site-nav__clip">
         {reducedMotion ? null : (
@@ -488,8 +459,6 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore, sce
       />
     </motion.header>
   )
-
-  return isStickyLayout ? <div className="site-nav-rail">{header}</div> : header
 }
 
 export default MorphNavbar

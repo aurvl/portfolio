@@ -200,8 +200,9 @@ version 1200 px, sinon le fichier de 1,25 Mo se télécharge pour rien).
             partagée avec `MorphNavbar` (voyage du bouton jusqu'à la pilule « About », effacement de l'identité de la
             landing, zoom + resserrement des bambous) ; la page glisse jusqu'à l'About (scroll natif, sans
             `preventDefault`) ; retour en haut = transition inverse ; doigt arrêté entre deux = la page termine le
-            mouvement (calage au repos). Navbar en `position: sticky` dans un rail aussi haut que la page
-            (`.site-nav-rail`) : plus de `fixed` piloté par JS, mesures lues dans la mise en page.
+            mouvement (calage au repos). Le bouton suit la page sur les 40 premiers px, puis
+            vole jusqu'en haut (position pilotée par le TEMPS, pas par le scroll) et se transforme en barre ; « Latest things »
+            s'efface pendant le vol. Mesures de départ lues dans la mise en page (stables avec la barre d'adresse Safari).
       - [ ] E4b. About → Recherche → Contact : PAS encore au principe « déclencher ». Aujourd'hui ces passages sont de
             simples défilements ; seules les bannières réagissent, liées à leur POSITION dans la page (zoom ×1,16 →
             ×1,30 → ×1,45 plafonné pour la netteté, ouverture du cadre à l'arrivée) et la navbar descend se loger en
