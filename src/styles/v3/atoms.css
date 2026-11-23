@@ -65,8 +65,10 @@
   gap: 0.25rem;
   padding: 0.35rem 0.5rem 0.35rem 0.85rem;
   color: #ffffff;
-  /* backdrop-filter : floute le fond (bambous) derrière la pilule pour qu'elle reste lisible */
-  background: color-mix(in srgb, #ffffff 30%, transparent);
+  /* La pilule est fixe : en défilant, elle passe de la photo à la page blanche. Fond sombre translucide
+     (70 % du voile de la bannière) pour que le texte blanc reste lisible sur tous les fonds, clair ou sombre.
+     backdrop-filter : floute ce qui passe derrière. */
+  background: color-mix(in srgb, var(--color-banner-veil) 70%, transparent);
   backdrop-filter: blur(10px);
   border-radius: var(--radius-pill);
 }
