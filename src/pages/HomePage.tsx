@@ -1,8 +1,11 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
+import { useReducedMotion } from 'framer-motion'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { placeholders } from '../data/placeholders'
 import { useHomeContent } from '../hooks/useHomeContent'
 import { useSiteNav } from '../hooks/useSiteNav'
 import MainLayout from '../components/layout/MainLayout'
+import MorphNavbar from '../components/layout/MorphNavbar'
 import Seo from '../components/seo/Seo'
 import LandingHero from '../components/home-v3/LandingHero'
 import LatestThings from '../components/home-v3/LatestThings'
@@ -31,22 +34,9 @@ function HomePage() {
   const navigate = useNavigate()
   const { lang } = useHomeContent()
   const { homeSections } = useSiteNav()
-  const [isLandingVisible, setIsLandingVisible] = useState(true)
-
-  // IntersectionObserver : surveille la landing. Tant qu'elle remplit l'écran, la navbar reste cachée ;
-  // dès qu'on passe à l'About (maquette 02), la navbar apparaît en haut. Le morph animé viendra à l'étape 6.
-  useEffect(() => {
-    const landing = document.getElementById('home')
-    if (!landing) return
-
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsLandingVisible(entry.intersectionRatio > 0.6),
-      { threshold: [0, 0.3, 0.6, 1] },
-    )
-    observer.observe(landing)
-
-    return () => observer.disconnect()
-  }, [])
+  // prefers-reduced-motion : pas de voyage du bouton, la navbar apparaît seulement en fondu (voir MorphNavbar)
+  const reducedMotion = useReducedMotion() ?? false
+  const learnMoreLabel = placeholders.getLandingLabels(lang).learnMore
 
   // Scroll-snap sur la page entière : la molette s'arrête sur chaque écran (landing, puis suite).
   // La classe est posée sur <html> (seul élément qui peut porter le snap de la page) et retirée en partant.
@@ -69,7 +59,14 @@ function HomePage() {
       sections={homeSections}
       className="home-v2"
       overlayNavbar
-      hideNavbar={isLandingVisible}
+      navbar={
+        <MorphNavbar
+          sections={homeSections}
+          reducedMotion={reducedMotion}
+          learnMoreLabel={learnMoreLabel}
+          onLearnMore={scrollToNextScreen}
+        />
+      }
     >
       <Seo
         title={`${PERSON_NAME} | ${PERSON_ROLE}`}
@@ -99,7 +96,10 @@ function HomePage() {
         id="home"
         className="landing"
       >
-        <LandingHero onLearnMore={scrollToNextScreen} />
+        <LandingHero
+          onLearnMore={scrollToNextScreen}
+          isButtonInNavbar={!reducedMotion}
+        />
         <LatestThings />
       </section>
 

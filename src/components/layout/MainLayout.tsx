@@ -16,6 +16,8 @@ type MainLayoutProps = {
   overlayNavbar?: boolean
   // true : pas de navbar du tout (landing : elle n'apparaît qu'après le morph de l'étape 6).
   hideNavbar?: boolean
+  // Remplace la navbar par défaut (accueil : MorphNavbar, le bouton « Learn more » qui se transforme en navbar).
+  navbar?: ReactNode
 }
 
 function MainLayout({
@@ -25,12 +27,13 @@ function MainLayout({
   navPlacement = 'top',
   overlayNavbar = false,
   hideNavbar = false,
+  navbar,
 }: MainLayoutProps) {
   const reserveNavbarSpace = navPlacement === 'top' && !overlayNavbar && !hideNavbar
 
   return (
     <div className={cn('min-h-screen bg-[var(--bg-color)] text-[var(--text-color)]', className)}>
-      {navPlacement === 'top' && !hideNavbar ? <Navbar sections={sections} placement="top" /> : null}
+      {navPlacement === 'top' && !hideNavbar ? (navbar ?? <Navbar sections={sections} placement="top" />) : null}
       <div className="site-utility">
         <UtilityPill />
       </div>

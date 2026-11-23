@@ -71,6 +71,19 @@ Direction : éditorial sobre inspiré de Nature, moderne mais pas générique. O
   focus et au tap ; aucune animation si `prefers-reduced-motion`.
 - Exception décidée par le propriétaire : le bouton « En savoir plus » de la landing garde son style actuel
   (pilule bleue pleine).
+- **Exception assumée : le voyage du bouton « Learn more » vers la navbar** (landing → About). C'est UN SEUL
+  élément qui se transforme, piloté par le scroll (framer-motion `useScroll` / `useTransform` / `useSpring`) :
+  s'il remonte, l'animation revient en arrière. Ordinateur : le bouton monte vers le haut au centre en
+  s'étirant (et en se balançant légèrement), puis s'élargit en navbar avec un petit rebond (ressort) ; le texte
+  « Learn more » s'efface en fondu, les onglets apparaissent un par un du centre vers les bords. Mobile et
+  tablette : même principe, mais il va se loger en haut à gauche et devient la pilule compacte « About ▾ ».
+  Un clic sur « Learn more » lance le scroll fluide vers l'About, donc la même animation. Zone morte de 12 %,
+  animation étalée sur toute la landing, bouton collé à la page au départ (il ne recouvre jamais le contenu).
+  Sur mobile et tablette, le menu « About ▾ » s'ouvre en agrandissant la pilule elle-même (ressort, entrées une
+  par une) et se referme en pilule. Avec
+  `prefers-reduced-motion` : aucun déplacement, la navbar apparaît en fondu. À NE PAS retirer lors d'une mise
+  en conformité du style éditorial. Technique commentée dans `MorphNavbar.tsx` ; un « fantôme » invisible du
+  bouton dans la landing donne le point de départ exact.
 - **Exception assumée : le « rideau » du bouton « Research »** (« Pour aller plus loin », mobile et tablette).
   Contour et texte bleus ; au survol (desktop), au focus clavier et au tap (mobile), le fond bleu se déploie de
   GAUCHE à DROITE comme un rideau et le texte passe en blanc (~300 ms, ease-out). Sans animation si

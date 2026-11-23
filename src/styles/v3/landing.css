@@ -109,6 +109,11 @@ html.snap-home footer {
   transform: translate(-50%, 50%);
 }
 
+.landing-hero__cta--ghost {
+  visibility: hidden;
+  pointer-events: none;
+}
+
 .landing-hero__cta:hover {
   transform: translate(-50%, calc(50% - 1px));
 }

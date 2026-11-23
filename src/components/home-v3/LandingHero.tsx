@@ -9,9 +9,12 @@ import SocialIcons from '../ui/SocialIcons'
 
 type LandingHeroProps = {
   onLearnMore: () => void
+  // true : le vrai bouton est celui de MorphNavbar (il voyage jusqu'à la navbar) ; ici on ne garde qu'un
+  // « fantôme » invisible, à la même place et à la même taille, pour que MorphNavbar sache d'où partir.
+  isButtonInNavbar?: boolean
 }
 
-function LandingHero({ onLearnMore }: LandingHeroProps) {
+function LandingHero({ onLearnMore, isButtonInNavbar = false }: LandingHeroProps) {
   const { lang } = useHomeContent()
   const profile = placeholders.getProfile(lang)
   const labels = placeholders.getLandingLabels(lang)
@@ -38,12 +41,22 @@ function LandingHero({ onLearnMore }: LandingHeroProps) {
         <SocialIcons className="landing-hero__social" />
       </div>
 
-      <Button
-        className="landing-hero__cta"
-        onClick={onLearnMore}
-      >
-        {labels.learnMore}
-      </Button>
+      {isButtonInNavbar ? (
+        <span
+          className="btn btn--primary landing-hero__cta landing-hero__cta--ghost"
+          aria-hidden="true"
+          data-morph-anchor
+        >
+          {labels.learnMore}
+        </span>
+      ) : (
+        <Button
+          className="landing-hero__cta"
+          onClick={onLearnMore}
+        >
+          {labels.learnMore}
+        </Button>
+      )}
     </header>
   )
 }

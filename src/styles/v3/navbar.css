@@ -207,6 +207,79 @@
   }
 }
 
+/* ---------- MorphNavbar (accueil) : le bouton « Learn more » qui se transforme en navbar ----------
+   Un seul élément fixe. Sa position (top, left), sa taille (width, height) et son contenu sont pilotés
+   par le scroll depuis MorphNavbar.tsx (styles en ligne : valeurs réellement dynamiques). Ici : l'habillage. */
+
+.site-nav--morph {
+  /* Même fond, même forme et même ombre que le bouton « Learn more » d'origine (et que la navbar) */
+  background: var(--color-brand);
+  box-shadow: var(--shadow-pill);
+}
+
+@media (min-width: 1024px) {
+  /* Annule le centrage « left/right 0 + margin auto » de .site-nav : ici left et width viennent du scroll */
+  .site-nav.site-nav--morph {
+    right: auto;
+    margin: 0;
+  }
+}
+
+/* Cadre qui coupe ce qui dépasse pendant l'animation (onglets plus larges que le bouton, par exemple) */
+.site-nav__clip {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+/* Texte « Learn more », centré sur le bouton ; s'efface pendant le voyage */
+.site-nav__learn {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  line-height: 1.2;
+  color: #ffffff;
+  white-space: nowrap;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  border-radius: inherit;
+}
+
+.site-nav__learn:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: -4px;
+}
+
+/* Rangée d'onglets : largeur naturelle (max-content), centrée dans le cadre ; c'est elle qu'on mesure pour
+   savoir jusqu'où la navbar doit s'élargir. Visible seulement à partir de 1024 px. */
+.site-nav__morph-row {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  display: none;
+  width: max-content;
+  padding: 0.35rem 0.5rem;
+  transform: translateX(-50%);
+}
+
+@media (min-width: 1024px) {
+  .site-nav__morph-row {
+    display: block;
+  }
+}
+
+/* Version compacte dans MorphNavbar : remplit toute la navbar qui voyage (sa taille vient du scroll et du menu) */
+.site-nav--morph .site-nav__compact {
+  position: absolute;
+  inset: 0;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .site-nav__link,
   .site-nav__chevron {
