@@ -77,26 +77,39 @@
   outline-offset: 2px;
 }
 
-/* ---------- Version compacte (mobile) ---------- */
+/* ---------- Version compacte (mobile et tablette) : la pilule s'agrandit en menu ----------
+   Un seul élément (voir CompactMenu.tsx). Sa largeur, sa hauteur et son rayon de coins sont animés en JS ;
+   ici : l'habillage. La ligne « About ▾ » reste en haut, la liste des entrées apparaît dessous. */
 
 .site-nav__compact {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  /* overflow hidden : tant que le menu s'agrandit, la liste est coupée par les coins de la pilule */
+  overflow: hidden;
+}
+
+/* Dans la navbar classique, la pilule porte son propre fond et son ombre (dans MorphNavbar, ce sont ceux de la navbar) */
+.site-nav__compact.is-self-sized {
+  background: var(--color-brand);
+  box-shadow: var(--shadow-pill);
 }
 
 .site-nav__menu-button {
   display: inline-flex;
+  flex: none;
   align-items: center;
   gap: 0.5rem;
+  width: 100%;
   padding: 0.6rem 1rem;
   font-family: var(--font-sans);
   font-size: 1rem;
   font-weight: 600;
   color: #ffffff;
+  white-space: nowrap;
   cursor: pointer;
-  background: var(--color-brand);
+  background: transparent;
   border: 0;
-  border-radius: var(--radius-pill);
-  box-shadow: var(--shadow-pill);
 }
 
 .site-nav__chevron {
@@ -107,23 +120,12 @@
   transform: rotate(180deg);
 }
 
+/* Liste des entrées : sous la ligne « About ▾ », dans le même élément */
 .site-nav__panel {
-  position: absolute;
-  top: calc(100% + 0.5rem);
-  left: 0;
-  min-width: 12rem;
+  flex: none;
   margin: 0;
-  padding: 0.5rem;
+  padding: 0 0.5rem 0.5rem;
   list-style: none;
-  background: var(--color-brand);
-  border-radius: var(--radius-card);
-  box-shadow: var(--shadow-lifted);
-}
-
-/* En bas de page, le panneau s'ouvre vers le haut pour rester visible */
-.site-nav--bottom .site-nav__panel {
-  top: auto;
-  bottom: calc(100% + 0.5rem);
 }
 
 .site-nav__panel-link {
@@ -136,6 +138,7 @@
   color: #ffffff;
   text-align: left;
   text-decoration: none;
+  white-space: nowrap;
   cursor: pointer;
   background: transparent;
   border: 0;
@@ -145,6 +148,16 @@
 .site-nav__panel-link.is-active {
   color: #0b3d75;
   background: color-mix(in srgb, #ffffff 62%, var(--color-brand));
+}
+
+/* Copies invisibles (pilule fermée et liste ouverte), uniquement pour mesurer leur taille naturelle */
+.site-nav__compact .site-nav__probe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: max-content;
+  pointer-events: none;
+  visibility: hidden;
 }
 
 /* ---------- Pilule utilitaire fixe (haut droite) ---------- */

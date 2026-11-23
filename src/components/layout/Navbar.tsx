@@ -1,9 +1,10 @@
 // Navbar « pilule » bleue du design v3, centrée en haut de l'écran (ou en bas de page sur Contact).
-// Sur mobile : un bouton compact qui ouvre un petit panneau avec les mêmes entrées.
-import { useEffect, useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
-import { LuChevronDown } from 'react-icons/lu'
+// Sur mobile et tablette : une pilule compacte qui s'agrandit en menu avec les mêmes entrées (CompactMenu).
+// Sur l'accueil, c'est MorphNavbar (même logique, via useNavbarModel) qui la remplace.
+import { useReducedMotion } from 'framer-motion'
+import { useNavbarModel } from '../../hooks/useNavbarModel'
 import { cn } from '../../lib/cn'
+import CompactMenu from './CompactMenu'
 
 export type NavbarSection = {
   id: string
@@ -21,120 +22,9 @@ type NavbarProps = {
   placement?: 'top' | 'bottom'
 }
 
-function scrollToSection(sectionId: string) {
-  document.getElementById(sectionId)?.scrollIntoView({
-    behavior: 'smooth',
-    block: 'start',
-  })
-}
-
 function Navbar({ sections, placement = 'top' }: NavbarProps) {
-  const location = useLocation()
-  const [activeSection, setActiveSection] = useState(sections[0]?.id ?? '')
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-
-  const isHrefActive = (section: NavbarSection) => {
-    if (section.download || !section.href) return false
-
-    if (section.matchPaths?.some((path) => location.pathname.startsWith(path))) {
-      return true
-    }
-
-    const [pathname, hash] = section.href.split('#')
-
-    if (hash) {
-      return location.pathname === pathname && location.hash === `#${hash}`
-    }
-
-    return location.pathname === section.href
-  }
-
-  const isActive = (section: NavbarSection) =>
-    section.href ? isHrefActive(section) : activeSection === section.id
-
-  // Suit la section visible à l'écran pour mettre en avant l'onglet correspondant.
-  // L'observateur ne regarde qu'une bande au milieu de l'écran (marges négatives).
-  useEffect(() => {
-    const pageSections = sections
-      .filter((section) => !section.href)
-      .map((section) => document.getElementById(section.id))
-      .filter((element): element is HTMLElement => element !== null)
-
-    if (pageSections.length === 0) return
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visibleEntry = entries.find((entry) => entry.isIntersecting)
-
-        if (visibleEntry) {
-          setActiveSection(visibleEntry.target.id)
-        }
-      },
-      { root: null, rootMargin: '-35% 0px -45% 0px', threshold: 0.1 }
-    )
-
-    pageSections.forEach((element) => observer.observe(element))
-
-    return () => observer.disconnect()
-  }, [sections])
-
-  useEffect(() => {
-    if (!isMobileMenuOpen) return
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        setIsMobileMenuOpen(false)
-      }
-    }
-
-    document.addEventListener('keydown', handleKeyDown)
-
-    return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [isMobileMenuOpen])
-
-  const renderItem = (section: NavbarSection, linkClass: string) => {
-    const active = isActive(section)
-    const className = cn(linkClass, active && 'is-active')
-    const close = () => setIsMobileMenuOpen(false)
-
-    if (section.download && section.href) {
-      return (
-        <a className={className} href={section.href} download onClick={close}>
-          {section.label}
-        </a>
-      )
-    }
-
-    if (section.href) {
-      return (
-        <Link
-          className={className}
-          to={section.href}
-          aria-current={active ? 'page' : undefined}
-          onClick={close}
-        >
-          {section.label}
-        </Link>
-      )
-    }
-
-    return (
-      <button
-        type="button"
-        className={className}
-        aria-current={active ? 'true' : undefined}
-        onClick={() => {
-          close()
-          scrollToSection(section.id)
-        }}
-      >
-        {section.label}
-      </button>
-    )
-  }
-
-  const currentLabel =
-    sections.find((section) => !section.download && isActive(section))?.label ?? sections[0]?.label
+  const reducedMotion = useReducedMotion() ?? false
+  const { renderItem, currentLabel, menu } = useNavbarModel(sections, reducedMotion)
 
   return (
     <header className={cn('site-nav', placement === 'bottom' && 'site-nav--bottom')}>
@@ -146,29 +36,14 @@ function Navbar({ sections, placement = 'top' }: NavbarProps) {
         </ul>
       </nav>
 
-      <div className="site-nav__compact">
-        <button
-          type="button"
-          className="site-nav__menu-button"
-          aria-expanded={isMobileMenuOpen}
-          aria-controls="site-nav-panel"
-          onClick={() => setIsMobileMenuOpen((open) => !open)}
-        >
-          {currentLabel}
-          <LuChevronDown
-            className={cn('site-nav__chevron', isMobileMenuOpen && 'is-open')}
-            aria-hidden="true"
-          />
-        </button>
-
-        {isMobileMenuOpen ? (
-          <ul id="site-nav-panel" className="site-nav__panel">
-            {sections.map((section) => (
-              <li key={section.id}>{renderItem(section, 'site-nav__panel-link')}</li>
-            ))}
-          </ul>
-        ) : null}
-      </div>
+      <CompactMenu
+        sections={sections}
+        renderItem={renderItem}
+        currentLabel={currentLabel}
+        menu={menu}
+        reducedMotion={reducedMotion}
+        isSelfSized
+      />
     </header>
   )
 }
