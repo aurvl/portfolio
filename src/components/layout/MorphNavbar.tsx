@@ -223,7 +223,7 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore, sce
     const current = geometry.current
     if (!current) return 0
     // Mobile : pas d'étirement pendant la montée, le bouton ne déborde jamais sur le contenu sous lui
-    const flightStretch = current.isCompact ? 0 : 0.22 * Math.sin(flight * Math.PI)
+    const flightStretch = current.inScene ? 0.22 * Math.sin(flight * Math.PI) : 0
     const base =
       lerp(current.height0, current.height1, spread) *
       (1 + flightStretch) *
@@ -254,14 +254,15 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore, sce
     }
     // Ordinateur : pendant la montée, le bouton fait un léger arc vers la droite (sin vaut 0 au départ et à l'arrivée,
     // 1 au milieu), pour contourner l'avatar de la landing qui glisse vers la gauche au même moment
-    const arc = reducedRef.current ? 0 : Math.sin(amount * Math.PI) * FLIGHT_ARC_PX
+    // (version tactile : pas d'arc, le bouton monte droit avec la page)
+    const arc = reducedRef.current || !current.inScene ? 0 : Math.sin(amount * Math.PI) * FLIGHT_ARC_PX
     return lerp(current.center0, current.center1, smooth(amount)) + arc
   })
 
   // Petit balancement pendant le vol (quelques degrés au plus), pour le côté ludique ; nul au départ et à l'arrivée
   // (mobile : pas de balancement pendant la montée, seulement pendant la descente vers le Contact)
   const wobble = useTransform([travel, contactTravel, tick], ([flight, downAmount]: number[]) => {
-    const flightWobble = geometry.current?.isCompact ? 0 : Math.sin(flight * Math.PI * 2)
+    const flightWobble = geometry.current?.inScene ? Math.sin(flight * Math.PI * 2) : 0
 
     return (flightWobble + Math.sin(downAmount * Math.PI * 2)) * WOBBLE_DEGREES
   })
@@ -318,8 +319,9 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore, sce
     const row = rowRef.current
     if (!row) return
 
-    // Pilule compacte partout sauf sur ordinateur à la souris (même condition que HomePage et que les CSS)
-    const isCompact = !window.matchMedia('(min-width: 1024px) and (hover: hover) and (pointer: fine)').matches
+    // Pilule compacte seulement quand il n'y a pas la place d'afficher tous les onglets (< 1024 px). Un iPad en paysage
+    // (1180 px) a la place : il affiche la barre complète, même s'il est au doigt (version tactile de la scène).
+    const isCompact = !window.matchMedia('(min-width: 1024px)').matches
     const rem = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16
     const pill = menuGeometry.current
     // offsetWidth / offsetHeight et non getBoundingClientRect : ce dernier inclut la rotation du balancement. Mesurée
