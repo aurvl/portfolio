@@ -268,22 +268,25 @@
   list-style: none;
 }
 
-/* Thème cliquable : petite étiquette à filet fin et coins quasi droits (ouvre le hub Projets filtré) */
+/* Thème cliquable (ouvre le hub Projets filtré) : le même tag que sur les cartes de projet de l'ancienne version,
+   en petites majuscules grasses, texte indigo (--keyw-col-window) sur un fond indigo très léger (--keyw-bg-col) */
 .about__theme {
   display: inline-block;
-  padding: 0.3rem 0.7rem;
-  font-size: 0.9rem;
-  color: var(--color-ink);
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--keyw-col-window);
   text-decoration: none;
-  text-transform: capitalize;
-  border: 1px solid color-mix(in srgb, var(--color-ink) 35%, transparent);
-  border-radius: var(--radius-sharp);
-  transition: color var(--duration-fast) ease, border-color var(--duration-fast) ease;
+  text-transform: uppercase;
+  background: var(--keyw-bg-col);
+  border-radius: 7px;
+  transition: background-color var(--duration-fast) ease;
 }
 
+/* Survol : le fond indigo s'intensifie (color-mix : mélange du fond léger avec la couleur du texte) */
 .about__theme:hover {
-  color: var(--color-brand-ink);
-  border-color: var(--color-brand-ink);
+  background: color-mix(in srgb, var(--keyw-col-window) 18%, transparent);
 }
 
 .about__theme:focus-visible {
@@ -500,7 +503,16 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  /* Mobile et tablette : le bouton est centré au milieu de la page */
+  justify-content: center;
   gap: 0.5rem 1rem;
+}
+
+/* Ordinateur : il reste aligné à gauche, comme le reste de la colonne */
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+  .journey__resume {
+    justify-content: flex-start;
+  }
 }
 
 /* ---------- « Pour aller plus loin » ---------- */
@@ -767,6 +779,12 @@
   .about__desktop-only {
     display: none;
   }
+
+  /* Tablette large (iPad en paysage) : le contenu est centré dans une colonne de lecture de 52 rem, comme la section
+     Research, au lieu de s'étirer collé à gauche sur toute la largeur. La bannière reste pleine largeur. */
+  .about__grid {
+    width: min(100% - 2rem, 52rem);
+  }
 }
 
 @media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
@@ -779,12 +797,6 @@
   .collapsible__chevron,
   .next-doors__card {
     transition: none;
-
-  /* Tablette large (iPad en paysage) : le contenu est centré dans une colonne de lecture de 52 rem, comme la section
-     Research, au lieu de s'étirer collé à gauche sur toute la largeur. La bannière reste pleine largeur. */
-  .about__grid {
-    width: min(100% - 2rem, 52rem);
-  }
   }
 
   .next-doors__card:hover {
