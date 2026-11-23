@@ -193,11 +193,31 @@ version 1200 px, sinon le fichier de 1,25 Mo se télécharge pour rien).
       tablette inchangés. Vérifié au Playwright (1651 x 900 et 390 px). À régler à l'œil : bande de Recherche
       (`--papers-band-height`, 8 rem), amplitudes (`ZOOM_STEPS`, `*_SHIFT_PX`), moments des fondus (`useBambooScene.ts`).
       Limite connue : la liste de Recherche (placeholders) n'a que ~30 px de défilement libre ; le vrai contenu sera plus long.
-- [ ] E4. Mobile et tablette (< 1024 px), y compris les écrans Recherche et Contact (zoom croissant ×1,16 → ×1,30 →
-      ×1,45 piloté par le scroll, sans scène collante) : garder le zoom des bambous et le resserrement de la bannière (`clip-path`),
-      sans la scène collante si elle casse la landing qui défile (sous 900 px de haut) ; glissement avatar / nom
-      optionnel (le supprimer si risqué) ; `prefers-reduced-motion` complet (aujourd'hui : bascule à mi-parcours sans
-      glissement ni zoom, seuls les fondus restent progressifs) ; fluidité à vérifier sur mobile réel.
+- [~] E4. Mobile et tablette, y compris iPad en paysage (voir le critère tactile ci-dessous) : EN COURS, moitié faite.
+      Principe retenu après essais sur iPhone : DÉCLENCHER, pas SUIVRE (une animation liée à chaque pixel de scroll
+      rampe, zigzague et reste coincée au doigt). Pas de scène collante : sections normales, `useBambooMobile`.
+      - [x] E4a. Landing → About, déclenchée : au-delà de 40 px de scroll, une valeur 0 → 1 se joue en 0,6 s (ressort),
+            partagée avec `MorphNavbar` (voyage du bouton jusqu'à la pilule « About », effacement de l'identité de la
+            landing, zoom + resserrement des bambous) ; la page glisse jusqu'à l'About (scroll natif, sans
+            `preventDefault`) ; retour en haut = transition inverse ; doigt arrêté entre deux = la page termine le
+            mouvement (calage au repos). Navbar en `position: sticky` dans un rail aussi haut que la page
+            (`.site-nav-rail`) : plus de `fixed` piloté par JS, mesures lues dans la mise en page.
+      - [ ] E4b. About → Recherche → Contact : PAS encore au principe « déclencher ». Aujourd'hui ces passages sont de
+            simples défilements ; seules les bannières réagissent, liées à leur POSITION dans la page (zoom ×1,16 →
+            ×1,30 → ×1,45 plafonné pour la netteté, ouverture du cadre à l'arrivée) et la navbar descend se loger en
+            bas de la page (emplacement sous le Contact, elle défile avec la page). À faire : un état par écran
+            (About, Recherche, Contact) joué en temps fixe comme E4a, avec le même zoom / resserrement de bannière.
+      - Landing en un écran sous 900 px (`100svh`) : « Latest things » devient un carrousel horizontal en scroll-snap
+        (carte suivante qui dépasse, points indicateurs). Vérifié à 375 × 667, 390 × 844 et 768 × 1024.
+      - Critère tactile : « ordinateur » = `(min-width: 1024px) and (hover: hover) and (pointer: fine)` (HomePage,
+        MorphNavbar et les @media de scene / about / papers / contact / navbar). Un iPad au doigt, même en paysage
+        (1180 px), garde la version tactile ; son About et sa Recherche sont centrés dans une colonne de 52 rem.
+      - Autres retouches mobile : tags « I work on » comme les anciennes cartes projet, bouton CV centré, ronds
+        sociaux du Contact sur une ligne, bouton « Send » centré et dégagé, pied de page en deux colonnes,
+        « Back to about » retiré de la Recherche de l'accueil.
+      - `prefers-reduced-motion` : ni zoom ni resserrement, fondu simple (à vérifier sur appareil).
+      - À valider sur de vrais appareils (iPhone, iPad) : fluidité au doigt, calage `scroll-snap`, barre d'adresse Safari.
+      - Desktop (≥ 1024 px à la souris) : inchangé, toujours lié au scroll (pas testé au trackpad).
 - [ ] E5. View Transitions entre pages (About → Projets, Recherche, articles, séries…) : `viewTransition` de
       react-router (v7.13 installée, `BrowserRouter` : à confirmer par un test) sur les `Link` et `navigate` ; le
       bandeau bambous est un élément partagé (`view-transition-name`, un seul par page) ; sens zoom avant / arrière
