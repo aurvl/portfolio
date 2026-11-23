@@ -178,7 +178,7 @@ version 1200 px, sinon le fichier de 1,25 Mo se télécharge pour rien).
       défile jusqu'à `#about`, le second voyage vers le Contact se pose exactement sur son emplacement. Le bouton
       croisait l'avatar vers 35 % : il fait maintenant un léger arc vers la droite pendant la montée
       (`FLIGHT_ARC_PX = 90`, ordinateur seulement, nul en mouvement réduit) ; écart minimal avec l'avatar rond : 14 px.
-- [x] E3b. Sections de l'accueil dans la scène (ordinateur ≥ 1024 px) : About → Recherche → Contact, même principe
+- [x] E3b (validée par le propriétaire). Sections de l'accueil dans la scène (ordinateur ≥ 1024 px) : About → Recherche → Contact, même principe
       que Landing → About. UNE seule photo (cadre plein écran, `clip-path` = bande visible, bords mesurés :
       62,5 % → About → 8 rem (Recherche) → plein écran moins 4,5 rem (Contact)) ; zooms ×1,00 → ×1,16 → ×1,30 →
       ×1,45, plafonnés si la photo (2400 px) risque d'être floue (`PHOTO_MAX_UPSCALE`, selon la largeur en pixels
@@ -193,7 +193,8 @@ version 1200 px, sinon le fichier de 1,25 Mo se télécharge pour rien).
       tablette inchangés. Vérifié au Playwright (1651 x 900 et 390 px). À régler à l'œil : bande de Recherche
       (`--papers-band-height`, 8 rem), amplitudes (`ZOOM_STEPS`, `*_SHIFT_PX`), moments des fondus (`useBambooScene.ts`).
       Limite connue : la liste de Recherche (placeholders) n'a que ~30 px de défilement libre ; le vrai contenu sera plus long.
-- [ ] E4. Mobile et tablette (< 1024 px) : garder le zoom des bambous et le resserrement de la bannière (`clip-path`),
+- [ ] E4. Mobile et tablette (< 1024 px), y compris les écrans Recherche et Contact (zoom croissant ×1,16 → ×1,30 →
+      ×1,45 piloté par le scroll, sans scène collante) : garder le zoom des bambous et le resserrement de la bannière (`clip-path`),
       sans la scène collante si elle casse la landing qui défile (sous 900 px de haut) ; glissement avatar / nom
       optionnel (le supprimer si risqué) ; `prefers-reduced-motion` complet (aujourd'hui : bascule à mi-parcours sans
       glissement ni zoom, seuls les fondus restent progressifs) ; fluidité à vérifier sur mobile réel.
