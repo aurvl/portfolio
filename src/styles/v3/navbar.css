@@ -202,7 +202,7 @@
   }
 
   .site-utility {
-    top: 1.5rem;
+    top: 1rem; /* même hauteur que la barre de navigation (top: 1rem) : les deux sont alignées */
     right: 2rem;
   }
 }
