@@ -173,10 +173,18 @@ version 1200 px, sinon le fichier de 1,25 Mo se télécharge pour rien).
       avec l'en-tête de l'About entre 92 % et 100 %, « Latest things » s'efface, le contenu de l'About apparaît (35 %
       → 85 %), le poste passe du blanc au sombre entre 78 % et 92 %. `MorphNavbar` prend la progression de la scène
       (`sceneProgress`, `isSceneActive`), zone morte supprimée, plus de « suit la page » dans la scène.
-- [ ] E3. Finir le branchement de `MorphNavbar` sur la scène : valider le rythme (voyage du bouton, étirement,
-      élargissement) ; le bouton « Learn more » croise brièvement l'avatar vers 35 % (jugé transitoire, à revoir si
-      gênant) ; refaire la vérification du second voyage vers le bas au Contact avec la scène ; vérifier l'onglet actif
-      (zones `#home` / `#about`) et le clic sur « Learn more » (scroll fluide jusqu'à `#about`).
+- [x] E3. Branchement de `MorphNavbar` sur la scène, validé au Playwright (1651 x 900) : le voyage du bouton suit la
+      scène (même progression que la photo), l'onglet actif passe de Home à About à 65 %, le clic sur « Learn more »
+      défile jusqu'à `#about`, le second voyage vers le Contact se pose exactement sur son emplacement. Le bouton
+      croisait l'avatar vers 35 % : il fait maintenant un léger arc vers la droite pendant la montée
+      (`FLIGHT_ARC_PX = 90`, ordinateur seulement, nul en mouvement réduit) ; écart minimal avec l'avatar rond : 14 px.
+- [ ] E3b. Sections de l'accueil dans la scène (ordinateur ≥ 1024 px) : About → Recherche → Contact, même principe
+      que Landing → About (« avancer dans la forêt »). Un seul `<img>` de photo pour toute la scène ; niveaux de zoom
+      de départ ×1,00 (Landing) → ×1,16 (About) → ×1,30 (Recherche) → ×1,45 (Contact). Bannière 12 rem → 9 rem
+      (Recherche) puis dilatée par `clip-path` jusqu'au plein écran (Contact). Recherche : scroll libre dans la section
+      (bannière `sticky`), la transition vers le Contact ne démarre qu'à la fin de la liste. `useBambooScene` généralisé
+      (progression 0 à 3, 4 paliers). NETTETÉ : à ×1,45 sur grand écran, utiliser la photo 2400 px et plafonner le zoom
+      si elle devient floue. Aucun détournement de la molette, seulement `transform`, `opacity`, `clip-path`.
 - [ ] E4. Mobile et tablette (< 1024 px) : garder le zoom des bambous et le resserrement de la bannière (`clip-path`),
       sans la scène collante si elle casse la landing qui défile (sous 900 px de haut) ; glissement avatar / nom
       optionnel (le supprimer si risqué) ; `prefers-reduced-motion` complet (aujourd'hui : bascule à mi-parcours sans

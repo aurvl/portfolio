@@ -64,6 +64,7 @@ const TAB_START = 0.78 // premier onglet
 const TAB_STAGGER = 0.028 // décalage entre deux onglets
 const TAB_FADE = 0.08 // durée d'apparition d'un onglet
 const WOBBLE_DEGREES = 2.5 // inclinaison maximale pendant le vol : très légère
+const FLIGHT_ARC_PX = 90 // écart latéral maximal du bouton au milieu de la montée (ordinateur)
 
 const clamp01 = (value: number) => Math.min(1, Math.max(0, value))
 const lerp = (from: number, to: number, amount: number) => from + (to - from) * amount
@@ -228,7 +229,10 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore, sce
       const centerWhenUp = lerp(current.left0, current.left1, smooth(amount)) + currentWidth / 2
       return lerp(centerWhenUp, current.viewportWidth / 2, smooth(downAmount))
     }
-    return lerp(current.center0, current.center1, smooth(amount))
+    // Ordinateur : pendant la montée, le bouton fait un léger arc vers la droite (sin vaut 0 au départ et à l'arrivée,
+    // 1 au milieu), pour contourner l'avatar de la landing qui glisse vers la gauche au même moment
+    const arc = reducedRef.current ? 0 : Math.sin(amount * Math.PI) * FLIGHT_ARC_PX
+    return lerp(current.center0, current.center1, smooth(amount)) + arc
   })
 
   // Petit balancement pendant le vol (quelques degrés au plus), pour le côté ludique ; nul au départ et à l'arrivée
