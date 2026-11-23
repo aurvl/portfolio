@@ -118,6 +118,34 @@ html.snap-home footer {
   transform: translate(-50%, calc(50% - 1px));
 }
 
+/* « Learn more » : au survol, un fond blanc se déploie de GAUCHE à DROITE comme un rideau et le texte passe au bleu
+   nuit (~300 ms, ease-out). Le fond est une image (dégradé uni) dont on anime la largeur : background-size 0 % → 100 %.
+   S'applique au vrai bouton (.site-nav__learn, dans la navbar qui voyage) et à son équivalent sans animation. */
+.site-nav__learn,
+.landing-hero__cta {
+  background-image: linear-gradient(#ffffff, #ffffff);
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: 0% 100%;
+  transition: background-size 300ms ease-out, color 300ms ease-out, transform 150ms ease, box-shadow 150ms ease;
+}
+
+.site-nav__learn:hover,
+.site-nav__learn:focus-visible,
+.landing-hero__cta:hover,
+.landing-hero__cta:focus-visible {
+  color: var(--color-on-brand-hover);
+  background-size: 100% 100%;
+}
+
+/* prefers-reduced-motion : le changement est instantané, sans déploiement */
+@media (prefers-reduced-motion: reduce) {
+  .site-nav__learn,
+  .landing-hero__cta {
+    transition: none;
+  }
+}
+
 .latest-things {
   width: min(100% - 2rem, 74rem);
   margin-inline: auto;

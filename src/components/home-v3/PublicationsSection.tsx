@@ -40,6 +40,7 @@ function PublicationsSection({ onBackToAbout }: PublicationsSectionProps) {
         <div className="papers__side">
           <Button
             variant="line"
+            className="papers__back"
             onClick={onBackToAbout}
             icon={<FiArrowUp />}
           >

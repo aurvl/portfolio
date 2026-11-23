@@ -64,6 +64,8 @@
   --radius-sharp: 2px;
   --radius-small: 4px;
   --color-on-brand: #141413;
+  /* Texte des boutons pleins au survol : bleu nuit fixe (le même que l'onglet actif de la navbar), clair comme sombre */
+  --color-on-brand-hover: #0b3d75;
   /* Bleu d'action (contour et texte du bouton « Research ») : assez foncé pour lire du texte dessus en clair (4,7:1) ;
      --color-action-fill est le fond du rideau, sous du texte blanc (5:1). */
   --color-action-blue: #1d6fd1;

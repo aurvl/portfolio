@@ -46,6 +46,11 @@ html.snap-home .papers {
   margin-top: -1.5rem;
 }
 
+/* Bouton à filet moins épais : marge verticale de 0,375 rem au lieu de 0,7 rem (hauteur −20 %) */
+.papers__back {
+  padding-block: 0.375rem;
+}
+
 .papers__title {
   margin: 0.5rem 0 0;
   font-family: var(--font-serif);

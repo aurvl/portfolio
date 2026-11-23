@@ -70,7 +70,8 @@ Direction : éditorial sobre inspiré de Nature, moderne mais pas générique. O
   SAUTENT en boucle (le bouton entier, deux rebonds puis une pause) pour inviter au clic ; arrêt au survol, au
   focus et au tap ; aucune animation si `prefers-reduced-motion`.
 - Exception décidée par le propriétaire : le bouton « En savoir plus » de la landing garde son style actuel
-  (pilule bleue pleine).
+  (pilule bleue pleine). Au survol, il a lui aussi l'effet « rideau » (fond blanc de gauche à droite, texte bleu
+  nuit, ~300 ms) ; sans animation si `prefers-reduced-motion`. Code dans `landing.css`.
 - **Exception assumée : le voyage du bouton « Learn more » vers la navbar** (landing → About). C'est UN SEUL
   élément qui se transforme, piloté par le scroll (framer-motion `useScroll` / `useTransform` / `useSpring`) :
   s'il remonte, l'animation revient en arrière. Ordinateur : le bouton monte vers le haut au centre en
