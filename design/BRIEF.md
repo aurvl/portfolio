@@ -83,7 +83,8 @@ Direction : éditorial sobre inspiré de Nature, moderne mais pas générique. O
   Sur mobile et tablette, le menu « About ▾ » s'ouvre en agrandissant la pilule elle-même (ressort, entrées une
   par une) et se referme en pilule. Même principe sur l'écran Contact : la navbar se décroche du haut, s'étire en
   descendant (et se penche légèrement), puis se pose en bas au milieu de la page, sur tous les formats ; sur
-  mobile et tablette, son menu s'y ouvre vers le haut. Avec
+  mobile et tablette, le menu compact s'ouvre VERS LE BAS par défaut, et vers le haut seulement s'il n'y a pas
+  assez de place sous la pilule dans la fenêtre (calculé à l'ouverture ; la chevron suit le sens). Avec
   `prefers-reduced-motion` : aucun déplacement, la navbar apparaît en fondu. À NE PAS retirer lors d'une mise
   en conformité du style éditorial. Technique commentée dans `MorphNavbar.tsx` ; un « fantôme » invisible du
   bouton dans la landing donne le point de départ exact.
@@ -159,7 +160,9 @@ Direction : éditorial sobre inspiré de Nature, moderne mais pas générique. O
 - Hero bambous quasi plein écran ; avatar à gauche, NOM & PRÉNOMS + poste + icônes à droite.
 - Grand bloc blanc central = **formulaire de contact** (nom, email, sujet, message, envoyer).
   Envoi : garder le mécanisme existant s'il y en a un, sinon UI seule pour l'instant.
-- **La navbar est en bas de l'écran** sur cette vue.
+- **La navbar est en bas de l'écran** sur cette vue, posée À CHEVAL sur le bord bas de la photo : ce bord passe
+  exactement par le milieu vertical de la pilule. La photo s'arrête net ; dessous, un espace vide (fond de page),
+  puis le footer, SANS bandeau de photo.
 
 ## 5. Ordre des sections de l'accueil (à confirmer)
 Landing → About → Publications → Contact, en une seule page avec ancres et scroll fluide.

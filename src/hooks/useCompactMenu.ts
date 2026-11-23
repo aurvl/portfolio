@@ -3,6 +3,8 @@
 // Fermeture : les entrées disparaissent, PUIS le menu se rétracte jusqu'à reprendre sa forme de pilule.
 // `expand` va de 0 (pilule) à 1 (menu ouvert) ; il peut dépasser 1 un instant à l'ouverture (rebond de ressort).
 // À la fermeture, le retour en pilule est un trajet doux, sans rebond : la forme finale est exactement la pilule.
+// Direction : le menu s'ouvre VERS LE BAS par défaut, et VERS LE HAUT seulement s'il n'y a pas assez de place sous la
+// pilule dans la fenêtre. Elle est recalculée tant que le menu est fermé (le chevron l'annonce) et figée à l'ouverture.
 // prefers-reduced-motion : pas de ressort ni de décalage, simple fondu des entrées.
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { animate, useMotionValue, type AnimationPlaybackControls } from 'framer-motion'
@@ -11,6 +13,18 @@ import { animate, useMotionValue, type AnimationPlaybackControls } from 'framer-
 const ENTRIES_OUT_MS = 230
 // Durée du retour en pilule avant de retirer la liste de la page
 const SHRINK_MS = 520
+// Marge gardée entre le bas du menu ouvert et le bas de la fenêtre
+const BOTTOM_MARGIN_PX = 12
+
+// Place sous la pilule : assez pour la liste (hauteur `listHeight`) ? Sinon le menu s'ouvrira vers le haut.
+function hasRoomBelow(pill: HTMLElement | null, listHeight: number) {
+  if (!pill) return true
+  const rect = pill.getBoundingClientRect()
+  // Pilule masquée (ordinateur) : rien à mesurer, on garde la direction par défaut
+  if (rect.height === 0) return true
+
+  return document.documentElement.clientHeight - rect.bottom >= listHeight + BOTTOM_MARGIN_PX
+}
 
 export function useCompactMenu(reducedMotion: boolean) {
   const [isOpen, setIsOpen] = useState(false)
@@ -18,6 +32,8 @@ export function useCompactMenu(reducedMotion: boolean) {
   const [isListMounted, setIsListMounted] = useState(false)
   // Pilote le fondu des entrées (indépendamment de la taille du menu)
   const [showEntries, setShowEntries] = useState(false)
+  // Vrai : le menu s'ouvre vers le haut (pas assez de place dessous)
+  const [opensUp, setOpensUp] = useState(false)
 
   const expand = useMotionValue(0)
   const expandAnimation = useRef<AnimationPlaybackControls | null>(null)
@@ -27,6 +43,12 @@ export function useCompactMenu(reducedMotion: boolean) {
   const clearTimers = useCallback(() => {
     timers.current.forEach((timer) => window.clearTimeout(timer))
     timers.current = []
+  }, [])
+
+  // Recalcule la direction (appelé par CompactMenu au défilement et au redimensionnement, menu fermé)
+  const updateDirection = useCallback((pill: HTMLElement | null, listHeight: number) => {
+    if (isOpenRef.current) return
+    setOpensUp(!hasRoomBelow(pill, listHeight))
   }, [])
 
   const open = useCallback(() => {
@@ -63,10 +85,18 @@ export function useCompactMenu(reducedMotion: boolean) {
     )
   }, [clearTimers, expand, reducedMotion])
 
-  const toggle = useCallback(() => {
-    if (isOpenRef.current) close()
-    else open()
-  }, [close, open])
+  // À l'ouverture, on recalcule la direction une dernière fois avant de s'ouvrir
+  const toggle = useCallback(
+    (pill?: HTMLElement | null, listHeight = 0) => {
+      if (isOpenRef.current) {
+        close()
+        return
+      }
+      if (pill) setOpensUp(!hasRoomBelow(pill, listHeight))
+      open()
+    },
+    [close, open],
+  )
 
   // Échap ferme le menu
   useEffect(() => {
@@ -83,7 +113,7 @@ export function useCompactMenu(reducedMotion: boolean) {
 
   useEffect(() => clearTimers, [clearTimers])
 
-  return { isOpen, isListMounted, showEntries, expand, toggle, close }
+  return { isOpen, isListMounted, showEntries, opensUp, expand, toggle, close, updateDirection }
 }
 
 export type CompactMenuState = ReturnType<typeof useCompactMenu>

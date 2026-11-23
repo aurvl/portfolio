@@ -114,11 +114,11 @@ Modifier : `Navbar`, `MainLayout`, `HomePage`, `ProjectsPage`, `BlogPage`, `Publ
 - [x] 8. Contact : `ContactSection` (id `contact-form`, photo plein écran, identité, formulaire Formspree inchangé
       sans les 3 cartes « routes », bouton plein unique) en dernier écran de l'accueil. Le formulaire passe sur deux
       colonnes dès 768 px (message à droite). La MÊME navbar se décroche du haut au scroll et descend se poser en
-      bas au milieu (2ᵉ voyage de `MorphNavbar`, emplacement vide `data-morph-slot` en fin de page), sur tous les
-      formats ; sur mobile son menu s'ouvre vers le haut. « Get in touch » y mène. À reprendre : `/contact` n'existe pas (la
+      bas au milieu, À CHEVAL sur le bord bas de la photo (2ᵉ voyage de `MorphNavbar`, emplacement vide `data-morph-slot`
+      sous la section) ; le menu compact s'ouvre vers le bas, et vers le haut seulement s'il manque de place dessous. « Get in touch » y mène. À reprendre : `/contact` n'existe pas (la
       navbar des autres pages pointe vers `/#contact-form`), envoi non testé en réel, mobile à vérifier (13).
-- [x] 8b. Footer v3 (toutes les pages) : `Footer` + `footer.css`. Fin de bandeau bambous en haut (même photo et même
-      voile, même fichier que les bannières donc déjà en cache), puis marque / Navigation (entrées de `useSiteNav`
+- [x] 8b. Footer v3 (toutes les pages) : `Footer` + `footer.css`. Pas de bandeau de photo (retiré : il contredisait la
+      maquette du Contact) ; marque / Navigation (entrées de `useSiteNav`
       sans Accueil ni Contact, CV = lien direct) / Profils (ORCID, ResearchGate, GitHub, Threads) / Contact (Email,
       LinkedIn, « Me contacter → »), ligne du bas : © + Cookies, FR | EN, « ↑ Haut de page ». Desktop 4 colonnes,
       tablette 2 colonnes, mobile centré. `BackToTopButton` se masque quand le pied de page est à l'écran. Textes

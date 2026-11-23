@@ -3,7 +3,7 @@
 // (0 = pilule, 1 = menu ouvert, avec un petit rebond de ressort). Les entrées apparaissent une par une.
 // Utilisé par Navbar (la pilule porte alors son propre fond) et par MorphNavbar (le fond est celui de la
 // navbar qui voyage : la taille y est pilotée par MorphNavbar, avec les mêmes mesures).
-import { useLayoutEffect, useRef, type ReactElement } from 'react'
+import { useEffect, useLayoutEffect, useRef, type ReactElement } from 'react'
 import { motion, useMotionValue, useTransform, type MotionStyle } from 'framer-motion'
 import { LuChevronDown } from 'react-icons/lu'
 import type { CompactMenuState } from '../../hooks/useCompactMenu'
@@ -53,6 +53,7 @@ function CompactMenu({
 }: CompactMenuProps) {
   const pillProbeRef = useRef<HTMLSpanElement>(null)
   const listProbeRef = useRef<HTMLUListElement>(null)
+  const buttonRef = useRef<HTMLButtonElement>(null)
   const geometry = useRef<MenuGeometry | null>(null)
   // Change à chaque mesure, pour recalculer les tailles ci-dessous
   const tick = useMotionValue(0)
@@ -83,6 +84,33 @@ function CompactMenu({
     return () => window.removeEventListener('resize', measure)
   }, [currentLabel, sections, tick, onMeasured])
 
+  // Direction d'ouverture : tant que le menu est fermé, on recalcule (au défilement et au redimensionnement, une fois par
+  // image au plus) s'il reste assez de place sous la pilule ; la chevron l'annonce. Elle est figée une fois ouvert.
+  const { isListMounted, updateDirection } = menu
+  useEffect(() => {
+    if (isListMounted) return
+
+    let frame = 0
+    const check = () => {
+      frame = 0
+      const current = geometry.current
+      updateDirection(buttonRef.current, current ? current.menuHeight - current.pillHeight : 0)
+    }
+    const schedule = () => {
+      if (!frame) frame = window.requestAnimationFrame(check)
+    }
+
+    check()
+    window.addEventListener('scroll', schedule, { passive: true })
+    window.addEventListener('resize', schedule)
+
+    return () => {
+      window.removeEventListener('scroll', schedule)
+      window.removeEventListener('resize', schedule)
+      if (frame) window.cancelAnimationFrame(frame)
+    }
+  }, [isListMounted, updateDirection])
+
   // Taille de la pilule qui devient menu (Navbar seulement). Tant que rien n'est mesuré : taille automatique.
   const width = useTransform([menu.expand, tick], ([amount]: number[]) => {
     const current = geometry.current
@@ -105,16 +133,20 @@ function CompactMenu({
 
   return (
     <motion.div
-      className={cn('site-nav__compact', isSelfSized && 'is-self-sized')}
+      className={cn('site-nav__compact', isSelfSized && 'is-self-sized', menu.opensUp && 'opens-up')}
       style={{ ...sizeStyle, ...style }}
       inert={inert}
     >
       <button
         type="button"
+        ref={buttonRef}
         className="site-nav__menu-button"
         aria-expanded={menu.isOpen}
         aria-controls="site-nav-panel"
-        onClick={menu.toggle}
+        onClick={() => {
+          const current = geometry.current
+          menu.toggle(buttonRef.current, current ? current.menuHeight - current.pillHeight : 0)
+        }}
       >
         {currentLabel}
         <LuChevronDown

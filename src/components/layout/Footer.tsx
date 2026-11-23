@@ -1,5 +1,5 @@
-// Pied de page de tout le site : fin de bandeau bambous (on « ressort de la forêt »), puis quatre colonnes
-// (marque, navigation, profils, contact) et une ligne du bas (© et cookies, langue, retour en haut).
+// Pied de page de tout le site : quatre colonnes (marque, navigation, profils, contact) et une ligne du bas
+// (© et cookies, langue, retour en haut). Pas de photo : sur l'accueil, la photo du Contact s'arrête avant.
 // Référence : design/BRIEF.md (style éditorial) et la maquette du pied de page dans design/PLAN.md, étape 8b.
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom'
 import { SOCIAL_LINKS } from '../../data/home'
 import { useSiteNav } from '../../hooks/useSiteNav'
 import { openConsentBanner } from '../../lib/consent'
-import { withBasePath } from '../../lib/site'
 import type { AppLanguage } from '../../types/i18n'
 import AnimatedLogo from './AnimatedLogo'
 
@@ -38,20 +37,6 @@ function Footer() {
 
   return (
     <footer className="site-footer">
-      {/* Fin du bandeau de bambous : même photo et même voile que les autres bannières, déjà chargée plus haut */}
-      <div
-        className="site-footer__forest"
-        aria-hidden="true"
-      >
-        <img
-          className="site-footer__forest-image"
-          src={withBasePath('assets/images/hero-bamboo.webp')}
-          alt=""
-          loading="lazy"
-          decoding="async"
-        />
-      </div>
-
       <div className="site-footer__inner">
         <div className="site-footer__grid">
           <div className="site-footer__brand">

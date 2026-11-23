@@ -1,5 +1,5 @@
 /* ------------------------------------------------------------------ *
- * Design v3 : section Contact (photo bambous plein écran, formulaire, navbar basse).
+ * Design v3 : section Contact (photo bambous, formulaire, navbar basse à cheval sur le bord de la photo).
  * Référence : design/screens/05-contact.png.
  * ------------------------------------------------------------------ */
 
@@ -11,7 +11,9 @@ html.snap-home .contact {
   position: relative;
   display: flex;
   flex-direction: column;
-  min-height: 100dvh;
+  /* La photo s'arrête 4,5 rem au-dessus du bas de la fenêtre : la navbar à cheval sur son bord reste entière à l'écran,
+     avec un peu de fond de page dessous (maquette 05-contact.png) */
+  min-height: calc(100dvh - 4.5rem);
   overflow: hidden;
   background: var(--color-banner-veil);
 }
@@ -34,7 +36,7 @@ html.snap-home .contact {
   align-content: center;
   width: min(100% - 2rem, 56rem);
   margin-inline: auto;
-  padding-block: 5.5rem 2rem;
+  padding-block: 5.5rem 3rem;
 }
 
 /* ---------- Identité : avatar, nom, poste, ronds sociaux ---------- */
@@ -161,10 +163,18 @@ html.snap-home .contact {
   opacity: 0.5;
 }
 
-/* Emplacement de la navbar en bas (vide : la navbar fixe vient se poser dessus, sa hauteur est posée en JS) */
+/* Emplacement de la navbar (vide : la navbar fixe vient se poser dessus). MorphNavbar pose sa hauteur dans
+   --morph-slot-height. La marge négative remonte l'emplacement de la moitié de cette hauteur : le bord bas de la photo
+   passe donc exactement par le milieu vertical de la pilule. Dessous : un espace vide (fond de page), puis le footer.
+   flow-root : la marge négative reste à l'intérieur de ce bloc au lieu de « traverser » vers le haut. */
 .contact__nav {
-  position: relative;
-  padding: 1.5rem 1rem;
+  display: flow-root;
+  padding-bottom: 3rem;
+}
+
+.contact__nav [data-morph-slot] {
+  height: var(--morph-slot-height, 3rem);
+  margin-top: calc(var(--morph-slot-height, 3rem) / -2);
 }
 
 /* ---------- Tablette et ordinateur (≥ 768 px) : deux colonnes ---------- */
@@ -203,7 +213,7 @@ html.snap-home .contact {
 
 @media (min-width: 1024px) {
   .contact__content {
-    padding-block: 3rem 0;
+    padding-block: 3rem 3rem;
   }
 
   .contact__avatar {

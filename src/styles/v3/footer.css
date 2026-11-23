@@ -1,28 +1,11 @@
 /* ------------------------------------------------------------------ *
- * Design v3 : pied de page (fin de bandeau bambous, quatre colonnes, ligne du bas).
+ * Design v3 : pied de page (quatre colonnes, ligne du bas).
  * Style éditorial (design/BRIEF.md §2) : filets fins, étiquettes en petites majuscules, liens soulignés au survol.
  * Mobile : tout centré, une colonne. Tablette (≥ 768 px) : deux colonnes. Ordinateur (≥ 1024 px) : quatre colonnes.
  * ------------------------------------------------------------------ */
 
 .site-footer {
   background: var(--color-page);
-}
-
-/* Fin du bandeau de bambous : une bande de photo, avec le même voile sombre fixe que toutes les bannières */
-.site-footer__forest {
-  height: 4.5rem;
-  overflow: hidden;
-  background: var(--color-banner-veil);
-}
-
-.site-footer__forest-image {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  /* On montre le bas de la photo : c'est la partie qui « finit » la forêt */
-  object-position: center 85%;
-  opacity: 0.7;
 }
 
 .site-footer__inner,
@@ -164,10 +147,6 @@
 
   .site-footer__brand {
     justify-items: start;
-  }
-
-  .site-footer__forest {
-    height: 5.5rem;
   }
 }
 

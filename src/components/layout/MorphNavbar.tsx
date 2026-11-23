@@ -19,7 +19,6 @@ import {
   type MotionValue,
 } from 'framer-motion'
 import { useNavbarModel } from '../../hooks/useNavbarModel'
-import { cn } from '../../lib/cn'
 import CompactMenu, { MENU_RADIUS, type MenuGeometry } from './CompactMenu'
 import type { NavbarSection } from './Navbar'
 
@@ -116,8 +115,11 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore, sce
   const labelSize = useMotionValue(16)
   // Vrai tant que l'élément est un bouton : les onglets sont alors inertes (ni clic, ni tabulation)
   const [isCollapsed, setIsCollapsed] = useState(true)
-  // Vrai quand la navbar est descendue en bas (écran Contact) : son menu compact s'ouvre alors vers le haut
-  const [isAtBottom, setIsAtBottom] = useState(false)
+  // Vrai quand le menu compact s'ouvre vers le haut (pas assez de place sous la pilule) : lu à chaque image par `top`
+  const opensUpRef = useRef(false)
+  useLayoutEffect(() => {
+    opensUpRef.current = menu.opensUp
+  }, [menu.opensUp])
 
   const { scrollY } = useScroll()
 
@@ -166,8 +168,8 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore, sce
   // de sortir de l'écran par le haut.
   //
   // Écran Contact : la position vise l'emplacement vide laissé en bas de la page (il défile avec elle), sans jamais
-  // descendre sous le bas de la fenêtre. Menu compact ouvert : on remonte du surplus de hauteur, pour que le menu
-  // s'ouvre VERS LE HAUT et que la pilule reste à sa place.
+  // descendre sous le bas de la fenêtre. Menu compact ouvert VERS LE HAUT (pas assez de place dessous) : on remonte du
+  // surplus de hauteur, pour que la pilule reste à sa place. Ouvert vers le bas (le cas normal) : rien à corriger.
   const top = useTransform(
     [travel, tick, scrollY, contactTravel, menu.expand],
     ([amount, , scrollTop, downAmount, expanded]: number[]) => {
@@ -179,7 +181,8 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore, sce
 
       const lowestTop = current.viewportHeight - current.height1 - current.top1
       const topWhenDown = Math.max(current.top1, Math.min(current.slotTop - scrollTop, lowestTop))
-      const menuExtra = current.isCompact ? (current.menuHeight - current.height1) * Math.max(0, expanded) : 0
+      const menuExtra =
+        current.isCompact && opensUpRef.current ? (current.menuHeight - current.height1) * Math.max(0, expanded) : 0
 
       return lerp(topWhenUp, topWhenDown, smooth(downAmount)) - menuExtra * downAmount
     },
@@ -254,7 +257,6 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore, sce
   )
 
   useMotionValueEvent(progress, 'change', (value) => setIsCollapsed(value < LEARN_FADE_START))
-  useMotionValueEvent(contactTravel, 'change', (value) => setIsAtBottom(value > 0.5))
 
   // Mesure le bouton d'origine (« fantôme » invisible de la landing) et la taille finale de la navbar.
   // Les tailles de la pilule et du menu compact sont mesurées par CompactMenu (menuGeometry).
@@ -281,7 +283,7 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore, sce
     // ait exactement la même taille que si la navbar s'y trouvait
     const slot = document.querySelector<HTMLElement>('[data-morph-slot]')
     const contact = document.getElementById('contact-form')
-    if (slot) slot.style.height = `${finalHeight}px`
+    if (slot) slot.style.setProperty('--morph-slot-height', `${finalHeight}px`)
     const viewportHeight = document.documentElement.clientHeight
     const contactTop = contact ? contact.getBoundingClientRect().top + window.scrollY : 0
 
@@ -348,7 +350,7 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore, sce
 
   return (
     <motion.header
-      className={cn('site-nav site-nav--morph', isAtBottom && 'site-nav--at-bottom')}
+      className="site-nav site-nav--morph"
       style={{ top, left: centerX, x: '-50%', width, height, rotate: wobble, opacity: fade, borderRadius }}
     >
       <div className="site-nav__clip">

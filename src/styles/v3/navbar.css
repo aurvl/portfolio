@@ -280,21 +280,21 @@
   inset: 0;
 }
 
-/* Navbar descendue en bas (écran Contact) : le menu compact s'ouvre VERS LE HAUT.
+/* Menu compact qui s'ouvre VERS LE HAUT (pas assez de place sous la pilule, voir useCompactMenu) :
    column-reverse met la ligne « About ▾ » en bas et la liste au-dessus ; la chevron se retourne. */
-.site-nav--at-bottom .site-nav__compact {
+.site-nav__compact.opens-up {
   flex-direction: column-reverse;
 }
 
-.site-nav--at-bottom .site-nav__panel {
+.site-nav__compact.opens-up .site-nav__panel {
   padding: 0.5rem 0.5rem 0;
 }
 
-.site-nav--at-bottom .site-nav__chevron {
+.site-nav__compact.opens-up .site-nav__chevron {
   transform: rotate(180deg);
 }
 
-.site-nav--at-bottom .site-nav__chevron.is-open {
+.site-nav__compact.opens-up .site-nav__chevron.is-open {
   transform: none;
 }
 

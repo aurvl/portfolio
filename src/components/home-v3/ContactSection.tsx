@@ -1,6 +1,7 @@
 // Dernier écran de l'accueil : photo bambous plein écran, identité, formulaire de contact et navbar en bas.
 // Référence : design/screens/05-contact.png. L'envoi passe par Formspree, comme avant (même adresse, mêmes champs).
-// En bas, un emplacement vide : la navbar de l'accueil (MorphNavbar) s'y décroche du haut et vient s'y poser.
+// La photo s'arrête net ; juste dessous, un emplacement vide : la navbar de l'accueil (MorphNavbar) s'y décroche du
+// haut et vient se poser À CHEVAL sur le bord bas de la photo (le bord passe par le milieu de la pilule).
 import { useState, type FormEvent } from 'react'
 import { FiSend } from 'react-icons/fi'
 import { SOCIAL_LINKS } from '../../data/home'
@@ -38,131 +39,133 @@ function ContactSection() {
   }
 
   return (
-    <section
-      id="contact-form"
-      className="contact"
-      aria-labelledby="contact-title"
-    >
-      <BambooPhoto className="contact__photo" />
+    <>
+      <section
+        id="contact-form"
+        className="contact"
+        aria-labelledby="contact-title"
+      >
+        <BambooPhoto className="contact__photo" />
 
-      <div className="contact__content">
-        <header className="contact__identity">
-          <Avatar
-            className="contact__avatar"
-            src={profile.avatarSrc ? withBasePath(profile.avatarSrc) : null}
-            alt={profile.avatarAlt}
-          />
-          <div className="contact__who">
-            <p className="contact__name">
-              {profile.firstNames} {profile.lastName}
-            </p>
-            <p className="contact__role">{profile.role}</p>
-            <SocialIcons className="contact__social" />
-          </div>
-        </header>
+        <div className="contact__content">
+          <header className="contact__identity">
+            <Avatar
+              className="contact__avatar"
+              src={profile.avatarSrc ? withBasePath(profile.avatarSrc) : null}
+              alt={profile.avatarAlt}
+            />
+            <div className="contact__who">
+              <p className="contact__name">
+                {profile.firstNames} {profile.lastName}
+              </p>
+              <p className="contact__role">{profile.role}</p>
+              <SocialIcons className="contact__social" />
+            </div>
+          </header>
 
-        <form
-          className="contact__form"
-          action="https://formspree.io/f/xgvewzqo"
-          method="POST"
-          target="_blank"
-          onSubmit={handleSubmit}
-        >
-          <div className="contact__heading">
-            <p className="eyebrow">{nav.contact}</p>
-            <h2
-              id="contact-title"
-              className="contact__title"
-            >
-              {contact.title}
-            </h2>
-          </div>
+          <form
+            className="contact__form"
+            action="https://formspree.io/f/xgvewzqo"
+            method="POST"
+            target="_blank"
+            onSubmit={handleSubmit}
+          >
+            <div className="contact__heading">
+              <p className="eyebrow">{nav.contact}</p>
+              <h2
+                id="contact-title"
+                className="contact__title"
+              >
+                {contact.title}
+              </h2>
+            </div>
 
-          <label className="contact__field">
-            {contact.fields.name}
+            <label className="contact__field">
+              {contact.fields.name}
+              <input
+                type="text"
+                name="name"
+                autoComplete="name"
+                placeholder={contact.fields.namePlaceholder}
+                value={name}
+                onChange={(event) => setName(event.target.value)}
+              />
+            </label>
+
+            <label className="contact__field">
+              {contact.fields.email}
+              <input
+                type="email"
+                name="email"
+                autoComplete="email"
+                placeholder={contact.fields.emailPlaceholder}
+                required
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+              />
+            </label>
+
+            <label className="contact__field">
+              {contact.fields.subject}
+              <select
+                name="subject"
+                value={subject}
+                onChange={(event) => setSubject(event.target.value)}
+              >
+                {contact.subjects.map((option) => (
+                  <option key={option}>{option}</option>
+                ))}
+              </select>
+            </label>
+
+            <label className="contact__field contact__field--message">
+              {contact.fields.message}
+              <textarea
+                name="message"
+                placeholder={contact.fields.messagePlaceholder}
+                required
+                value={message}
+                onChange={(event) => setMessage(event.target.value)}
+              />
+            </label>
+
             <input
-              type="text"
-              name="name"
-              autoComplete="name"
-              placeholder={contact.fields.namePlaceholder}
-              value={name}
-              onChange={(event) => setName(event.target.value)}
+              type="hidden"
+              name="_next"
+              value={`https://formspree.io/thanks?language=${lang}`}
             />
-          </label>
 
-          <label className="contact__field">
-            {contact.fields.email}
-            <input
-              type="email"
-              name="email"
-              autoComplete="email"
-              placeholder={contact.fields.emailPlaceholder}
-              required
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-            />
-          </label>
+            <div className="contact__footer">
+              <p className="contact__note">
+                {isFormReady ? (
+                  <>
+                    {contact.directEmail}{' '}
+                    <a href={`mailto:${SOCIAL_LINKS.email}`}>{SOCIAL_LINKS.email}</a>
+                  </>
+                ) : (
+                  hint
+                )}
+              </p>
+              <Button
+                variant="solid"
+                className="contact__submit"
+                type="submit"
+                disabled={!isFormReady}
+                icon={<FiSend />}
+              >
+                {contact.submit}
+              </Button>
+            </div>
+          </form>
+        </div>
+      </section>
 
-          <label className="contact__field">
-            {contact.fields.subject}
-            <select
-              name="subject"
-              value={subject}
-              onChange={(event) => setSubject(event.target.value)}
-            >
-              {contact.subjects.map((option) => (
-                <option key={option}>{option}</option>
-              ))}
-            </select>
-          </label>
-
-          <label className="contact__field contact__field--message">
-            {contact.fields.message}
-            <textarea
-              name="message"
-              placeholder={contact.fields.messagePlaceholder}
-              required
-              value={message}
-              onChange={(event) => setMessage(event.target.value)}
-            />
-          </label>
-
-          <input
-            type="hidden"
-            name="_next"
-            value={`https://formspree.io/thanks?language=${lang}`}
-          />
-
-          <div className="contact__footer">
-            <p className="contact__note">
-              {isFormReady ? (
-                <>
-                  {contact.directEmail}{' '}
-                  <a href={`mailto:${SOCIAL_LINKS.email}`}>{SOCIAL_LINKS.email}</a>
-                </>
-              ) : (
-                hint
-              )}
-            </p>
-            <Button
-              variant="solid"
-              className="contact__submit"
-              type="submit"
-              disabled={!isFormReady}
-              icon={<FiSend />}
-            >
-              {contact.submit}
-            </Button>
-          </div>
-        </form>
-      </div>
-
-      {/* Emplacement VIDE : la navbar qui voyage (MorphNavbar) vient s'y poser, en bas au milieu.
-          Elle le mesure grâce à data-morph-slot et lui donne sa propre hauteur. */}
+      {/* Emplacement VIDE : la navbar qui voyage (MorphNavbar) vient s'y poser. Il remonte de la moitié de sa hauteur
+          sur la photo (contact.css) ; MorphNavbar le mesure grâce à data-morph-slot et lui donne sa hauteur. */}
       <div className="contact__nav">
         <div data-morph-slot />
       </div>
-    </section>
+    </>
   )
 }
 
