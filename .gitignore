@@ -38,3 +38,6 @@ design/*.png
 
 # Fichier local
 structure.md
+
+# Captures et journaux du navigateur piloté par Playwright
+.playwright-mcp/
