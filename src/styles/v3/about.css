@@ -5,7 +5,7 @@
 
 .about {
   position: relative;
-  min-height: 100dvh;
+  min-height: 100svh;
   padding-bottom: 3rem;
   background: var(--color-page);
 }
