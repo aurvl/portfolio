@@ -1,8 +1,9 @@
 /* ------------------------------------------------------------------ *
  * Design v3 : scène « entrer dans la forêt » de l'accueil (ordinateur, ≥ 1024 px).
- * Landing et About sont deux couches empilées dans un cadre collé à l'écran ; la photo de bambous est une
- * troisième couche, dessous, commune aux deux. La progression vient du scroll (useBambooScene.ts).
- * Sous 1024 px, rien de tout cela ne s'applique : la landing et l'About restent deux sections normales.
+ * Quatre écrans (Landing, About, Recherche, Contact) autour d'UNE photo de bambous. Le cadre collé à l'écran porte
+ * la photo, la landing et l'About ; la liste de Recherche défile sous lui ; le Contact est une seconde couche collée,
+ * au-dessus. La progression vient du scroll (useBambooScene.ts).
+ * Sous 1024 px, rien de tout cela ne s'applique : ce sont des sections normales, l'une sous l'autre.
  * ------------------------------------------------------------------ */
 
 /* framer-motion (useScroll avec une cible) veut un conteneur de scroll en position non statique pour calculer
@@ -12,34 +13,39 @@ html {
 }
 
 @media (min-width: 1024px) {
-  /* La scène fait 200 dvh : 100 dvh de cadre + 100 dvh de défilement pendant lesquels le cadre reste collé.
-     C'est cette distance de scroll qui joue la transition (0 = landing, 1 = About). */
+  /* --papers-band-height : hauteur de la bande de photo pendant l'écran Recherche (lue en JS pour le clip-path,
+     et utilisée par la liste et par les ronds sociaux) */
   .scene {
+    --papers-band-height: 8rem;
     position: relative;
-    height: 200dvh;
-  }
-
-  /* position: sticky + top: 0 : le cadre reste collé en haut de la fenêtre tant qu'on traverse la scène,
-     donc les bambous ne bougent pas pendant que la page défile. overflow: hidden coupe le zoom de la photo. */
-  .scene__stage {
-    position: sticky;
-    top: 0;
-    height: 100dvh;
-    overflow: hidden;
     background: var(--color-page);
   }
 
-  /* La photo : même hauteur que la bannière de la landing (62,5 %). Son bas est rogné par clip-path pendant la
-     transition (jamais en changeant sa hauteur). Voile sombre fixe dessous, comme sur toutes les bannières. */
+  /* position: sticky + top: 0 : le cadre reste collé en haut de la fenêtre tant qu'on traverse la scène, donc les bambous
+     ne bougent pas pendant que la page défile. z-index : au-dessus de la liste de Recherche (qui défile dessous, sans
+     jamais dépasser la bande de photo). Il ne reçoit aucun clic : seuls ses éléments le redeviennent (plus bas). */
+  .scene__stage {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    height: 100dvh;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  /* La photo : un cadre de la hauteur de la fenêtre, dont clip-path ne montre que la bande du haut. Au départ, la bande
+     de la landing (62,5 %) ; useBambooScene la fait ensuite évoluer (jamais en changeant une hauteur).
+     Voile sombre fixe dessous, comme sur toutes les bannières. */
   .scene__photo {
     position: absolute;
     top: 0;
     left: 0;
     z-index: 0;
     width: 100%;
-    height: 62.5%;
+    height: 100%;
     overflow: hidden;
     background: var(--color-banner-veil);
+    clip-path: inset(0 0 37.5% 0);
   }
 
   .scene__photo-image {
@@ -48,8 +54,10 @@ html {
     height: 100%;
     object-fit: cover;
     opacity: 0.7;
-    /* Le zoom part du centre de l'image (le point de fuite des bambous) */
+    /* Le zoom part du centre de l'image */
     transform-origin: 50% 50%;
+    /* Cadrage de départ : le centre de l'image au centre de la bande de la landing (avant tout calcul en JS) */
+    transform: translate3d(0, -18.75dvh, 0);
     will-change: transform;
   }
 
@@ -98,13 +106,19 @@ html {
   .scene .latest-things,
   .scene .about__side,
   .scene .about__main,
-  .scene .about__papers {
+  .scene .about__papers,
+  .scene .papers-chrome__social {
     pointer-events: auto;
   }
 
-  /* Zones invisibles couvrant chaque moitié de la scène. Elles portent les ancres #home et #about (la navbar défile
-     vers elles et sait quelle section est visible) et les points d'arrêt du scroll-snap : une impulsion de scroll
-     mène donc à la landing ou à l'About, jamais entre les deux. */
+  /* Distance de scroll des transitions : les deux premières avant la liste de Recherche, la dernière après */
+  .scene__spacer {
+    height: 100dvh;
+  }
+
+  /* Zones invisibles couvrant chaque écran de la scène. Elles portent les ancres #home, #about et #contact-form (la
+     navbar défile vers elles et sait quelle section est visible) et les points d'arrêt du scroll-snap : une impulsion de
+     scroll mène donc à un écran, jamais entre deux. (#research est le bloc de la liste, plus bas.) */
   .scene__zone {
     position: absolute;
     left: 0;
@@ -121,13 +135,30 @@ html {
     top: 100dvh;
   }
 
+  .scene__zone--contact {
+    bottom: 0;
+  }
+
   html.snap-home .scene__zone {
     scroll-snap-align: start;
   }
 
-  /* Dans la scène, ce ne sont plus la landing et l'About qui portent le calage (leur position change avec le cadre) */
+  /* La liste de Recherche est plus haute que la fenêtre : un point d'arrêt à son début et à sa fin, et le défilement
+     reste libre entre les deux (une zone plus haute que la fenêtre n'est jamais « sautée » par le scroll-snap) */
+  .papers-track {
+    position: relative;
+    min-height: 100dvh;
+  }
+
+  html.snap-home .papers-track {
+    scroll-snap-align: start end;
+  }
+
+  /* Dans la scène, ce ne sont plus ces blocs qui portent le calage (leur position change avec le cadre) */
   html.snap-home .scene .landing,
-  html.snap-home .scene .about {
+  html.snap-home .scene .about,
+  html.snap-home .scene .papers--in-scene,
+  html.snap-home .scene .contact--in-scene {
     scroll-snap-align: none;
   }
 }

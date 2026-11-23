@@ -13,8 +13,8 @@ import BambooPhoto from '../components/ui/BambooPhoto'
 import LandingHero from '../components/home-v3/LandingHero'
 import LatestThings from '../components/home-v3/LatestThings'
 import AboutSection from '../components/home-v3/AboutSection'
-import PublicationsSection from '../components/home-v3/PublicationsSection'
-import ContactSection from '../components/home-v3/ContactSection'
+import PublicationsSection, { PapersChrome } from '../components/home-v3/PublicationsSection'
+import ContactSection, { ContactNavSlot } from '../components/home-v3/ContactSection'
 import {
   PERSON_DESCRIPTION,
   PERSON_NAME,
@@ -43,8 +43,8 @@ function HomePage() {
   const reducedMotion = useReducedMotion() ?? false
   const learnMoreLabel = placeholders.getLandingLabels(lang).learnMore
 
-  // La scène « entrer dans la forêt » n'existe que sur ordinateur (≥ 1024 px). sceneProgress (0 = landing, 1 = About)
-  // sert aussi à la navbar, pour que « Learn more » voyage au même rythme que la photo.
+  // La scène « entrer dans la forêt » n'existe que sur ordinateur (≥ 1024 px). sceneProgress (0 = landing, 1 = About,
+  // 2 = Recherche, 3 = Contact) sert aussi à la navbar, pour que « Learn more » voyage au même rythme que la photo.
   const isSceneActive = useMediaQuery('(min-width: 1024px)')
   const sceneRef = useRef<HTMLDivElement>(null)
   const sceneProgress = useBambooScene(sceneRef, isSceneActive, reducedMotion)
@@ -105,8 +105,9 @@ function HomePage() {
         ]}
       />
 
-      {/* Scène (ordinateur) : landing et About empilés dans un cadre collé à l'écran, sur une photo commune.
-          Sous 1024 px : deux sections normales, l'une sous l'autre (scene.css). */}
+      {/* Scène (ordinateur) : landing, About, Recherche et Contact sont les quatre écrans d'une même scène, sur une
+          photo commune. Le cadre collé à l'écran porte la photo, la landing et l'About ; la liste de Recherche défile
+          sous lui ; le Contact est une seconde couche collée. Sous 1024 px : des sections normales (scene.css). */}
       <div
         ref={sceneRef}
         className="scene"
@@ -118,6 +119,7 @@ function HomePage() {
                 className="scene__photo-image"
                 loading="eager"
                 fetchPriority="high"
+                sizes="145vw"
               />
             </div>
           ) : null}
@@ -140,11 +142,34 @@ function HomePage() {
             onGetInTouch={() => scrollToSection('contact-form')}
             onViewPapers={() => scrollToSection('research')}
           />
+
+          {isSceneActive ? <PapersChrome /> : null}
         </div>
 
-        {/* Ancres et points d'arrêt du scroll : #home = début de la scène, #about = fin de la transition */}
         {isSceneActive ? (
           <>
+            {/* Distance de scroll des deux premières transitions (Landing → About, About → Recherche) */}
+            <div className="scene__spacer" />
+
+            {/* La liste de Recherche : ordinaire dans la page, fixée à l'écran pendant les transitions (useBambooScene).
+                Ce bloc garde sa place dans la page (hauteur posée en JS) et porte l'ancre #research. */}
+            <div
+              id="research"
+              className="papers-track"
+            >
+              <PublicationsSection
+                inScene
+                onBackToAbout={() => scrollToSection('about')}
+              />
+            </div>
+
+            <ContactSection inScene />
+
+            {/* Distance de scroll de la dernière transition (Recherche → Contact) */}
+            <div className="scene__spacer" />
+
+            {/* Ancres et points d'arrêt du scroll : #home = début de la scène, #about = fin de la 1re transition,
+                #research = le bloc ci-dessus, #contact-form = fin de la dernière transition */}
             <div
               id="home"
               className="scene__zone scene__zone--home"
@@ -153,13 +178,22 @@ function HomePage() {
               id="about"
               className="scene__zone scene__zone--about"
             />
+            <div
+              id="contact-form"
+              className="scene__zone scene__zone--contact"
+            />
           </>
         ) : null}
       </div>
 
-      <PublicationsSection onBackToAbout={() => scrollToSection('about')} />
+      {isSceneActive ? null : (
+        <>
+          <PublicationsSection onBackToAbout={() => scrollToSection('about')} />
+          <ContactSection />
+        </>
+      )}
 
-      <ContactSection />
+      <ContactNavSlot inScene={isSceneActive} />
     </MainLayout>
   )
 }

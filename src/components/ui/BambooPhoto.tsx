@@ -21,16 +21,18 @@ type BambooPhotoProps = {
   // « eager » pour la photo visible dès l'arrivée (landing), « lazy » pour les autres
   loading?: 'eager' | 'lazy'
   fetchPriority?: 'high' | 'low' | 'auto'
+  // Largeur à l'écran, pour choisir le fichier. Par défaut toute la largeur ; la photo de la scène de l'accueil, qui
+  // zoome jusqu'à ×1,45, demande « 145vw » pour recevoir une taille assez grande et rester nette.
+  sizes?: string
 }
 
-function BambooPhoto({ className, loading = 'lazy', fetchPriority }: BambooPhotoProps) {
+function BambooPhoto({ className, loading = 'lazy', fetchPriority, sizes = '100vw' }: BambooPhotoProps) {
   return (
     <img
       className={className}
       src={BAMBOO_FALLBACK_SRC}
       srcSet={BAMBOO_SRC_SET}
-      // La photo occupe toute la largeur de la fenêtre
-      sizes="100vw"
+      sizes={sizes}
       alt=""
       loading={loading}
       fetchPriority={fetchPriority}

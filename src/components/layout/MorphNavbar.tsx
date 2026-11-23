@@ -94,7 +94,8 @@ type MorphNavbarProps = {
   reducedMotion: boolean
   learnMoreLabel: string
   onLearnMore: () => void
-  // Progression 0 → 1 de la scène « entrer dans la forêt » (ordinateur) ; isSceneActive dit si elle s'applique
+  // Progression 0 → 3 de la scène « entrer dans la forêt » (ordinateur : 0 → 1 Landing → About, 1 → 2 About →
+  // Recherche, 2 → 3 Recherche → Contact) ; isSceneActive dit si elle s'applique
   sceneProgress: MotionValue<number>
   isSceneActive: boolean
 }
@@ -151,13 +152,16 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore, sce
   )
   const widen = useSpring(widenTarget, { stiffness: 220, damping: 11, mass: 0.9 })
 
-  // VOYAGE VERS LE BAS (écran Contact), 0 → 1, lui aussi lié au scroll : de l'instant où le Contact commence à
-  // entrer dans la fenêtre jusqu'à ce qu'il la remplisse. La navbar se décroche du haut et descend se poser
-  // sur son emplacement en bas, au milieu. Si on remonte, elle remonte. Sans animation : elle saute à mi-course.
-  const contactTravel = useTransform([scrollY, tick], ([scrollTop]: number[]) => {
+  // VOYAGE VERS LE BAS (écran Contact), 0 → 1, lui aussi lié au scroll. Ordinateur : il se joue pendant la dernière
+  // transition de la scène (la photo se rouvre), la navbar descend en même temps. Mobile et tablette : de l'instant où
+  // le Contact commence à entrer dans la fenêtre jusqu'à ce qu'il la remplisse. La navbar se décroche du haut et descend
+  // se poser sur son emplacement en bas, au milieu. Si on remonte, elle remonte. Sans animation : elle saute à mi-course.
+  const contactTravel = useTransform([scrollY, tick, sceneProgress], ([scrollTop, , sceneValue]: number[]) => {
     const current = geometry.current
     if (!current?.hasContact) return 0
-    const amount = clamp01((scrollTop - current.contactFrom) / Math.max(1, current.contactTo - current.contactFrom))
+    const amount = current.inScene
+      ? clamp01(sceneValue - 2)
+      : clamp01((scrollTop - current.contactFrom) / Math.max(1, current.contactTo - current.contactFrom))
     return reducedRef.current ? (amount > 0.5 ? 1 : 0) : amount
   })
 
@@ -335,6 +339,9 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore, sce
     // Le Contact peut changer de hauteur (police, fenêtre) : on remesure
     const contactSection = document.getElementById('contact-form')
     if (contactSection) observer.observe(contactSection)
+    // Sur ordinateur, la hauteur de la scène (liste de Recherche) décale l'emplacement de la navbar : on remesure
+    const scene = document.querySelector('.scene')
+    if (scene) observer.observe(scene)
 
     return () => {
       window.removeEventListener('resize', measure)

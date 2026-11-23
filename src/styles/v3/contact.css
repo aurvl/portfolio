@@ -7,13 +7,18 @@ html.snap-home .contact {
   scroll-snap-align: start;
 }
 
+:root {
+  /* Espace vide sous la photo du Contact : le bord bas de la photo s'arrête là (la navbar basse est à cheval dessus) */
+  --contact-photo-gap: 4.5rem;
+}
+
 .contact {
   position: relative;
   display: flex;
   flex-direction: column;
-  /* La photo s'arrête 4,5 rem au-dessus du bas de la fenêtre : la navbar à cheval sur son bord reste entière à l'écran,
+  /* La photo s'arrête au-dessus du bas de la fenêtre : la navbar à cheval sur son bord reste entière à l'écran,
      avec un peu de fond de page dessous (maquette 05-contact.png) */
-  min-height: calc(100dvh - 4.5rem);
+  min-height: calc(100dvh - var(--contact-photo-gap));
   overflow: hidden;
   background: var(--color-banner-veil);
 }
@@ -177,6 +182,12 @@ html.snap-home .contact {
   margin-top: calc(var(--morph-slot-height, 3rem) / -2);
 }
 
+/* Dans la scène (ordinateur), l'emplacement suit le cadre de la scène, qui fait toute la hauteur de la fenêtre : la photo
+   s'arrête --contact-photo-gap plus haut, l'emplacement remonte donc d'autant en plus */
+.contact__nav--in-scene [data-morph-slot] {
+  margin-top: calc(var(--morph-slot-height, 3rem) / -2 - var(--contact-photo-gap));
+}
+
 /* ---------- Tablette et ordinateur (≥ 768 px) : deux colonnes ---------- */
 
 @media (min-width: 768px) {
@@ -224,4 +235,33 @@ html.snap-home .contact {
     font-size: 2rem;
   }
 
+}
+
+/* ---------- Dans la scène de l'accueil (ordinateur, ≥ 1024 px) ----------
+   La photo est celle de la scène : cette section n'est plus que l'identité et le formulaire, dans une couche de la
+   hauteur de la fenêtre, collée à l'écran (position: sticky) pendant la dernière transition. La marge négative la
+   remonte sur la fin de la liste de Recherche : elle se colle au moment où la photo commence à se rouvrir.
+   Le padding du bas garde l'espace vide sous la photo (lu en JS pour arrêter la photo à cet endroit). */
+
+@media (min-width: 1024px) {
+  .contact--in-scene {
+    position: sticky;
+    top: 0;
+    z-index: 3;
+    box-sizing: border-box;
+    height: 100dvh;
+    min-height: 0;
+    margin-top: -100dvh;
+    padding-bottom: var(--contact-photo-gap);
+    overflow: visible;
+    background: transparent;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .contact--in-scene .contact__identity,
+  .contact--in-scene .contact__form {
+    pointer-events: auto;
+  }
 }

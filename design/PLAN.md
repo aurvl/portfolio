@@ -178,13 +178,21 @@ version 1200 px, sinon le fichier de 1,25 Mo se télécharge pour rien).
       défile jusqu'à `#about`, le second voyage vers le Contact se pose exactement sur son emplacement. Le bouton
       croisait l'avatar vers 35 % : il fait maintenant un léger arc vers la droite pendant la montée
       (`FLIGHT_ARC_PX = 90`, ordinateur seulement, nul en mouvement réduit) ; écart minimal avec l'avatar rond : 14 px.
-- [ ] E3b. Sections de l'accueil dans la scène (ordinateur ≥ 1024 px) : About → Recherche → Contact, même principe
-      que Landing → About (« avancer dans la forêt »). Un seul `<img>` de photo pour toute la scène ; niveaux de zoom
-      de départ ×1,00 (Landing) → ×1,16 (About) → ×1,30 (Recherche) → ×1,45 (Contact). Bannière 12 rem → 9 rem
-      (Recherche) puis dilatée par `clip-path` jusqu'au plein écran (Contact). Recherche : scroll libre dans la section
-      (bannière `sticky`), la transition vers le Contact ne démarre qu'à la fin de la liste. `useBambooScene` généralisé
-      (progression 0 à 3, 4 paliers). NETTETÉ : à ×1,45 sur grand écran, utiliser la photo 2400 px et plafonner le zoom
-      si elle devient floue. Aucun détournement de la molette, seulement `transform`, `opacity`, `clip-path`.
+- [x] E3b. Sections de l'accueil dans la scène (ordinateur ≥ 1024 px) : About → Recherche → Contact, même principe
+      que Landing → About. UNE seule photo (cadre plein écran, `clip-path` = bande visible, bords mesurés :
+      62,5 % → About → 8 rem (Recherche) → plein écran moins 4,5 rem (Contact)) ; zooms ×1,00 → ×1,16 → ×1,30 →
+      ×1,45, plafonnés si la photo (2400 px) risque d'être floue (`PHOTO_MAX_UPSCALE`, selon la largeur en pixels
+      d'écran) ; `sizes="145vw"` et deux préchargements dans `index.html` (≥ 1024 px et en dessous). `useBambooScene`
+      généralisé : progression 0 à 3 (une unité par transition), partagée avec `MorphNavbar` (le voyage vers le Contact
+      se joue pendant la dernière transition). Recherche : bloc `.papers` ordinaire qui défile librement, fixé à l'écran
+      (`position: fixed`, classes `is-pinned-start` / `is-pinned-end`) avant et après son défilement ; il passe SOUS le
+      cadre de la scène, donc derrière la bande de photo ; ronds sociaux + bande de la couleur de la page dans
+      `PapersChrome` (collés au cadre). Contact : couche `position: sticky` placée après la liste (`contact--in-scene`),
+      `ContactNavSlot` séparé (la navbar reste à cheval sur le bord de la photo). Points d'arrêt du scroll-snap : zones
+      #home, #about, #contact-form et le bloc #research (début et fin ; défilement libre entre les deux). Mobile et
+      tablette inchangés. Vérifié au Playwright (1651 x 900 et 390 px). À régler à l'œil : bande de Recherche
+      (`--papers-band-height`, 8 rem), amplitudes (`ZOOM_STEPS`, `*_SHIFT_PX`), moments des fondus (`useBambooScene.ts`).
+      Limite connue : la liste de Recherche (placeholders) n'a que ~30 px de défilement libre ; le vrai contenu sera plus long.
 - [ ] E4. Mobile et tablette (< 1024 px) : garder le zoom des bambous et le resserrement de la bannière (`clip-path`),
       sans la scène collante si elle casse la landing qui défile (sous 900 px de haut) ; glissement avatar / nom
       optionnel (le supprimer si risqué) ; `prefers-reduced-motion` complet (aujourd'hui : bascule à mi-parcours sans

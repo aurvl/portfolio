@@ -196,8 +196,9 @@ Le desktop (≥ 1024 px) ne change pas.
 > bouton Précédent du navigateur n'est pas animé (accepté pour l'instant) ; zone morte supprimée ; sur mobile on garde
 > le zoom des bambous ET le resserrement de la bannière (le glissement de l'avatar et du nom peut être supprimé) ;
 > photo en trois tailles (1200 / 1920 / 2400 px, `srcset`) + préchargement.
-> Avancement : étapes 1 (scène collante, calage, photo responsive) et 2 (animation Landing → About) faites sur
-> ordinateur ; restent le mobile et le mouvement réduit complet (étape 4) et les View Transitions entre pages (étape 5).
+> Avancement : étapes 1 (scène collante, calage, photo responsive), 2 (animation Landing → About), 3 (navbar) et
+> 3b (About → Recherche → Contact) faites sur ordinateur ; restent le mobile et le mouvement réduit complet (étape 4)
+> et les View Transitions entre pages (étape 5).
 
 **Idée.** La photo de bambous est l'élément commun à toutes les pages. Elle est le fil conducteur : comme une
 « morph » PowerPoint, on reste dans le même univers et la scène se transforme autour d'elle. Aller plus loin dans le
@@ -212,6 +213,17 @@ site = on avance dans la forêt (zoom avant) ; revenir = zoom arrière.
   La molette fait défiler la page NORMALEMENT (décision 10 respectée : jamais de détournement) ; la distance
   parcourue est simplement lue (`useScroll`) pour piloter la scène. Calage natif en `scroll-snap` sur le début et la
   fin de la scène : une impulsion de scroll mène à l'une ou l'autre, jamais entre les deux.
+
+**A bis. About → Recherche → Contact (même scène, ordinateur).** Aucun passage n'est un simple défilement : chacun
+transforme la scène autour de la photo, qui avance dans la forêt (zoom croissant : ×1,00 / 1,16 / 1,30 / 1,45).
+- About → Recherche : la photo reste fixe, la bande se resserre encore (8 rem) et zoome ; l'About s'efface en
+  glissant vers le haut, la liste de Recherche apparaît (les deux fondus se chevauchent).
+- Recherche : la liste défile LIBREMENT sous la bande de photo (qui reste en place, ronds sociaux à cheval sur son bord).
+- Recherche → Contact : la photo se rouvre presque jusqu'en bas en zoomant (on « entre » dans la forêt) pendant que la
+  navbar descend se poser à cheval sur le bord bas de la photo ; la Recherche s'efface, l'identité et le formulaire
+  apparaissent.
+- Un seul `<img>` pour toute la scène ; le zoom est plafonné si la photo risque d'être floue (écrans très larges ou
+  très denses). Mobile et tablette : sections normales (étape 4).
 
 **B. Entre pages (About → Projets, Recherche, articles…).**
 - View Transitions API native, via `viewTransition` de react-router (aucune dépendance).
