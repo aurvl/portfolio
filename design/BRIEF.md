@@ -185,5 +185,36 @@ la capsule complète en haut n'existe qu'à partir de 1024 px (à 768 px elle pa
 
 Le desktop (≥ 1024 px) ne change pas.
 
+## 6c. Transitions immersives (« entrer dans la forêt ») — EXPÉRIENCE, branche `experiment/bamboo-transitions`
+
+> Statut : concept à valider. Rien n'est codé tant que le propriétaire n'a pas donné son feu vert. Cette section
+> complète §2 (exceptions d'animation) ; si le concept est retenu, elle remplace le morph « Learn more » seul.
+
+**Idée.** La photo de bambous est l'élément commun à toutes les pages. Elle est le fil conducteur : comme une
+« morph » PowerPoint, on reste dans le même univers et la scène se transforme autour d'elle. Aller plus loin dans le
+site = on avance dans la forêt (zoom avant) ; revenir = zoom arrière.
+
+**A. Landing → About (sur la page d'accueil).**
+- Les bambous restent FIXES à l'écran : aucun effet de défilement de la photo.
+- La bannière se resserre de sa hauteur landing à celle du bandeau About, pendant que la photo zoome légèrement.
+- L'avatar et le nom glissent vers leur place dans l'About ; « Learn more » devient la navbar ; « Latest things »
+  s'efface ; le contenu About apparaît. Retour en arrière = l'inverse exact.
+- Réalisation : une « scène » haute (landing + About) avec un cadre `position: sticky` d'une hauteur de fenêtre.
+  La molette fait défiler la page NORMALEMENT (décision 10 respectée : jamais de détournement) ; la distance
+  parcourue est simplement lue (`useScroll`) pour piloter la scène. Calage natif en `scroll-snap` sur le début et la
+  fin de la scène : une impulsion de scroll mène à l'une ou l'autre, jamais entre les deux.
+
+**B. Entre pages (About → Projets, Recherche, articles…).**
+- View Transitions API native, via `viewTransition` de react-router (aucune dépendance).
+- Le bandeau bambous est un élément partagé (`view-transition-name`) qui se transforme d'une page à l'autre.
+- Plus profond dans le site = zoom avant ; moins profond = zoom arrière (la profondeur vient de la route :
+  accueil < hub / publications < article / série).
+- Navbar et pilule langue / thème ont leur propre nom de transition : elles ne scintillent pas pendant le changement.
+
+**Contraintes.** Aucune nouvelle dépendance. On n'anime que `transform`, `opacity` et `clip-path` (jamais la hauteur
+ni la largeur). Photo préchargée. Fluide sur mobile (en dessous de 1024 px ou de 900 px de haut, la scène est
+simplifiée, voir le plan). `prefers-reduced-motion` : simple fondu, aucun zoom ni déplacement. Navigateur sans View
+Transitions : navigation normale, sans animation.
+
 ## 7. Hors périmètre de cette phase
 Contenu réel, SEO, analytics, scripts de contenu : ne pas toucher sauf si une route change.
