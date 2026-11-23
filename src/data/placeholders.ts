@@ -265,6 +265,39 @@ const latestThings: LocalizedField<LatestThing[]> = {
   ],
 }
 
+// ---------------------------------------------------------------- Libellés de la section Publications
+
+export type PlaceholderPublicationsLabels = {
+  eyebrow: string
+  title: string
+  intro: string
+  backToAbout: string
+  viewPaper: string
+  seoTitle: string
+  seoDescription: string
+}
+
+const publicationsLabels: LocalizedField<PlaceholderPublicationsLabels> = {
+  en: {
+    eyebrow: 'Research',
+    title: 'My research papers',
+    intro: 'Placeholder introduction: a few lines to say what the papers below have in common.',
+    backToAbout: 'Back to about',
+    viewPaper: 'View paper',
+    seoTitle: 'Research papers',
+    seoDescription: 'Placeholder description of the research papers page.',
+  },
+  fr: {
+    eyebrow: 'Recherche',
+    title: 'Mes articles de recherche',
+    intro: 'Introduction fictive : quelques lignes pour dire ce que les articles ci-dessous ont en commun.',
+    backToAbout: 'Retour à À propos',
+    viewPaper: 'Voir l’article',
+    seoTitle: 'Articles de recherche',
+    seoDescription: 'Description fictive de la page des articles de recherche.',
+  },
+}
+
 // ---------------------------------------------------------------- Publications
 
 // Même forme que src/data/publications.json (kind et status existent en EN et FR).
@@ -371,6 +404,7 @@ export const placeholders = {
   getThemes: (lang: AppLanguage) => themes[lang],
   getLandingLabels: (lang: AppLanguage) => landingLabels[lang],
   getLatestThings: (lang: AppLanguage) => latestThings[lang],
+  getPublicationsLabels: (lang: AppLanguage) => publicationsLabels[lang],
   getPublications: (lang: AppLanguage) =>
     publications.map(({ kind, status, ...entry }) => ({
       ...entry,

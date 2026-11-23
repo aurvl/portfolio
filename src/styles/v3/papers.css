@@ -1,0 +1,147 @@
+/* ------------------------------------------------------------------ *
+ * Design v3 : section Publications (bannière, ronds sociaux, liste d'articles).
+ * Référence : design/screens/03-publications.png.
+ * ------------------------------------------------------------------ */
+
+html.snap-home .papers {
+  scroll-snap-align: start;
+}
+
+.papers {
+  min-height: 100dvh;
+  padding-bottom: 4rem;
+  background: var(--color-page);
+}
+
+.papers__banner {
+  position: relative;
+  height: 9rem;
+  overflow: hidden;
+  background: var(--color-banner-veil);
+}
+
+.papers__banner-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.7;
+}
+
+.papers__grid {
+  /* position + z-index : l'image voilée crée sa propre couche ; on remonte la grille
+     pour que les ronds sociaux chevauchent bien le bas de la bannière */
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.5rem;
+  width: min(100% - 2rem, 70rem);
+  margin-inline: auto;
+}
+
+/* Ronds sociaux à cheval sur le bord de la bannière : remontés de la moitié de leur hauteur */
+.papers__social {
+  justify-content: flex-end;
+  margin-top: -1.5rem;
+}
+
+.papers__title {
+  margin: 0.5rem 0 0;
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--color-ink);
+}
+
+.papers__intro {
+  max-width: 46rem;
+  margin: 0.75rem 0 0;
+  line-height: 1.55;
+  color: var(--color-muted);
+}
+
+/* Liste : un filet fin au-dessus de chaque article, pas de boîtes */
+.papers__list {
+  margin: 2rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.papers__item {
+  display: grid;
+  gap: 0.5rem;
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--color-line);
+}
+
+.papers__item:last-child {
+  border-bottom: 1px solid var(--color-line);
+}
+
+.papers__meta {
+  margin: 0;
+}
+
+.papers__item-title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--color-ink);
+}
+
+.papers__cite {
+  margin: 0;
+  line-height: 1.5;
+  color: var(--color-muted);
+}
+
+.papers__cite strong {
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.papers__link {
+  justify-self: start;
+}
+
+/* ---------- Ordinateur (≥ 1024 px) : bouton à gauche, articles à droite ---------- */
+
+@media (min-width: 1024px) {
+  .papers {
+    padding-bottom: 6rem;
+  }
+
+  .papers__banner {
+    height: 12rem;
+  }
+
+  .papers__grid {
+    grid-template-columns: 14rem minmax(0, 1fr);
+    column-gap: 3rem;
+    row-gap: 0;
+  }
+
+  /* Les ronds occupent la colonne de droite, sur la ligne du bord de la bannière */
+  .papers__social {
+    grid-column: 2;
+  }
+
+  .papers__side {
+    grid-column: 1;
+    grid-row: 2;
+    padding-top: 0.75rem;
+  }
+
+  .papers__main {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .papers__title {
+    font-size: 2.75rem;
+  }
+}

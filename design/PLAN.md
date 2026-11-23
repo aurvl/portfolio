@@ -106,7 +106,11 @@ Modifier : `Navbar`, `MainLayout`, `HomePage`, `ProjectsPage`, `BlogPage`, `Publ
       par le scroll (zone morte 12 %, suit la page au départ, ressort, onglets un par un) ; sur mobile la pilule
       s'agrandit en menu (`CompactMenu`). À reprendre : ressenti à la molette et au doigt (non testé), menu vers le
       haut pour la navbar basse (8), scrolls fluides vers les autres sections (7 à 9).
-- [ ] 7. Publications (section + page + « Back to about »).
+- [x] 7. Publications : `PublicationsSection` (id `research`, bannière + ronds sociaux, articles séparés par des
+      filets, « Back to about » en filet) sur l'accueil après l'About et sur `/publications` (navbar directe) ;
+      « View my papers » défile vers elle ; styles dans `papers.css`. À reprendre : titre du bouton « Back to about »
+      (↑ ici, ↓ sur la maquette), ORCID seulement via les ronds sociaux, bloc travaux en cours / thèse (contenu réel),
+      mobile non vérifié (13).
 - [ ] 8. Contact (Formspree, navbar en fin de page).
 - [ ] 9. Assemblage `HomePage` one-page en CSS scroll-snap, ancres, hash, SEO.
 - [ ] 10. Hub : en-tête, `FeaturedHub`, grille `ProjectCard`.

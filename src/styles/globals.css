@@ -5,6 +5,7 @@
 @import "./v3/navbar.css";
 @import "./v3/landing.css";
 @import "./v3/about.css";
+@import "./v3/papers.css";
 
 :root {
   color-scheme: dark;
