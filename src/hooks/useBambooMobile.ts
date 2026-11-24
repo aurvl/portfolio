@@ -7,7 +7,8 @@
 // rampe, zigzague et reste coincée à mi-chemin. Ici il n'existe que deux états, « landing » (0) et « about » (1) :
 //   - dès que le scroll dépasse TRIGGER_PX, la transition complète se joue seule en ~600 ms (ressort, léger rebond) :
 //     le bouton voyage jusqu'à la pilule, l'identité de la landing s'efface, les bambous zooment et la bannière
-//     se resserre. Au même moment la page défile jusqu'à l'About, déroulée par nous pendant 0,6 s (la page est
+//     se resserre. Ce que voit l'écran est une animation WAAPI (lib/morphPlayer), confiée au navigateur : Safari iOS
+//     n'affiche pas les animations JavaScript pendant l'élan du doigt, mais joue les siennes. Au même moment la page défile jusqu'à l'About, déroulée par nous pendant 0,6 s (la page est
 //     verrouillée ce court instant : sur iPhone, l'élan natif empêche Safari d'afficher les animations) ;
 //   - quand on revient tout en haut, la même transition se joue à l'envers ;
 //   - si le doigt s'arrête entre les deux, la page termine d'elle-même le mouvement (calage au repos).
@@ -22,6 +23,7 @@
 // prefers-reduced-motion : ni zoom, ni resserrement, ni défilement animé ; seulement des fondus simples.
 import { useLayoutEffect } from 'react'
 import { animate, useMotionValue, useScroll, type MotionValue } from 'framer-motion'
+import { MORPH_DURATION_MS, morphEase, playMorph, registerMorphElement, stopMorph } from '../lib/morphPlayer'
 
 type BannerSpec = {
   // Le cadre (clip-path, opacité) et la photo qu'il contient (zoom)
@@ -55,8 +57,6 @@ const BANNERS: BannerSpec[] = [
 
 // Seuil de déclenchement : au-delà de ce scroll (en px), la transition se joue
 const TRIGGER_PX = 40
-// Durée et rebond du ressort de la transition
-const SPRING = { type: 'spring', duration: 0.6, bounce: 0.15 } as const
 // Mouvement réduit : fondu simple, sans ressort
 const FADE = { duration: 0.25, ease: 'linear' } as const
 // Attente (ms) sans aucun scroll avant de terminer le mouvement à la place du doigt
@@ -76,7 +76,7 @@ const ZOOM_LEAVING_EXTRA = 0.1
 
 const clamp01 = (value: number) => Math.min(1, Math.max(0, value))
 // Départ et arrivée en douceur (vitesse nulle aux deux bouts)
-const smooth = (amount: number) => amount * amount * (3 - 2 * amount)
+const smooth = morphEase
 
 export function useBambooMobile(isActive: boolean, reducedMotion: boolean): MotionValue<number> {
   const { scrollY } = useScroll()
@@ -104,20 +104,27 @@ export function useBambooMobile(isActive: boolean, reducedMotion: boolean): Moti
     // LANDING : tout vient de `progress` (jouée dans le temps). L'identité (avatar, nom, poste, réseaux) s'efface sur
     // la première moitié de la transition, avant que l'en-tête de l'About n'entre à l'écran : jamais deux fois le
     // même visage. Les bambous zooment et la bannière se resserre par le bas (sauf mouvement réduit).
+    // Les styles de chaque élément à une progression donnée : fonctions pures, lues à la fois par les styles en ligne
+    // (applyLanding) et par les animations WAAPI (morphPlayer), pour que les deux affichent exactement la même chose.
+    const identityOpacity = (value: number) => 1 - clamp01(value / 0.5)
+    // « Latest things » s'efface sur les 40 premiers % : le bouton qui vole vers le haut ne passe jamais sur une carte
+    const latestOpacity = (value: number) => 1 - clamp01(value / 0.4)
+    const imageTransform = (value: number) => `scale(${1 + LANDING_BANNER.zoomExtra * value})`
+    const frameClipPath = (value: number) => `inset(0 0 ${LANDING_BANNER.clipMaxPx * clamp01(value)}px 0)`
+
     const applyLanding = (value: number) => {
       const amount = clamp01(value)
 
       if (landingIdentity) {
-        landingIdentity.style.opacity = String(1 - clamp01(amount / 0.5))
+        landingIdentity.style.opacity = String(identityOpacity(amount))
         const shouldBeInert = amount > 0.5
         if (shouldBeInert !== isLandingInert) {
           landingIdentity.inert = shouldBeInert
           isLandingInert = shouldBeInert
         }
       }
-      // « Latest things » s'efface sur les 40 premiers % : le bouton qui vole vers le haut ne passe jamais sur une carte
       if (latestThings) {
-        latestThings.style.opacity = String(1 - clamp01(amount / 0.4))
+        latestThings.style.opacity = String(latestOpacity(amount))
         const shouldBeInert = amount > 0.4
         if (shouldBeInert !== isLatestInert) {
           latestThings.inert = shouldBeInert
@@ -126,8 +133,25 @@ export function useBambooMobile(isActive: boolean, reducedMotion: boolean): Moti
       }
       if (reducedMotion || !landingFrame || !landingImage) return
 
-      landingImage.style.transform = `scale(${1 + LANDING_BANNER.zoomExtra * value})`
-      landingFrame.style.clipPath = `inset(0 0 ${LANDING_BANNER.clipMaxPx * amount}px 0)`
+      landingImage.style.transform = imageTransform(value)
+      landingFrame.style.clipPath = frameClipPath(amount)
+    }
+
+    // Inscription auprès du lecteur WAAPI (pas en mouvement réduit : simple fondu, voir `play`)
+    const unregisterPlayers: Array<() => void> = []
+    if (!reducedMotion) {
+      if (landingIdentity) {
+        unregisterPlayers.push(registerMorphElement(landingIdentity, ({ progress: value }) => ({ opacity: identityOpacity(value) })))
+      }
+      if (latestThings) {
+        unregisterPlayers.push(registerMorphElement(latestThings, ({ progress: value }) => ({ opacity: latestOpacity(value) })))
+      }
+      if (landingImage) {
+        unregisterPlayers.push(registerMorphElement(landingImage, ({ progress: value }) => ({ transform: imageTransform(value) })))
+      }
+      if (landingFrame) {
+        unregisterPlayers.push(registerMorphElement(landingFrame, ({ progress: value }) => ({ clipPath: frameClipPath(value) })))
+      }
     }
 
     // AUTRES BANNIÈRES : liées à leur position dans la page
@@ -213,9 +237,13 @@ export function useBambooMobile(isActive: boolean, reducedMotion: boolean): Moti
     }
 
     const play = (next: 0 | 1) => {
+      const from = progress.get()
       target = next
       playback?.stop()
-      playback = animate(progress, next, reducedMotion ? FADE : SPRING)
+      // La progression (états, onglets inertes…) reste jouée par framer-motion, sur la même courbe et la même durée que les
+      // animations WAAPI, qui sont, elles, ce que l'écran affiche pendant la transition
+      playback = animate(progress, next, reducedMotion ? FADE : { duration: MORPH_DURATION_MS / 1000, ease: morphEase })
+      if (!reducedMotion) playMorph(from, next)
     }
 
     // Au repos (plus aucun scroll, doigt levé) : pas d'état intermédiaire possible. Dans la zone de la landing,
@@ -280,6 +308,8 @@ export function useBambooMobile(isActive: boolean, reducedMotion: boolean): Moti
       window.clearTimeout(settleTimer)
       stopGlide()
       playback?.stop()
+      stopMorph()
+      unregisterPlayers.forEach((unregister) => unregister())
       stopListening()
       stopProgress()
       window.removeEventListener('resize', applyBanners)

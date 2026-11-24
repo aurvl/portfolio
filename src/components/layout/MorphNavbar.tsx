@@ -20,6 +20,7 @@ import {
 } from 'framer-motion'
 import { useNavbarModel } from '../../hooks/useNavbarModel'
 import CompactMenu, { MENU_RADIUS, type MenuGeometry } from './CompactMenu'
+import { morphEase, registerMorphElement, type MorphFrame } from '../../lib/morphPlayer'
 import type { NavbarSection } from './Navbar'
 
 // Mesures prises dans la page (en px, par rapport à la fenêtre au scroll 0) : départ = le bouton d'origine,
@@ -82,25 +83,79 @@ function getDocumentTop(element: HTMLElement) {
 const clamp01 = (value: number) => Math.min(1, Math.max(0, value))
 const lerp = (from: number, to: number, amount: number) => from + (to - from) * amount
 // Départ et arrivée en douceur (la vitesse est nulle aux deux bouts)
-const smooth = (amount: number) => amount * amount * (3 - 2 * amount)
+const smooth = morphEase
+
+// ---------- Formules du voyage ----------
+// Fonctions pures, lues à la fois par les valeurs framer-motion (ordinateur, scroll) et par les animations WAAPI
+// (version tactile, voir lib/morphPlayer) : les deux affichent exactement la même chose.
+
+// Voyage du bouton (0 → 1 sur les 65 premiers % de la progression)
+const getTravel = (value: number) => clamp01(value / TRAVEL_END)
+
+// Élargissement en navbar, avec un petit dépassement (rebond) : version tactile, sans ressort JavaScript
+const getWidenOvershoot = (target: number) => {
+  const overshoot = 1.4
+  const shifted = target - 1
+
+  return 1 + (overshoot + 1) * shifted ** 3 + overshoot * shifted ** 2
+}
+
+const getLearnOpacity = (value: number) => 1 - clamp01((value - LEARN_FADE_START) / (LEARN_FADE_END - LEARN_FADE_START))
+const getCompactOpacity = (value: number) => clamp01((value - 0.82) / 0.15)
+const getTabOpacity = (value: number, rank: number) => clamp01((value - (TAB_START + rank * TAB_STAGGER)) / TAB_FADE)
+
+// Place verticale (hors écran Contact) : le bouton suit la page, puis remonte plus vite jusqu'à sa place en haut
+const getFlightTop = (current: Geometry, travel: number, followedScroll: number) =>
+  Math.max(current.top1, lerp(current.top0 - followedScroll, current.top1, smooth(travel)))
+
+const getFlightWidth = (current: Geometry, travel: number, widen: number) =>
+  lerp(current.width0, current.width1, widen) * (1 - 0.1 * Math.sin(travel * Math.PI))
+
+// Pilule compacte (téléphone) : pas d'étirement, elle reste petite
+const getFlightHeight = (current: Geometry, travel: number, widen: number) =>
+  lerp(current.height0, current.height1, widen) * (1 + (current.isCompact ? 0 : 0.22 * Math.sin(travel * Math.PI)))
+
+// Centre horizontal : suit le bord gauche en version compacte ; léger arc vers la droite sur grand écran (arcPx = 0 sans)
+const getFlightCenterX = (current: Geometry, travel: number, width: number, arcPx: number) =>
+  current.isCompact
+    ? lerp(current.left0, current.left1, smooth(travel)) + width / 2
+    : lerp(current.center0, current.center1, smooth(travel)) + Math.sin(travel * Math.PI) * arcPx
 
 type MorphTabProps = {
   // Rang d'apparition (0 = premier à apparaître)
   rank: number
   progress: MotionValue<number>
   reducedMotion: boolean
+  // Vrai en version tactile : l'apparition est alors aussi jouée par une animation WAAPI (lib/morphPlayer)
+  isPlayedByBrowser: boolean
   children: ReactNode
 }
 
 // Un onglet : apparaît en fondu en remontant légèrement, avec un petit décalage selon son rang
-function MorphTab({ rank, progress, reducedMotion, children }: MorphTabProps) {
-  const start = TAB_START + rank * TAB_STAGGER
-  const opacity = useTransform(progress, (value) =>
-    reducedMotion ? 1 : clamp01((value - start) / TAB_FADE),
-  )
+function MorphTab({ rank, progress, reducedMotion, isPlayedByBrowser, children }: MorphTabProps) {
+  const itemRef = useRef<HTMLLIElement>(null)
+  const opacity = useTransform(progress, (value) => (reducedMotion ? 1 : getTabOpacity(value, rank)))
   const offsetY = useTransform(opacity, (value) => (reducedMotion ? 0 : (1 - value) * 10))
 
-  return <motion.li style={{ opacity, y: offsetY }}>{children}</motion.li>
+  useLayoutEffect(() => {
+    const item = itemRef.current
+    if (!item || !isPlayedByBrowser) return
+
+    return registerMorphElement(item, ({ progress: value }) => {
+      const amount = getTabOpacity(value, rank)
+
+      return { opacity: amount, transform: `translateY(${(1 - amount) * 10}px)` }
+    })
+  }, [isPlayedByBrowser, rank])
+
+  return (
+    <motion.li
+      ref={itemRef}
+      style={{ opacity, y: offsetY }}
+    >
+      {children}
+    </motion.li>
+  )
 }
 
 type MorphNavbarProps = {
@@ -125,6 +180,7 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore, sce
   const reducedRef = useRef(reducedMotion)
   const sceneActiveRef = useRef(isSceneActive)
   const rowRef = useRef<HTMLElement>(null)
+  const headerRef = useRef<HTMLElement>(null)
   const tick = useMotionValue(0)
   const isReady = useMotionValue(0)
   const labelSize = useMotionValue(16)
@@ -157,14 +213,18 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore, sce
   })
 
   // Phase 1 : le voyage (0 → 1 sur les 65 premiers % de la progression)
-  const travel = useTransform(progress, (value) => (reducedRef.current ? 1 : clamp01(value / TRAVEL_END)))
+  const travel = useTransform(progress, (value) => (reducedRef.current ? 1 : getTravel(value)))
 
-  // Phase 2 : l'élargissement, à la fin seulement. useSpring lui donne un ressort : la valeur dépasse un peu 1
-  // puis revient, ce qui crée le petit rebond de la navbar. Elle suit toujours le scroll (retour arrière compris).
+  // Phase 2 : l'élargissement, à la fin seulement. Ordinateur : useSpring lui donne un ressort, la valeur dépasse un
+  // peu 1 puis revient (petit rebond), et elle suit toujours le scroll (retour arrière compris). Version tactile : même
+  // rebond, mais par une courbe fixe (getWidenOvershoot), pour que l'animation WAAPI affiche exactement la même chose.
   const widenTarget = useTransform(progress, (value) =>
     reducedRef.current ? 1 : clamp01((value - WIDEN_START) / (1 - WIDEN_START)),
   )
-  const widen = useSpring(widenTarget, { stiffness: 220, damping: 11, mass: 0.9 })
+  const widenSpring = useSpring(widenTarget, { stiffness: 220, damping: 11, mass: 0.9 })
+  const widen = useTransform([widenSpring, widenTarget, tick], ([spring, target]: number[]) =>
+    geometry.current && !geometry.current.inScene ? getWidenOvershoot(target) : spring,
+  )
 
   // VOYAGE VERS LE BAS (écran Contact), 0 → 1, lui aussi lié au scroll. Ordinateur : il se joue pendant la dernière
   // transition de la scène (la photo se rouvre), la navbar descend en même temps. Mobile et tablette : de l'instant où
@@ -197,8 +257,7 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore, sce
       // la place où il était et fait SON voyage, piloté par le temps (la progression `amount` est jouée en 0,6 s) et non
       // par le scroll. On voit donc le bouton voler jusqu'en haut et se transformer, pendant que la page glisse dessous.
       const followedScroll = current.inScene ? 0 : Math.min(scrollTop, TOUCH_FOLLOW_PX)
-      const followingPage = current.top0 - followedScroll
-      const topWhenUp = Math.max(current.top1, lerp(followingPage, current.top1, smooth(amount)))
+      const topWhenUp = getFlightTop(current, amount, followedScroll)
       if (!current.hasContact || downAmount <= 0) return topWhenUp
 
       // Écran Contact. Ordinateur : la barre descend se poser au bas de la fenêtre (elle y reste tant que son emplacement
@@ -223,7 +282,7 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore, sce
   const width = useTransform([travel, widen, menu.expand, tick], ([flight, spread, expanded]: number[]) => {
     const current = geometry.current
     if (!current) return 0
-    const base = lerp(current.width0, current.width1, spread) * (1 - 0.1 * Math.sin(flight * Math.PI))
+    const base = getFlightWidth(current, flight, spread)
     const menuExtra = current.isCompact ? (current.menuWidth - current.width1) * Math.max(0, expanded) : 0
     return base + menuExtra
   })
@@ -231,12 +290,7 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore, sce
   const height = useTransform([travel, widen, menu.expand, contactTravel, tick], ([flight, spread, expanded, downAmount]: number[]) => {
     const current = geometry.current
     if (!current) return 0
-    // Pilule compacte (téléphone) : pas d'étirement, elle reste petite
-    const flightStretch = current.isCompact ? 0 : 0.22 * Math.sin(flight * Math.PI)
-    const base =
-      lerp(current.height0, current.height1, spread) *
-      (1 + flightStretch) *
-      (1 + 0.22 * Math.sin(downAmount * Math.PI))
+    const base = getFlightHeight(current, flight, spread) * (1 + 0.22 * Math.sin(downAmount * Math.PI))
     const menuExtra = current.isCompact ? (current.menuHeight - current.height1) * Math.max(0, expanded) : 0
     return base + menuExtra
   })
@@ -257,14 +311,10 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore, sce
   const centerX = useTransform([travel, width, contactTravel, tick], ([amount, currentWidth, downAmount]: number[]) => {
     const current = geometry.current
     if (!current) return 0
-    if (current.isCompact) {
-      const centerWhenUp = lerp(current.left0, current.left1, smooth(amount)) + currentWidth / 2
-      return lerp(centerWhenUp, current.viewportWidth / 2, smooth(downAmount))
-    }
-    // Ordinateur : pendant la montée, le bouton fait un léger arc vers la droite (sin vaut 0 au départ et à l'arrivée,
+    // Grand écran : pendant la montée, le bouton fait un léger arc vers la droite (sin vaut 0 au départ et à l'arrivée,
     // 1 au milieu), pour contourner l'avatar de la landing qui glisse vers la gauche au même moment
-    const arc = reducedRef.current ? 0 : Math.sin(amount * Math.PI) * FLIGHT_ARC_PX
-    return lerp(current.center0, current.center1, smooth(amount)) + arc
+    const centerWhenUp = getFlightCenterX(current, amount, currentWidth, reducedRef.current ? 0 : FLIGHT_ARC_PX)
+    return current.isCompact ? lerp(centerWhenUp, current.viewportWidth / 2, smooth(downAmount)) : centerWhenUp
   })
 
   // Petit balancement pendant le vol (quelques degrés au plus), pour le côté ludique ; nul au départ et à l'arrivée
@@ -282,10 +332,8 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore, sce
   )
 
   // Le texte « Learn more » reste visible jusqu'à 40 % du parcours, puis s'efface en fondu
-  const learnOpacity = useTransform(progress, [LEARN_FADE_START, LEARN_FADE_END], [1, 0])
-  const compactOpacity = useTransform(progress, (value) =>
-    reducedRef.current ? 1 : clamp01((value - 0.82) / 0.15),
-  )
+  const learnOpacity = useTransform(progress, getLearnOpacity)
+  const compactOpacity = useTransform(progress, (value) => (reducedRef.current ? 1 : getCompactOpacity(value)))
 
   useMotionValueEvent(progress, 'change', (value) => setIsCollapsed(value < LEARN_FADE_START))
 
@@ -400,6 +448,49 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore, sce
     }
   }, [reducedMotion, isSceneActive, currentLabel, sections, measure])
 
+  // VERSION TACTILE : pendant la transition, l'écran affiche des animations WAAPI jouées par le navigateur (lib/morphPlayer),
+  // pas nos valeurs JavaScript (Safari iOS ne les affiche pas pendant l'élan du doigt). Chaque élément donne son style à une
+  // progression donnée, avec les mêmes formules que ci-dessus ; le menu est fermé et l'écran Contact loin : ni l'un ni l'autre
+  // n'entre en jeu.
+  useLayoutEffect(() => {
+    const header = headerRef.current
+    if (!header || reducedMotion || isSceneActive) return
+
+    const unregisters = [
+      registerMorphElement(header, ({ progress: value, time, to }) => {
+        const current = geometry.current
+        if (!current) return {} as MorphFrame
+        const travelAmount = getTravel(value)
+        const widenAmount = getWidenOvershoot(clamp01((value - WIDEN_START) / (1 - WIDEN_START)))
+        // Au retour, le bouton retrouve peu à peu la page qu'il suit à moins de 40 px de scroll
+        const followedScroll = to === 1 ? TOUCH_FOLLOW_PX : TOUCH_FOLLOW_PX * (1 - smooth(time))
+        const width = getFlightWidth(current, travelAmount, widenAmount)
+        const height = getFlightHeight(current, travelAmount, widenAmount)
+        const wobbleDegrees = Math.sin(travelAmount * Math.PI * 2) * WOBBLE_DEGREES
+
+        return {
+          top: `${getFlightTop(current, travelAmount, followedScroll)}px`,
+          left: `${getFlightCenterX(current, travelAmount, width, FLIGHT_ARC_PX)}px`,
+          width: `${width}px`,
+          height: `${height}px`,
+          borderRadius: `${height / 2}px`,
+          transform: `translateX(-50%) rotate(${wobbleDegrees}deg)`,
+        }
+      }),
+    ]
+
+    const learnButton = header.querySelector<HTMLElement>('.site-nav__learn')
+    if (learnButton) {
+      unregisters.push(registerMorphElement(learnButton, ({ progress: value }) => ({ opacity: getLearnOpacity(value) })))
+    }
+    const compact = header.querySelector<HTMLElement>('.site-nav__compact')
+    if (compact) {
+      unregisters.push(registerMorphElement(compact, ({ progress: value }) => ({ opacity: getCompactOpacity(value) })))
+    }
+
+    return () => unregisters.forEach((unregister) => unregister())
+  }, [reducedMotion, isSceneActive])
+
   // CompactMenu nous envoie les tailles de la pilule et du menu : on les garde et on remesure le tout
   const handleMenuMeasured = useCallback((measured: MenuGeometry) => {
     menuGeometry.current = measured
@@ -408,6 +499,7 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore, sce
 
   return (
     <motion.header
+      ref={headerRef}
       className="site-nav site-nav--morph"
       style={{ top, left: centerX, x: '-50%', width, height, rotate: wobble, opacity: fade, borderRadius }}
     >
@@ -438,6 +530,7 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore, sce
                 rank={appearanceOrder.indexOf(section.id)}
                 progress={progress}
                 reducedMotion={reducedMotion}
+                isPlayedByBrowser={!reducedMotion && !isSceneActive}
               >
                 {renderItem(section, 'site-nav__link')}
               </MorphTab>

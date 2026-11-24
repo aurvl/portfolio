@@ -210,6 +210,18 @@ version 1200 px, sinon le fichier de 1,25 Mo se télécharge pour rien).
             l'élan et dérouler la page nous-mêmes en 0,6 s (html.is-gliding) ; NON confirmé sur appareil. Pistes si ça
             échoue : animations 100 % CSS / WAAPI (thread compositeur) au lieu de JS, ou View Transitions API. Encart de
             diagnostic : src/components/debug/DebugOverlay.tsx (temporaire, branché sur ?debug=1 dans HomePage).
+            PISTE WAAPI IMPLÉMENTÉE (24/11/2026, NON confirmée sur appareil) : pendant la transition, ce que l'écran affiche
+            est une animation `element.animate` jouée par le navigateur, plus nos valeurs JavaScript. `src/lib/morphPlayer.ts`
+            garde un registre d'éléments ; chacun donne son style à une progression p, on échantillonne 24 images clés
+            et on les joue en 0,6 s (courbe `morphEase`, la même que la progression framer-motion, donc pas de saut à la
+            fin). Branchés : identité, « Latest things », bambous (zoom + clip-path) dans `useBambooMobile`, et la navbar
+            (en-tête, « Learn more », pilule compacte, onglets) dans `MorphNavbar` ; les formules de la navbar sont
+            maintenant des fonctions pures partagées (`getFlight*`). Écart : le rebond de la navbar est une courbe fixe
+            (`getWidenOvershoot`) en version tactile au lieu du ressort, et le rebond du ressort de la progression a disparu.
+            Vérifié en Chromium (390 x 844, molette) : 16 animations pendant le voyage, retour inclus, aucun saut à
+            la fin, mouvement réduit exclu. LIMITE : top / left / width / height de la navbar sont des propriétés de mise en
+            page (pas du compositeur) ; seuls opacité, transform et clip-path le sont. Si Safari ne les affiche toujours
+            pas : convertir la navbar en `transform` (scale + translate) ou passer aux View Transitions.
       - [ ] E4b. About → Recherche → Contact : PAS encore au principe « déclencher ». Aujourd'hui ces passages sont de
             simples défilements ; seules les bannières réagissent, liées à leur POSITION dans la page (zoom ×1,16 →
             ×1,30 → ×1,45 plafonné pour la netteté, ouverture du cadre à l'arrivée) et la navbar descend se loger en
