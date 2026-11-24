@@ -21,8 +21,8 @@ In practice, they involve mixed feature types, noisy signals, outliers, and stro
 This gives the repository analytical value.
 It shows how a familiar supervised learning problem can still reveal important decisions about data cleaning, feature selection, scaling, and evaluation.
 
-- [v] The project uses a concrete regression objective with direct business meaning.
-- [v] The workflow covers more than fitting a single model on a pre-cleaned file.
+- [v] I chose a concrete regression objective with direct business meaning.
+- [v] My workflow covers more than fitting a single model on a pre-cleaned file.
 - [!] The problem remains bounded by the representativeness of the sample and the available feature set.
 
 # Method
@@ -48,31 +48,17 @@ This suggests that, in this feature space, the global linear trend captures the 
 The repository also reveals a practical caution point.
 One script appears to invert the argument order in `r2_score`, which does not erase the broader comparison but does call for attention when interpreting exact values.
 
-- [v] The project compares baseline models with distinct inductive biases.
-- [v] Preprocessing steps are explicit and easy to audit.
-- [v] Scaling is correctly integrated where it matters.
+- [v] I compared baseline models with distinct inductive biases.
+- [v] I made the preprocessing steps explicit and easy to audit.
+- [v] I integrated scaling where it matters.
 - [!] Evaluation details require minor cleanup to make the reported scores fully robust.
 
 # Value
 
-## What the project demonstrates
-The project demonstrates a solid command of the basic supervised learning pipeline for tabular regression.
-It highlights competence in cleaning, feature preparation, model comparison, and performance interpretation.
+## What I wanted to show
+I wanted to pose a regression problem properly, clean the data before training and compare different approaches without losing sight of the importance of the upstream pipeline. I am not trying to impress: good discipline on the data and a reasonable reading of the results are worth more than a stack of complex models on a simple case.
 
-It also shows a useful practical reflex.
-The repository does not assume that a more flexible algorithm is automatically better; it lets the comparison be decided by the empirical fit.
-
-## Professional significance
-The project contributes a credible baseline regression study.
-It shows the ability to treat a familiar problem with enough structure to make the modeling choices understandable and reproducible.
-
-The architecture retained here also makes clear that predictive value comes partly from preprocessing discipline.
-That is an important signal in real tabular machine learning work, where results often depend more on data preparation than on model complexity.
-
-## Limits and positioning
-The repository is not a full real-estate pricing system with spatial enrichment, advanced ensembling, or deployment logic.
-Its strength lies in the clarity of the pipeline and in the explicit comparison between two interpretable baseline approaches.
-
-- [v] The project highlights a disciplined regression workflow on tabular data.
-- [v] It makes preprocessing choices visible instead of hiding them behind a notebook shortcut.
-- [!] Its strongest contribution is methodological clarity rather than production-level valuation infrastructure.
+## What I take from it
+- [v] I favored the quality of the pipeline over the complexity of the model.
+- [v] I explicitly identified the weaknesses of my notebook where technical details deserve correction.
+- [!] This is a clean regression pipeline, not an exhaustive benchmark of house-price prediction.

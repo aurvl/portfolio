@@ -2,6 +2,8 @@ import fs from 'node:fs'
 import path from 'node:path'
 import matter from 'gray-matter'
 import { homeEn } from '../src/data/home'
+import { homepage } from '../src/data/homepage'
+import enLocale from '../src/locales/en.json'
 
 type SeriesEntry = {
   slug: string
@@ -27,6 +29,7 @@ type PageMeta = {
 }
 
 const SITE_NAME = 'Aurel Vehi'
+const publicationsLabels = homepage.getPublicationsLabels('en')
 
 const DEFAULT_SITE_URL = 'https://aurvl.github.io/portfolio/'
 const rootDir = process.cwd()
@@ -42,6 +45,7 @@ const seriesPath = path.join(rootDir, 'src/data/series.json')
 const robotsPath = path.join(publicDir, 'robots.txt')
 const sitemapPath = path.join(publicDir, 'sitemap.xml')
 const spaFallbackPath = path.join(publicDir, '404.html')
+const blogRedirectPath = path.join(publicDir, 'blog', 'index.html')
 const distDir = path.join(rootDir, 'dist')
 // Mode « --pages » : à lancer APRÈS « vite build ». Il écrit un vrai index.html par route du sitemap dans dist/.
 const isPagesMode = process.argv.includes('--pages')
@@ -75,9 +79,11 @@ const sitemapEntries: Array<{
   meta?: PageMeta
 }> = [
   { path: '', lastmod: homeLastMod, changefreq: 'monthly', priority: '1.0' },
+  // Le Hub regroupe projets ET articles : sa date est la plus récente des deux. /blog n'est plus une page
+  // (elle redirige vers le Hub, voir public/blog/index.html), donc elle ne figure ni dans le sitemap ni parmi les pages statiques.
   {
     path: 'projects/',
-    lastmod: latestProjectDate,
+    lastmod: homeLastMod,
     changefreq: 'weekly',
     priority: '0.9',
     meta: {
@@ -86,23 +92,23 @@ const sitemapEntries: Array<{
     },
   },
   {
-    path: 'blog/',
-    lastmod: latestPostDate,
-    changefreq: 'weekly',
-    priority: '0.9',
-    meta: {
-      title: `Blog on data, economics, and methods | ${SITE_NAME}`,
-      description: 'Articles by Aurel Vehi on applied economics, econometrics, modelling and decision-making.',
-    },
-  },
-  {
     path: 'publications/',
     lastmod: homeLastMod,
     changefreq: 'monthly',
     priority: '0.8',
     meta: {
-      title: `${homeEn.publicationsPage.seoTitle} | ${SITE_NAME}`,
-      description: homeEn.publicationsPage.seoDescription,
+      title: `${publicationsLabels.seoTitle} | ${SITE_NAME}`,
+      description: publicationsLabels.seoDescription,
+    },
+  },
+  {
+    path: 'series/',
+    lastmod: latestPostDate,
+    changefreq: 'weekly',
+    priority: '0.8',
+    meta: {
+      title: `${enLocale.blog.section.series.title} | ${SITE_NAME}`,
+      description: enLocale.blog.section.series.subtitle,
     },
   },
   ...series.map((entry) => ({
@@ -162,6 +168,8 @@ fs.writeFileSync(
   ].join('\n')
 )
 fs.writeFileSync(spaFallbackPath, buildSpaFallbackHtml(siteUrl))
+fs.mkdirSync(path.dirname(blogRedirectPath), { recursive: true })
+fs.writeFileSync(blogRedirectPath, buildBlogRedirectHtml(siteUrl))
 
 for (const redirect of legacyRedirects) {
   fs.writeFileSync(
@@ -170,7 +178,7 @@ for (const redirect of legacyRedirects) {
   )
 }
 
-console.log(`Generated robots.txt, sitemap.xml, 404.html, and legacy redirects for ${siteUrl}`)
+console.log(`Generated robots.txt, sitemap.xml, 404.html, the /blog redirect, and legacy redirects for ${siteUrl}`)
 
 // Écrit dist/<route>/index.html pour chaque route du sitemap (copie de dist/index.html avec ses propres balises SEO),
 // puis vérifie que chaque URL du sitemap correspond à un fichier réel. 404.html reste pour les pages inexistantes.
@@ -442,6 +450,33 @@ function buildLegacyRedirectHtml(currentSiteUrl: string, lang: string) {
   </head>
   <body>
     <p>This page moved to <a href="${targetUrl}">${targetUrl}</a>.</p>
+  </body>
+</html>
+`
+}
+
+// /blog n'existe plus comme page : cette page statique répond en 200 et renvoie vers le bloc « Derniers articles » du Hub.
+// Le renvoi est calculé depuis l'adresse courante (pas depuis siteUrl), donc il marche aussi en local ;
+// `canonical` + `noindex` disent aux moteurs de recherche que la page de référence est /projects.
+function buildBlogRedirectHtml(currentSiteUrl: string) {
+  const canonicalUrl = new URL('projects', currentSiteUrl).toString()
+
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="noindex,follow" />
+    <link rel="canonical" href="${canonicalUrl}" />
+    <title>Redirecting...</title>
+    <script>
+      (function() {
+        var target = window.location.pathname.replace(/blog[/]?$/, 'projects');
+        window.location.replace(target + window.location.search + '#blog');
+      })();
+    </script>
+  </head>
+  <body>
+    <p>The blog moved to <a href="${canonicalUrl}#blog">${canonicalUrl}#blog</a>.</p>
   </body>
 </html>
 `

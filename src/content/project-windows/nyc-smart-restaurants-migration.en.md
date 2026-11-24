@@ -29,9 +29,9 @@ The application supports text search, cuisine filtering, neighborhood filtering,
 
 To accelerate repeated requests, the system introduces a PostgreSQL `JSONB` cache keyed by `(latitude, longitude, k, cuisine_filter, results)`. A coordinate tolerance of `±0.001` allows nearby requests to reuse previously computed results. The accompanying report documents a speed improvement from roughly `0.125 s` to `0.0034 s` on cache hits.
 
-- [v] The migration is tied to actual query needs rather than a generic technology switch.
-- [v] The project combines document modeling and geospatial lookup in a coherent way.
-- [v] The cache is implemented and measured rather than merely suggested.
+- [v] I tied the migration to actual query needs rather than a generic technology switch.
+- [v] I combined document modeling and geospatial lookup in a coherent way.
+- [v] I implemented and measured the cache (from about 0.125 s to 0.0034 s on a cache hit).
 - [!] The nearest-neighbor search remains brute-force rather than based on a dedicated spatial index.
 - [!] The cache policy is intentionally simple and would require refinement in a broader production setting.
 
@@ -42,21 +42,10 @@ That structural perspective gives the project a stronger analytical identity tha
 
 # Value
 
-## What the project demonstrates
-The project demonstrates an ability to reason about data shape, query cost, and storage trade-offs at the same time. It highlights competence in relational-to-document migration, Python-based transformation, geospatial querying, and lightweight performance optimization.
+## What I wanted to show
+I wanted to reason at the same time about the shape of the data, the cost of queries and storage trade-offs: relational-to-document migration, Python transformation, geographic queries, light response-time optimization. For me, the value of a database comes from how well it fits its uses, more than from the technology choice in isolation.
 
-It also shows that database work becomes more valuable when the architectural rationale is explicit. The repository makes that rationale visible.
-
-## Professional relevance
-From a technical standpoint, the project fits within a broader architecture and backend engineering logic. The implementation shows how data modeling choices can be aligned with application-level search behavior and response-time constraints.
-
-Taken together, the work brings out a capacity to design around usage patterns rather than around isolated technologies. That is what gives the project its strongest professional relevance.
-
-## Limits and positioning
-The repository is best understood as a compact architecture and migration prototype.
-Its strongest contribution lies in schema redesign, proximity-query logic, and measured caching gains rather than in full production hardening.
-
-- [v] The project highlights architectural reasoning rather than tool usage alone.
-- [v] The implementation shows a clear relationship between schema shape and query behavior.
-- [v] The measured cache gain adds concrete substance to the migration narrative.
-- [!] The repository remains a compact prototype and does not aim to cover every production concern.
+## What I take from it
+- [v] I reasoned about architecture rather than just using tools.
+- [v] I clearly linked schema, queries and performance.
+- [!] This is a compact prototype: it does not cover every production concern.

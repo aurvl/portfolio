@@ -1,14 +1,16 @@
+// Carte projet du Hub (grille de /projects), style éditorial : image avec étiquette de domaine, titre serif,
+// mots-clés en petites majuscules, filet, description, date et lien « Read more ». Styles : styles/v3/hub.css.
 import type { MouseEvent } from 'react'
-import { GoLinkExternal } from "react-icons/go";
+import { GoLinkExternal } from 'react-icons/go'
 import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router-dom'
+import Button from '../ui/Button'
+import { cn } from '../../lib/cn'
+import { navigateToPage } from '../../lib/pageTransition'
 import { getLocalizedField, getProjectContent, getProjectWindowRoute } from '../../lib/utils'
-import { getDomainColor } from '../../lib/domainColors'
 import { getImageDimensions } from '../../lib/imageMetadata'
 import { withBasePath } from '../../lib/site'
+import { DEFAULT_PROJECT_COVER } from '../hub-v3/featuredProjects'
 import type { Project } from '../../types/project'
-
-const DEFAULT_PROJECT_COVER = withBasePath('assets/projects/images/defaultprojectcover.png')
 
 type ProjectCardProps = {
   project: Project
@@ -18,7 +20,6 @@ type ProjectCardProps = {
 
 function ProjectCard({ project, onOpenProject, cardId }: ProjectCardProps) {
   const { t, i18n } = useTranslation()
-  const navigate = useNavigate()
   const content = getProjectContent(project, i18n.language)
   const coverAlt = getLocalizedField(project.cover.alt, i18n.language)
   const keywords = getLocalizedField(project.taxonomy.keywords, i18n.language)
@@ -26,9 +27,8 @@ function ProjectCard({ project, onOpenProject, cardId }: ProjectCardProps) {
   const projectWindowRoute = getProjectWindowRoute(project)
   const imageSource = project.cover.src || 'assets/projects/images/defaultprojectcover.png'
   const imageDimensions = getImageDimensions(imageSource)
-  const isInteractive = Boolean(
-    onOpenProject || projectWindowRoute || project.links.primary || project.links.readMore
-  )
+  const hasReadMore = Boolean(onOpenProject || projectWindowRoute || project.links.readMore)
+  const isInteractive = Boolean(hasReadMore || project.links.primary)
 
   function handleOpenProject() {
     if (onOpenProject) {
@@ -37,7 +37,7 @@ function ProjectCard({ project, onOpenProject, cardId }: ProjectCardProps) {
     }
 
     if (projectWindowRoute) {
-      navigate(projectWindowRoute)
+      navigateToPage(projectWindowRoute)
       return
     }
 
@@ -52,6 +52,7 @@ function ProjectCard({ project, onOpenProject, cardId }: ProjectCardProps) {
   }
 
   function handleReadMore(event: MouseEvent<HTMLButtonElement>) {
+    // Le clic sur « Read more » ne doit pas être compté deux fois par la carte entière
     event.stopPropagation()
 
     if (onOpenProject) {
@@ -60,7 +61,7 @@ function ProjectCard({ project, onOpenProject, cardId }: ProjectCardProps) {
     }
 
     if (projectWindowRoute) {
-      navigate(projectWindowRoute)
+      navigateToPage(projectWindowRoute)
       return
     }
 
@@ -92,76 +93,54 @@ function ProjectCard({ project, onOpenProject, cardId }: ProjectCardProps) {
             }
           : undefined
       }
-      className={`project-card flex min-w-0 w-full h-full
-      ${isInteractive ? 'cursor-pointer' : 'cursor-default'} flex-col gap-2 rounded-lg border
-      border-[var(--glass-border)] p-2 underline-none transition-all duration-200 ease-in-out
-      hover:border-[var(--accent-lgtblue)] hover:bg-[var(--btn-sobre-col)]`}
+      className={cn('hub-card', isInteractive && 'hub-card--interactive')}
     >
-      <div className="flex flex-1 flex-col gap-2">
-        <div className="project-card__media relative h-48 overflow-hidden">
-          <img
-            src={withBasePath(imageSource)}
-            alt={coverAlt}
-            width={imageDimensions?.width}
-            height={imageDimensions?.height}
-            loading="lazy"
-            onError={(event) => {
-              event.currentTarget.src = DEFAULT_PROJECT_COVER
-            }}
-            className="project-card__cover block h-full w-full rounded-lg object-cover"
-          />
+      <div className="hub-card__media">
+        <img
+          src={withBasePath(imageSource)}
+          alt={coverAlt}
+          width={imageDimensions?.width}
+          height={imageDimensions?.height}
+          loading="lazy"
+          onError={(event) => {
+            event.currentTarget.src = DEFAULT_PROJECT_COVER
+          }}
+          className="hub-card__cover"
+        />
 
-          <span
-            className="project-domain absolute left-3 top-3 z-10"
-            style={{ color: getDomainColor(primaryDomain) }}
-          >
-            {primaryDomain}
-          </span>
-        </div>
-
-        <h3 className="project-card__title project-title mt-2 line-clamp-2 text-xl font-semibold leading-tight transition-colors duration-200 ease-in-out hover:text-[var(--accent-blue)]">
-          {content.title}
-        </h3>
-
-        <div className="flex min-h-[2rem] flex-wrap content-start gap-2">
-          {keywords.slice(0, 3).map((keyword) => (
-            <span
-              key={keyword}
-              className="rounded-[7px] bg-[var(--keyw-bg-col)] px-2 py-1 text-xs font-semibold uppercase text-[var(--keyw-col-window)]"
-            >
-              {keyword}
-            </span>
-          ))}
-        </div>
-
-        <p className="project-card__summary project-summary mt-2 line-clamp-4 border-t border-t-[var(--glass-border)] pt-2 text-sm leading-6 text-[var(--text2-col)]">
-          {content.summary}
-        </p>
+        <span className="hub-card__domain">{primaryDomain}</span>
       </div>
 
-      <div className="mt-auto flex flex-col">
+      <h3 className="hub-card__title">{content.title}</h3>
 
-        <div className="flex items-end justify-between gap-3">
-          <span className="project-card__date flex items-center text-sm text-[var(--text2-col)] capitalize">
-            {new Date(project.date).toLocaleDateString(i18n.language, {
-              month: 'short',
-              year: '2-digit',
-            })}
-          </span>
+      <ul className="hub-card__tags">
+        {keywords.slice(0, 3).map((keyword) => (
+          <li key={keyword}>{keyword}</li>
+        ))}
+      </ul>
 
-          {(onOpenProject || projectWindowRoute || project.links.readMore) && (
-            <button
-              type="button"
-              onClick={handleReadMore}
-              className="project-card__more ml-auto flex shrink-0 items-center rounded-lg bg-[rgb(var(--domain-col-rgb)/0.2)]
-              px-5 py-2 text-sm font-semibold text-[var(--text2-col)] no-underline
-              transition-colors duration-200 ease-in-out hover:bg-[rgb(var(--domain-col-rgb)/0.7)]
-              hover:text-[var(--text-col)]"
-            >
-              {t('projects.readMore')} <GoLinkExternal className="ml-1 inline" />
-            </button>
-          )}
-        </div>
+      <p className="hub-card__summary">{content.summary}</p>
+
+      <div className="hub-card__footer">
+        <span className="hub-card__date tabular">
+          {project.status === 'in-progress' ? (
+            <span className="hub-card__status">{t('projects.statusInProgress')}</span>
+          ) : null}
+          {new Date(project.date).toLocaleDateString(i18n.language, {
+            month: 'short',
+            year: '2-digit',
+          })}
+        </span>
+
+        {hasReadMore ? (
+          <Button
+            variant="link"
+            icon={<GoLinkExternal />}
+            onClick={handleReadMore}
+          >
+            {t('projects.readMore')}
+          </Button>
+        ) : null}
       </div>
     </article>
   )

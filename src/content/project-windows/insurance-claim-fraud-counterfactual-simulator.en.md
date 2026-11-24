@@ -63,5 +63,5 @@ On a first batch of `100` recent files, `4%` exceed the alert threshold: the tea
 - [v] A readable reason for every alert, which can be shown to a handler or a customer.
 - [v] A method that adds to the insurer's existing tools, with no rebuild of its data.
 
-## What the project shows
-The project shows a consulting approach: start from a client's real situation, identify what is missing, and propose a method that answers its main constraint, investigation time. Modelling serves the decision, not the other way round.
+## What I wanted to show
+I wanted to take a consulting approach: start from an insurer's real situation, identify what is missing, and propose a method that answers its main constraint, investigation time. For me, modeling serves the decision, not the other way round.

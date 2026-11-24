@@ -1,0 +1,219 @@
+/* ------------------------------------------------------------------ *
+ * Design v3 : pied de page (quatre colonnes, ligne du bas).
+ * Style éditorial (design/BRIEF.md §2) : filets fins, étiquettes en petites majuscules, liens soulignés au survol.
+ * Mobile : tout centré, une colonne. Tablette (≥ 768 px) : deux colonnes. Ordinateur (≥ 1024 px) : quatre colonnes.
+ * ------------------------------------------------------------------ */
+
+.site-footer {
+  background: var(--color-page);
+}
+
+.site-footer__inner,
+.site-footer__bottom-inner {
+  width: min(100% - 2rem, 70rem);
+  margin-inline: auto;
+}
+
+.site-footer__inner {
+  padding-block: 2.5rem 2rem;
+}
+
+.site-footer__grid {
+  display: grid;
+  gap: 2rem;
+  text-align: center;
+}
+
+.site-footer__brand {
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: 0.75rem;
+}
+
+.site-footer__tagline {
+  max-width: 16rem;
+  margin: 0;
+  line-height: 1.4;
+  color: var(--color-muted);
+}
+
+.site-footer__column {
+  display: grid;
+  align-content: start;
+  gap: 0.9rem;
+}
+
+.site-footer__column .eyebrow {
+  /* Étiquette : même titre de niveau 2 que les autres sections, sans la taille d'un vrai titre */
+  font-weight: 600;
+}
+
+.site-footer__list {
+  display: grid;
+  gap: 0.55rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Liens : texte simple, soulignés seulement au survol et au clavier (boutons « Cookies », langue : même aspect) */
+.site-footer__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0;
+  font: inherit;
+  color: var(--color-ink);
+  text-decoration: none;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  transition: color var(--duration-fast) ease;
+}
+
+.site-footer__link:hover,
+.site-footer__link:focus-visible {
+  color: var(--color-brand-ink);
+  text-decoration-line: underline;
+}
+
+.site-footer__link:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 3px;
+}
+
+/* Langue en cours : en gras */
+.site-footer__link[aria-pressed='true'] {
+  font-weight: 700;
+}
+
+/* Liens d'action (avec flèche) : légèrement plus marqués */
+.site-footer__link--action {
+  font-weight: 600;
+}
+
+/* ---------- Ligne du bas : © et cookies, langue, retour en haut ---------- */
+
+.site-footer__bottom {
+  /* Filet fin sur toute la largeur, au-dessus de la ligne */
+  border-top: 1px solid var(--color-line);
+}
+
+.site-footer__bottom-inner {
+  display: grid;
+  justify-items: center;
+  gap: 0.9rem;
+  padding-block: 1.25rem;
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
+
+.site-footer__legal {
+  margin: 0;
+}
+
+.site-footer__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem 1.5rem;
+}
+
+.site-footer__bottom .site-footer__link {
+  color: var(--color-muted);
+}
+
+.site-footer__bottom .site-footer__link:hover,
+.site-footer__bottom .site-footer__link:focus-visible {
+  color: var(--color-ink);
+}
+
+.site-footer__bottom .site-footer__link[aria-pressed='true'] {
+  color: var(--color-ink);
+}
+
+/* ---------- Mobile (< 768 px) : Navigation et Profiles côte à côte, Contact sur une ligne dessous ----------
+   La marque (logo et accroche) reste centrée sur toute la largeur. La ligne du bas ne change pas.
+   grid-column: 1 / -1 = l'élément occupe les deux colonnes de la grille. */
+
+@media (max-width: 767.98px) {
+  .site-footer__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.75rem 1rem;
+    text-align: center;
+  }
+
+  .site-footer__brand {
+    grid-column: 1 / -1;
+    text-align: center;
+  }
+
+  /* justify-items: center : chaque lien est centré dans sa colonne (sinon il se colle à gauche) */
+  .site-footer__list {
+    justify-items: center;
+    gap: 0.4rem;
+  }
+
+  /* Contact : toute la largeur, sous un filet fin, avec ses liens côte à côte sur une ligne, centrés */
+  .site-footer__column:last-child {
+    grid-column: 1 / -1;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--color-line);
+  }
+
+  .site-footer__column:last-child .site-footer__list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.4rem 1.25rem;
+  }
+}
+
+/* ---------- Tablette (≥ 768 px) : deux colonnes ---------- */
+
+@media (min-width: 768px) {
+  .site-footer__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2.5rem 3rem;
+    text-align: left;
+  }
+
+  .site-footer__brand {
+    justify-items: start;
+  }
+}
+
+/* ---------- Ordinateur (≥ 1024 px) : quatre colonnes ---------- */
+
+@media (min-width: 1024px) {
+  .site-footer__inner {
+    padding-block: 3.5rem 3rem;
+  }
+
+  /* grid-template-columns : la colonne de la marque est un peu plus large que les trois autres */
+  .site-footer__grid {
+    grid-template-columns: 1.4fr repeat(3, minmax(0, 1fr));
+  }
+
+  .site-footer__bottom-inner {
+    grid-auto-flow: column;
+    align-items: center;
+    justify-content: space-between;
+    justify-items: start;
+  }
+
+  .site-footer__actions {
+    gap: 0.75rem 2rem;
+  }
+}
+
+/* prefers-reduced-motion : pas de transition de couleur */
+@media (prefers-reduced-motion: reduce) {
+  .site-footer__link {
+    transition: none;
+  }
+}

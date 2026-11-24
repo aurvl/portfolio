@@ -390,19 +390,21 @@ function CodeSurface({
 
 function MdContentRenderer({ content, widgets = {} }: MdContentRendererProps) {
   const components: Components = {
+    // Le titre de l'article est déjà le seul <h1> de la page : les titres du texte descendent d'un niveau
+    // (# → h2, ## → h3, ### → h4). Les classes CSS gardent l'aspect d'origine.
     h1: ({ children }) => {
       const id = createHeadingId(flattenReactNodeToString(children))
-      return <h1 id={id} className="md-content__h1">{children}</h1>
+      return <h2 id={id} className="md-content__h1">{children}</h2>
     },
 
     h2: ({ children }) => {
       const id = createHeadingId(flattenReactNodeToString(children))
-      return <h2 id={id} className="md-content__h2">{children}</h2>
+      return <h3 id={id} className="md-content__h2">{children}</h3>
     },
 
     h3: ({ children }) => {
       const id = createHeadingId(flattenReactNodeToString(children))
-      return <h3 id={id} className="md-content__h3">{children}</h3>
+      return <h4 id={id} className="md-content__h3">{children}</h4>
     },
 
     p: ({ children }) => (

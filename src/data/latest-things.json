@@ -1,0 +1,30 @@
+{
+  "en": [
+    {
+      "state": "progress",
+      "title": "FMarketMonitor",
+      "detail": "Economic project in progress",
+      "projectSlug": "fmarketmonitor",
+      "date": "2026-11-24"
+    },
+    {
+      "state": "prep",
+      "title": "AI adoption in European firms",
+      "detail": "Applied study on Eurostat ICT data: who adopts AI, and why gaps persist."
+    }
+  ],
+  "fr": [
+    {
+      "state": "progress",
+      "title": "FMarketMonitor",
+      "detail": "Projet économique en cours",
+      "projectSlug": "fmarketmonitor",
+      "date": "2026-11-24"
+    },
+    {
+      "state": "prep",
+      "title": "Adoption de l’IA dans les entreprises européennes",
+      "detail": "Étude appliquée sur les données Eurostat TIC : qui adopte l’IA, et pourquoi les écarts persistent."
+    }
+  ]
+}

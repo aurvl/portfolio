@@ -1,0 +1,203 @@
+/* ------------------------------------------------------------------ *
+ * Design v3 : transitions ENTRE les pages (View Transitions natives, voir lib/pageTransition.ts).
+ * Principe : la photo de bambous est un élément PARTAGÉ qui se transforme d'une page à l'autre ; le reste de la page zoome
+ * (zoom avant = on va plus loin dans le site, zoom arrière = on revient) ; la navbar et la pilule langue / thème ne bougent
+ * pas. Le sens est posé sur <html> : data-vt="forward" ou "back". Sans View Transitions : rien de tout cela ne s'applique.
+ * On n'anime que transform et opacity.
+ * ------------------------------------------------------------------ */
+
+/* ---------- Ce qui est capturé à part (view-transition-name : un seul élément par nom et par page) ---------- */
+
+/* Navbar et pilule : capturées à part pour ne pas être emportées par le zoom du reste de la page */
+.site-nav {
+  view-transition-name: site-nav;
+}
+
+.site-utility {
+  view-transition-name: site-utility;
+}
+
+/* Le bandeau de bambous : le même nom sur toutes les pages, donc il se déplace et se redimensionne de l'un à l'autre.
+   Le contenu posé PAR-DESSUS la photo est capturé à part lui aussi (classe vt-content) : sinon, la photo étant dans une
+   couche au-dessus du reste de la page pendant la transition, elle masquerait ce contenu. */
+
+/* Ordinateur, accueil : la photo est celle de la scène */
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+  .scene__photo {
+    view-transition-name: bamboo-banner;
+  }
+
+  .scene .landing {
+    view-transition-name: vt-home-landing;
+    view-transition-class: vt-content;
+  }
+
+  .scene .about {
+    view-transition-name: vt-home-about;
+    view-transition-class: vt-content;
+  }
+
+  .papers-chrome {
+    view-transition-name: vt-home-papers-chrome;
+    view-transition-class: vt-content;
+  }
+
+  .contact--in-scene {
+    view-transition-name: vt-home-contact;
+    view-transition-class: vt-content;
+  }
+}
+
+/* Mobile et tablette, accueil : la bannière visible dépend de l'écran affiché (html[data-scene]) */
+html[data-scene='landing'] .landing-hero__photo,
+html[data-scene='about'] .landing-hero__photo,
+html[data-scene='research'] .papers__banner,
+html[data-scene='contact'] .contact__photo-frame {
+  view-transition-name: bamboo-banner;
+}
+
+html[data-scene='landing'] .landing-hero__content,
+html[data-scene='about'] .about,
+html[data-scene='research'] .papers__grid,
+html[data-scene='contact'] .contact__content {
+  view-transition-name: vt-scene-content;
+  view-transition-class: vt-content;
+}
+
+/* Pages /projects (Hub), séries et articles : le bandeau fin est le même élément partagé ; rien n'est posé par-dessus la photo */
+html:not([data-scene]) .hub-header__banner,
+html:not([data-scene]) .blog-banner {
+  view-transition-name: bamboo-banner;
+}
+
+/* Page /publications (hors accueil) */
+html:not([data-scene]) .papers:not(.papers--in-scene) .papers__banner {
+  view-transition-name: bamboo-banner;
+}
+
+html:not([data-scene]) .papers:not(.papers--in-scene) .papers__grid {
+  view-transition-name: vt-scene-content;
+  view-transition-class: vt-content;
+}
+
+/* ---------- Navbar et pilule : immobiles, jamais de fondu enchaîné (pas de clignotement) ---------- */
+
+::view-transition-group(site-nav),
+::view-transition-group(site-utility) {
+  animation: none;
+}
+
+::view-transition-old(site-nav),
+::view-transition-old(site-utility) {
+  display: none;
+}
+
+::view-transition-new(site-nav),
+::view-transition-new(site-utility) {
+  animation: none;
+}
+
+/* ---------- Le bandeau de bambous : il glisse et change de taille de la page de départ à celle d'arrivée ---------- */
+
+::view-transition-group(bamboo-banner) {
+  animation-duration: 650ms;
+  animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* height: 100% + object-fit: cover : la photo se recadre (et ne se déforme pas) pendant que le cadre change de forme */
+::view-transition-old(bamboo-banner),
+::view-transition-new(bamboo-banner) {
+  height: 100%;
+  object-fit: cover;
+  mix-blend-mode: normal;
+  animation-duration: 650ms;
+  animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* ---------- Le reste de la page : zoom avant (on avance) ou zoom arrière (on revient) ---------- */
+
+/* @keyframes : l'ancienne page grandit en s'effaçant (on entre dedans), la nouvelle arrive petite et grandit jusqu'à sa
+   taille (on la découvre au bout). En retour, c'est l'inverse : l'ancienne rétrécit, la nouvelle arrive depuis l'avant. */
+@keyframes vt-out-forward {
+  to {
+    opacity: 0;
+    transform: scale(1.22);
+  }
+}
+
+@keyframes vt-in-forward {
+  from {
+    opacity: 0;
+    transform: scale(0.82);
+  }
+}
+
+@keyframes vt-out-back {
+  to {
+    opacity: 0;
+    transform: scale(0.82);
+  }
+}
+
+@keyframes vt-in-back {
+  from {
+    opacity: 0;
+    transform: scale(1.22);
+  }
+}
+
+html[data-vt='forward']::view-transition-old(root),
+html[data-vt='forward']::view-transition-old(.vt-content) {
+  animation: vt-out-forward 550ms cubic-bezier(0.4, 0, 0.2, 1) both;
+  mix-blend-mode: normal;
+}
+
+html[data-vt='forward']::view-transition-new(root),
+html[data-vt='forward']::view-transition-new(.vt-content) {
+  animation: vt-in-forward 550ms cubic-bezier(0.2, 0, 0, 1) both;
+  mix-blend-mode: normal;
+}
+
+html[data-vt='back']::view-transition-old(root),
+html[data-vt='back']::view-transition-old(.vt-content) {
+  animation: vt-out-back 550ms cubic-bezier(0.4, 0, 0.2, 1) both;
+  mix-blend-mode: normal;
+}
+
+html[data-vt='back']::view-transition-new(root),
+html[data-vt='back']::view-transition-new(.vt-content) {
+  animation: vt-in-back 550ms cubic-bezier(0.2, 0, 0, 1) both;
+  mix-blend-mode: normal;
+}
+
+/* ---------- prefers-reduced-motion : simple fondu, ni zoom ni déplacement de la photo ---------- */
+
+@keyframes vt-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes vt-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-vt]::view-transition-old(root),
+  html[data-vt]::view-transition-old(.vt-content),
+  html[data-vt]::view-transition-old(bamboo-banner) {
+    animation: vt-fade-out 200ms linear both;
+  }
+
+  html[data-vt]::view-transition-new(root),
+  html[data-vt]::view-transition-new(.vt-content),
+  html[data-vt]::view-transition-new(bamboo-banner) {
+    animation: vt-fade-in 200ms linear both;
+  }
+
+  ::view-transition-group(bamboo-banner) {
+    animation: none;
+  }
+}

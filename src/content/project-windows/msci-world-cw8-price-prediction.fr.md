@@ -27,7 +27,7 @@ qu'un notebook qui entraînerait un LSTM directement sur une série de prix brut
 Elle permet aussi une discussion plus sérieuse de l'évaluation,
 puisque la qualité apparente du résultat peut être reliée à la manière dont le pipeline a été construit.
 
-- [v] Le projet couvre la chaîne complète de préparation, modélisation et restitution.
+- [v] J'ai couvert la chaîne complète de préparation, modélisation et restitution.
 - [v] La logique séquentielle est visible et documentée.
 - [!] Les scores élevés doivent être lus avec prudence dans un contexte financier intrinsèquement instable.
 
@@ -60,37 +60,17 @@ Le dépôt montre cependant aussi des limites importantes.
 Le split train-test n'est pas totalement irréprochable du point de vue série temporelle,
 et certaines différences apparaissent entre la logique d'entraînement et la logique d'inférence récursive.
 
-- [v] Le jeu de features est explicite et cohérent avec une logique de prévision pratique.
-- [v] Le modèle est exposé dans une application plutôt que laissé au niveau notebook.
-- [v] Le dépôt documente à la fois les métriques et la logique d'inférence.
+- [v] J'ai défini un jeu de features explicite et cohérent avec une logique de prévision pratique.
+- [v] J'ai exposé le modèle dans une application plutôt que de le laisser au niveau notebook.
+- [v] J'ai documenté à la fois les métriques et la logique d'inférence.
 - [!] La validation pourrait être plus stricte du point de vue temporel.
 
 # Value
 
-## Ce que le projet démontre
-Le projet démontre une capacité à construire une chaîne de prévision complète
-sur données financières.
+## Ce que j'ai voulu montrer
+Je voulais construire une chaîne de prévision complète sur données financières : préparation de features, modélisation séquentielle et restitution applicative, en laissant visibles les contraintes méthodologiques qui conditionnent l'interprétation des scores. Pour moi, le modèle deep learning vaut autant par la structure du pipeline que par ses résultats.
 
-Il met en lumière une maîtrise de la préparation de features,
-de la modélisation séquentielle et de la restitution applicative.
-
-Il fait aussi ressortir une qualité utile :
-laisser visibles les contraintes méthodologiques qui conditionnent l'interprétation des scores.
-
-## Portée professionnelle
-Le travail s'inscrit dans une logique de modélisation quantitative appliquée
-plutôt que dans une rhétorique spéculative.
-
-L'architecture retenue montre comment un modèle deep learning
-peut être intégré dans un pipeline financier lisible, tout en conservant une distance critique vis-à-vis des résultats affichés.
-
-Pris dans son ensemble, le projet vaut autant
-par la structure du pipeline que par le modèle lui-même.
-
-Sa contribution principale réside dans l'articulation
-entre préparation, apprentissage séquentiel, interface et lecture prudente de l'évaluation.
-
-- [v] Le projet souligne une maîtrise d'un workflow complet de prévision financière.
-- [v] Il relie correctement modélisation et exposition applicative.
-- [v] L'ensemble fait ressortir la méthode et ses contraintes plutôt qu'un effet d'annonce.
-- [!] Sa force principale réside dans la clarté du pipeline, non dans une promesse de prédiction robuste du marché.
+## Ce que j'en retiens
+- [v] J'ai relié préparation, apprentissage séquentiel, interface et lecture prudente de l'évaluation.
+- [v] J'ai mis en avant la méthode et ses contraintes plutôt qu'un effet d'annonce.
+- [!] Ma force est la clarté du pipeline, pas une promesse de prédiction robuste du marché.

@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom'
 import App from './App'
 import AppProviders from './app/providers'
 import AnalyticsTracker from './components/analytics/AnalyticsTracker'
+import PageTransitions from './components/routing/PageTransitions'
 import ScrollManager from './components/routing/ScrollManager'
 import './lib/i18n'
 import './styles/globals.css'
@@ -19,6 +20,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <AppProviders>
       <BrowserRouter basename={import.meta.env.BASE_URL}>
         <AnalyticsTracker />
+        <PageTransitions />
         <ScrollManager />
         <App />
       </BrowserRouter>

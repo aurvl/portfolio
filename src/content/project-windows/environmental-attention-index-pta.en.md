@@ -29,9 +29,9 @@ The project does not stop at agreement-level scoring. It merges dyadic country i
 
 One important operational feature of the workflow is that it exposes where reproducibility remains imperfect. Country-name harmonization partly relies on manual Excel work through `VLOOKUP`, which is analytically manageable but technically relevant to acknowledge.
 
-- [v] The project builds an original score rather than consuming a pre-existing one.
-- [v] Agreement-level and country-level aggregation make the output more informative.
-- [v] The pipeline connects source data, scoring logic, and dashboard delivery.
+- [v] I built an original score rather than consuming a pre-existing one.
+- [v] I added agreement-level and country-level aggregation to make the output more informative.
+- [v] I connected source data, scoring logic, and dashboard delivery in one pipeline.
 - [!] Part of the country harmonization remains manual.
 - [!] Minor inconsistencies appear between documented counts and some output files.
 
@@ -42,21 +42,10 @@ The architecture retained here highlights that a strong analytical project can e
 
 # Value
 
-## What the project demonstrates
-The project demonstrates an ability to turn institutional complexity into a defensible quantitative metric, then extend that metric across several levels of analysis. It highlights competence in structured scoring, aggregation, data cleaning, and dashboard-oriented output design.
+## What I wanted to show
+I wanted to turn institutional complexity into an argued quantitative metric: structured scoring, multi-level aggregation, public-data cleaning and analysis-oriented reporting. For me, strong analytical value can be produced without going through a predictive model.
 
-It also shows an analytical posture centered on explicit methodology rather than generic commentary.
-
-## Professional relevance
-Within a broader analytical body of work, the project fits a line focused on public data, economic interpretation, and metric construction. The implementation highlights how analytical value can be created by defining a useful measure and documenting its assumptions clearly.
-
-The overall result brings out a capacity to connect policy-oriented subject matter with structured data treatment and usable reporting outputs.
-
-## Limits and positioning
-The repository is best understood as an indicator-construction project with reporting outputs.
-Its strongest contribution lies in explicit scoring design and aggregation logic rather than in a claim of definitive treaty quality measurement.
-
-- [v] The project highlights mastery of indicator construction on complex public data.
-- [v] The implementation combines methodological clarity and reporting usability.
-- [v] The overall structure shows how analytical value can be built without prediction.
-- [!] Like any synthetic index, the result remains inseparable from its scoring conventions.
+## What I take from it
+- [v] I defined a useful metric, documented its assumptions and linked it to usable outputs.
+- [v] I explicitly built an indicator on complex institutional data.
+- [!] Like any synthetic index, the result remains inseparable from my scoring choices.

@@ -327,20 +327,35 @@ Location: `src/data/publications.json`, an array shared by the homepage section 
 `me` is highlighted between the co-authors; `authorsBefore` / `authorsAfter` carry the punctuation.
 `status` must state the real stage (published, accepted, under review), in both languages.
 
-### Now building
+### Latest things (homepage cards)
 
-Location: `src/data/now-building.json`, `{ "en": [...], "fr": [...] }`.
+Three cards under the banner, composed by `src/hooks/useLatestThings.ts`:
+
+1. **Project in progress**: the first item with `state: "progress"` in `src/data/latest-things.json`.
+2. **Latest research paper**: the most recent item of `publications.json` (by `date`).
+3. **Latest project or post**: the more recent of the newest `completed` project and the newest blog post.
+
+Cards stay short on purpose (a short title and a few words), because they are small, especially on mobile.
+
+`src/data/latest-things.json`, `{ "en": [...], "fr": [...] }`:
 
 ```json
-{ "state": "progress", "title": "FMarketMonitor", "detail": "One sentence.", "href": "https://..." }
+{
+  "state": "progress",
+  "title": "FMarketMonitor",
+  "detail": "Economic project in progress",
+  "projectSlug": "fmarketmonitor",
+  "date": "2026-11-24"
+}
 ```
 
-- `state`: `progress` (in progress) or `prep` (in preparation); `href` is optional.
-- The "Updated" date is not stored: it is the date of the last commit touching this file.
+- `state`: `progress` (shown on the homepage), `prep` (in preparation) or `done`. Only the first `progress` item is shown.
+- `title` and `detail`: a few words each. `projectSlug` (optional) points to a project of `projects.json`: its cover is the
+  thumbnail and the card opens its project window. `date` (optional) falls back to the project date.
+- `publications.json` items carry a `date` (`YYYY-MM` when the day is unknown, otherwise `YYYY-MM-DD`).
 
 ## Validation
 
-- Type-level schemas live in `src/lib/content-schema.ts`
 - `home.ts` / `home.fr.ts` are checked by TypeScript at build time. The three homepage JSON files are not
   checked by the Python validator: follow the shapes above, run `npm run build` and look at the page
 - Script-level validation lives in `scripts/validate_content.py`

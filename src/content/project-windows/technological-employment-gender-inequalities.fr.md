@@ -27,9 +27,9 @@ et la concentration du capital humain peuvent produire des spillovers qu'une ré
 Le projet s'inscrit donc dans une logique de recherche appliquée.
 Il articule une question socio-économique substantielle et un cadre méthodologique adapté à sa géographie.
 
-- [v] Le sujet relie inégalités de genre, marché du travail et structure territoriale.
-- [v] La dépendance spatiale est traitée comme une exigence de méthode et non comme un raffinement optionnel.
-- [!] L'interprétation reste observationnelle et ne constitue pas une preuve causale au sens fort.
+- [v] J'ai relié inégalités de genre, marché du travail et structure territoriale.
+- [v] J'ai traité la dépendance spatiale comme une exigence de méthode, pas comme un raffinement optionnel.
+- [!] L'interprétation reste observationnelle : ce n'est pas une preuve causale au sens fort.
 
 # Method
 
@@ -63,36 +63,17 @@ apparaissent associées à une hausse du chômage féminin dans le cadre estimé
 Ces résultats sont intéressants parce qu'ils refusent
 une équation automatique entre intensité technologique et amélioration uniforme des trajectoires d'emploi.
 
-- [v] Le projet mobilise une méthode alignée sur la structure territoriale des données.
-- [v] Plusieurs spécifications spatiales rendent l'interprétation plus robuste qu'un modèle unique.
-- [v] Les résultats conservent leur complexité au lieu de forcer une lecture technophile simplifiée.
+- [v] J'ai choisi une méthode alignée sur la structure territoriale des données.
+- [v] J'ai testé plusieurs spécifications spatiales, pour une interprétation plus robuste qu'avec un seul modèle.
+- [v] J'ai gardé la complexité des résultats au lieu de forcer une lecture technophile simplifiée.
 - [!] Des stratégies d'identification supplémentaires seraient nécessaires pour des prétentions causales plus fortes.
 
 # Value
 
-## Ce que le projet démontre
-Le projet démontre une maîtrise de l'économétrie spatiale,
-du raisonnement en panel et de l'interprétation socio-économique sur données régionales.
+## Ce que j'ai voulu montrer
+Je voulais traduire une question publique concrète dans un cadre de modélisation explicite : économétrie spatiale, raisonnement en panel, interprétation socio-économique sur données régionales. J'ai laissé place aux effets mixtes et aux résultats non intuitifs plutôt que de les aplanir, en intégrant le territoire comme variable analytique centrale du raisonnement sur les inégalités d'emploi.
 
-Il met en lumière une capacité à traduire
-une question publique concrète dans un cadre de modélisation explicite.
-
-Il fait aussi ressortir une qualité importante :
-laisser place à des effets mixtes et à des résultats non intuitifs plutôt que les aplanir.
-
-## Portée professionnelle
-Le travail apporte une composante de recherche avancée
-à l'ensemble des projets.
-
-L'architecture retenue montre une capacité à relier
-outils économétriques, géographie des données et interprétation substantielle des résultats.
-
-Pris dans son ensemble, le projet vaut
-par sa profondeur méthodologique autant que par le sujet traité.
-
-Sa contribution principale réside dans l'intégration du territoire
-comme variable analytique centrale du raisonnement sur les inégalités d'emploi.
-
-- [v] Le projet souligne une pratique solide du panel spatial sur un sujet socio-économique important.
-- [v] Il montre une capacité à interpréter des spillovers régionaux sans simplification excessive.
-- [!] Sa valeur principale est analytique et méthodologique, non celle d'un message politique univoque.
+## Ce que j'en retiens
+- [v] J'ai pratiqué le panel spatial sur un sujet socio-économique important.
+- [v] J'ai interprété des spillovers régionaux sans simplification excessive.
+- [!] Ma valeur est analytique et méthodologique, pas celle d'un message politique univoque.

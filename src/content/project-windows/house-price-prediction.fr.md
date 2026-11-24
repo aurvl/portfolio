@@ -12,14 +12,13 @@ La prédiction de prix immobiliers est un classique du machine learning tabulair
 
 L’intérêt du projet ne tient pas à une sophistication excessive. Il tient au fait qu’il met en place un enchaînement propre : nettoyage, traitement des valeurs atypiques, standardisation, persistance des artefacts et comparaison de modèles.
 
-## Pourquoi ce projet mérite l'attention
-Le sujet reste immédiatement lisible tout en montrant des réflexes de praticien. Il rappelle qu’un bon pipeline de régression dépend souvent davantage de la qualité du prétraitement que du prestige du modèle utilisé.
+## Ce qui m'a intéressé
+Le sujet est immédiatement lisible, et il me permet de montrer des réflexes de praticien : un bon pipeline de régression dépend souvent davantage de la qualité du prétraitement que du prestige du modèle utilisé. C'est cette sobriété méthodologique qui m'importait.
 
-C’est précisément cette sobriété méthodologique qui le rend crédible.
 
-- [v] Le sujet est simple à comprendre et techniquement légitime.
-- [v] Le projet met l’accent sur le prétraitement, ce qui est souvent la bonne priorité.
-- [v] Il permet une comparaison claire entre modèles sur une base propre.
+- [v] J'ai choisi un sujet simple à comprendre et techniquement légitime.
+- [v] J'ai mis l'accent sur le prétraitement, qui est souvent la bonne priorité.
+- [v] J'ai fait une comparaison claire entre modèles sur une base propre.
 - [!] Le caractère relativement simple des features limite aussi la portée du modèle.
 
 # Method
@@ -34,28 +33,19 @@ La régression linéaire obtient un `R²` moyen en validation croisée d’envir
 
 Le notebook comporte toutefois une petite faiblesse technique : `r2_score` est appelé avec les arguments inversés (`y_pred`, `y_test`), ce qui peut légèrement perturber la valeur finale reportée. C’est un détail intéressant à noter, car il montre l’importance de la relecture même sur des pipelines assez classiques.
 
-- [v] Le projet construit un prétraitement cohérent et explicite.
-- [v] La comparaison de modèles reste lisible et pédagogiquement utile.
-- [v] Les artefacts de preprocessing sont conservés, ce qui renforce la structure du pipeline.
+- [v] J'ai construit un prétraitement cohérent et explicite.
+- [v] Ma comparaison de modèles reste lisible et pédagogiquement utile.
+- [v] J'ai conservé les artefacts de preprocessing, ce qui renforce la structure du pipeline.
 - [v] La supériorité de la régression linéaire dans ce cadre est clairement établie.
 - [!] Une petite erreur d’appel sur `r2_score` invite à relire les métriques finales.
-- [!] Les variables utilisées restent surtout numériques, ce qui limite potentiellement la richesse explicative.
+- [!] Mes variables sont surtout numériques, ce qui limite potentiellement la richesse explicative.
 
 # Value
 
-## Ce que le projet prouve
-Ce projet montre la capacité à poser proprement un problème de régression, à nettoyer les données avant l’entraînement et à comparer des approches différentes sans perdre de vue l’importance du pipeline amont. C’est souvent ce qui fait la différence dans les projets tabulaires réels.
+## Ce que j'ai voulu montrer
+Je voulais poser proprement un problème de régression, nettoyer les données avant l'entraînement et comparer des approches différentes sans perdre de vue l'importance du pipeline amont. Je ne cherche pas à impressionner : une bonne discipline de travail sur les données et une lecture raisonnable des résultats valent mieux qu'un empilement de modèles complexes sur un cas simple.
 
-## Portée professionnelle
-Le projet ne cherche pas à impressionner artificiellement. Il montre des bases solides, une bonne discipline de travail sur les données et une lecture raisonnable des résultats. Cette sobriété technique est souvent plus crédible qu’un empilement de modèles complexes sur un cas simple.
-
-Il apporte aussi une lecture claire de ce que vaut un pipeline tabulaire bien conduit : un problème bien posé, un prétraitement cohérent, une comparaison lisible et une identification explicite des faiblesses du notebook lorsque des détails techniques méritent correction.
-
-:::panel{tone="blue" title="Lecture du projet"}
-L’ensemble fait ressortir une maîtrise des fondamentaux de la régression tabulaire et une attention réelle portée à la qualité de l’exécution plutôt qu’à l’effet de sophistication.
-:::
-
-- [v] Le projet valorise la qualité du pipeline plus que la complexité du modèle.
-- [v] Il montre une bonne maîtrise des fondamentaux de la régression tabulaire.
-- [v] Il reste très lisible tout en conservant des choix méthodologiques réellement discutables.
-- [!] Sa portée est surtout celle d’un pipeline de régression propre, pas d’un benchmark exhaustif sur la prédiction immobilière.
+## Ce que j'en retiens
+- [v] J'ai privilégié la qualité du pipeline plutôt que la complexité du modèle.
+- [v] J'ai identifié explicitement les faiblesses de mon notebook là où des détails techniques méritent correction.
+- [!] C'est un pipeline de régression propre, pas un benchmark exhaustif sur la prédiction immobilière.

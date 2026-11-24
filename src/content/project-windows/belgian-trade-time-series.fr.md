@@ -12,14 +12,14 @@ Ce projet porte sur un sujet classique mais exigeant : modéliser la dynamique c
 
 Son intérêt ne réside pas uniquement dans la production d’une courbe future. Il se situe aussi dans la discipline économétrique mise en œuvre pour vérifier la stationnarité, la causalité et la pertinence du cadre multivarié retenu.
 
-## Pourquoi ce projet mérite l'attention
-Le projet mérite l’attention parce qu’il montre une manière structurée de travailler sur des séries économiques : diagnostiquer avant de modéliser, choisir une spécification cohérente et éviter de projeter des résultats sans vérifier les propriétés des séries.
+## Ce qui m'a intéressé
+J'ai voulu travailler de façon structurée sur des séries économiques : diagnostiquer avant de modéliser, choisir une spécification cohérente et éviter de projeter des résultats sans vérifier les propriétés des séries.
 
-Il apporte aussi une composante d'économie appliquée lisible, fondée sur un usage rigoureux des outils de séries temporelles sur un cas de commerce extérieur.
+C'est une composante d'économie appliquée lisible, fondée sur un usage rigoureux des outils de séries temporelles sur un cas de commerce extérieur.
 
-- [v] Le projet suit une démarche économétrique lisible et ordonnée.
-- [v] Il articule analyse univariée et multivariée.
-- [v] Il traite un sujet macroéconomique concret et crédible.
+- [v] J'ai suivi une démarche économétrique lisible et ordonnée.
+- [v] J'ai articulé analyse univariée et multivariée.
+- [v] J'ai traité un sujet macroéconomique concret.
 - [!] La reproductibilité du pipeline complet est moins immédiate que la lecture du raisonnement.
 
 # Method
@@ -34,28 +34,19 @@ Le rapport conclut à une non-stationnarité en niveau, à une causalité bidire
 
 Le dépôt local contient surtout le CSV source et la documentation plus qu’un code entièrement rejouable. Cette limite ne retire pas la valeur analytique du travail, mais elle situe bien le niveau de finition du dépôt.
 
-- [v] Les tests de stationnarité et de causalité sont explicitement intégrés dans la démarche.
-- [v] Le choix de ne pas retenir un `VECM` est justifié par les diagnostics.
-- [v] Les prévisions sont replacées dans un cadre méthodologique identifiable.
-- [v] Le projet met en avant la logique de diagnostic avant modélisation.
-- [!] Le code n’est pas entièrement disponible dans ce clone, surtout au-delà de la documentation et du CSV.
-- [!] Comme toujours avec des prévisions macro, les résultats doivent être lus comme des projections conditionnelles, pas comme des certitudes.
+- [v] J'ai intégré explicitement les tests de stationnarité et de causalité.
+- [v] Mes diagnostics justifient de ne pas retenir un `VECM`.
+- [v] J'ai replacé les prévisions dans un cadre méthodologique identifiable.
+- [v] Je fais passer le diagnostic avant la modélisation.
+- [!] Le code n'est pas entièrement disponible dans le dépôt public, surtout au-delà de la documentation et du CSV.
+- [!] Comme pour toute prévision macro, mes résultats sont des projections conditionnelles, pas des certitudes.
 
 # Value
 
-## Ce que le projet prouve
-Ce projet met en évidence une maîtrise des bases de l’économétrie temporelle : transformation des séries, tests de stationnarité, modélisation VAR, lecture de la causalité et prudence dans l’interprétation des projections.
+## Ce que j'ai voulu montrer
+Je voulais maîtriser les bases de l'économétrie temporelle : transformation des séries, tests de stationnarité, modélisation VAR, lecture de la causalité et prudence dans l'interprétation des projections. Je traite un sujet macroéconomique avec des outils standards bien mobilisés, sans court-circuiter les diagnostics qui conditionnent l'interprétation.
 
-## Portée professionnelle
-Le projet apporte une crédibilité nette sur l’axe économie appliquée. Il montre la capacité à traiter un sujet macroéconomique sérieux avec des outils standards mais correctement mobilisés, sans court-circuiter les diagnostics qui conditionnent l’interprétation des résultats.
-
-Il ouvre également sur des sujets d’analyse substantiels : non-stationnarité, interdépendance commerciale, causalité de Granger et statut des projections. Cette densité conceptuelle renforce la valeur du travail au-delà de la seule production de prévisions.
-
-:::panel{tone="blue" title="Lecture du projet"}
-L’ensemble met en évidence une maîtrise des étapes classiques de l’économétrie des séries temporelles et une lecture prudente de ce que les modèles autorisent réellement à conclure.
-:::
-
-- [v] Le projet valorise une démarche rigoureuse de séries temporelles.
-- [v] Il souligne une compétence nette en économie quantitative et en modélisation dynamique.
-- [v] Il montre qu’un sujet macro peut être traité avec méthode et sobriété.
-- [!] Sa portée doit être lue comme analytique et pédagogique, pas comme un outil de prévision opérationnelle institutionnelle.
+## Ce que j'en retiens
+- [v] J'ai privilégié une démarche rigoureuse et sobre en séries temporelles.
+- [v] J'ai abordé des questions de fond : non-stationnarité, interdépendance commerciale, causalité de Granger, statut des projections.
+- [!] C'est une analyse pédagogique, pas un outil de prévision opérationnelle institutionnelle.

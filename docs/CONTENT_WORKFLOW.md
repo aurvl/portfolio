@@ -13,7 +13,7 @@ Use these files and folders as the editable content sources:
 - `src/data/series.json`
 - `src/data/domain.json`
 - `src/data/home.ts`, `src/data/home.fr.ts` (homepage copy)
-- `src/data/selected-work.json`, `src/data/publications.json`, `src/data/now-building.json` (homepage lists)
+- `src/data/selected-work.json`, `src/data/publications.json`, `src/data/latest-things.json` (homepage lists)
 
 Do not edit generated files such as:
 

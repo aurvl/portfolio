@@ -29,8 +29,8 @@ The logistic regression reaches roughly `85.34%` accuracy with an `AUC-ROC` arou
 
 The repository also includes feature-importance outputs and supporting visualizations, which improves interpretability and keeps the analysis from collapsing into a metric table alone.
 
-- [v] The workflow explicitly addresses class imbalance through `SMOTE`.
-- [v] Several model families are compared under the same prediction task.
+- [v] I explicitly addressed class imbalance through `SMOTE`.
+- [v] I compared several model families under the same prediction task.
 - [v] The Random Forest results are consistent across multiple metrics.
 - [!] The `XGBoost` outputs should be interpreted cautiously because the metric combination is internally inconsistent.
 - [!] The project remains predictive and exploratory rather than causal in scope.
@@ -42,21 +42,10 @@ The repository also shows that identifying suspicious results can be as valuable
 
 # Value
 
-## What the project demonstrates
-The project demonstrates competence in mixed-variable preprocessing, imbalance handling, baseline comparison, and critical reading of classification outputs. It also shows that model evaluation is not reduced to maximizing one favorable metric.
+## What I wanted to show
+I wanted to show several reflexes: cleanly preparing heterogeneous variables, handling class imbalance, comparing several models and refusing to take an isolated figure for the whole truth. Serious classification work is not about keeping the best score: you also have to interpret, diagnose and spot a result that looks inconsistent despite a flattering metric.
 
-That broader analytical posture gives the work more professional substance than a model ranking alone would provide.
-
-## Professional relevance
-The project fits an applied machine learning logic centered on clean tabular preparation and disciplined evaluation. The implementation shows an ability to question contradictory outputs instead of treating every high number as a sign of model quality.
-
-The overall result highlights method control, interpretability, and caution in reading performance claims.
-
-## Limits and positioning
-The repository is best understood as a classification study whose value comes partly from detecting instability in the modeling results.
-Its strongest contribution lies in preprocessing discipline and metric interpretation rather than in a single headline score.
-
-- [v] The project highlights practical mastery of tabular classification workflow design.
-- [v] The analysis keeps model behavior and metric coherence in view.
-- [v] The implementation foregrounds method and interpretation rather than score presentation.
-- [!] Its strongest contribution lies in the analytical handling of the workflow rather than in the nominal best metric alone.
+## What I take from it
+- [v] I read the metrics critically.
+- [v] I combined performance, interpretation and methodological caution.
+- [!] The contribution is as much the critical analysis of the results as the best score obtained.

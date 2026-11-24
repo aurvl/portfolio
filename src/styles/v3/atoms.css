@@ -1,0 +1,376 @@
+/* ------------------------------------------------------------------ *
+ * Design v3 : atomes (Avatar, SocialIcons, UtilityPill, boutons).
+ * Référence : design/screens/02-about.png.
+ * ------------------------------------------------------------------ */
+
+/* ---------- Avatar ---------- */
+
+.avatar {
+  display: block;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: var(--color-placeholder);
+  border-radius: 50%;
+}
+
+.avatar__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---------- Réseaux sociaux ---------- */
+
+.social-icons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.social-icons__link {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1.15rem;
+  color: var(--color-social-icon);
+  background: var(--color-brand);
+  border-radius: 50%;
+  transition: opacity var(--duration-fast) ease;
+}
+
+.social-icons__link:hover {
+  opacity: 0.82;
+}
+
+.social-icons__link:focus-visible,
+.utility-pill__theme:focus-visible,
+.btn:focus-visible {
+  outline: 2px solid var(--color-brand-ink);
+  outline-offset: 2px;
+}
+
+/* ---------- Pilule utilitaire (langue + thème) ---------- */
+
+.utility-pill {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  white-space: nowrap;
+  gap: 0.25rem;
+  padding: 0.35rem 0.5rem 0.35rem 0.85rem;
+  color: #ffffff;
+  /* La pilule est fixe : en défilant, elle passe de la photo à la page blanche. Fond sombre translucide
+     (70 % du voile de la bannière) pour que le texte blanc reste lisible sur tous les fonds, clair ou sombre.
+     backdrop-filter : floute ce qui passe derrière. */
+  background: color-mix(in srgb, var(--color-banner-veil) 70%, transparent);
+  backdrop-filter: blur(10px);
+  /* Liseré clair : sépare la pilule d'un fond sombre (même couleur que son propre fond) */
+  border: 1px solid color-mix(in srgb, #ffffff 28%, transparent);
+  border-radius: var(--radius-pill);
+}
+
+/* Thème sombre : la page est déjà sombre, un fond sombre disparaîtrait. On passe à un gris clair translucide. */
+:root[data-theme='dark'] .utility-pill {
+  background: color-mix(in srgb, #ffffff 26%, transparent);
+}
+
+.utility-pill__language {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.utility-pill__select {
+  appearance: none;
+  padding: 0.25rem 0.25rem;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.utility-pill__select:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+  border-radius: var(--radius-pill);
+}
+
+/* Les options du menu natif gardent un fond lisible en clair comme en sombre */
+.utility-pill__select option {
+  color: var(--color-ink);
+  background: var(--color-surface);
+}
+
+.utility-pill__theme {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 150ms ease;
+}
+
+.utility-pill__theme:hover {
+  background: color-mix(in srgb, #ffffff 25%, transparent);
+}
+
+/* ---------- Boutons ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.5rem;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  transition: transform 150ms ease, box-shadow 150ms ease, background-color 150ms ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn__icon {
+  display: inline-flex;
+}
+
+/* Primaire : bleu plein, texte clair (ex. « View my papers ↓ ») */
+.btn--primary {
+  color: #ffffff;
+  background: var(--color-brand);
+  box-shadow: var(--shadow-pill);
+}
+
+/* Secondaire : bleu clair translucide (ex. « Explore my Work ») */
+.btn--secondary {
+  color: var(--color-brand-ink);
+  background: var(--color-brand-soft);
+}
+
+.btn--secondary:hover {
+  background: color-mix(in srgb, var(--color-brand) 42%, transparent);
+}
+
+/* Contour : fond de la page, fin trait (ex. « Get in touch ») */
+.btn--outline {
+  color: var(--color-ink);
+  background: var(--color-surface);
+  border-color: var(--color-line);
+}
+
+.btn--outline:hover {
+  border-color: var(--color-brand);
+}
+
+/* Pilule : petit bouton arrondi avec icône (ex. « View my Resume ») */
+.btn--pill {
+  padding: 0.55rem 1.1rem;
+  font-size: 0.95rem;
+  color: var(--color-ink);
+  background: color-mix(in srgb, var(--color-brand) 14%, var(--color-surface));
+  border-color: var(--color-line);
+}
+
+.btn--pill:hover {
+  background: var(--color-brand-soft);
+}
+
+/* prefers-reduced-motion : on retire les petits déplacements au survol */
+@media (prefers-reduced-motion: reduce) {
+  .btn,
+  .social-icons__link,
+  .utility-pill__theme {
+    transition: none;
+  }
+
+  .btn:hover {
+    transform: none;
+  }
+}
+
+/* ---------- Style éditorial (design/BRIEF.md §2) ----------
+   Variantes ajoutées à côté des anciennes : coins quasi droits, ni pilule, ni ombre, ni déplacement au survol.
+   Un seul bouton `solid` par écran ; les autres actions sont des `link` (souligné + flèche) ou des `line` (filet). */
+
+.btn--solid,
+.btn--line,
+.btn--link {
+  border-radius: var(--radius-sharp);
+  font-weight: 600;
+  transition: opacity var(--duration-fast) ease, color var(--duration-fast) ease;
+}
+
+.btn--solid:hover,
+.btn--line:hover,
+.btn--link:hover {
+  transform: none;
+}
+
+/* Bouton désactivé (formulaires) : atténué, curseur « interdit » */
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Plein : bleu de marque, texte foncé (le blanc manquerait de contraste sur ce bleu) */
+.btn--solid {
+  padding: 0.8rem 1.5rem;
+  color: var(--color-on-brand);
+  background: var(--color-brand);
+}
+
+/* Au survol et au focus clavier : seule la couleur du texte change (noir → bleu nuit) */
+.btn--solid:hover,
+.btn--solid:focus-visible {
+  color: var(--color-on-brand-hover);
+}
+
+/* Filet : fond transparent, trait fin de la couleur du texte */
+.btn--line {
+  padding: 0.7rem 1.1rem;
+  color: var(--color-ink);
+  background: transparent;
+  border-color: var(--color-ink);
+}
+
+.btn--line:hover {
+  color: var(--color-brand-ink);
+  border-color: var(--color-brand-ink);
+}
+
+/* Lien d'action : texte souligné suivi d'une flèche, sans boîte */
+.btn--link {
+  padding: 0.25rem 0;
+  font-weight: 500;
+  color: var(--color-ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  background: transparent;
+}
+
+.btn--link:hover {
+  color: var(--color-brand-ink);
+  text-decoration-thickness: 2px;
+}
+
+/* ---------- Zones de toucher (téléphone, tablette, écran tactile) ----------
+   Au doigt, une cible doit mesurer au moins 44 px. Plutôt que d'agrandir les boutons (le dessin ne change pas),
+   on agrandit leur zone cliquable de façon invisible : un ::before transparent, centré sur l'élément, qui mesure
+   « le plus grand de : l'élément lui-même ou 44 px ». Un clic sur ce ::before compte comme un clic sur l'élément.
+   La condition couvre les écrans tactiles (pointer: coarse) ET les largeurs < 1024 px, donc aussi l'iPad en paysage.
+   Les liens « étirés » (cartes entières cliquables) n'en ont pas besoin : leur zone couvre déjà tout le bloc. */
+@media (pointer: coarse), (max-width: 1023px) {
+  /* Éléments qui n'étaient pas positionnés : ils deviennent le repère du ::before */
+  .social-icons__link,
+  .utility-pill__theme,
+  .btn--link,
+  .btn--line,
+  .blog-page__link,
+  .site-footer__link,
+  .search-panel__link,
+  .md-content__code-fold-btn,
+  .md-content__copy-btn {
+    position: relative;
+  }
+
+  /* top / left à 50 % puis translate(-50 %, -50 %) : le carré reste centré quelle que soit la taille de l'élément */
+  .social-icons__link::before,
+  .utility-pill__theme::before,
+  .btn--link::before,
+  .btn--line::before,
+  .blog-page__link::before,
+  .site-footer__link::before,
+  .search-panel__link::before,
+  .search-panel__close::before,
+  .md-content__code-tab::before,
+  .md-content__code-fold-btn::before,
+  .md-content__copy-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: max(100%, 44px);
+    height: max(100%, 44px);
+    transform: translate(-50%, -50%);
+  }
+
+  /* Un <select> natif n'affiche pas de ::before : sa zone cliquable grandit par son propre remplissage, annulé par une
+     marge négative de même taille (la pilule ne bouge pas). Elle déborde à gauche sur l'icône de langue, qui est décorative. */
+  .utility-pill__select {
+    margin: -0.4rem -0.1rem -0.4rem -1rem;
+    padding: 0.65rem 0.35rem 0.65rem 1.25rem;
+  }
+
+  /* Le bandeau de défilement des onglets de code coupe tout ce qui dépasse : on lui donne de la hauteur interne
+     (remplissage) pour que la zone de 44 px ne soit pas rognée, sans changer sa hauteur visible (marge négative). */
+  .md-content__code-tabs {
+    margin-block: -0.6rem;
+    padding-block: 0.6rem;
+  }
+}
+
+/* Étiquette au-dessus d'un titre : petites majuscules espacées, couleur atténuée */
+.eyebrow {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--label-size);
+  font-weight: 600;
+  line-height: 1.2;
+  /* letter-spacing + majuscules : étiquette éditoriale discrète */
+  letter-spacing: var(--label-spacing);
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+/* Chiffres de même largeur : dates, années et compteurs restent alignés */
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Lien d'évitement : sorti de l'écran tant qu'il n'a pas le focus ; au clavier il apparaît en haut à gauche,
+   au-dessus de tout (z-index élevé : la navbar fixe ne doit pas le recouvrir) */
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 1000;
+  padding: 0.6rem 1rem;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  color: var(--color-on-brand);
+  background: var(--color-brand);
+  border-radius: var(--radius-small);
+  transform: translateY(-200%);
+}
+
+.skip-link:focus-visible {
+  outline: 2px solid var(--color-on-brand);
+  outline-offset: 2px;
+  transform: translateY(0);
+}
+
+/* La zone de contenu reçoit le focus par programme (lien d'évitement) : pas de cadre autour de toute la page */
+#main-content:focus {
+  outline: none;
+}

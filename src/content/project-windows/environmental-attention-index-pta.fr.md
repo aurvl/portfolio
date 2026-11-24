@@ -27,9 +27,9 @@ sont regroupées, scorées, normalisées et agrégées.
 Cette orientation donne au travail une identité méthodologique forte.
 Le dashboard n'est que la couche finale d'une logique de mesure explicitée en amont.
 
-- [v] Le projet construit un indicateur original au lieu d'utiliser une métrique déjà fournie.
-- [v] La valeur du dépôt repose sur la méthode de scoring autant que sur la restitution.
-- [!] Comme tout indice synthétique, le résultat dépend étroitement des conventions de construction retenues.
+- [v] J'ai construit un indicateur original au lieu d'utiliser une métrique déjà fournie.
+- [v] La valeur est dans la méthode de scoring autant que dans la restitution.
+- [!] Comme tout indice synthétique, le résultat dépend étroitement des conventions de construction que j'ai retenues.
 
 # Method
 
@@ -60,34 +60,17 @@ une couverture de `216` pays ou groupes, une attention environnementale plus for
 Le pipeline laisse également visibles ses limites de reproductibilité.
 Une partie de l'harmonisation des noms de pays repose sur un travail manuel sous Excel via `VLOOKUP`.
 
-- [v] Le workflow relie source institutionnelle, logique de scoring et restitution BI.
-- [v] Les vues au niveau des accords et des pays élargissent la portée analytique.
-- [v] La calibration rend l'indice plus lisible et plus défendable.
+- [v] J'ai relié une source institutionnelle, une logique de scoring et une restitution BI.
+- [v] J'ai ajouté des vues au niveau des accords et des pays pour élargir la portée analytique.
+- [v] Ma calibration rend l'indice plus lisible et plus défendable.
 - [!] L'harmonisation manuelle introduit une dépendance opérationnelle non négligeable.
 
 # Value
 
-## Ce que le projet met en évidence
-Le projet met en évidence une capacité à transformer une complexité institutionnelle
-en métrique quantitative argumentée.
+## Ce que j'ai voulu montrer
+Je voulais transformer une complexité institutionnelle en métrique quantitative argumentée : scoring structuré, agrégation multi-niveaux, nettoyage de données publiques et restitution orientée analyse. Pour moi, on peut produire une forte valeur analytique sans passer par un modèle prédictif.
 
-Il démontre une maîtrise du scoring structuré,
-de l'agrégation multi-niveaux, du nettoyage de données publiques et de la restitution orientée analyse.
-
-Il montre aussi qu'une forte valeur analytique peut être produite
-sans passer par un modèle prédictif.
-
-## Portée professionnelle
-Le travail s'inscrit dans une logique de données publiques,
-d'interprétation économique et de construction méthodique de mesure.
-
-L'architecture retenue fait ressortir une capacité à définir une métrique utile,
-à documenter ses hypothèses et à la relier à des sorties exploitables.
-
-Pris dans son ensemble, le projet vaut par la clarté de son dispositif de mesure.
-Sa contribution principale réside dans la construction explicite d'un indicateur sur données institutionnelles complexes.
-
-- [v] Le projet souligne une maîtrise de la construction d'indicateurs sur données publiques complexes.
-- [v] Il combine clarté méthodologique et utilité de restitution.
-- [v] L'ensemble montre comment créer de la valeur analytique sans recourir à la prédiction.
-- [!] La portée de l'indice reste inséparable des choix de scoring qui le définissent.
+## Ce que j'en retiens
+- [v] J'ai défini une métrique utile, documenté ses hypothèses et l'ai reliée à des sorties exploitables.
+- [v] J'ai construit explicitement un indicateur sur des données institutionnelles complexes.
+- [!] La portée de l'indice reste inséparable de mes choix de scoring.

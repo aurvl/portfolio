@@ -29,9 +29,9 @@ The project highlights that the first dimension is mainly driven by `relationshi
 
 The visual outputs also help clarify how categorical modalities and quantitative variables relate to each other across dimensions, which is precisely the strength of FAMD in mixed-data settings.
 
-- [v] The workflow is aligned with the specific requirements of mixed-variable analysis.
-- [v] The preprocessing choices are explicit and methodologically coherent.
-- [v] The extracted dimensions are interpreted rather than left as abstract components.
+- [v] I aligned the workflow with the specific requirements of mixed-variable analysis.
+- [v] I made the preprocessing choices explicit and methodologically coherent.
+- [v] I interpreted the extracted dimensions rather than leaving them as abstract components.
 - [!] Final figures and tables are not fully frozen in the repository outputs.
 - [!] Reproducibility depends partly on a live UCI dataset download.
 
@@ -42,21 +42,10 @@ This gives the project a strong analytical identity despite the absence of a pre
 
 # Value
 
-## What the project demonstrates
-The project demonstrates competence in multivariate analysis, mixed-data preparation, and interpretive reading of factorial outputs. It shows how categorical and quantitative variables can be analyzed jointly without reducing one family to an awkward encoding workaround.
+## What I wanted to show
+I wanted to work cleanly with mixed data and produce a structured interpretation of a factorial space: a useful skill in data exploration, quantitative social science and the upstream phase of modeling. Knowing how to organize a complex space of variables before choosing a supervised model is often decisive.
 
-It also highlights a broader analytical skill: the ability to organize a complex variable space before turning it into a downstream modeling problem.
-
-## Professional relevance
-The project broadens the analytical profile beyond benchmark-oriented machine learning. It shows a capacity to use exploratory multivariate tools in a rigorous way and to derive interpretable structure from a socio-economic dataset.
-
-The overall result highlights methodological range, interpretive discipline, and comfort with mixed-data analysis frameworks.
-
-## Limits and positioning
-The repository is best positioned as an exploratory multivariate analysis rather than as a predictive workflow.
-Its strongest contribution lies in dimensional interpretation and mixed-variable treatment, which are often absent from more standard data projects.
-
-- [v] The project highlights a less common but highly relevant analytical skill set.
-- [v] The implementation shows clear control over FAMD-oriented workflow design.
-- [v] The structure brings out interpretation as a primary analytical objective.
-- [!] Its value lies in multivariate insight rather than in a conventional performance metric.
+## What I take from it
+- [v] I used dimension reduction as a tool for interpretation, not as an automatic preprocessing step.
+- [v] I care about multivariate analysis and reading latent structures, not only prediction.
+- [!] My strength is interpretation and rigor of reading, not a single performance figure.

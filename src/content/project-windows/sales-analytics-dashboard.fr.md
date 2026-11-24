@@ -27,9 +27,9 @@ de valeur client, de performance catalogue et de segmentation commerciale.
 Le projet s'inscrit donc dans une logique d'aide à la décision.
 Il montre comment des transactions peuvent être réorganisées pour faire émerger des indicateurs réellement lisibles.
 
-- [v] La chaîne relie stockage, modélisation analytique et restitution dans un même ensemble cohérent.
-- [v] Les règles métier apparaissent dès la couche SQL et pas seulement dans les graphiques.
-- [!] Le projet vise d'abord la qualité analytique de la modélisation, pas l'orchestration industrielle d'un data warehouse complet.
+- [v] J'ai relié stockage, modélisation analytique et restitution dans une seule chaîne cohérente.
+- [v] J'ai encodé les règles métier dès la couche SQL, pas seulement dans les graphiques.
+- [!] Je vise la qualité analytique de la modélisation, pas l'orchestration industrielle d'un data warehouse complet.
 
 # Method
 
@@ -56,34 +56,18 @@ Cela permet de produire des cumuls, des comparaisons temporelles et des lectures
 Cette orientation montre une maîtrise d'un SQL analytique plus riche qu'un enchaînement de `GROUP BY`.
 La valeur du projet vient en grande partie de cette structuration en amont.
 
-- [v] Les vues sont organisées autour de questions métier réelles.
-- [v] La segmentation est directement intégrée dans la couche analytique.
-- [v] Les fonctions de fenêtre renforcent la profondeur temporelle du reporting.
+- [v] J'ai organisé les vues autour de questions métier réelles.
+- [v] J'ai intégré la segmentation directement dans la couche analytique.
+- [v] J'ai utilisé des fonctions de fenêtre pour donner de la profondeur temporelle au reporting.
 - [!] L'ingestion dépend encore de chemins CSV locaux, ce qui limite l'automatisation complète du pipeline.
 
 # Value
 
-## Ce que le projet met en évidence
-Le projet met en évidence une capacité à traduire des données transactionnelles
-en couche de pilotage structurée.
+## Ce que j'ai voulu montrer
+Je voulais traduire des données transactionnelles en couche de pilotage structurée : modélisation orientée métier, SQL analytique, définition de KPI et restitution BI. Pour moi, la valeur d'un dashboard vient plus de la qualité du modèle de données que de sa finition graphique.
 
-Il démontre une maîtrise de la modélisation orientée métier,
-du SQL analytique, de la définition de KPI et de la restitution BI.
-
-L'ensemble montre aussi que la valeur d'un dashboard provient souvent
-de la qualité du modèle de données plus que de la finition graphique seule.
-
-## Portée professionnelle
-L'architecture retenue fait ressortir une capacité à organiser les données
-autour d'entités et de variables de décision plutôt qu'autour de leur simple stockage initial.
-
-Le travail s'inscrit dans une logique de reporting utilisable,
-maintenable et relié à des besoins commerciaux explicites.
-
-Pris dans son ensemble, le projet illustre une BI centrée sur la lisibilité analytique.
-Sa contribution principale réside dans la qualité de la couche sémantique et des règles de calcul.
-
-- [v] Le projet souligne une maîtrise du SQL analytique appliqué à des besoins business.
-- [v] La structure relie clairement modélisation des données et sortie dashboard.
-- [v] L'ensemble fait ressortir une logique d'aide à la décision plutôt qu'une simple démonstration visuelle.
-- [!] Sa force principale se situe dans la conception analytique davantage que dans l'industrialisation d'infrastructure.
+## Ce que j'en retiens
+- [v] J'ai appliqué du SQL analytique à des besoins business.
+- [v] J'ai relié clairement la modélisation des données à la sortie dashboard.
+- [v] J'ai cherché une aide à la décision, pas une simple démonstration visuelle.
+- [!] Ma force est la conception analytique, pas l'industrialisation de l'infrastructure.

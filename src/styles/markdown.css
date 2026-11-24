@@ -203,7 +203,7 @@
 
 .md-content__code-line-number {
   user-select: none;
-  color: rgba(255, 255, 255, 0.34);
+  color: rgba(255, 255, 255, 0.62);
   text-align: right;
 }
 
@@ -569,11 +569,11 @@
 }
 
 :root[data-theme='light'] .md-content__code-line-number {
-  color: rgba(18, 32, 51, 0.28);
+  color: rgba(18, 32, 51, 0.62);
 }
 
 :root[data-theme='light'] .md-content__code-token--comment {
-  color: #8b93a1;
+  color: #5b6472;
 }
 
 :root[data-theme='light'] .md-content__code-token--string {
@@ -644,4 +644,21 @@
     grid-template-columns: 1.8rem minmax(0, 1fr);
   }
 
+}
+
+/* Listes « à faire / à éviter » en mode clair : les verts et rouges clairs du sombre sont illisibles sur fond pâle,
+   on prend des teintes foncées (au moins 4,5:1) */
+:root[data-theme='light'] .md-content__li--done,
+:root[data-theme='light'] .md-content__li-badge--done {
+  color: #166534;
+}
+
+:root[data-theme='light'] .md-content__li--avoid,
+:root[data-theme='light'] .md-content__li-badge--avoid {
+  color: #b91c1c;
+}
+
+/* Liens du texte en mode sombre : le bleu #0466c8 n'atteint que 3,3:1 sur fond sombre, on prend le bleu d'action clair (AA) */
+:root[data-theme='dark'] .md-content__link {
+  color: var(--color-action-blue);
 }

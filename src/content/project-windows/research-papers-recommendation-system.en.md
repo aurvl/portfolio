@@ -24,7 +24,7 @@ It combines several signals so that recommendation quality does not depend on on
 The scale of the corpus, around `58,891` articles, gives the repository enough substance to move beyond a toy example.
 It also makes ranking design more meaningful because retrieval noise becomes a real constraint at that size.
 
-- [v] The project tackles a concrete information retrieval problem with a hybrid design.
+- [v] I tackled a concrete information retrieval problem with a hybrid design.
 - [v] The corpus scale is large enough to justify retrieval and ranking choices.
 - [!] Recommendation quality still depends on metadata quality and on how well user interests are represented over time.
 
@@ -51,31 +51,17 @@ This matters because retrieval systems become more credible when the scoring log
 Taken together, the architecture combines sparse retrieval, dense semantics, user modeling, and API exposure.
 That is a materially stronger structure than a single-model recommendation demo.
 
-- [v] The system uses complementary ranking signals instead of a one-dimensional relevance score.
-- [v] Sparse and dense representations are combined for better retrieval coverage.
-- [v] The API layer makes the project closer to an actual service architecture.
+- [v] I use complementary ranking signals instead of a one-dimensional relevance score.
+- [v] I combine sparse and dense representations for better retrieval coverage.
+- [v] I added an API layer, which brings the project closer to an actual service architecture.
 - [!] The repository still depends on the quality of article metadata and profile update logic.
 
 # Value
 
-## What the project demonstrates
-The project demonstrates a broad recommendation-system skill set.
-It shows competence in text representation, semantic search, hybrid scoring, user-profile design, and service-oriented packaging.
+## What I wanted to show
+I wanted to build a hybrid recommender grounded in both information retrieval and embeddings: text representation, semantic similarity, user profile and service exposure. I clearly separated retrieval, ranking, trend adjustment and service, to make visible the trade-offs between lexical precision, semantic coverage, novelty and ranking readability.
 
-It also reflects strong problem decomposition.
-The repository separates retrieval, ranking, trend adjustment, and application exposure into understandable layers.
-
-## Professional significance
-Structurally, this is one of the more complete NLP-adjacent projects in the repository.
-It highlights the ability to combine information retrieval methods with product-oriented ranking logic rather than stopping at a similarity notebook.
-
-The architecture retained here also makes visible a practical understanding of recommendation trade-offs.
-Precision, novelty, recency, and interpretability are all present as design concerns.
-
-## Limits and positioning
-The project is not a fully online recommender with click feedback loops or large-scale serving infrastructure.
-Its strength lies in the hybrid design and in the fact that the ranking logic is explicit enough to be audited and extended.
-
-- [v] The project highlights hybrid recommender design grounded in both IR and semantic modeling.
-- [v] It connects model choices to an application-facing API layer.
-- [!] Its main contribution is architectural and methodological depth rather than full production-scale deployment.
+## What I take from it
+- [v] I linked representation choices, ranking logic and API exposure.
+- [v] I built a system closer to a usable service than to a similarity exercise.
+- [!] This is a well-built content-based system, not an industrial platform with online feedback.

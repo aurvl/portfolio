@@ -18,9 +18,9 @@ This makes it possible to inspect a central estimate, variance, and shrinkage ef
 The WBES 2023 economic dataset is used as a concrete illustration around innovation, R&D, and sales growth.
 It is not used to defend a strong causal economic conclusion.
 
-- [v] The project clarifies the link between classical regression, regularization, and Bayesian modeling.
-- [v] The estimators are implemented from scratch with `NumPy` and `SciPy`.
-- [!] The economic results should be read as a methodological illustration, not as causal evidence.
+- [v] I clarified the link between classical regression, regularization, and Bayesian modeling.
+- [v] I implemented the estimators from scratch with `NumPy` and `SciPy`.
+- [!] I present the economic results as a methodological illustration, not as causal evidence.
 
 # Method
 
@@ -41,26 +41,18 @@ The computation uses a Cholesky factorization to avoid explicit inversion of the
 This decision matters.
 It shows that the project does not only write down formulas, but also handles numerical issues that appear in a real implementation.
 
-- [v] The project connects formulas to inspectable code.
-- [v] Cholesky is used for both the log determinant and the quadratic term in a more stable way.
-- [!] `Empirical Bayes` estimates a point hyperparameter; it is not a fully Bayesian model with a hyperprior.
+- [v] I connected the formulas to code anyone can inspect.
+- [v] I use a Cholesky factorization for both the log determinant and the quadratic term, which is more stable.
+- [!] My `Empirical Bayes` estimates a point hyperparameter; it is not a fully Bayesian model with a hyperprior.
 
 # Value
 
-## What the project demonstrates
-This project shows a strong understanding of linear models beyond calling a library.
-It explains why regularization can be read as a probabilistic assumption, and how posterior uncertainty helps interpret weak or noisy coefficients.
+## What I wanted to show
+I wanted to understand Bayesian linear regression from the inside, without relying on a library: derive the estimators, code them with `NumPy` and `SciPy`, and see how `OLS`, `Ridge`, Bayesian regression, and `Empirical Bayes` line up on a single axis.
 
-The portfolio value is the bridge between econometrics and probabilistic machine learning.
-The project does not only present a final metric: it shows the mechanism, assumptions, and limits.
+What interested me most is uncertainty. A coefficient is no longer a single value but a distribution, and the shrinkage effect is directly visible: for the R&D coefficient, the OLS estimate of about `-0.121` is pulled toward `-0.031`, with a smaller standard error.
 
-## Professional positioning
-The project is especially useful for demonstrating statistical modeling foundations.
-It shows the ability to derive, implement, and compare estimators while keeping a cautious interpretation of economic data.
-
-The measuring-tape cover supports that message.
-It evokes estimation, imperfect measurement, and uncertainty, which fits the Bayesian framing of the project.
-
-- [v] Strong project for showing statistical foundations.
-- [v] Clear articulation between OLS, Ridge, Bayes, and Empirical Bayes.
-- [!] Present it as a methodological project, not as a definitive economic study on R&D.
+## What I take from it
+- [v] I linked the formulas to readable code, from OLS to Empirical Bayes, on one axis.
+- [v] I dealt with numerical stability (Cholesky factorization) instead of stopping at the formulas.
+- [!] The WBES results illustrate the method: I draw no causal conclusion about R&D.

@@ -29,11 +29,10 @@ Customer segmentation is implemented through categories such as `VIP`, `Regular`
 
 The repository also uses window functions in `business_analytics.sql` to compute cumulative values and year-over-year comparisons. This is a relevant design choice because it shows analytical SQL proficiency beyond flat `GROUP BY` summaries. The resulting workflow is closer to a reporting-ready business model than to a simple export of summary tables.
 
-- [v] The analytical layer is organized around real business questions rather than generic storage design.
-- [v] Customer and product segmentation are encoded directly in SQL views.
-- [v] Window functions are used to support temporal comparisons and cumulative monitoring.
+- [v] I organized the views around real business questions.
+- [v] I built the customer and product segmentation directly into the analytical layer.
+- [v] I used window functions to add temporal depth to the reporting.
 - [!] Data ingestion still depends on local CSV paths, so the pipeline is not fully automated end to end.
-- [!] The repository shows a strong analytical foundation rather than a production-grade orchestration stack.
 
 ## Operational outputs
 The Power BI layer consolidates the analytical work into a dashboard oriented toward revenue, average order value, customer value, recency, segmentation, and product performance. The overall architecture therefore links raw sales, SQL logic, and reporting output in a single, readable chain.
@@ -42,21 +41,11 @@ Taken together, the implementation shows how a commercial reporting layer can be
 
 # Value
 
-## What the project demonstrates
-The project demonstrates an ability to translate transactional sales data into a structured decision-support layer. It highlights competence in business-oriented modeling, analytical SQL, KPI definition, and reporting design. The emphasis is not on visual polish alone, but on the analytical consistency that makes a dashboard usable.
+## What I wanted to show
+I wanted to turn transactional data into a structured steering layer: business-oriented modeling, analytical SQL, KPI definition and BI reporting. For me, the value of a dashboard comes more from the quality of the data model than from its visual finish.
 
-The work also shows a practical understanding of what BI assets need to do in a real setting: simplify complexity, expose relevant indicators, and preserve a clear link between source data and business interpretation.
-
-## Professional relevance
-From a technical perspective, the project illustrates how reporting value is often created in the data model rather than in the dashboard front-end. The architecture retained here brings out a capacity to organize data around business entities and decision variables rather than around raw storage structures.
-
-At a broader level, the project fits a logic centered on usable analytics. The overall implementation highlights a capacity to move from raw business data to reporting outputs that remain interpretable, maintainable, and operationally grounded.
-
-## Limits and positioning
-The repository is best understood as a strong BI and analytical modeling project rather than as a full enterprise data platform.
-Its strongest contribution lies in semantic-layer design and KPI structuring, which are the components that give the reporting output real decision-support value.
-
-- [v] The project highlights mastery of analytical SQL applied to business reporting.
-- [v] The overall structure shows a consistent link between data modeling and dashboard output.
-- [v] The implementation foregrounds decision-support logic rather than cosmetic reporting.
-- [!] Its strongest contribution lies in analytical design quality rather than in large-scale production automation.
+## What I take from it
+- [v] I applied analytical SQL to business needs.
+- [v] I clearly linked data modeling to the dashboard output.
+- [v] I aimed at decision support, not a simple visual demonstration.
+- [!] My strength is analytical design, not infrastructure industrialization.

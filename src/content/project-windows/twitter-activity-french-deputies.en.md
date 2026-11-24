@@ -21,9 +21,9 @@ It does not reduce activity to total volume alone, but also examines retweet sha
 This gives the project a broader analytical scope.
 It becomes a study of digital political behavior rather than a simple count of messages posted by public figures.
 
-- [v] The project combines behavioral, temporal, and partisan dimensions in the same workflow.
-- [v] It treats social-media data as a structured political object, not only as a visualization source.
-- [!] Some raw Excel sources are absent from the clone, which limits full reproducibility from scratch.
+- [v] I combined behavioral, temporal, and partisan dimensions in the same workflow.
+- [v] I treated social-media data as a structured political object, not only as a visualization source.
+- [!] Some raw Excel sources are not in the public repository, which limits full reproducibility from scratch.
 
 # Method
 
@@ -48,31 +48,17 @@ This indicates an attempt to characterize scaling behavior in the activity distr
 That choice adds substance to the project.
 It shows that the repository is not limited to plotting counts, but also explores whether a structural regularity can be expressed statistically.
 
-- [v] The project joins metadata and activity traces into a coherent analytical dataset.
-- [v] It distinguishes between original activity and retweet amplification.
-- [v] The log-log specification adds a quantitative layer beyond descriptive plotting.
+- [v] I joined metadata and activity traces into a coherent analytical dataset.
+- [v] I distinguished between original activity and retweet amplification.
+- [v] I added a log-log specification as a quantitative layer beyond descriptive plotting.
 - [!] Missing raw inputs reduce end-to-end reproducibility for a third party.
 
 # Value
 
-## What the project demonstrates
-The project demonstrates the ability to analyze political communication data across several levels at once.
-It highlights competence in data consolidation, descriptive analytics, exploratory text signals, and simple statistical formalization.
+## What I wanted to show
+I wanted to analyze political communication data at several levels at once: source merging, temporal aggregation, text exploration and simple statistical formalization. For me, the platform is a space of visibility and circulation, not a simple message counter.
 
-It also shows an understanding of the domain itself.
-Political social-media activity is treated as a system of visibility and party structure, not merely as a stream of isolated messages.
-
-## Professional significance
-The repository adds a social and political analytics case grounded in real public communication traces.
-It shows how heterogeneous data sources can be combined into interpretable indicators with both descriptive and quantitative value.
-
-The architecture retained here also makes visible a useful analytical quality.
-The project is able to move from raw platform behavior to structured questions about amplification, partisan rhythm, and distributional structure.
-
-## Limits and positioning
-The repository is best understood as a political data analysis project with partial reproducibility constraints.
-Its strongest contribution lies in the analytical framing of activity patterns rather than in a fully automated data acquisition stack.
-
-- [v] The project highlights multi-level analysis of political social-media behavior.
-- [v] It combines descriptive outputs with a compact quantitative modeling step.
-- [!] Its main value is interpretive structure and dataset integration, not a complete reproducible pipeline from raw collection.
+## What I take from it
+- [v] I linked volume, timing, retweets and vocabulary in a single reading.
+- [v] I combined descriptive outputs with a short but useful quantitative formalization.
+- [!] My empirical value is tied to source data that are not embedded in the public repository.

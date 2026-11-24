@@ -29,9 +29,9 @@ The documented use of the `McNemar` test is a strong methodological indicator. I
 
 The toolset listed in the available sources includes `R`, `Python`, and statistical comparison methods. At the same time, the public GitHub repository inspected for this project is effectively empty on the implementation side, which limits external verification of the exact pipeline and quantitative outputs.
 
-- [v] Stratified randomization gives the evaluation a stronger comparative basis.
-- [v] Paired analysis improves the interpretability of differences at the observation level.
-- [v] McNemar testing reflects an explicit concern for methodological validity.
+- [v] I used stratified randomization to give the evaluation a stronger comparative basis.
+- [v] I used paired analysis to improve the interpretability of differences at the observation level.
+- [v] I chose McNemar testing out of explicit concern for methodological validity.
 - [!] The public repository does not expose code, notebooks, or detailed evaluation outputs.
 - [!] Quantitative claims cannot be independently reproduced from the currently available public sources.
 
@@ -42,21 +42,10 @@ The project therefore remains valuable, but it needs to be described with measur
 
 # Value
 
-## What the project demonstrates
-The project demonstrates an understanding that model evaluation is not only about algorithm choice. It also depends on how groups are constructed, how paired differences are measured, and how significance is assessed. That perspective is highly relevant in applied machine learning settings where decision quality depends on evaluation rigor.
+## What I wanted to show
+I wanted to show that evaluating a model is not just a matter of choosing an algorithm: the quality of the comparison depends on how the groups are built, on the analysis of paired differences and on the significance test retained. I defend a rigorous evaluation logic rather than a race for the best score.
 
-The work also highlights a capacity to move beyond headline metrics and toward a more statistically grounded comparison logic.
-
-## Professional relevance
-The project fits a more mature analytical line than a standard benchmark comparison. The available structure shows concern for validity, subgroup interpretation, and defensible testing rather than for isolated score optimization.
-
-The overall result is a project whose interest lies primarily in evaluation architecture. That is precisely what gives it substance despite the limits of the public repository.
-
-## Limits and positioning
-The project is best positioned as a documented evaluation framework with incomplete public implementation.
-Its strongest contribution lies in experimental rigor and comparative design, not in externally reproducible benchmark code.
-
-- [v] The project highlights methodological maturity in comparative evaluation.
-- [v] The evaluation logic is more structured than a conventional model leaderboard.
-- [v] The overall framing brings out a strong statistical sensibility.
-- [!] Its public documentation supports the method more clearly than the implementation details.
+## What I take from it
+- [v] I structured my evaluation more than a conventional leaderboard does.
+- [v] I draw on an applied statistical culture: validity, subgroups, comparison framework.
+- [!] The public documentation supports the method better than the detailed implementation.

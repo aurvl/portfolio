@@ -18,9 +18,9 @@ Cela permet de lire à la fois une estimation centrale, une variance et un effet
 Le dataset économique WBES 2023 sert d'illustration concrète autour de l'innovation, de la R&D et de la croissance des ventes.
 Il n'est pas utilisé pour défendre une conclusion causale forte.
 
-- [v] Le projet clarifie le lien entre régression classique, régularisation et approche bayésienne.
-- [v] Les estimateurs sont implémentés from scratch avec `NumPy` et `SciPy`.
-- [!] Les résultats économiques doivent être lus comme une illustration méthodologique, pas comme une preuve causale.
+- [v] J'ai clarifié le lien entre régression classique, régularisation et approche bayésienne.
+- [v] J'ai implémenté les estimateurs from scratch avec `NumPy` et `SciPy`.
+- [!] Je présente les résultats économiques comme une illustration méthodologique, pas comme une preuve causale.
 
 # Method
 
@@ -41,26 +41,18 @@ Le calcul utilise une factorisation de Cholesky pour éviter une inversion expli
 Cette décision est importante.
 Elle montre que le projet ne se limite pas à écrire les formules, mais traite aussi les problèmes numériques qui apparaissent dans une implémentation réelle.
 
-- [v] Le projet relie les formules à du code inspectable.
-- [v] Cholesky est utilisé pour le log-déterminant et le terme quadratique de manière plus stable.
-- [!] `Empirical Bayes` estime un hyperparamètre ponctuel ; ce n'est pas un modèle totalement bayésien avec hyperprior.
+- [v] J'ai relié les formules à du code que chacun peut inspecter.
+- [v] J'utilise une factorisation de Cholesky pour le log-déterminant et le terme quadratique, ce qui est plus stable.
+- [!] Mon `Empirical Bayes` estime un hyperparamètre ponctuel : ce n'est pas un modèle totalement bayésien avec hyperprior.
 
 # Value
 
-## Ce que le projet démontre
-Ce projet montre une bonne compréhension des modèles linéaires au-delà de l'appel à une librairie.
-Il explique pourquoi la régularisation peut être lue comme une hypothèse probabiliste, et comment l'incertitude postérieure aide à interpréter des coefficients fragiles.
+## Ce que j'ai voulu montrer
+Je voulais comprendre la régression linéaire bayésienne de l'intérieur, sans passer par une librairie : dériver les estimateurs, les coder avec `NumPy` et `SciPy`, et voir comment `OLS`, `Ridge`, la régression bayésienne et `Empirical Bayes` s'enchaînent sur un même axe.
 
-La valeur portfolio vient du pont entre économétrie et machine learning probabiliste.
-Le projet ne vend pas seulement une métrique finale : il montre le mécanisme, les hypothèses et les limites.
+Ce qui m'a le plus intéressé, c'est l'incertitude. Un coefficient n'est plus une valeur unique mais une distribution, et on voit directement l'effet de shrinkage : pour le coefficient de R&D, l'estimation OLS autour de `-0.121` est ramenée vers `-0.031`, avec une erreur standard plus faible.
 
-## Positionnement professionnel
-Le projet est particulièrement utile pour défendre une compétence en modélisation statistique.
-Il montre une capacité à dériver, implémenter et comparer des estimateurs, tout en gardant une lecture prudente des données économiques.
-
-L'image de cover avec des rubans de mesure fonctionne dans ce sens.
-Elle évoque l'estimation, la mesure imparfaite et l'incertitude, ce qui correspond bien au message bayésien du projet.
-
-- [v] Projet solide pour montrer une maîtrise des fondations statistiques.
-- [v] Bonne articulation entre OLS, Ridge, Bayes et Empirical Bayes.
-- [!] A présenter comme projet méthodologique, pas comme étude économique définitive sur la R&D.
+## Ce que j'en retiens
+- [v] J'ai relié les formules à du code lisible, d'OLS à Empirical Bayes, sur un même axe.
+- [v] J'ai traité la stabilité numérique (factorisation de Cholesky) au lieu de m'arrêter aux formules.
+- [!] Les résultats sur les données WBES illustrent la méthode : je n'en tire aucune conclusion causale sur la R&D.

@@ -27,9 +27,9 @@ Elle traite la communication numérique comme un système où comptent la tempor
 Le projet s'inscrit ainsi dans une logique d'analyse politique des données.
 Il combine des dimensions descriptives et quantitatives dans un cadre cohérent.
 
-- [v] Le projet relie activité, amplification et contenu textuel.
-- [v] Le terrain étudié est concret et immédiatement interprétable.
-- [!] La reproductibilité complète dépend de fichiers sources Excel absents de ce clone.
+- [v] J'ai relié activité, amplification et contenu textuel.
+- [v] Mon terrain est concret et immédiatement interprétable.
+- [!] La reproductibilité complète dépend de fichiers sources Excel qui ne sont pas dans le dépôt public.
 
 # Method
 
@@ -66,36 +66,17 @@ au-delà du simple commentaire graphique sur la croissance de l'activité.
 Elle montre que le projet cherche à exprimer
 une régularité de structure et pas seulement à juxtaposer des visualisations.
 
-- [v] Le projet assemble métadonnées politiques et traces d'activité dans un dataset cohérent.
-- [v] Il distingue clairement activité originale et amplification par retweet.
-- [v] La spécification log-log ajoute une lecture quantitative utile.
+- [v] J'ai assemblé métadonnées politiques et traces d'activité dans un dataset cohérent.
+- [v] J'ai distingué clairement activité originale et amplification par retweet.
+- [v] J'ai ajouté une spécification log-log pour une lecture quantitative utile.
 - [!] L'absence des sources brutes limite la reproductibilité complète du pipeline.
 
 # Value
 
-## Ce que le projet met en évidence
-Le projet met en évidence une capacité à analyser
-des données de communication politique à plusieurs niveaux simultanément.
+## Ce que j'ai voulu montrer
+Je voulais analyser des données de communication politique à plusieurs niveaux à la fois : fusion de sources, agrégation temporelle, exploration textuelle et formalisation statistique simple. Pour moi, la plateforme est un espace de visibilité et de circulation, pas un simple compteur de messages.
 
-Il démontre une maîtrise de la fusion de sources,
-de l'agrégation temporelle, de l'exploration textuelle et d'une formalisation statistique simple.
-
-Il montre aussi une bonne compréhension du domaine :
-la plateforme est traitée comme un espace de visibilité et de circulation, non comme un simple compteur de messages.
-
-## Portée professionnelle
-Le travail s'inscrit à la frontière
-de la data analysis, des sciences sociales quantitatives et de l'analyse des médias.
-
-L'architecture retenue fait ressortir une capacité à passer
-de comportements numériques bruts à des questions plus structurées sur les rythmes partisans et l'amplification.
-
-Pris dans son ensemble, le projet vaut
-par la qualité de son cadrage analytique.
-
-Sa contribution principale réside dans la manière
-dont il relie volume, temporalité, retweets et vocabulaire dans une même lecture.
-
-- [v] Le projet souligne une analyse multi-niveaux de comportements politiques sur réseau social.
-- [v] Il combine sorties descriptives et formalisation quantitative courte mais utile.
-- [!] Sa valeur empirique reste liée à des données sources non embarquées dans ce clone.
+## Ce que j'en retiens
+- [v] J'ai relié volume, temporalité, retweets et vocabulaire dans une même lecture.
+- [v] J'ai combiné sorties descriptives et formalisation quantitative courte mais utile.
+- [!] Ma valeur empirique est liée à des données sources non embarquées dans le dépôt public.
