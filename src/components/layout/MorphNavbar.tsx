@@ -304,9 +304,19 @@ function MorphNavbar({
     reducedRef.current ? 1 : getWiden(value, getTimeline()),
   )
   const widenSpring = useSpring(widenTarget, { stiffness: 220, damping: 11, mass: 0.9 })
-  const widen = useTransform([widenSpring, widenTarget, tick], ([spring, target]: number[]) =>
-    geometry.current && !geometry.current.inScene ? getWidenOvershoot(target) : spring,
-  )
+  // Ordinateur, en remontant (la cible diminue) : PAS de ressort. Son rebond ferait passer la barre sous la taille du
+  // bouton et osciller (bouton à moitié transformé qui flotte) ; on suit donc la cible telle quelle et on cale le ressort
+  // dessus, pour qu'il reparte proprement à la prochaine descente.
+  const lastWidenTarget = useRef(0)
+  const widen = useTransform([widenSpring, widenTarget, tick], ([spring, target]: number[]) => {
+    if (geometry.current && !geometry.current.inScene) return getWidenOvershoot(target)
+    const isGoingBack = target < lastWidenTarget.current
+    lastWidenTarget.current = target
+    if (!isGoingBack) return spring
+    widenSpring.jump(target)
+
+    return target
+  })
 
   // VOYAGE VERS LE BAS (écran Contact), 0 → 1, lui aussi lié au scroll. Ordinateur : il se joue pendant la dernière
   // transition de la scène (la photo se rouvre), la navbar descend en même temps. Mobile et tablette : de l'instant où
