@@ -336,11 +336,11 @@ Location: `src/data/now-building.json`, `{ "en": [...], "fr": [...] }`.
 ```
 
 - `state`: `progress` (in progress) or `prep` (in preparation); `href` is optional.
-- The "Updated" date is not stored: it is the date of the last commit touching this file.
+- The v3 site does not display this file yet: the old "Now building" section was removed. The file is kept for the
+  Portfolio Manager and is planned to become the "latest things" feed of the homepage.
 
 ## Validation
 
-- Type-level schemas live in `src/lib/content-schema.ts`
 - `home.ts` / `home.fr.ts` are checked by TypeScript at build time. The three homepage JSON files are not
   checked by the Python validator: follow the shapes above, run `npm run build` and look at the page
 - Script-level validation lives in `scripts/validate_content.py`

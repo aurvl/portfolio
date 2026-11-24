@@ -6,12 +6,6 @@
  * ------------------------------------------------------------------ */
 
 /* --- Catalogue and filters --- */
-.home-v2 .projects-v2__catalog {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-  min-width: 0;
-}
 
 .home-v2 .field-label {
   margin: 0;
@@ -20,7 +14,6 @@
   color: var(--hv-muted);
 }
 
-.home-v2 .search-field__box,
 .home-v2 .filter-field__select {
   border: 1px solid var(--hv-line-2);
   border-radius: 3px;
@@ -29,20 +22,9 @@
   box-shadow: none;
 }
 
-.home-v2 .search-field__box:focus-within,
 .home-v2 .filter-field__select:focus {
   border-color: var(--hv-accent);
   box-shadow: 0 0 0 3px var(--hv-accent-soft);
-}
-
-.home-v2 .search-field__box input {
-  color: var(--hv-ink);
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-
-.home-v2 .search-field__box input::placeholder {
-  color: var(--hv-faint);
 }
 
 .home-v2 .filter-field__select {
@@ -55,24 +37,8 @@
   color: var(--hv-ink);
 }
 
-.home-v2 .projects-v2__empty {
-  padding: 40px 24px;
-  text-align: center;
-}
-
-.home-v2 .projects-v2__empty h3 {
-  margin: 0;
-  font-family: var(--hv-display);
-  font-weight: 700;
-  font-size: 22px;
-}
-
-.home-v2 .projects-v2__empty p {
-  margin: 10px 0 0;
-  color: var(--hv-muted);
-}
-
 /* --- Project window (detail dialog) --- */
+
 .home-v2 .project-window {
   border-radius: 4px;
   border-color: var(--hv-line-2);

@@ -18,6 +18,10 @@ dist-ssr
 # Local AI project memory
 .ai-memory/
 
+# Fichiers propres à Claude Code : AGENTS.md est le seul fichier d'agent suivi
+.claude/
+CLAUDE.md
+
 # Editor directories and files
 .vscode/
 .idea

@@ -4,7 +4,6 @@
 // Pour rebrancher les vraies données, changer seulement la source importée par les composants.
 import type { AppLanguage } from '../types/i18n'
 import type { LocalizedField, Project } from '../types/project'
-import type { HomeContent } from './home'
 import type publicationsData from './publications.json'
 
 export const IS_PLACEHOLDER_DATA = true
@@ -47,8 +46,13 @@ const profile: LocalizedField<PlaceholderProfile> = {
 
 // ---------------------------------------------------------------- Parcours (timeline)
 
-// Même forme que le parcours existant de la page About (HomeContent).
-export type PlaceholderTimelineStep = HomeContent['about']['journey'][number]
+// Une étape du parcours : année (ou « Next »), texte, et un repère pour l'étape en cours ou à venir.
+export type PlaceholderTimelineStep = {
+  when: string
+  what: string
+  current?: boolean
+  next?: boolean
+}
 
 const timeline: LocalizedField<PlaceholderTimelineStep[]> = {
   en: [

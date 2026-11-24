@@ -219,8 +219,25 @@ Modifier : `Navbar`, `MainLayout`, `HomePage`, `ProjectsPage`, `BlogPage`, `Publ
       de Recherche (la scène les masque) ; la navbar n'est atteignable qu'après avoir quitté la landing, il faut passer
       par le footer ou les liens de la landing. Régler cela demande de toucher à la scène (transitions, non touchées).
       SearchPanel ouvert, formulaire de contact en détail, tablette et lecteur d'écran non audités.
-- [ ] 15. Nettoyage V2, réécriture complète de `docs/ARCHITECTURE.md` et `docs/DESIGN_SYSTEM.md`, `lint` +
-      `content:validate` + `build`, vérif Playwright (clair/sombre, desktop/mobile), aperçu validé avant merge.
+- [x] 15. Nettoyage V2 (24/11/2026, sans commit). RÉALISÉ : (a) supprimés : `components/home-v2/` en entier, anciens
+      composants blog (`BlogFilters`, `BlogSeriesCard`, `LastBlogPosts`, `PostCard`, `PostGrid`), `LanguageSwitcher`,
+      `ThemeToggle`, `projects/SearchField`, `lib/domainColors`, `toolIcons`, `routes`, `content-schema`, `types/skill`,
+      `data/nowBuilding.ts`, `data/euroregion-map.json` et `scripts/build_euroregion_map.py` (+ mentions) ; (b) texte V2
+      retiré de `home.ts` / `home.fr.ts` (il ne reste que `nav`, `blog.dateLocale`, `projectsPage`, `contact` et
+      `SOCIAL_LINKS`) ; (c) CSS mort élagué : `home-v2.css` 1855 → environ 160 lignes (les variables `--hv-*` restent, lues
+      par `blog-v2`, `projects-v2`, `markdown` et la bannière de cookies), `blog-v2.css` 534 → 186, `theme.css` 484 → 154,
+      `responsive.css`, `projects-v2.css`, `globals.css` ; (d) `vite.config.ts` : plus de `__NOW_BUILDING_UPDATED_AT__`
+      (et `fetch-depth: 0` retiré du workflow) ; (e) `docs/ARCHITECTURE.md` et `docs/DESIGN_SYSTEM.md` réécrits d'après
+      le code v3, `AGENTS.md` mis à jour (règles de `CLAUDE.md` rapatriées), `CLAUDE.md` et `.claude/` sortis du suivi git
+      et ajoutés au `.gitignore`. VÉRIFIÉ : `lint`, `content:validate`, `build` ; comparaison avant / après sur 7 pages
+      (clair / sombre, ordinateur / mobile) : styles calculés identiques sur l'accueil et le Hub ; seul écart sur les
+      articles = fins de ligne CRLF de la copie témoin (pas de régression).
+      GARDÉS (décision du propriétaire) : `skills.json`, `domain.json`, `now-building.json`, `selected-work.json`,
+      `publications.json` : lus par le Portfolio Manager et `scripts/*.py`, que le propriétaire adaptera à la nouvelle
+      structure. RESTE : (a) `now-building.json` → fil « Latest things » de l'accueil (nom, forme et rôle à valider ; à
+      brancher sur `LatestThings`) ; (b) fiches des projets en cours (FMarketMonitor, Cat Monitor, IA en Europe) : sans
+      lien, méthode résumée, contenu à fournir par le propriétaire ; (c) polices Google (Roboto, Open Sans, Google Sans)
+      importées par `globals.css` : à vérifier avant retrait ; (d) aperçu local validé avant merge.
 - [ ] 16. **Remplacement par le vrai contenu (obligatoire avant merge)** : supprimer `placeholders.ts` et toute
       mention fictive, rebrancher les vraies données, relire les claims (AGENTS.md).
 

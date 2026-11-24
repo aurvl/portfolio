@@ -127,6 +127,7 @@ html {
 }
 
 /* Réglage « réduire les animations » du système : le défilement des ancres devient immédiat */
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -178,14 +179,4 @@ select {
 img {
   display: block;
   max-width: 100%;
-}
-
-.button-shadow {
-  box-shadow: 0 18px 52px rgba(0, 0, 0, 0.18);
-  transition: box-shadow 0.25s ease, transform 0.25s ease;
-}
-
-.button-shadow:hover {
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.24);
-  transform: translateY(-1px);
 }
