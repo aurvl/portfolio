@@ -4,7 +4,7 @@
 // landing.css) ; la carte suivante dépasse un peu, et des points indiquent la carte affichée.
 import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { placeholders } from '../../data/placeholders'
+import { homepage } from '../../data/homepage'
 import { useHomeContent } from '../../hooks/useHomeContent'
 import { useLatestThings } from '../../hooks/useLatestThings'
 import { cn } from '../../lib/cn'
@@ -23,7 +23,7 @@ function formatCardDate(date: string, locale: string) {
 
 function LatestThings() {
   const { lang, content } = useHomeContent()
-  const labels = placeholders.getLandingLabels(lang)
+  const labels = homepage.getLandingLabels(lang)
   const items = useLatestThings(lang)
   const listRef = useRef<HTMLUListElement>(null)
   const [activeIndex, setActiveIndex] = useState(0)

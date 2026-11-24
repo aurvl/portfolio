@@ -3,14 +3,14 @@
 // Remplace la frise verticale de la colonne de gauche sur les écrans de moins de 1024 px (section About).
 // Clavier : flèches gauche/droite (+ Début/Fin) changent d'étape. ARIA : tablist / tab / tabpanel.
 import { useId, useRef, useState, type CSSProperties, type KeyboardEvent } from 'react'
-import type { PlaceholderTimelineStep } from '../../data/placeholders'
+import type { TimelineStep } from '../../data/homepage'
 import { cn } from '../../lib/cn'
 import Button from '../ui/Button'
 import ResumeIcon from '../ui/ResumeIcon'
 
 type JourneyCardProps = {
   title: string
-  steps: PlaceholderTimelineStep[]
+  steps: TimelineStep[]
   currentPlace: string
   resumeLabel: string
   resumeHref: string

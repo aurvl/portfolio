@@ -13,7 +13,7 @@ FMarketMonitor (FinancialMarketMonitor) est la couche de mesure d'un projet plus
 ## Le problème
 L'économie est décrite par des centaines de séries, publiées à des rythmes différents puis révisées. On ne sait pas quoi regarder, ni comment l'interpréter, ni distinguer un vrai changement d'une révision ou d'un trou de données. Exemple réel : le chômage d'octobre 2025 n'a jamais été collecté à cause du shutdown américain.
 
-L'objectif est de décider sur une lecture courte et justifiée du contexte, plutôt que de réagir à une série isolée ou à une news. L'outil est d'abord construit pour un particulier qui veut placer son épargne pour battre l'inflation (l'auteur), et plus largement pour des investisseurs, des analystes et des chercheurs.
+L'objectif est de décider sur une lecture courte et justifiée du contexte, plutôt que de réagir à une série isolée ou à une news. L'outil est d'abord construit pour un particulier qui veut placer son épargne pour battre l'inflation (moi, au départ), et plus largement pour des investisseurs, des analystes et des chercheurs.
 
 ## Où en est le projet
 C'est un prototype de recherche. Le premier indicateur (Concept 01 : croissance, activité, emploi) est construit et testé, mois par mois, dans un notebook. Les 14 suivants suivront la même méthode. Le terminal (l'interface), les prévisions et les stratégies viennent après ; le terminal est conçu, pas construit.
@@ -40,11 +40,11 @@ Sur la récession de 2008, qui faisait partie d'une période réservée, l'indic
 Ce résultat est obtenu avec 8 séries, un modèle réestimé chaque mois sur le passé seulement, des critères et des seuils écrits avant le calcul, et une période réservée consultée une seule fois (le 24 novembre 2026).
 
 ## Ce qui n'est pas prouvé
-- **Le verdict de mon propre protocole est NON VALIDÉ.** Un critère échoue : la stabilité face aux révisions est légèrement moins bonne que celle du score à poids égaux (3,1 % des mois contre 1,9 %, les deux très en dessous du seuil de 10 %).
+- **Le verdict du protocole de validation scientifique est NON VALIDÉ.** Un critère échoue : la stabilité face aux révisions est légèrement moins bonne que celle du score à poids égaux (3,1 % des mois contre 1,9 %, les deux très en dessous du seuil de 10 %).
 - Deux faiblesses ont été mesurées : retirer le taux de chômage peut faire bouger le score de 48 points, et l'accord avec l'indice ADS est faible.
 - La récession de 2008 est signalée avec 5 mois de retard sur son pic.
 - L'écart avec le CFNAI (0,934 contre 0,918) est faible et repose sur une seule récession.
-- Les réglages de cette recette ont été choisis à l'origine par quelqu'un qui connaissait déjà 2001, 2008 et 2020 : le test sur 2008 n'est donc pas totalement aveugle.
+- Les réglages de cette recette ont été choisis à l'origine alors que je connaissais déjà 2001, 2008 et 2020 : le test sur 2008 n'est donc pas totalement aveugle.
 - Aucune prévision, aucune stratégie et aucune performance financière n'est démontrée.
 
 [!] Limites connues des données : les vintages commencent tard pour certaines séries (avant, on travaille en pseudo-temps réel), le trou d'octobre 2025, la consommation réelle (PCEC96) disponible seulement depuis 2007, l'indice ADS disponible dans sa dernière version uniquement, les commandes en dollars courants, et les sauts de janvier dans l'emploi de l'enquête ménages.

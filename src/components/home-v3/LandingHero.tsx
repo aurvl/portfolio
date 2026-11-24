@@ -1,6 +1,6 @@
 // Haut de la page d'accueil : bannière bambous, avatar, nom, poste, réseaux et bouton « En savoir plus ».
 // Premier écran du site (design/screens/01-accueil-landing.png).
-import { placeholders } from '../../data/placeholders'
+import { homepage } from '../../data/homepage'
 import { useHomeContent } from '../../hooks/useHomeContent'
 import { withBasePath } from '../../lib/site'
 import Avatar from '../ui/Avatar'
@@ -20,8 +20,8 @@ type LandingHeroProps = {
 
 function LandingHero({ onLearnMore, isButtonInNavbar = false, inScene = false }: LandingHeroProps) {
   const { lang } = useHomeContent()
-  const profile = placeholders.getProfile(lang)
-  const labels = placeholders.getLandingLabels(lang)
+  const profile = homepage.getProfile(lang)
+  const labels = homepage.getLandingLabels(lang)
 
   return (
     <header className="landing-hero">

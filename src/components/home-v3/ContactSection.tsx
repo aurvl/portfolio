@@ -7,7 +7,7 @@
 import { useState, type FormEvent } from 'react'
 import { FiSend } from 'react-icons/fi'
 import { SOCIAL_LINKS } from '../../data/home'
-import { placeholders } from '../../data/placeholders'
+import { homepage } from '../../data/homepage'
 import { useHomeContent } from '../../hooks/useHomeContent'
 import { cn } from '../../lib/cn'
 import { withBasePath } from '../../lib/site'
@@ -35,7 +35,7 @@ export function ContactNavSlot({ inScene = false }: ContactSectionProps) {
 function ContactSection({ inScene = false }: ContactSectionProps) {
   const { content, lang } = useHomeContent()
   const { contact, nav } = content
-  const profile = placeholders.getProfile(lang)
+  const profile = homepage.getProfile(lang)
   const [subject, setSubject] = useState(contact.subjects[0])
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')

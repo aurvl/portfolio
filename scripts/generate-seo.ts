@@ -2,7 +2,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import matter from 'gray-matter'
 import { homeEn } from '../src/data/home'
-import { placeholders } from '../src/data/placeholders'
+import { homepage } from '../src/data/homepage'
 import enLocale from '../src/locales/en.json'
 
 type SeriesEntry = {
@@ -29,7 +29,7 @@ type PageMeta = {
 }
 
 const SITE_NAME = 'Aurel Vehi'
-const publicationsLabels = placeholders.getPublicationsLabels('en')
+const publicationsLabels = homepage.getPublicationsLabels('en')
 
 const DEFAULT_SITE_URL = 'https://aurvl.github.io/portfolio/'
 const rootDir = process.cwd()

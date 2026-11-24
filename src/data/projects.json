@@ -56,12 +56,12 @@
       "en": {
         "title": "FMarketMonitor",
         "summary": "A research prototype: an observatory that turns hundreds of U.S. economic series into 15 readable, dated and traceable indicators. The first one is built and tested.",
-        "description": "FMarketMonitor is the measurement layer of a macroeconomic and financial observatory. It summarizes hundreds of U.S. economic statistics into 15 indicators, one per major concept, each computed only with the data available at each date. The first indicator (growth, activity, employment) flags the 2008 recession at least as well as the Chicago Fed's CFNAI-MA3 with no false alarm since 1990, but it is not yet validated under the author's own protocol."
+        "description": "FMarketMonitor is the measurement layer of a macroeconomic and financial observatory. It summarizes hundreds of U.S. economic statistics into 15 indicators, one per major concept, each computed only with the data available at each date. The first indicator (growth, activity, employment) flags the 2008 recession at least as well as the Chicago Fed's CFNAI-MA3 with no false alarm since 1990, but it is not yet validated under the scientific validation protocol."
       },
       "fr": {
         "title": "FMarketMonitor",
         "summary": "Un prototype de recherche : un observatoire qui résume des centaines de séries économiques américaines en 15 indicateurs lisibles, datés et traçables. Le premier est construit et testé.",
-        "description": "FMarketMonitor est la couche de mesure d'un observatoire macroéconomique et financier. Il résume des centaines de statistiques économiques américaines en 15 indicateurs, un par grand concept, chacun calculé uniquement avec les données disponibles à chaque date. Le premier indicateur (croissance, activité, emploi) repère la récession de 2008 au moins aussi bien que le CFNAI-MA3 de la Fed de Chicago, sans fausse alerte depuis 1990, mais il n'est pas encore validé selon le protocole de l'auteur."
+        "description": "FMarketMonitor est la couche de mesure d'un observatoire macroéconomique et financier. Il résume des centaines de statistiques économiques américaines en 15 indicateurs, un par grand concept, chacun calculé uniquement avec les données disponibles à chaque date. Le premier indicateur (croissance, activité, emploi) repère la récession de 2008 au moins aussi bien que le CFNAI-MA3 de la Fed de Chicago, sans fausse alerte depuis 1990, mais il n'est pas encore validé selon le protocole de validation scientifique."
       }
     }
   },
@@ -1207,70 +1207,6 @@
         "title": "Analyse de l'Indice d'Attention Environnementale (IAE) dans les Accords Commerciaux Préférentiels (ACP)",
         "summary": "Etude quantitative de l'attention environnementale dans les accords commerciaux via la base TREND et un indice analytique dédié.",
         "description": "L'objectif de ce travail est de mesurer l'importance accordée aux questions environnementales dans les Accords Commerciaux Préférentiels (ACP) en utilisant l'Indice d'Attention Environnementale (IAE). Cet indicateur est calculé à partir des données fournies par la base de données Trade & Environment Database (TREND), la plus complète à ce jour sur les clauses environnementales dans les accords commerciaux internationaux."
-      }
-    }
-  },
-  {
-    "id": "PJ018",
-    "slug": "banking-fraud-data-collection",
-    "status": "completed",
-    "date": "2024-08-01",
-    "featured": false,
-    "window": {
-      "enabled": true,
-      "contentSlug": "banking-fraud-data-collection",
-      "access": "public"
-    },
-    "technicalLevel": 2,
-    "cover": {
-      "src": "/assets/projects/images/banking-fraud-data-collection-cover.png",
-      "alt": {
-        "en": "Banking Fraud Data Collection Project project cover",
-        "fr": "Visuel du projet collecte de données sur la fraude bancaire"
-      }
-    },
-    "links": {
-      "primary": "https://github.com/aurvl/DE_projects/blob/main/SQL%20Bank%20Fraud/SQL%20Bank%20Fraud.md",
-      "readMore": "https://github.com/aurvl/DE_projects/blob/main/SQL%20Bank%20Fraud/SQL%20Bank%20Fraud.md",
-      "github": "https://github.com/aurvl/DE_projects/blob/main/SQL%20Bank%20Fraud/SQL%20Bank%20Fraud.md",
-      "live": null
-    },
-    "taxonomy": {
-      "domains": [
-        "Data Collection",
-        "Fraud Analytics"
-      ],
-      "tools": [
-        "HTML",
-        "JavaScript",
-        "PHP",
-        "SQL"
-      ],
-      "keywords": {
-        "en": [
-          "fraud",
-          "mysql",
-          "survey",
-          "transactions"
-        ],
-        "fr": [
-          "fraude",
-          "mysql",
-          "questionnaire",
-          "transactions"
-        ]
-      }
-    },
-    "content": {
-      "en": {
-        "title": "Banking Fraud Data Collection Project",
-        "summary": "Web data collection setup simulating banking transactions and storing user responses for fraud-related behavioral analysis.",
-        "description": "This project simulates fictive banking transactions and records user responses regarding risk and money attitudes. Data is stored in a MySQL database for fraud indicator analysis."
-      },
-      "fr": {
-        "title": "Collecte de Données sur la Fraude Bancaire",
-        "summary": "Dispositif web de collecte simulant des transactions bancaires et stockant les réponses utilisateur pour une analyse comportementale liée à la fraude.",
-        "description": "Ce projet simule des transactions bancaires fictives et enregistre les réponses des utilisateurs concernant leur attitude face au risque et à l'argent. L'objectif est de collecter des données auprès des utilisateurs et de les stocker dans une base de données MySQL afin d'analyser les indicateurs potentiels de comportements frauduleux."
       }
     }
   },

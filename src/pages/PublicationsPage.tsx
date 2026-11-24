@@ -3,7 +3,7 @@
 import MainLayout from '../components/layout/MainLayout'
 import Seo from '../components/seo/Seo'
 import PublicationsSection from '../components/home-v3/PublicationsSection'
-import { placeholders } from '../data/placeholders'
+import { homepage } from '../data/homepage'
 import { useHomeContent } from '../hooks/useHomeContent'
 import { useSiteNav } from '../hooks/useSiteNav'
 import { navigateToPage } from '../lib/pageTransition'
@@ -12,7 +12,7 @@ import { PERSON_NAME, buildAbsoluteSiteUrl } from '../lib/site'
 function PublicationsPage() {
   const { lang } = useHomeContent()
   const { pageSections } = useSiteNav()
-  const labels = placeholders.getPublicationsLabels(lang)
+  const labels = homepage.getPublicationsLabels(lang)
 
   return (
     <MainLayout

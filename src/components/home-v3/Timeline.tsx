@@ -1,10 +1,10 @@
 // Parcours vertical : une ligne fine, un point par étape, l'étape en cours en bleu.
 // Apparaît dans la colonne de gauche de la section About (design/screens/02-about.png).
-import type { PlaceholderTimelineStep } from '../../data/placeholders'
+import type { TimelineStep } from '../../data/homepage'
 import { cn } from '../../lib/cn'
 
 type TimelineProps = {
-  steps: PlaceholderTimelineStep[]
+  steps: TimelineStep[]
   label: string
   className?: string
 }

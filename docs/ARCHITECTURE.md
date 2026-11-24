@@ -60,7 +60,7 @@ Between pages, `navigateToPage()` (`lib/pageTransition.ts`) runs a native View T
 
 | Content | Source | Notes |
 | --- | --- | --- |
-| Homepage text (profile, timeline, latest things, publications, labels) | `src/data/placeholders.ts` | Typed placeholders until step 16 of `design/PLAN.md`; replaced by real content before merge |
+| Homepage text (profile, timeline, About texts, labels, themes) | `src/data/homepage.ts` | EN and FR, read through `homepage.getX(lang)` |
 | Navigation, contact form, Projects hub labels (EN / FR) | `src/data/home.ts`, `src/data/home.fr.ts` | `HomeContent` type, same shape in both languages |
 | UI strings | `src/locales/en.json`, `fr.json` | react-i18next |
 | Publications | `src/data/publications.json` | Edited by the Portfolio Manager |

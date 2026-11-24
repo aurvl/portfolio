@@ -4,7 +4,7 @@
 // Sur ordinateur (scène de l'accueil, `inScene`), la bannière est la photo de la scène (ici, seulement la place
 // qu'elle occupe) et les ronds sociaux sont dans PapersChrome, collé sous la bande pendant que la liste défile.
 import { FiArrowUp, FiArrowUpRight } from 'react-icons/fi'
-import { placeholders } from '../../data/placeholders'
+import { homepage } from '../../data/homepage'
 import { useHomeContent } from '../../hooks/useHomeContent'
 import { cn } from '../../lib/cn'
 import BambooPhoto from '../ui/BambooPhoto'
@@ -32,8 +32,8 @@ export function PapersChrome() {
 
 function PublicationsSection({ onBackToAbout, inScene = false }: PublicationsSectionProps) {
   const { lang } = useHomeContent()
-  const labels = placeholders.getPublicationsLabels(lang)
-  const publications = placeholders.getPublications(lang)
+  const labels = homepage.getPublicationsLabels(lang)
+  const publications = homepage.getPublications(lang)
   // Sur la page /publications (bouton retour présent), le titre est le <h1> de la page et les articles des <h2> ;
   // sur l'accueil, la section est un <h2> avec des <h3>.
   const isOwnPage = Boolean(onBackToAbout)

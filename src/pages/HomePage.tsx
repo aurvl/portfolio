@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { useReducedMotion } from 'framer-motion'
 import { useLocation } from 'react-router-dom'
-import { placeholders } from '../data/placeholders'
+import { homepage } from '../data/homepage'
 import { navigateToSection, useSectionLinks } from '../lib/navigateToSection'
 import { navigateToPage } from '../lib/pageTransition'
 import { useBambooMobile } from '../hooks/useBambooMobile'
@@ -33,7 +33,7 @@ function HomePage() {
   const { homeSections } = useSiteNav()
   // prefers-reduced-motion : pas de voyage du bouton, la navbar apparaît seulement en fondu (voir MorphNavbar)
   const reducedMotion = useReducedMotion() ?? false
-  const learnMoreLabel = placeholders.getLandingLabels(lang).learnMore
+  const learnMoreLabel = homepage.getLandingLabels(lang).learnMore
 
   // La scène « entrer dans la forêt » n'existe que sur ordinateur (≥ 1024 px). sceneProgress (0 = landing, 1 = About,
   // 2 = Recherche, 3 = Contact) sert aussi à la navbar, pour que « Learn more » voyage au même rythme que la photo.

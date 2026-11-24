@@ -1,5 +1,5 @@
 // Textes de page encore pilotés ici : navigation, date du blog, page Projets / Hub et formulaire de contact.
-// L'anglais est ici, le français dans home.fr.ts (même forme). Le texte de l'accueil v3 vit dans placeholders.ts.
+// L'anglais est ici, le français dans home.fr.ts (même forme). Le texte de l'accueil v3 vit dans homepage.ts.
 
 export const SOCIAL_LINKS = {
   linkedin: 'https://www.linkedin.com/in/aurel-vehi/',

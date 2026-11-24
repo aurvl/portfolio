@@ -13,7 +13,7 @@ FMarketMonitor (FinancialMarketMonitor) is the measurement layer of a larger pro
 ## The problem
 The economy is described by hundreds of series, published at different paces and then revised. It is hard to know what to watch, how to read it, and how to tell a real change from a revision or a data gap. A real example: the October 2025 unemployment figure was never collected because of the U.S. government shutdown.
 
-The aim is to decide on a short, justified reading of the context rather than to react to one series or one news item. The tool is built first for an individual saver who wants to beat inflation (the author), and more broadly for investors, analysts and researchers.
+The aim is to decide on a short, justified reading of the context rather than to react to one series or one news item. The tool is built first for an individual saver who wants to beat inflation (me, to begin with), and more broadly for investors, analysts and researchers.
 
 ## Where it stands
 It is a research prototype. The first indicator (Concept 01: growth, activity, employment) is built and tested, month by month, in a notebook. The 14 others will follow the same method. The terminal (the interface), the forecasts and the strategies come later; the terminal is designed, not built.
@@ -40,11 +40,11 @@ On the 2008 recession, which belonged to a held-out period, the indicator recomp
 It was obtained with 8 series, a model re-estimated every month on the past only, criteria and thresholds written before the calculation, and a held-out period consulted once (on 24 November 2026).
 
 ## What is not proven
-- **The verdict of my own protocol is NOT VALIDATED.** One criterion fails: stability against revisions is slightly worse than for the equal-weights score (3.1% of months against 1.9%, both far below the 10% threshold).
+- **The verdict of the scientific validation protocol is NOT VALIDATED.** One criterion fails: stability against revisions is slightly worse than for the equal-weights score (3.1% of months against 1.9%, both far below the 10% threshold).
 - Two weaknesses were measured: removing the unemployment rate can move the score by 48 points, and agreement with the ADS index is weak.
 - The 2008 recession is flagged 5 months after its peak.
 - The gap with the CFNAI (0.934 against 0.918) is small and rests on a single recession.
-- The settings of this recipe were originally chosen by someone who already knew 2001, 2008 and 2020, so the 2008 test is not completely blind.
+- The settings of this recipe were originally chosen by me, when I already knew 2001, 2008 and 2020, so the 2008 test is not completely blind.
 - No forecast, no strategy and no financial performance is demonstrated.
 
 [!] Known data limits: vintages start late for some series (before that, the work is in pseudo real time), the October 2025 gap, real consumption (PCEC96) available only since 2007, the ADS index available only in its latest version, orders in current dollars, and January jumps in household-survey employment.

@@ -115,7 +115,7 @@ def validate_projects(domain_colors: dict[str, str]) -> tuple[list[str], list[st
                     errors.append(f"{location} has an invalid links.{key} URL.")
 
             # Un projet à la une doit avoir une image et un moyen de l'ouvrir : des liens, ou une fenêtre de détail
-            # (un projet en cours n'a volontairement aucun lien externe).
+            # (un projet en cours n'a volontairement aucun lien externe).
             window_config = project.get("window")
             has_window = isinstance(window_config, dict) and window_config.get("enabled") is True
             has_links = bool(links.get("primary")) and bool(links.get("readMore"))

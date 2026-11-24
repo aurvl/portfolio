@@ -44,7 +44,6 @@ const IMAGE_DIMENSIONS: Record<string, ImageDimensions> = {
   'assets/images/tools/tabl.png': { width: 48, height: 48 },
   'assets/projects/images/ab-testing-new-model-cover.png': { width: 1025, height: 562 },
   'assets/projects/images/allocine-tv-series-scraping-cover.jpg': { width: 1200, height: 799 },
-  'assets/projects/images/banking-fraud-data-collection-cover.png': { width: 974, height: 650 },
   'assets/projects/images/bayesian-linear-regression-econometrics-cover.jpg': { width: 4857, height: 3469 },
   'assets/projects/images/belgian-trade-time-series-cover.jpg': { width: 1920, height: 1080 },
   'assets/projects/images/comments-analysis-text-classification-cover.jpg': { width: 5925, height: 3950 },

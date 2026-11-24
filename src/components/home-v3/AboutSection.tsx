@@ -4,7 +4,7 @@
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { FiArrowDown, FiArrowRight } from 'react-icons/fi'
-import { placeholders } from '../../data/placeholders'
+import { homepage } from '../../data/homepage'
 import projectsData from '../../data/projects.json'
 import publicationsData from '../../data/publications.json'
 import { useHomeContent } from '../../hooks/useHomeContent'
@@ -35,11 +35,11 @@ type AboutSectionProps = {
 function AboutSection({ onExploreWork, onGetInTouch, onViewPapers, inScene = false, isPhotoShared = false }: AboutSectionProps) {
   const { t } = useTranslation()
   const { lang } = useHomeContent()
-  const profile = placeholders.getProfile(lang)
-  const labels = placeholders.getAboutLabels(lang)
-  const sections = placeholders.getAboutSections(lang)
-  const timeline = placeholders.getTimeline(lang)
-  const themes = placeholders.getThemes(lang)
+  const profile = homepage.getProfile(lang)
+  const labels = homepage.getAboutLabels(lang)
+  const sections = homepage.getAboutSections(lang)
+  const timeline = homepage.getTimeline(lang)
+  const themes = homepage.getThemes(lang)
   const resumeUrl = getResumeDownloadUrl(lang)
 
   // Cartes « Recherche » et « Projets » (mobile) : les vrais nombres, et la photo du projet à la une

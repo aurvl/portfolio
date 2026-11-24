@@ -13,8 +13,7 @@ Stack: React 19, TypeScript (strict), Vite, Tailwind CSS v4, framer-motion, reac
 
 The current design is **v3** (editorial, sparse, photo-led), built on the branch `redesign/researcher-friendly`.
 The V1 and V2 components are deleted: ignore any older doc, commit or memory that describes them. While the
-redesign is open, personal content (profile, timeline, latest things, publications texts) is typed placeholder
-text in `src/data/placeholders.ts`; it must be replaced by real content before the branch is merged.
+redesign is open, the homepage content (profile, timeline, About texts, labels) lives in `src/data/homepage.ts`.
 
 ## Where to look
 

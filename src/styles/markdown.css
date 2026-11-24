@@ -657,3 +657,8 @@
 :root[data-theme='light'] .md-content__li-badge--avoid {
   color: #b91c1c;
 }
+
+/* Liens du texte en mode sombre : le bleu #0466c8 n'atteint que 3,3:1 sur fond sombre, on prend le bleu d'action clair (AA) */
+:root[data-theme='dark'] .md-content__link {
+  color: var(--color-action-blue);
+}

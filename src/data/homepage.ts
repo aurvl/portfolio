@@ -1,16 +1,13 @@
-// DONNÉES FICTIVES — design v3, branche redesign/researcher-friendly uniquement.
-// Rien ici n'est vrai : noms, parcours, projets et publications servent à valider le visuel.
-// Interdit de merger sur master tant que ce fichier existe (PLAN.md, étape 16).
-// Pour rebrancher les vraies données, changer seulement la source importée par les composants.
+// Contenu de l'accueil v3 et des pages Publications, en français et en anglais (même forme) : profil, parcours,
+// textes de l'À propos, libellés, thèmes « Je travaille sur », publications. Les composants lisent tout par `homepage`
+// (accès par langue, en bas du fichier). Le texte du Hub, de la navigation et du contact est dans home.ts / home.fr.ts.
 import type { AppLanguage } from '../types/i18n'
 import type { LocalizedField } from '../types/project'
 import publicationsData from './publications.json'
 
-export const IS_PLACEHOLDER_DATA = true
-
 // ---------------------------------------------------------------- Profil
 
-export type PlaceholderProfile = {
+export type HomepageProfile = {
   firstNames: string
   lastName: string
   role: string
@@ -20,7 +17,7 @@ export type PlaceholderProfile = {
   resumeLabel: string
 }
 
-const profile: LocalizedField<PlaceholderProfile> = {
+const profile: LocalizedField<HomepageProfile> = {
   en: {
     firstNames: 'Aurel',
     lastName: 'VEHI',
@@ -44,14 +41,14 @@ const profile: LocalizedField<PlaceholderProfile> = {
 // ---------------------------------------------------------------- Parcours (timeline)
 
 // Une étape du parcours : année (ou « Next »), texte, et un repère pour l'étape en cours ou à venir.
-export type PlaceholderTimelineStep = {
+export type TimelineStep = {
   when: string
   what: string
   current?: boolean
   next?: boolean
 }
 
-const timeline: LocalizedField<PlaceholderTimelineStep[]> = {
+const timeline: LocalizedField<TimelineStep[]> = {
   en: [
     { when: 'Background', what: 'Economics, econometrics & data science' },
     { when: '2024–2025', what: 'Data research & econometrics roles, Monaco' },
@@ -70,12 +67,12 @@ const timeline: LocalizedField<PlaceholderTimelineStep[]> = {
 
 // ---------------------------------------------------------------- Textes de l'About
 
-export type PlaceholderAboutSection = {
+export type HomepageAboutSection = {
   heading: string
   body: string
 }
 
-const aboutSections: LocalizedField<PlaceholderAboutSection[]> = {
+const aboutSections: LocalizedField<HomepageAboutSection[]> = {
   en: [
     {
       heading: 'What I work on',
@@ -108,7 +105,7 @@ const aboutSections: LocalizedField<PlaceholderAboutSection[]> = {
 
 // ---------------------------------------------------------------- Libellés de l'About
 
-export type PlaceholderAboutLabels = {
+export type HomepageAboutLabels = {
   title: string
   exploreWork: string
   getInTouch: string
@@ -128,7 +125,7 @@ export type PlaceholderAboutLabels = {
   contactLink: string
 }
 
-const aboutLabels: LocalizedField<PlaceholderAboutLabels> = {
+const aboutLabels: LocalizedField<HomepageAboutLabels> = {
   en: {
     title: 'About Me',
     exploreWork: 'Explore my Work',
@@ -173,12 +170,12 @@ const aboutLabels: LocalizedField<PlaceholderAboutLabels> = {
 // (anglais ou français selon la langue). Sans `tag`, la pastille est une simple étiquette, non cliquable : aucun projet
 // ne porte ce mot-clé (firm transformations = la thèse, ecosystem value = l'article Blue Carbon).
 // Les mots-clés français n'ont pas d'accents (« series-temporelles ») : on garde la même écriture.
-export type PlaceholderTheme = {
+export type HomepageTheme = {
   label: string
   tag?: string
 }
 
-const themes: LocalizedField<PlaceholderTheme[]> = {
+const themes: LocalizedField<HomepageTheme[]> = {
   en: [
     { label: 'Firm transformations' },
     { label: 'Indicators', tag: 'index' },
@@ -195,19 +192,19 @@ const themes: LocalizedField<PlaceholderTheme[]> = {
 
 // ---------------------------------------------------------------- Libellés de la landing
 
-export type PlaceholderLandingLabels = {
+export type HomepageLandingLabels = {
   learnMore: string
   latestThings: string
 }
 
-const landingLabels: LocalizedField<PlaceholderLandingLabels> = {
+const landingLabels: LocalizedField<HomepageLandingLabels> = {
   en: { learnMore: 'Learn more', latestThings: 'Latest things' },
   fr: { learnMore: 'En savoir plus', latestThings: 'Dernières nouveautés' },
 }
 
 // ---------------------------------------------------------------- Libellés de la section Publications
 
-export type PlaceholderPublicationsLabels = {
+export type HomepagePublicationsLabels = {
   eyebrow: string
   title: string
   intro: string
@@ -217,7 +214,7 @@ export type PlaceholderPublicationsLabels = {
   seoDescription: string
 }
 
-const publicationsLabels: LocalizedField<PlaceholderPublicationsLabels> = {
+const publicationsLabels: LocalizedField<HomepagePublicationsLabels> = {
   en: {
     eyebrow: 'Research',
     title: 'My research papers',
@@ -240,7 +237,7 @@ const publicationsLabels: LocalizedField<PlaceholderPublicationsLabels> = {
 
 // ---------------------------------------------------------------- Accès par langue
 
-export const placeholders = {
+export const homepage = {
   getProfile: (lang: AppLanguage) => profile[lang],
   getTimeline: (lang: AppLanguage) => timeline[lang],
   getAboutSections: (lang: AppLanguage) => aboutSections[lang],
