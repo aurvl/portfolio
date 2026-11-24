@@ -242,17 +242,12 @@
 
 /* ---------- Mobile et tablette (< 1024 px) : voir design/BRIEF.md, « Stratégie mobile » ---------- */
 
-/* line-clamp : l'accroche tient sur 2 lignes maximum, le détail est plus bas ; elle est
-   sous l'en-tête, sur toute la largeur */
+/* Phrase d'accroche sous l'en-tête, sur toute la largeur : affichée en entier (elle n'est plus coupée à 2 lignes) */
 .about__hook {
-  display: -webkit-box;
   margin: 0.5rem 0 0;
-  overflow: hidden;
   font-size: 1rem;
   line-height: 1.45;
   color: var(--color-muted);
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
 }
 
 .about__themes {
