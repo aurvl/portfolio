@@ -5,6 +5,7 @@ import { FiChevronRight } from 'react-icons/fi'
 import MainLayout from '../components/layout/MainLayout'
 import Seo from '../components/seo/Seo'
 import Button from '../components/ui/Button'
+import BlogLatest from '../components/hub-v3/BlogLatest'
 import FeaturedHub from '../components/hub-v3/FeaturedHub'
 import HubHeader from '../components/hub-v3/HubHeader'
 import { pickFeaturedProjects } from '../components/hub-v3/featuredProjects'
@@ -14,6 +15,7 @@ import ProjectGrid from '../components/projects/ProjectGrid'
 import ProjectWindow from '../components/projects/ProjectWindow'
 import rawProjects from '../data/projects.json'
 import rawSeries from '../data/series.json'
+import { useBlogIndex } from '../hooks/useBlogIndex'
 import { useHomeContent } from '../hooks/useHomeContent'
 import { useSiteNav } from '../hooks/useSiteNav'
 import { PERSON_NAME, buildAbsoluteSiteUrl } from '../lib/site'
@@ -57,6 +59,7 @@ function ProjectsPage() {
   const { t, i18n } = useTranslation()
   const { content, lang } = useHomeContent()
   const page = content.projectsPage
+  const { latest: latestPosts } = useBlogIndex(i18n.language)
   const { lead: leadProject, row: featuredRow } = pickFeaturedProjects(projects.filter(isApplied))
   const location = useLocation()
   const navigate = useNavigate()
@@ -250,6 +253,11 @@ function ProjectsPage() {
             series={featuredSeries}
             labels={page.hub}
             onOpenProject={setSelectedProject}
+          />
+
+          <BlogLatest
+            posts={latestPosts}
+            labels={page.hub}
           />
 
           <section

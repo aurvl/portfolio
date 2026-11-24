@@ -23,16 +23,18 @@ function createPage(load: () => Promise<PageModule>) {
 }
 
 export const homePage = createPage(() => import('../pages/HomePage'))
-export const blogPage = createPage(() => import('../pages/BlogPage'))
 export const blogPostPage = createPage(() => import('../pages/BlogPostPage'))
+export const seriesIndexPage = createPage(() => import('../pages/SeriesIndexPage'))
 export const seriesPage = createPage(() => import('../pages/SeriesPage'))
 export const projectsPage = createPage(() => import('../pages/ProjectsPage'))
 export const publicationsPage = createPage(() => import('../pages/PublicationsPage'))
 
 const PRELOADERS: Array<{ path: string; preload: () => Promise<void> }> = [
   { path: '/', preload: homePage.preload },
-  { path: '/blog', preload: blogPage.preload },
+  // /blog redirige vers le Hub : on charge sa page tout de suite
+  { path: '/blog', preload: projectsPage.preload },
   { path: '/blog/:slug', preload: blogPostPage.preload },
+  { path: '/series', preload: seriesIndexPage.preload },
   { path: '/series/:seriesSlug', preload: seriesPage.preload },
   { path: '/projects', preload: projectsPage.preload },
   { path: '/publications', preload: publicationsPage.preload },

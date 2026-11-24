@@ -144,7 +144,14 @@
     "series": {
       "readMore": "Decouvrir",
       "postCount": "{{count}} posts",
-      "fallbackTitle": "Serie"
+      "fallbackTitle": "Serie",
+      "eyebrow": "Série",
+      "count": "{{count}} articles",
+      "searchTitle": "Rechercher dans tous les articles",
+      "results": "Résultats de la recherche",
+      "searchButton": "Rechercher un article",
+      "closeSearch": "Fermer la recherche",
+      "all": "Toutes les séries"
     }
   },
   "consent": {

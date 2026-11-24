@@ -1,12 +1,12 @@
 import { Suspense } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
-import { blogPage, blogPostPage, homePage, projectsPage, publicationsPage, seriesPage } from './app/pages'
+import { blogPostPage, homePage, projectsPage, publicationsPage, seriesIndexPage, seriesPage } from './app/pages'
 
 const HomePage = homePage.Page
 const ProjectsPage = projectsPage.Page
-const BlogPage = blogPage.Page
 const BlogPostPage = blogPostPage.Page
 const SeriesPage = seriesPage.Page
+const SeriesIndexPage = seriesIndexPage.Page
 const PublicationsPage = publicationsPage.Page
 
 function App() {
@@ -20,8 +20,10 @@ function App() {
     >
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/blog" element={<BlogPage />} />
+        {/* Le blog vit dans le Hub : /blog renvoie sur son bloc « Derniers articles ». Les articles et séries gardent leur URL. */}
+        <Route path="/blog" element={<Navigate to="/projects#blog" replace />} />
         <Route path="/blog/:slug" element={<BlogPostPage />} />
+        <Route path="/series" element={<SeriesIndexPage />} />
         <Route path="/series/:seriesSlug" element={<SeriesPage />} />
         <Route path="/projects" element={<ProjectsPage />} />
         <Route path="/publications" element={<PublicationsPage />} />

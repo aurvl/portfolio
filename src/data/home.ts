@@ -179,6 +179,9 @@ export type HomeContent = {
       coverEyebrow: string
       viewSeries: string
       subscribe: string
+      blogLabel: string
+      blogTitle: string
+      blogSeries: string
       allProjectsLabel: string
       searchButton: string
       advancedSearch: string
@@ -445,6 +448,9 @@ export const homeEn: HomeContent = {
       coverEyebrow: 'Featured series',
       viewSeries: 'View the series',
       subscribe: 'Subscribe',
+      blogLabel: 'Latest articles',
+      blogTitle: 'Blog',
+      blogSeries: 'Browse the series',
       allProjectsLabel: 'All projects',
       searchButton: 'Search',
       advancedSearch: 'Advanced search',

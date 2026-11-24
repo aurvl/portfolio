@@ -163,8 +163,34 @@ Modifier : `Navbar`, `MainLayout`, `HomePage`, `ProjectsPage`, `BlogPage`, `Publ
       (pas de liste écrite à la main) ; un clic filtre et ramène sur la grille. Exception pilule notée au BRIEF §2.
       Textes ajoutés dans `home.ts` / `home.fr.ts` (`hub`), token `--color-night-line`. Vérifié : lint,
       content:validate, build, Playwright 1440 px (clair). À REPRENDRE : mobile, sombre et tablette (étape 13/14).
-- [ ] 12. Blog : `/blog` redirige vers la partie blog du hub ; bloc derniers articles + série mise en avant ;
-      restyle `SeriesPage`/`BlogPostPage` ; sitemap et redirections dans `scripts/generate-seo.ts`.
+- [x] 12. Blog et Séries (24/11/2026, sans commit). RÉALISÉ : (a) `hub-v3/BlogLatest` : bloc « Derniers articles du blog »
+      dans le Hub, après « À la une » (ancre `#blog`) : article le plus récent en grand avec image, deux autres en texte seul,
+      filets verticaux sur ordinateur, lien « Voir les séries » (vers la série à la une) ; styles dans `styles/v3/hub.css`,
+      libellés `hub.blogLabel / blogTitle / blogSeries` (`home.ts`, `home.fr.ts`). (b) `/blog` redirige vers `/projects#blog`
+      (`App.tsx`) ; `BlogPage.tsx` supprimée ; `/blog/:slug` et `/series/:slug` inchangées. (c) `scripts/generate-seo.ts` :
+      `blog` retiré du sitemap, `projects` prend la date la plus récente (projets ET articles), nouvelle page statique
+      `public/blog/index.html` (200, `canonical` vers `/projects`, `noindex`, renvoi calculé depuis l'adresse courante).
+      (d) `SeriesPage` et `BlogPostPage` restylées (`styles/v3/blog.css`, `blog/BlogBanner`) : bandeau de bambous partagé
+      (`bamboo-banner`, règle ajoutée dans `page-transitions.css`), titres serif, filets 1 px, liste numérotée des articles
+      de la série, précédent / suivant à filets, sommaire collant (≥ 1280 px, masqué en dessous), liens « Retour au blog » vers
+      `/projects#blog`. Logique inchangée (tri, `Seo`, JSON-LD, chargement, `IntersectionObserver` du sommaire, `PostContent`).
+      (e) `ScrollManager` réessaie jusqu'à 2 s pour trouver une ancre (arrivée directe sur `/projects#blog`, page chargée à la
+      demande). (f) `BlogSubscribeSection` : bouton sans dégradé, titre serif. Vérifié : lint, content:validate, build ;
+      Playwright 1440 px et 390 px (clair) ; article à formules `classification-logistic-activation` identique avant / après
+      (66 éléments KaTeX dont 17 en bloc, 0 erreur, 12 titres, 1 bloc de code), version FR sans erreur KaTeX ; clic Hub → série →
+      article → retour. À REPRENDRE : (a) mode sombre et tablette non vérifiés (13, 14) ; (b) au nettoyage (15) : composants
+      devenus inutiles `BlogFilters`, `BlogSeriesCard`, `LastBlogPosts`, `PostGrid`, `PostCard`, `home-v2/BlogPostsSection`, et
+      le CSS V2 correspondant dans `blog-v2.css` (à garder : `subscribe-v2`, `blog-post-content`) ; (c) champs `blog.section.*`
+      et `blog.catalog.*` des locales à vérifier à ce moment ; (d) pas de page « toutes les séries » : le lien du Hub mène à la
+      série à la une (une seule série aujourd'hui) ; (e) le bouton Précédent du navigateur n'est toujours pas animé.
+      AJOUT (24/11/2026, demande du propriétaire) : les pages Séries sont l'endroit où l'on cherche dans TOUS les articles.
+      `blog/BlogSearchPanel` (+ `BlogSearch`, `PostRow`) place la recherche EN TÊTE de `/series` et de `/series/:slug` :
+      au repos une pilule « Rechercher un article » (même classe que « Search a project » du Hub), au clic le formulaire
+      (champ + tag, « Fermer la recherche ») se déplie en dessous (framer-motion, sans animation si mouvement réduit) ; au repos on voit la page, en recherche les résultats (tous articles, du plus récent au plus ancien)
+      la remplacent. Nouvelle page `/series` (`SeriesIndexPage`) : liste de TOUTES les séries (prête pour plusieurs) ; le lien
+      « Voir les séries » du Hub y mène (et non plus à la série à la une) ; `/series/:slug` a un lien « Toutes les séries ».
+      Sitemap : `series` ajouté ; navbar : `/series` active l'onglet Projets & Blog. `FeaturedCover` du Hub garde « Voir la
+      série » vers la série à la une.
 - [ ] 13. Responsive (≈390 px, tablette, laptop 14″).
 - [ ] 14. Dark mode, accessibilité, `prefers-reduced-motion`.
 - [ ] 15. Nettoyage V2, réécriture complète de `docs/ARCHITECTURE.md` et `docs/DESIGN_SYSTEM.md`, `lint` +

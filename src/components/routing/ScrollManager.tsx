@@ -30,14 +30,31 @@ function ScrollManager() {
   }, [location.key])
 
   useEffect(() => {
+    let retryId: number | undefined
+
     const timeoutId = window.setTimeout(() => {
       if (location.hash) {
-        const target = document.getElementById(decodeURIComponent(location.hash.slice(1)))
+        const targetId = decodeURIComponent(location.hash.slice(1))
+        let attempts = 0
 
-        if (target) {
-          target.scrollIntoView({ block: 'start' })
+        // Arrivée directe sur une adresse avec ancre (ex. /projects#blog) : la page est chargée à la demande et son
+        // contenu peut arriver après ce premier essai. On réessaie toutes les 100 ms (2 s au plus) jusqu'à trouver l'ancre.
+        const scrollToTarget = () => {
+          const target = document.getElementById(targetId)
+
+          if (target) {
+            target.scrollIntoView({ block: 'start' })
+            return
+          }
+
+          attempts += 1
+
+          if (attempts < 20) {
+            retryId = window.setTimeout(scrollToTarget, 100)
+          }
         }
 
+        scrollToTarget()
         return
       }
 
@@ -49,7 +66,10 @@ function ScrollManager() {
       window.scrollTo({ top: 0, left: 0 })
     }, SCROLL_RESTORE_DELAY_MS)
 
-    return () => window.clearTimeout(timeoutId)
+    return () => {
+      window.clearTimeout(timeoutId)
+      window.clearTimeout(retryId)
+    }
   }, [location.hash, location.key, navigationType])
 
   return null

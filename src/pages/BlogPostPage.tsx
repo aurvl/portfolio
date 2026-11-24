@@ -1,15 +1,19 @@
+// Page d'un article (/blog/:slug) : bandeau de bambous, en-tête éditorial (titre serif), corps de l'article
+// (PostContent : markdown, formules, widgets, inchangé), sommaire, précédent / suivant et abonnement.
+// Styles : styles/v3/blog.css.
 import { useEffect, useMemo, useState } from 'react'
-import type { CSSProperties } from 'react'
 import { FiArrowLeft, FiArrowRight } from 'react-icons/fi'
 import { useTranslation } from 'react-i18next'
 import { Link, useParams } from 'react-router-dom'
 import MainLayout from '../components/layout/MainLayout'
 import { useSiteNav } from '../hooks/useSiteNav'
+import BlogBanner from '../components/blog/BlogBanner'
 import PostContent from '../components/blog/PostContent'
 import BlogSubscribeSection from '../components/blog/BlogSubscribeSection'
 import Seo from '../components/seo/Seo'
 import { getPost, formatPostDate } from '../lib/getPost'
 import { getImageDimensions } from '../lib/imageMetadata'
+import { cn } from '../lib/cn'
 import { useBlogIndex } from '../hooks/useBlogIndex'
 import { PERSON_NAME, PERSON_SAME_AS, buildAbsoluteSiteUrl, withBasePath } from '../lib/site'
 
@@ -138,24 +142,28 @@ function BlogPostPage() {
 
   if (!slug || (!post && !isIndexLoading)) {
     return (
-      <MainLayout sections={blogSections} className="home-v2">
-        <section className="section-shell py-15 md:py-12">
-          <div className="blog-v2__notfound rounded-[24px] border border-[var(--glass-border)] bg-[var(--glass-bg)]/70 px-8 py-12 text-center backdrop-blur-xl">
-            <h1 className="text-3xl font-semibold text-[var(--text-col)]">
-              {t('blog.postNotFound.title')}
-            </h1>
-            <p className="mt-4 text-[var(--text2-col)]">
-              {t('blog.postNotFound.description')}
-            </p>
-            <Link
-              to="/blog"
-              className="blog-v2__nav-btn mt-8 inline-flex items-center gap-2 rounded-full border border-[var(--glass-border)] bg-[var(--glass-bg)] px-5 py-3 text-sm font-semibold text-[var(--text-col)] backdrop-blur-xl"
-            >
-              <FiArrowLeft />
-              {t('blog.backToBlog')}
-            </Link>
+      <MainLayout
+        sections={blogSections}
+        className="home-v2"
+        overlayNavbar
+      >
+        <div className="blog-page">
+          <BlogBanner />
+
+          <div className="blog-page__wrap">
+            <div className="blog-page__empty">
+              <h1>{t('blog.postNotFound.title')}</h1>
+              <p>{t('blog.postNotFound.description')}</p>
+              <Link
+                to="/projects#blog"
+                className="blog-page__link"
+              >
+                <FiArrowLeft aria-hidden="true" />
+                {t('blog.backToBlog')}
+              </Link>
+            </div>
           </div>
-        </section>
+        </div>
       </MainLayout>
     )
   }
@@ -165,13 +173,13 @@ function BlogPostPage() {
   }
 
   const tocHeadings = post.headings.filter((heading) => heading.depth <= 2)
-  const blogPostThemeStyle = {
-    '--text-col': 'var(--blogpost-text-col)',
-    '--text2-col': 'var(--blogpost-text2-col)',
-  } as CSSProperties
 
   return (
-    <MainLayout sections={blogSections} className="home-v2">
+    <MainLayout
+      sections={blogSections}
+      className="home-v2"
+      overlayNavbar
+    >
       <Seo
         title={post.title}
         description={post.summary}
@@ -196,150 +204,122 @@ function BlogPostPage() {
           mainEntityOfPage: buildAbsoluteSiteUrl(`blog/${post.slug}`),
         }}
       />
-      <section
-        className="blogpage-shell py-15 md:py-12 lg:pl-30"
-        style={blogPostThemeStyle}
-      >
-        <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
-          <Link
-            to="/blog"
-            className="blog-v2__nav-btn inline-flex items-center gap-2 rounded-lg border border-[var(--glass-border)] bg-[var(--glass-bg)] px-4 py-2 text-sm font-semibold text-[var(--text-col)] backdrop-blur-xl transition-colors duration-200 hover:border-[var(--accent-lgtblue)]"
-          >
-            <FiArrowLeft />
-            {t('blog.backToBlog')}
-          </Link>
 
-          {post.seriesSlug && (
+      <div className="blog-page blog-article">
+        <BlogBanner />
+
+        <div className="blog-page__wrap">
+          <div className="blog-page__nav">
             <Link
-              to={`/series/${post.seriesSlug}`}
-              className="blog-v2__nav-btn inline-flex items-center gap-2 rounded-lg border border-[var(--glass-border)] btn-primary px-4 py-2 text-sm font-semibold text-[var(--text-col)] backdrop-blur-xl transition-colors duration-200 hover:border-[var(--accent-lgtblue)]"
+              to="/projects#blog"
+              className="blog-page__link"
             >
-              {t('blog.backToSeries')}
+              <FiArrowLeft aria-hidden="true" />
+              {t('blog.backToBlog')}
             </Link>
-          )}
-        </div>
-          
-        <div className="grid xl:grid-cols-[minmax(0,1fr)_240px]">
-          <div className="min-w-0">
-            <div className="blog-v2__article-head overflow-hidden rounded-lg border border-[var(--glass-border)] bg-[var(--glass-bg)]/70 backdrop-blur-xl">
-              <img
-                src={withBasePath(post.cover)}
-                alt={post.title}
-                width={coverDimensions?.width}
-                height={coverDimensions?.height}
-                className="h-[260px] w-full object-cover md:h-[360px]"
-              />
 
-              <div className="flex flex-col gap-5 p-6 md:p-8">
-                <div className="flex flex-wrap gap-2">
-                  {post.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="rounded-full border border-[var(--glass-border)] px-3 py-1 text-[11px] uppercase tracking-[0.2em] text-[var(--keyw-col-window)]"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
+            {post.seriesSlug && (
+              <Link
+                to={`/series/${post.seriesSlug}`}
+                className="blog-page__link"
+              >
+                {t('blog.backToSeries')}
+                <FiArrowRight aria-hidden="true" />
+              </Link>
+            )}
+          </div>
 
-                <h1 className="blog-v2__article-title text-4xl font-semibold tracking-tight text-[var(--text-col)] md:text-5xl">
-                  {post.title}
-                </h1>
+          <header className="blog-page__head">
+            <p className="article-head__tags">{post.tags.join(' · ')}</p>
+            <h1 className="blog-page__title">{post.title}</h1>
+            <p className="blog-page__lead">{post.summary}</p>
+            <p className="blog-page__meta tabular">
+              {formatPostDate(post.date, i18n.language)} · {t('blog.minRead', { count: post.readTime })}
+            </p>
 
-                <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-[var(--text2-col)]">
-                  <span>{formatPostDate(post.date, i18n.language)}</span>
-                  <span>{t('blog.minRead', { count: post.readTime })}</span>
-                </div>
+            <img
+              src={withBasePath(post.cover)}
+              alt={post.title}
+              width={coverDimensions?.width}
+              height={coverDimensions?.height}
+              className="article-head__cover"
+            />
+          </header>
 
-                <p className="max-w-3xl text-base leading-8 text-[var(--text2-col)]">
-                  {post.summary}
-                </p>
-              </div>
-            </div>
-
-            <div className="mt-8">
+          <div className="article-layout">
+            <div className="article-body">
               {isContentLoading || isIndexLoading ? (
-                <div className="blog-v2__state-box rounded-lg border border-[var(--glass-border)] bg-[var(--glass-bg)]/65 px-6 py-10 text-center text-[var(--text2-col)] backdrop-blur-xl">
-                  {t('blog.loading')}
-                </div>
+                <div className="article-state">{t('blog.loading')}</div>
               ) : content ? (
                 <PostContent content={content} postSlug={post.slug} />
               ) : (
-                <div className="blog-v2__state-box rounded-lg border border-[var(--glass-border)] bg-[var(--glass-bg)]/65 px-6 py-10 text-center text-[var(--text2-col)] backdrop-blur-xl">
-                  {t('blog.postNotFound.description')}
-                </div>
+                <div className="article-state">{t('blog.postNotFound.description')}</div>
               )}
+
+              <nav
+                className="article-pager"
+                aria-label={t('blog.navigation.previous') + ' / ' + t('blog.navigation.next')}
+              >
+                {previousPost ? (
+                  <Link
+                    to={`/blog/${previousPost.slug}`}
+                    className="article-pager__item article-pager__item--previous"
+                  >
+                    <span className="article-pager__label">
+                      <FiArrowLeft aria-hidden="true" />
+                      {t('blog.navigation.previous')}
+                    </span>
+                    <span className="article-pager__title">{previousPost.title}</span>
+                  </Link>
+                ) : (
+                  <div />
+                )}
+
+                {nextPost ? (
+                  <Link
+                    to={`/blog/${nextPost.slug}`}
+                    className="article-pager__item article-pager__item--next"
+                  >
+                    <span className="article-pager__label">
+                      {t('blog.navigation.next')}
+                      <FiArrowRight aria-hidden="true" />
+                    </span>
+                    <span className="article-pager__title">{nextPost.title}</span>
+                  </Link>
+                ) : (
+                  <div />
+                )}
+              </nav>
+
+              <BlogSubscribeSection
+                contextType="post"
+                contextTitle={post.title}
+                contextSlug={post.slug}
+              />
             </div>
 
-            <div className="mt-8 grid gap-4 md:grid-cols-2">
-              {previousPost ? (
-                <Link
-                  to={`/blog/${previousPost.slug}`}
-                  className="blog-v2__pager group rounded-lg p-5 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-[var(--accent-lgtblue)]"
-                >
-                  <p className="mb-3 inline-flex items-center gap-2 text-sm font-semibold text-[var(--accent-lgtpurple)] group-hover:text-[var(--accent-lgtblue)]">
-                    <FiArrowLeft />
-                    {t('blog.navigation.previous')}
-                  </p>
-                  <p className="text-lg font-semibold text-[var(--text-col)]">
-                    {previousPost.title}
-                  </p>
-                </Link>
-              ) : <div />}
+            <aside className="article-toc">
+              <p className="article-toc__title">{t('blog.summaryTitle')}</p>
 
-              {nextPost ? (
-                <Link
-                  to={`/blog/${nextPost.slug}`}
-                  className="blog-v2__pager group rounded-[22px] p-5 text-right backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-[var(--accent-lgtblue)]"
-                >
-                  <p className="mb-3 inline-flex items-center gap-2 text-sm font-semibold text-[var(--accent-lgtpurple)] group-hover:text-[var(--accent-lgtblue)]">
-                    {t('blog.navigation.next')}
-                    <FiArrowRight />
-                  </p>
-                  <p className="text-lg font-semibold text-[var(--text-col)]">
-                    {nextPost.title}
-                  </p>
-                </Link>
-              ) : <div />}
-            </div>
-
-            <BlogSubscribeSection
-              contextType="post"
-              contextTitle={post.title}
-              contextSlug={post.slug}
-            />
-          </div>
-
-          <aside className="xl:sticky bdc xl:top-24 xl:self-start xl:justify-self-end">
-            <div className="w-full max-w-[220px] pt-1">
-              <p className="toc-title mb-3 text-[11px] uppercase tracking-[0.24em] text-[var(--text2-col)]">
-                {t('blog.summaryTitle')}
-              </p>
-
-              <nav className="flex flex-col gap-1">
+              <nav className="article-toc__list">
                 {tocHeadings.map((heading) => (
                   <a
                     key={heading.id}
                     href={`#${heading.id}`}
-                    className={`toc-link border-l px-3 py-1 text-xs leading-5 transition-colors duration-200 ${
-                      activeHeading === heading.id ? 'is-active ' : ''
-                    }${
-                      activeHeading === heading.id
-                        ? 'border-[var(--accent-lgtblue)] text-[var(--text-col)]'
-                        : 'border-transparent text-[var(--text2-col)] hover:text-[var(--text-col)]'
-                    }`}
-                    style={{
-                      marginLeft: heading.depth === 2 ? '0.45rem' : '0',
-                    }}
+                    className={cn(
+                      'article-toc__link',
+                      heading.depth === 2 && 'article-toc__link--sub',
+                      activeHeading === heading.id && 'is-active',
+                    )}
                   >
                     {heading.depth === 1 ? heading.text.toUpperCase() : heading.text}
                   </a>
                 ))}
               </nav>
-            </div>
-          </aside>
+            </aside>
+          </div>
         </div>
-      </section>
+      </div>
     </MainLayout>
   )
 }

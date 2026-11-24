@@ -117,18 +117,8 @@ function BlogSubscribeSection({
               disabled={!isEmailValid || isSubmitting}
               className="subscribe-v2__submit"
             >
-              <span className="bg-gradient-to-r from-[#e05aff] to-[#ff8c42] bg-clip-text font-semibold text-transparent">
-                {isSubmitting ? t('blog.subscribe.submitting') : t('blog.subscribe.submit')}
-              </span>
-              <MdKeyboardArrowRight size={22} style={{ fill: 'url(#btn-gradient)', flexShrink: 0 }} aria-hidden="true" />
-              <svg width="0" height="0" style={{ position: 'absolute' }} aria-hidden="true">
-                <defs>
-                  <linearGradient id="btn-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#e05aff" />
-                    <stop offset="100%" stopColor="#ff8c42" />
-                  </linearGradient>
-                </defs>
-              </svg>
+              {isSubmitting ? t('blog.subscribe.submitting') : t('blog.subscribe.submit')}
+              <MdKeyboardArrowRight size={22} className="shrink-0" aria-hidden="true" />
             </button>
           </div>
 

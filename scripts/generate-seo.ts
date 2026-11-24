@@ -26,6 +26,7 @@ const seriesPath = path.join(rootDir, 'src/data/series.json')
 const robotsPath = path.join(publicDir, 'robots.txt')
 const sitemapPath = path.join(publicDir, 'sitemap.xml')
 const spaFallbackPath = path.join(publicDir, '404.html')
+const blogRedirectPath = path.join(publicDir, 'blog', 'index.html')
 const legacyRedirects = [
   { fileName: 'home_fr.html', lang: 'fr' },
   { fileName: 'home_en.html', lang: 'en' },
@@ -48,9 +49,11 @@ const homeLastMod = latestProjectDate > latestPostDate ? latestProjectDate : lat
 
 const sitemapEntries = [
   { path: '', lastmod: homeLastMod, changefreq: 'monthly', priority: '1.0' },
-  { path: 'projects', lastmod: latestProjectDate, changefreq: 'weekly', priority: '0.9' },
-  { path: 'blog', lastmod: latestPostDate, changefreq: 'weekly', priority: '0.9' },
+  // Le Hub regroupe projets ET articles : sa date est la plus récente des deux. /blog n'est plus une page
+  // (elle redirige vers le Hub), donc elle ne figure pas dans le sitemap.
+  { path: 'projects', lastmod: homeLastMod, changefreq: 'weekly', priority: '0.9' },
   { path: 'publications', lastmod: homeLastMod, changefreq: 'monthly', priority: '0.8' },
+  { path: 'series', lastmod: latestPostDate, changefreq: 'weekly', priority: '0.8' },
   ...series.map((entry) => ({
     path: `series/${entry.slug}`,
     lastmod:
@@ -93,6 +96,8 @@ fs.writeFileSync(
   ].join('\n')
 )
 fs.writeFileSync(spaFallbackPath, buildSpaFallbackHtml(siteUrl))
+fs.mkdirSync(path.dirname(blogRedirectPath), { recursive: true })
+fs.writeFileSync(blogRedirectPath, buildBlogRedirectHtml(siteUrl))
 
 for (const redirect of legacyRedirects) {
   fs.writeFileSync(
@@ -101,7 +106,7 @@ for (const redirect of legacyRedirects) {
   )
 }
 
-console.log(`Generated robots.txt, sitemap.xml, 404.html, and legacy redirects for ${siteUrl}`)
+console.log(`Generated robots.txt, sitemap.xml, 404.html, the /blog redirect, and legacy redirects for ${siteUrl}`)
 
 function loadPosts() {
   const fileNames = fs
@@ -267,6 +272,33 @@ function buildLegacyRedirectHtml(currentSiteUrl: string, lang: string) {
   </head>
   <body>
     <p>This page moved to <a href="${targetUrl}">${targetUrl}</a>.</p>
+  </body>
+</html>
+`
+}
+
+// /blog n'existe plus comme page : cette page statique répond en 200 et renvoie vers le bloc « Derniers articles » du Hub.
+// Le renvoi est calculé depuis l'adresse courante (pas depuis siteUrl), donc il marche aussi en local ;
+// `canonical` + `noindex` disent aux moteurs de recherche que la page de référence est /projects.
+function buildBlogRedirectHtml(currentSiteUrl: string) {
+  const canonicalUrl = new URL('projects', currentSiteUrl).toString()
+
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="noindex,follow" />
+    <link rel="canonical" href="${canonicalUrl}" />
+    <title>Redirecting...</title>
+    <script>
+      (function() {
+        var target = window.location.pathname.replace(/blog[/]?$/, 'projects');
+        window.location.replace(target + window.location.search + '#blog');
+      })();
+    </script>
+  </head>
+  <body>
+    <p>The blog moved to <a href="${canonicalUrl}#blog">${canonicalUrl}#blog</a>.</p>
   </body>
 </html>
 `

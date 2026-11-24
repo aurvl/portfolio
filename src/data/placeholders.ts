@@ -222,7 +222,7 @@ const latestThings: LocalizedField<LatestThing[]> = {
       date: '2026-08-03',
       thumbnailSrc: '/assets/blog/images/blog6.jpg',
       thumbnailAlt: 'Placeholder thumbnail',
-      href: '/blog',
+      href: '/projects#blog',
     },
     {
       id: 'latest-3',
@@ -251,7 +251,7 @@ const latestThings: LocalizedField<LatestThing[]> = {
       date: '2026-08-03',
       thumbnailSrc: '/assets/blog/images/blog6.jpg',
       thumbnailAlt: 'Vignette fictive',
-      href: '/blog',
+      href: '/projects#blog',
     },
     {
       id: 'latest-3',

@@ -1,29 +1,22 @@
-import { FiArrowLeft } from 'react-icons/fi'
+// Page d'une série d'articles (/series/:slug) : bandeau de bambous, recherche dans tous les articles EN TÊTE, puis titre
+// serif et liste numérotée des articles de la série dans l'ordre de lecture, puis l'abonnement. Styles : styles/v3/blog.css.
+import { FiArrowLeft, FiArrowRight } from 'react-icons/fi'
 import { useTranslation } from 'react-i18next'
 import { Link, useParams } from 'react-router-dom'
 import MainLayout from '../components/layout/MainLayout'
 import { useSiteNav } from '../hooks/useSiteNav'
-import PostGrid from '../components/blog/PostGrid'
+import BlogBanner from '../components/blog/BlogBanner'
+import BlogSearchPanel from '../components/blog/BlogSearchPanel'
+import PostRow from '../components/blog/PostRow'
 import BlogSubscribeSection from '../components/blog/BlogSubscribeSection'
 import Seo from '../components/seo/Seo'
 import series from '../data/series.json'
 import { useBlogIndex } from '../hooks/useBlogIndex'
-import { PERSON_NAME, buildAbsoluteSiteUrl } from '../lib/site'
+import { PERSON_NAME, buildAbsoluteSiteUrl, withBasePath } from '../lib/site'
 import { getLocalizedField } from '../lib/utils'
-import type { BlogPostMeta } from '../types/post'
 import type { Series } from '../types/series'
 
 const blogSeries = series as Series[]
-
-function chunkPosts(posts: BlogPostMeta[], size: number) {
-  const chunks: BlogPostMeta[][] = []
-
-  for (let index = 0; index < posts.length; index += size) {
-    chunks.push(posts.slice(index, index + size))
-  }
-
-  return chunks
-}
 
 function SeriesPage() {
   const { t, i18n } = useTranslation()
@@ -41,89 +34,102 @@ function SeriesPage() {
 
       return postA.slug.localeCompare(postB.slug)
     })
-  const rows = chunkPosts(seriesPosts, 3)
 
   const { pageSections: sections } = useSiteNav()
 
+  const seriesTitle = currentSeries
+    ? getLocalizedField(currentSeries.title, i18n.language)
+    : t('blog.series.fallbackTitle')
+  const seriesDescription = currentSeries
+    ? getLocalizedField(currentSeries.description, i18n.language)
+    : t('blog.catalog.empty.description')
+
   return (
-    <MainLayout sections={sections} className="home-v2">
+    <MainLayout
+      sections={sections}
+      className="home-v2"
+      overlayNavbar
+    >
       <Seo
-        title={
-          currentSeries
-            ? `${getLocalizedField(currentSeries.title, i18n.language)} | ${PERSON_NAME}`
-            : `${t('blog.series.fallbackTitle')} | ${PERSON_NAME}`
-        }
-        description={
-          currentSeries
-            ? getLocalizedField(currentSeries.description, i18n.language)
-            : t('blog.catalog.empty.description')
-        }
-        path={seriesSlug ? `series/${seriesSlug}` : 'blog'}
+        title={`${seriesTitle} | ${PERSON_NAME}`}
+        description={seriesDescription}
+        path={seriesSlug ? `series/${seriesSlug}` : 'projects'}
         lang={i18n.language}
         image={currentSeries ? buildAbsoluteSiteUrl(currentSeries.cover) : undefined}
         jsonLd={{
           '@context': 'https://schema.org',
           '@type': 'CollectionPage',
-          name: currentSeries
-            ? getLocalizedField(currentSeries.title, i18n.language)
-            : t('blog.series.fallbackTitle'),
-          url: buildAbsoluteSiteUrl(seriesSlug ? `series/${seriesSlug}` : 'blog'),
-          description: currentSeries
-            ? getLocalizedField(currentSeries.description, i18n.language)
-            : t('blog.catalog.empty.description'),
+          name: seriesTitle,
+          url: buildAbsoluteSiteUrl(seriesSlug ? `series/${seriesSlug}` : 'projects'),
+          description: seriesDescription,
         }}
       />
-      <section className="section-shell py-15 md:py-12">
-        <div className="mb-8">
-          <Link
-            to="/blog"
-            className="blog-v2__nav-btn inline-flex items-center gap-2 rounded-lg border border-[var(--glass-border)] bg-[var(--glass-bg)] px-4 py-2 text-sm font-semibold text-[var(--text-col)] backdrop-blur-xl transition-colors duration-200 hover:border-[var(--accent-lgtblue)]"
-          >
-            <FiArrowLeft />
-            {t('blog.backToBlog')}
-          </Link>
-        </div>
 
-        <div className="p-6 backdrop-blur-xl md:p-8">
-          <h1 className="blog-v2__series-title text-4xl font-semibold tracking-tight bg-gradient-to-r from-[var(--accent-lgtblue)] to-[#ff8c42] bg-clip-text text-transparent inline-block">
-            {currentSeries
-              ? getLocalizedField(currentSeries.title, i18n.language)
-              : t('blog.series.fallbackTitle')}
-          </h1>
-        </div>
+      <div className="blog-page">
+        <BlogBanner />
 
-        <div className="mt-8 space-y-8">
-          {rows.length > 0 ? (
-            rows.map((row, rowIndex) => (
-              <div key={`series-row-${rowIndex}`} className="space-y-8">
-                <PostGrid posts={row} />
-                {rowIndex < rows.length - 1 && (
-                  <div className="mx-auto h-px w-[80%] bg-[var(--glass-border)]" />
-                )}
+        <div className="blog-page__wrap">
+          <div className="blog-page__nav">
+            <Link
+              to="/projects#blog"
+              className="blog-page__link"
+            >
+              <FiArrowLeft aria-hidden="true" />
+              {t('blog.backToBlog')}
+            </Link>
+
+            <Link
+              to="/series"
+              className="blog-page__link"
+            >
+              {t('blog.series.all')}
+              <FiArrowRight aria-hidden="true" />
+            </Link>
+          </div>
+
+          <BlogSearchPanel>
+            <header className={currentSeries ? 'blog-page__head blog-page__head--with-cover' : 'blog-page__head'}>
+              <div>
+                <p className="eyebrow">{t('blog.series.eyebrow')}</p>
+                <h1 className="blog-page__title">{seriesTitle}</h1>
+                {currentSeries ? <p className="blog-page__lead">{seriesDescription}</p> : null}
+                <p className="blog-page__meta tabular">{t('blog.series.count', { count: seriesPosts.length })}</p>
               </div>
-            ))
-          ) : (
-            <div className="blog-v2__state-box rounded-[22px] border border-[var(--glass-border)] bg-[var(--glass-bg)]/65 px-6 py-10 text-center">
-              <h2 className="text-xl font-semibold text-[var(--text-col)]">
-                {t('blog.catalog.empty.title')}
-              </h2>
-              <p className="mt-3 text-[var(--text2-col)]">
-                {t('blog.catalog.empty.description')}
-              </p>
-            </div>
-          )}
-        </div>
 
-        <BlogSubscribeSection
-          contextType="series"
-          contextTitle={
-            currentSeries
-              ? getLocalizedField(currentSeries.title, i18n.language)
-              : t('blog.series.fallbackTitle')
-          }
-          contextSlug={seriesSlug ?? 'series'}
-        />
-      </section>
+              {currentSeries ? (
+                <img
+                  className="blog-page__cover"
+                  src={withBasePath(currentSeries.cover)}
+                  alt=""
+                />
+              ) : null}
+            </header>
+
+            {seriesPosts.length > 0 ? (
+              <ol className="series-list">
+                {seriesPosts.map((post, postIndex) => (
+                  <PostRow
+                    key={post.slug}
+                    post={post}
+                    number={postIndex + 1}
+                  />
+                ))}
+              </ol>
+            ) : (
+              <div className="blog-page__empty">
+                <h2>{t('blog.catalog.empty.title')}</h2>
+                <p>{t('blog.catalog.empty.description')}</p>
+              </div>
+            )}
+          </BlogSearchPanel>
+
+          <BlogSubscribeSection
+            contextType="series"
+            contextTitle={seriesTitle}
+            contextSlug={seriesSlug ?? 'series'}
+          />
+        </div>
+      </div>
     </MainLayout>
   )
 }

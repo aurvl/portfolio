@@ -14,7 +14,7 @@ export function useSiteNav() {
     { id: 'home', label: nav.home },
     { id: 'about', label: nav.about },
     { id: 'research', label: nav.research },
-    { id: 'projects', label: nav.projectsBlog, href: '/projects', matchPaths: ['/projects', '/blog'] },
+    { id: 'projects', label: nav.projectsBlog, href: '/projects', matchPaths: ['/projects', '/blog', '/series'] },
     { id: 'cv', label: nav.cv, href: resumeUrl, download: true },
     { id: 'contact-form', label: nav.contact },
   ]
@@ -23,7 +23,7 @@ export function useSiteNav() {
     { id: 'home', label: nav.home, href: '/' },
     { id: 'about', label: nav.about, href: '/#about' },
     { id: 'research', label: nav.research, href: '/#research' },
-    { id: 'projects', label: nav.projectsBlog, href: '/projects', matchPaths: ['/projects', '/blog'] },
+    { id: 'projects', label: nav.projectsBlog, href: '/projects', matchPaths: ['/projects', '/blog', '/series'] },
     { id: 'cv', label: nav.cv, href: resumeUrl, download: true },
     { id: 'contact-form', label: nav.contact, href: '/#contact-form' },
   ]

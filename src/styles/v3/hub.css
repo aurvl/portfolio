@@ -745,3 +745,170 @@
     display: inline;
   }
 }
+
+/* ---------- Derniers articles du blog (BlogLatest) ---------- */
+
+.blog-latest {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  min-width: 0;
+  /* Réserve la hauteur du bloc pendant le chargement de l'index du blog : la page ne saute pas à l'arrivée des articles */
+  min-height: 22rem;
+  padding-top: 1.5rem;
+  /* scroll-margin : en arrivant par /blog (ancre #blog), le titre s'arrête sous la navbar et non collé au bord haut */
+  scroll-margin-top: 6rem;
+  border-top: 1px solid var(--color-line);
+}
+
+.blog-latest__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+/* Mobile : une colonne ; chaque article est séparé du précédent par un filet */
+.blog-latest__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.5rem;
+}
+
+.blog-latest__item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.blog-latest__item + .blog-latest__item {
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--color-line);
+}
+
+.blog-latest__image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: var(--radius-sharp);
+}
+
+.blog-latest__text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.blog-latest__meta {
+  margin: 0;
+  font-size: var(--label-size);
+  font-weight: 600;
+  letter-spacing: var(--label-spacing);
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.blog-latest__title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--color-ink);
+}
+
+.blog-latest__item--lead .blog-latest__title {
+  font-size: 1.75rem;
+}
+
+.blog-latest__link {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  transition: text-decoration-thickness var(--duration-fast) ease;
+}
+
+.blog-latest__item:hover .blog-latest__link {
+  text-decoration-thickness: 2px;
+}
+
+/* Lien étiré : le ::after couvre tout l'article (position: relative), donc toute la zone est cliquable */
+.blog-latest__link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+.blog-latest__link:focus-visible {
+  outline: none;
+}
+
+.blog-latest__link:focus-visible::after {
+  outline: 2px solid var(--color-action-blue);
+  outline-offset: 4px;
+}
+
+.blog-latest__summary {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--color-muted);
+  /* line-clamp : chapô coupé à 4 lignes avec « … », pour garder les articles alignés */
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Mêmes mots-clés que ceux des cartes projet (.hub-card__tags) : bleu d'action, 3 au plus, majuscules espacées */
+.blog-latest__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.9rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: var(--label-spacing);
+  text-transform: uppercase;
+  color: var(--color-action-blue);
+}
+
+/* Tablette : le grand article prend toute la largeur, les deux autres se placent côte à côte dessous */
+@media (min-width: 640px) {
+  .blog-latest__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 2rem;
+  }
+
+  .blog-latest__item--lead {
+    grid-column: 1 / -1;
+  }
+
+  .blog-latest__item + .blog-latest__item {
+    padding-top: 0;
+    border-top: 0;
+  }
+}
+
+/* Ordinateur : le grand article à gauche, les deux autres à sa droite, séparés par un filet vertical */
+@media (min-width: 1024px) {
+  .blog-latest__grid {
+    grid-template-columns: minmax(0, 1.5fr) repeat(2, minmax(0, 1fr));
+  }
+
+  .blog-latest__item--lead {
+    grid-column: auto;
+  }
+
+  .blog-latest__item + .blog-latest__item {
+    padding-left: 2rem;
+    border-left: 1px solid var(--color-line);
+  }
+}
