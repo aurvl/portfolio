@@ -46,6 +46,13 @@ html.snap-home .papers {
   margin-top: -1.5rem;
 }
 
+/* Téléphone : espace réduit entre les ronds (leur taille reste) pour que les 6 tiennent sur une seule ligne à 375 px */
+@media (max-width: 639px) {
+  .papers__social {
+    gap: 0.75rem;
+  }
+}
+
 /* Bouton à filet moins épais : marge verticale de 0,375 rem au lieu de 0,7 rem (hauteur −20 %) */
 .papers__back {
   padding-block: 0.375rem;

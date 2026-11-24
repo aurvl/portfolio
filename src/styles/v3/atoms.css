@@ -268,6 +268,62 @@
   text-decoration-thickness: 2px;
 }
 
+/* ---------- Zones de toucher (téléphone, tablette, écran tactile) ----------
+   Au doigt, une cible doit mesurer au moins 44 px. Plutôt que d'agrandir les boutons (le dessin ne change pas),
+   on agrandit leur zone cliquable de façon invisible : un ::before transparent, centré sur l'élément, qui mesure
+   « le plus grand de : l'élément lui-même ou 44 px ». Un clic sur ce ::before compte comme un clic sur l'élément.
+   La condition couvre les écrans tactiles (pointer: coarse) ET les largeurs < 1024 px, donc aussi l'iPad en paysage.
+   Les liens « étirés » (cartes entières cliquables) n'en ont pas besoin : leur zone couvre déjà tout le bloc. */
+@media (pointer: coarse), (max-width: 1023px) {
+  /* Éléments qui n'étaient pas positionnés : ils deviennent le repère du ::before */
+  .social-icons__link,
+  .utility-pill__theme,
+  .btn--link,
+  .btn--line,
+  .blog-page__link,
+  .site-footer__link,
+  .search-panel__link,
+  .md-content__code-fold-btn,
+  .md-content__copy-btn {
+    position: relative;
+  }
+
+  /* top / left à 50 % puis translate(-50 %, -50 %) : le carré reste centré quelle que soit la taille de l'élément */
+  .social-icons__link::before,
+  .utility-pill__theme::before,
+  .btn--link::before,
+  .btn--line::before,
+  .blog-page__link::before,
+  .site-footer__link::before,
+  .search-panel__link::before,
+  .search-panel__close::before,
+  .md-content__code-tab::before,
+  .md-content__code-fold-btn::before,
+  .md-content__copy-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: max(100%, 44px);
+    height: max(100%, 44px);
+    transform: translate(-50%, -50%);
+  }
+
+  /* Un <select> natif n'affiche pas de ::before : sa zone cliquable grandit par son propre remplissage, annulé par une
+     marge négative de même taille (la pilule ne bouge pas). Elle déborde à gauche sur l'icône de langue, qui est décorative. */
+  .utility-pill__select {
+    margin: -0.4rem -0.1rem -0.4rem -1rem;
+    padding: 0.65rem 0.35rem 0.65rem 1.25rem;
+  }
+
+  /* Le bandeau de défilement des onglets de code coupe tout ce qui dépasse : on lui donne de la hauteur interne
+     (remplissage) pour que la zone de 44 px ne soit pas rognée, sans changer sa hauteur visible (marge négative). */
+  .md-content__code-tabs {
+    margin-block: -0.6rem;
+    padding-block: 0.6rem;
+  }
+}
+
 /* Étiquette au-dessus d'un titre : petites majuscules espacées, couleur atténuée */
 .eyebrow {
   margin: 0;

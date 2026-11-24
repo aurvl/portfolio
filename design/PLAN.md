@@ -191,7 +191,18 @@ Modifier : `Navbar`, `MainLayout`, `HomePage`, `ProjectsPage`, `BlogPage`, `Publ
       « Voir les séries » du Hub y mène (et non plus à la série à la une) ; `/series/:slug` a un lien « Toutes les séries ».
       Sitemap : `series` ajouté ; navbar : `/series` active l'onglet Projets & Blog. `FeaturedCover` du Hub garde « Voir la
       série » vers la série à la une.
-- [ ] 13. Responsive (≈390 px, tablette, laptop 14″).
+- [x] 13. Responsive, passe sur tout le site (24/11/2026, sans commit). Audit à 375, 390, 768, 1024 et 1280 px
+      (accueil, Hub + SearchPanel, Séries, article, /publications, footer) : aucun défilement horizontal de page ;
+      formules, tableaux et code d'article défilent dans leur cadre. RÉALISÉ : (a) `/publications` : les 6 ronds sociaux
+      tiennent sur une ligne à 375 px (espace réduit à 0,75 rem sous 640 px, taille inchangée, `papers.css`) ;
+      (b) zones de toucher ≥ 44 px, invisibles (`::before` centré, `max(100%, 44px)`), sous `(pointer: coarse), (max-width: 1023px)`
+      pour couvrir aussi l'iPad en paysage (`atoms.css`) : ronds sociaux, bouton thème, liens `btn--link` / `btn--line`,
+      liens de retour du blog, liens du footer, liens du SearchPanel, bouton de fermeture, onglets / copier / replier du code ;
+      sélecteur de langue : remplissage + marge négative (un `<select>` n'a pas de `::before`), la pilule ne change pas de
+      taille ; (c) SearchPanel : champs et bouton de 44 px, champs en pleine largeur sous 640 px (`hub.css`). Les liens
+      « étirés » (cartes, séries, blog) couvraient déjà tout le bloc : inchangés. Transitions non touchées.
+      Limites : voisins verticaux du footer qui se chevauchent de quelques px (le dernier dans le DOM l'emporte) ;
+      toucher réel (iPad paysage) non émulé ; mode sombre = étape 14.
 - [ ] 14. Dark mode, accessibilité, `prefers-reduced-motion`.
 - [ ] 15. Nettoyage V2, réécriture complète de `docs/ARCHITECTURE.md` et `docs/DESIGN_SYSTEM.md`, `lint` +
       `content:validate` + `build`, vérif Playwright (clair/sombre, desktop/mobile), aperçu validé avant merge.
