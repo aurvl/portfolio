@@ -604,6 +604,9 @@
 
 .about__papers {
   position: absolute;
+  /* z-index : au-dessus de la grille de l'About (z-index 1), qui recouvrait presque tout le bouton : seul son bord droit,
+     dépassant de la grille, recevait le clic */
+  z-index: 2;
   right: 1rem;
   bottom: 1.5rem;
 }
