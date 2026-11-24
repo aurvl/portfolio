@@ -4,6 +4,7 @@ import { useEffect, useState, type ReactElement } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import type { NavbarSection } from '../components/layout/Navbar'
 import { cn } from '../lib/cn'
+import { jumpToSection } from '../lib/jumpToSection'
 import { useCompactMenu } from './useCompactMenu'
 
 function scrollToSection(sectionId: string) {
@@ -13,10 +14,8 @@ function scrollToSection(sectionId: string) {
     window.dispatchEvent(new CustomEvent('scene:go', { detail: sectionId }))
     return
   }
-  document.getElementById(sectionId)?.scrollIntoView({
-    behavior: 'smooth',
-    block: 'start',
-  })
+  // Ordinateur : fondu vers l'état final de la section plutôt qu'un défilement qui montre les étapes de la scène
+  jumpToSection(sectionId)
 }
 
 export function useNavbarModel(sections: NavbarSection[], reducedMotion: boolean) {
