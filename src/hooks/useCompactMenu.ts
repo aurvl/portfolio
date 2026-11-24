@@ -4,7 +4,8 @@
 // `expand` va de 0 (pilule) à 1 (menu ouvert) ; il peut dépasser 1 un instant à l'ouverture (rebond de ressort).
 // À la fermeture, le retour en pilule est un trajet doux, sans rebond : la forme finale est exactement la pilule.
 // Direction : le menu s'ouvre VERS LE BAS par défaut, et VERS LE HAUT seulement s'il n'y a pas assez de place sous la
-// pilule dans la fenêtre. Elle est recalculée tant que le menu est fermé (le chevron l'annonce) et figée à l'ouverture.
+// pilule dans la fenêtre. Elle est calculée UNIQUEMENT au moment de l'ouverture (jamais pendant le scroll : sur Safari iOS
+// le JavaScript est suspendu pendant l'élan, le chevron se retournait en continu) et figée jusqu'à la fermeture.
 // prefers-reduced-motion : pas de ressort ni de décalage, simple fondu des entrées.
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { animate, useMotionValue, type AnimationPlaybackControls } from 'framer-motion'
@@ -45,12 +46,6 @@ export function useCompactMenu(reducedMotion: boolean) {
     timers.current = []
   }, [])
 
-  // Recalcule la direction (appelé par CompactMenu au défilement et au redimensionnement, menu fermé)
-  const updateDirection = useCallback((pill: HTMLElement | null, listHeight: number) => {
-    if (isOpenRef.current) return
-    setOpensUp(!hasRoomBelow(pill, listHeight))
-  }, [])
-
   const open = useCallback(() => {
     clearTimers()
     isOpenRef.current = true
@@ -81,7 +76,11 @@ export function useCompactMenu(reducedMotion: boolean) {
         if (reducedMotion) expand.set(0)
         else expandAnimation.current = animate(expand, 0, { duration: 0.4, ease: [0.4, 0, 0.2, 1] })
       }, waitForEntries),
-      window.setTimeout(() => setIsListMounted(false), waitForEntries + waitForShrink),
+      window.setTimeout(() => {
+        setIsListMounted(false)
+        // Refermé : retour à la direction par défaut (chevron vers le bas)
+        setOpensUp(false)
+      }, waitForEntries + waitForShrink),
     )
   }, [clearTimers, expand, reducedMotion])
 
@@ -113,7 +112,7 @@ export function useCompactMenu(reducedMotion: boolean) {
 
   useEffect(() => clearTimers, [clearTimers])
 
-  return { isOpen, isListMounted, showEntries, opensUp, expand, toggle, close, updateDirection }
+  return { isOpen, isListMounted, showEntries, opensUp, expand, toggle, close }
 }
 
 export type CompactMenuState = ReturnType<typeof useCompactMenu>

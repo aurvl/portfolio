@@ -251,6 +251,10 @@ version 1200 px, sinon le fichier de 1,25 Mo se télécharge pour rien).
             Garde de 500 ms comme E4a. Pied de page et emplacement de la navbar : seulement avec le Contact (ils
             disparaissent d'un coup en le quittant). Encart ?debug=1 retiré. Desktop inchangé. Vérification : lint +
             content:validate + build seulement. FALLBACK si échec : tag `e4a-v2-validee` (Landing ↔ About seulement).
+            CORRECTIF (24/11/2026) : sur le Contact, la pilule vibrait au scroll (position et sens du chevron recalculés en
+            JavaScript, suspendu par Safari iOS pendant l'élan). Désormais, une fois posée, elle passe en `position: absolute`
+            dans la page (classe `is-docked`, top = emplacement du Contact) et défile nativement ; le sens d'ouverture du menu
+            n'est calculé qu'à l'ouverture. EN ATTENTE du test iPhone / iPad.
       - Landing en un écran sous 900 px (`100svh`) : « Latest things » devient un carrousel horizontal en scroll-snap
         (carte suivante qui dépasse, points indicateurs). Vérifié à 375 × 667, 390 × 844 et 768 × 1024.
       - Critère tactile : « ordinateur » = `(min-width: 1024px) and (hover: hover) and (pointer: fine)` (HomePage,

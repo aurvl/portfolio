@@ -304,3 +304,10 @@
     transition: none;
   }
 }
+
+/* is-docked : une fois la pilule posée sur son emplacement en bas du Contact (version tactile), elle n'est plus fixée à
+   l'écran mais POSÉE dans la page (position: absolute, top = place de l'emplacement dans la page) : c'est le navigateur
+   qui la fait défiler avec la page, sans aucun calcul en JavaScript au scroll (Safari iOS le suspend pendant l'élan). */
+.site-nav.site-nav--morph.is-docked {
+  position: absolute;
+}

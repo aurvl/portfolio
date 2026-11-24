@@ -336,10 +336,12 @@ function MorphNavbar({
     ([amount, , scrollTop, downAmount, expanded]: number[]) => {
       const current = geometry.current
       if (!current) return 0
-      // Version tactile : le voyage vers le haut est joué dans le temps (progression 0 → 1 en 0,6 s) et non par le scroll.
-      // Écran Contact : elle se loge tout en bas de la page, sur son emplacement sous la photo, et défile avec la page ;
-      // elle ne flotte donc pas sur le formulaire pendant qu'on écrit.
-      return getHeaderTop(current, amount, scrollTop, downAmount, expanded, opensUpRef.current)
+      // Version tactile : le voyage est joué dans le temps (progression 0 → 1 en 0,6 s) et non par le scroll.
+      // Une fois posée sur l'emplacement du Contact (downAmount = 1), la pilule est POSÉE dans la page (classe is-docked :
+      // position absolute) : son top est celui de l'emplacement dans la page, sans aucun calcul lié au scroll, et c'est le
+      // navigateur qui la fait défiler avec la page.
+      const isDockedNow = !current.inScene && downAmount >= 1
+      return getHeaderTop(current, amount, isDockedNow ? 0 : scrollTop, downAmount, expanded, opensUpRef.current)
     },
   )
 
@@ -402,6 +404,9 @@ function MorphNavbar({
   const compactOpacity = useTransform(progress, (value) => (reducedRef.current ? 1 : getCompactOpacity(value, getTimeline())))
 
   useMotionValueEvent(progress, 'change', (value) => setIsCollapsed(value < getTimeline().learnFadeStart))
+  // Vrai (version tactile) quand la pilule est posée sur son emplacement dans la page, en bas du Contact
+  const [isDocked, setIsDocked] = useState(false)
+  useMotionValueEvent(contactTravel, 'change', (value) => setIsDocked(!sceneActiveRef.current && value >= 1))
 
   // Mesure le bouton d'origine (« fantôme » invisible de la landing) et la taille finale de la navbar.
   // Les tailles de la pilule et du menu compact sont mesurées par CompactMenu (menuGeometry).
@@ -594,7 +599,7 @@ function MorphNavbar({
   return (
     <motion.header
       ref={headerRef}
-      className="site-nav site-nav--morph"
+      className={isDocked ? 'site-nav site-nav--morph is-docked' : 'site-nav site-nav--morph'}
       style={{ top, left: centerX, x: '-50%', width, height, rotate: wobble, opacity: fade, borderRadius }}
     >
       <div className="site-nav__clip">
