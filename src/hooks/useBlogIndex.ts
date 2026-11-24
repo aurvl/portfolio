@@ -69,7 +69,8 @@ export function useBlogIndex(lang: string) {
   const latest = useMemo(() => {
     return [...index]
       .sort((postA, postB) => new Date(postB.date).getTime() - new Date(postA.date).getTime())
-      .slice(0, 3)
+      // 5 articles : un grand + quatre petits (2 colonnes de 2 lignes) sur ordinateur, voir BlogLatest
+      .slice(0, 5)
   }, [index])
 
   const tags = useMemo(

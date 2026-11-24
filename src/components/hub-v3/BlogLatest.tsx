@@ -1,5 +1,5 @@
 // Bloc « Derniers articles du blog » du Hub (page /projects), juste après « À la une ».
-// Un grand article avec image, deux autres en texte seul, et un lien vers la vue Séries. Ancre : #blog (cible de /blog).
+// Un grand article avec image, quatre autres en texte seul (deux colonnes de deux lignes), et un lien vers la vue Séries. Ancre : #blog (cible de /blog).
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import { formatPostDate } from '../../lib/getPost'

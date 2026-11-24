@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { getLocalizedField, getProjectContent } from '../../lib/utils'
 import { withBasePath } from '../../lib/site'
 import type { Project } from '../../types/project'
-import { DEFAULT_PROJECT_COVER } from './featuredProjects'
+import { DEFAULT_PROJECT_COVER, withFeaturedText } from './featuredProjects'
 
 type FeaturedLeadProps = {
   project: Project
@@ -13,7 +13,7 @@ type FeaturedLeadProps = {
 
 function FeaturedLead({ project, label, onOpenProject }: FeaturedLeadProps) {
   const { i18n } = useTranslation()
-  const content = getProjectContent(project, i18n.language)
+  const content = withFeaturedText(project.slug, i18n.language, getProjectContent(project, i18n.language))
   const domain = project.taxonomy.domains[0]
 
   return (

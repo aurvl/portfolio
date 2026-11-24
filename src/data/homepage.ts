@@ -1,11 +1,12 @@
 // Contenu de l'accueil v3 et des pages Publications, en français et en anglais (même forme) : profil, parcours,
-// textes de l'À propos, libellés, thèmes « Je travaille sur », publications. Les composants lisent tout par `homepage`
-// (accès par langue, en bas du fichier). Le texte du Hub, de la navigation et du contact est dans home.ts / home.fr.ts.
+// textes de l'À propos, libellés, thèmes « Je travaille sur », publications. Les textes vivent dans homepage.json
+// (`{ en, fr }`, édité par Portfolio Manager) ; ce fichier ne garde que les types et l'accès par langue.
+// Les composants lisent tout par `homepage`. Le texte du Hub, de la navigation et du contact est dans home.ts / home.fr.ts.
 import type { AppLanguage } from '../types/i18n'
-import type { LocalizedField } from '../types/project'
+import homepageData from './homepage.json'
 import publicationsData from './publications.json'
 
-// ---------------------------------------------------------------- Profil
+// ---------------------------------------------------------------- Types
 
 export type HomepageProfile = {
   firstNames: string
@@ -17,29 +18,6 @@ export type HomepageProfile = {
   resumeLabel: string
 }
 
-const profile: LocalizedField<HomepageProfile> = {
-  en: {
-    firstNames: 'Aurel',
-    lastName: 'VEHI',
-    role: 'Applied economist · PhD researcher',
-    affiliation: 'ESTIA & University of Bordeaux',
-    avatarSrc: '/assets/images/hero-image.png',
-    avatarAlt: 'Portrait of Aurel Vehi',
-    resumeLabel: 'View my Resume',
-  },
-  fr: {
-    firstNames: 'Aurel',
-    lastName: 'VEHI',
-    role: 'Économiste appliqué · Doctorant',
-    affiliation: 'ESTIA & Université de Bordeaux',
-    avatarSrc: '/assets/images/hero-image.png',
-    avatarAlt: 'Portrait d’Aurel Vehi',
-    resumeLabel: 'Voir mon CV',
-  },
-}
-
-// ---------------------------------------------------------------- Parcours (timeline)
-
 // Une étape du parcours : année (ou « Next »), texte, et un repère pour l'étape en cours ou à venir.
 export type TimelineStep = {
   when: string
@@ -48,62 +26,10 @@ export type TimelineStep = {
   next?: boolean
 }
 
-const timeline: LocalizedField<TimelineStep[]> = {
-  en: [
-    { when: 'Background', what: 'Economics, econometrics & data science' },
-    { when: '2024–2025', what: 'Data research & econometrics roles, Monaco' },
-    { when: '2026', what: 'First peer-reviewed publication' },
-    { when: '2026–2029', what: 'PhD in applied economics', current: true },
-    { when: 'Next', what: '…', next: true },
-  ],
-  fr: [
-    { when: 'Formation', what: 'Économie, économétrie et science des données' },
-    { when: '2024–2025', what: 'Postes en recherche de données et économétrie, Monaco' },
-    { when: '2026', what: 'Première publication évaluée par les pairs' },
-    { when: '2026–2029', what: 'Doctorat en économie appliquée', current: true },
-    { when: 'Ensuite', what: '…', next: true },
-  ],
-}
-
-// ---------------------------------------------------------------- Textes de l'About
-
 export type HomepageAboutSection = {
   heading: string
   body: string
 }
-
-const aboutSections: LocalizedField<HomepageAboutSection[]> = {
-  en: [
-    {
-      heading: 'What I work on',
-      body: 'My doctoral research is about the transformation and maturity of firms, and how the two together explain adaptation, innovation, performance and sustainability. I am building an analytical framework to observe, measure and explain these dynamics in their territorial and cross-border contexts, within the European OISE project (Nouvelle-Aquitaine–Euskadi–Navarre Euroregion).',
-    },
-    {
-      heading: 'How I work',
-      body: 'I start by making the subject my own, exploring the disciplines it touches to understand its foundations, mechanisms and stakes. From there I build a conceptual framework that structures the phenomena and their relationships, then a quantitative representation, using statistics, econometrics and data science to measure, explain the dynamics and, where possible, anticipate how they evolve.',
-    },
-    {
-      heading: 'Beyond research',
-      body: 'I am particularly fascinated by how the human mind can grasp the complexity of the real world with very few means: that is what draws me to mathematics and, in my field, to modeling and measuring economic phenomena from data. These data are traces of far more complex phenomena; using them means understanding the underlying mechanisms better and trying to anticipate how they evolve.',
-    },
-  ],
-  fr: [
-    {
-      heading: 'Sur quoi je travaille',
-      body: 'Mes recherches doctorales portent sur la transformation et la maturité des entreprises, et sur la façon dont elles s’articulent pour expliquer l’adaptation, l’innovation, la performance et la durabilité. Je développe un cadre analytique pour observer, mesurer et expliquer ces dynamiques dans leurs contextes territoriaux et transfrontaliers, dans le cadre du projet européen OISE (Eurorégion Nouvelle-Aquitaine–Euskadi–Navarre).',
-    },
-    {
-      heading: 'Ma façon de travailler',
-      body: 'Je commence par m’approprier le sujet en explorant les disciplines qui le touchent, pour en comprendre les fondements, les mécanismes et les enjeux. J’en tire un cadre conceptuel qui structure les phénomènes et leurs relations, puis une représentation quantitative, avec la statistique, l’économétrie et la science des données : mesurer, expliquer les dynamiques et, quand c’est possible, anticiper leur évolution.',
-    },
-    {
-      heading: 'Au-delà de la recherche',
-      body: 'Je suis particulièrement fasciné par la capacité de l’esprit humain à saisir la complexité du réel avec très peu de moyens : c’est ce qui m’attire dans les mathématiques et, dans mon domaine, dans la modélisation et la mesure des phénomènes économiques à partir des données. Ces données sont les traces de phénomènes bien plus complexes ; les exploiter, c’est mieux comprendre les mécanismes sous-jacents et tenter d’en anticiper l’évolution.',
-    },
-  ],
-}
-
-// ---------------------------------------------------------------- Libellés de l'About
 
 export type HomepageAboutLabels = {
   title: string
@@ -125,47 +51,6 @@ export type HomepageAboutLabels = {
   contactLink: string
 }
 
-const aboutLabels: LocalizedField<HomepageAboutLabels> = {
-  en: {
-    title: 'About Me',
-    exploreWork: 'Explore my Work',
-    getInTouch: 'Get in touch',
-    viewPapers: 'View my papers',
-    timelineLabel: 'Career timeline',
-    hook: 'Applied economist who models complex economic phenomena to explain them simply.',
-    workingOn: 'I work on',
-    journeyTitle: 'My journey',
-    downloadResume: 'View my Resume',
-    journeyPlace: 'ESTIA & University of Bordeaux',
-    readMore: 'Read more',
-    readLess: 'Read less',
-    nextTitle: 'Go further',
-    papersDoor: 'My research',
-    projectsDoor: 'My projects',
-    contactLink: 'A question? Get in touch',
-  },
-  fr: {
-    title: 'À propos',
-    exploreWork: 'Découvrir mes travaux',
-    getInTouch: 'Me contacter',
-    viewPapers: 'Voir mes articles',
-    timelineLabel: 'Parcours',
-    hook: 'Économiste appliqué, je modélise des phénomènes économiques complexes pour les expliquer simplement.',
-    workingOn: 'Je travaille sur',
-    journeyTitle: 'Mon parcours',
-    downloadResume: 'Voir mon CV',
-    journeyPlace: 'ESTIA & Université de Bordeaux',
-    readMore: 'Lire la suite',
-    readLess: 'Réduire',
-    nextTitle: 'Pour aller plus loin',
-    papersDoor: 'Ma recherche',
-    projectsDoor: 'Mes projets',
-    contactLink: 'Une question ? Me contacter',
-  },
-}
-
-// ---------------------------------------------------------------- Thèmes « Je travaille sur »
-
 // Une pastille avec `tag` ouvre /projects?tag=<tag> : le filtre du Hub compare ce mot, tel quel, aux mots-clés des projets
 // (anglais ou français selon la langue). Sans `tag`, la pastille est une simple étiquette, non cliquable : aucun projet
 // ne porte ce mot-clé (firm transformations = la thèse, ecosystem value = l'article Blue Carbon).
@@ -175,34 +60,10 @@ export type HomepageTheme = {
   tag?: string
 }
 
-const themes: LocalizedField<HomepageTheme[]> = {
-  en: [
-    { label: 'Firm transformations' },
-    { label: 'Indicators', tag: 'index' },
-    { label: 'Value of our ecosystems' },
-    { label: 'Time series', tag: 'time-series' },
-  ],
-  fr: [
-    { label: 'Transformations des entreprises' },
-    { label: 'Indicateurs', tag: 'indice' },
-    { label: 'Valeur de nos écosystèmes' },
-    { label: 'Séries temporelles', tag: 'series-temporelles' },
-  ],
-}
-
-// ---------------------------------------------------------------- Libellés de la landing
-
 export type HomepageLandingLabels = {
   learnMore: string
   latestThings: string
 }
-
-const landingLabels: LocalizedField<HomepageLandingLabels> = {
-  en: { learnMore: 'Learn more', latestThings: 'Latest things' },
-  fr: { learnMore: 'En savoir plus', latestThings: 'Dernières nouveautés' },
-}
-
-// ---------------------------------------------------------------- Libellés de la section Publications
 
 export type HomepagePublicationsLabels = {
   eyebrow: string
@@ -214,37 +75,30 @@ export type HomepagePublicationsLabels = {
   seoDescription: string
 }
 
-const publicationsLabels: LocalizedField<HomepagePublicationsLabels> = {
-  en: {
-    eyebrow: 'Research',
-    title: 'My research papers',
-    intro: 'Topics I have worked on and published about: blue carbon and the value of natural capital.',
-    backToAbout: 'Back to about',
-    viewPaper: 'View paper',
-    seoTitle: 'Research papers',
-    seoDescription: 'Peer-reviewed publications co-authored by Aurel Vehi.',
-  },
-  fr: {
-    eyebrow: 'Recherche',
-    title: 'Mes articles de recherche',
-    intro: 'Les sujets sur lesquels j’ai travaillé et publié : le carbone bleu et la valeur du capital naturel.',
-    backToAbout: 'Retour à À propos',
-    viewPaper: 'Voir l’article',
-    seoTitle: 'Articles de recherche',
-    seoDescription: 'Publications évaluées par les pairs co-écrites par Aurel Vehi.',
-  },
+// Forme d'une langue dans homepage.json
+type HomepageLanguageData = {
+  profile: HomepageProfile
+  timeline: TimelineStep[]
+  aboutSections: HomepageAboutSection[]
+  aboutLabels: HomepageAboutLabels
+  themes: HomepageTheme[]
+  landingLabels: HomepageLandingLabels
+  publicationsLabels: HomepagePublicationsLabels
 }
+
+// `satisfies` : le build échoue si le JSON n'a pas la forme attendue, dans les deux langues.
+const data = homepageData satisfies Record<AppLanguage, HomepageLanguageData>
 
 // ---------------------------------------------------------------- Accès par langue
 
 export const homepage = {
-  getProfile: (lang: AppLanguage) => profile[lang],
-  getTimeline: (lang: AppLanguage) => timeline[lang],
-  getAboutSections: (lang: AppLanguage) => aboutSections[lang],
-  getAboutLabels: (lang: AppLanguage) => aboutLabels[lang],
-  getThemes: (lang: AppLanguage) => themes[lang],
-  getLandingLabels: (lang: AppLanguage) => landingLabels[lang],
-  getPublicationsLabels: (lang: AppLanguage) => publicationsLabels[lang],
+  getProfile: (lang: AppLanguage): HomepageProfile => data[lang].profile,
+  getTimeline: (lang: AppLanguage): TimelineStep[] => data[lang].timeline,
+  getAboutSections: (lang: AppLanguage): HomepageAboutSection[] => data[lang].aboutSections,
+  getAboutLabels: (lang: AppLanguage): HomepageAboutLabels => data[lang].aboutLabels,
+  getThemes: (lang: AppLanguage): HomepageTheme[] => data[lang].themes,
+  getLandingLabels: (lang: AppLanguage): HomepageLandingLabels => data[lang].landingLabels,
+  getPublicationsLabels: (lang: AppLanguage): HomepagePublicationsLabels => data[lang].publicationsLabels,
   // Les vraies publications (src/data/publications.json), les plus récentes d'abord
   getPublications: (lang: AppLanguage) =>
     [...publicationsData]
