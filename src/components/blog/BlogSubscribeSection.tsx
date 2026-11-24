@@ -76,7 +76,7 @@ function BlogSubscribeSection({
   }
 
   return (
-    <section className="subscribe-v2 mt-10 rounded-lg border border-[var(--glass-border)] bg-[var(--bg2-color)] px-5 py-6 md:px-8 md:py-8">
+    <section id="subscribe" className="subscribe-v2 mt-10 rounded-lg border border-[var(--glass-border)] bg-[var(--bg2-color)] px-5 py-6 md:px-8 md:py-8">
       <div className="subscribe-v2__layout flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
         <div className="max-w-2xl">
           <p className="subscribe-v2__eyebrow text-xs uppercase tracking-[0.28em] text-[var(--text2-col)]">

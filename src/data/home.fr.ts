@@ -221,6 +221,15 @@ export const homeFr: HomeContent = {
     otherTitle: 'Autres travaux techniques',
     otherIntro: 'Projets de machine learning, NLP, collecte et ingénierie de données qui ont affûté la boîte à outils.',
     open: 'Ouvrir',
+    hub: {
+      title: 'Projets et articles',
+      searchLabel: 'Rechercher un projet',
+      featuredLabel: 'À la une',
+      coverEyebrow: 'Série à la une',
+      viewSeries: 'Voir la série',
+      subscribe: 'S’abonner',
+      allProjectsLabel: 'Tous les projets',
+    },
   },
 
   publicationsPage: {

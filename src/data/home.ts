@@ -172,6 +172,15 @@ export type HomeContent = {
     otherTitle: string
     otherIntro: string
     open: string
+    hub: {
+      title: string
+      searchLabel: string
+      featuredLabel: string
+      coverEyebrow: string
+      viewSeries: string
+      subscribe: string
+      allProjectsLabel: string
+    }
   }
   publicationsPage: {
     seoTitle: string
@@ -424,6 +433,15 @@ export const homeEn: HomeContent = {
     otherTitle: 'Other technical work',
     otherIntro: 'Machine learning, NLP, data collection and engineering projects that sharpened the toolkit.',
     open: 'Open',
+    hub: {
+      title: 'Project & Blog posts',
+      searchLabel: 'Search a project',
+      featuredLabel: 'Featured',
+      coverEyebrow: 'Featured series',
+      viewSeries: 'View the series',
+      subscribe: 'Subscribe',
+      allProjectsLabel: 'All projects',
+    },
   },
 
   publicationsPage: {

@@ -4,23 +4,27 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { FiChevronRight } from 'react-icons/fi'
 import MainLayout from '../components/layout/MainLayout'
 import Seo from '../components/seo/Seo'
-import Reveal from '../components/home-v2/Reveal'
-import { SelectedWorkGrid } from '../components/home-v2/WorkSection'
+import Button from '../components/ui/Button'
+import FeaturedHub from '../components/hub-v3/FeaturedHub'
+import HubHeader from '../components/hub-v3/HubHeader'
+import { pickFeaturedProjects } from '../components/hub-v3/featuredProjects'
 import type { FilterOption } from '../components/ui/FilterField'
 import ProjectFilters from '../components/projects/ProjectFilters'
 import ProjectGrid from '../components/projects/ProjectGrid'
 import ProjectWindow from '../components/projects/ProjectWindow'
 import rawProjects from '../data/projects.json'
+import rawSeries from '../data/series.json'
 import { useHomeContent } from '../hooks/useHomeContent'
 import { useSiteNav } from '../hooks/useSiteNav'
-import { getDomainColor } from '../lib/domainColors'
 import { PERSON_NAME, buildAbsoluteSiteUrl } from '../lib/site'
 import { getLocalizedField, getProjectContent } from '../lib/utils'
 import type { Project } from '../types/project'
+import type { Series } from '../types/series'
 
 const PAGE_SIZE = 9
 const LOAD_MORE_STEP = 3
 const projects = rawProjects as Project[]
+const featuredSeries = (rawSeries as Series[]).find((item) => item.featured) ?? null
 
 // Projects carrying one of these domains are the applied-economics core of the catalogue;
 // the rest (ML, NLP, scraping, BI...) is listed compactly as "other technical work".
@@ -46,8 +50,6 @@ const APPLIED_DOMAINS = new Set([
 const isApplied = (project: Project) => project.taxonomy.domains.some((domain) => APPLIED_DOMAINS.has(domain))
 
 const projectYears = projects.map((project) => new Date(project.date).getFullYear())
-const FIRST_YEAR = Math.min(...projectYears)
-const LAST_YEAR = Math.max(...projectYears)
 
 type SortValue = 'date-desc' | 'date-asc' | 'title-asc' | 'title-desc'
 
@@ -55,6 +57,7 @@ function ProjectsPage() {
   const { t, i18n } = useTranslation()
   const { content, lang } = useHomeContent()
   const page = content.projectsPage
+  const { lead: leadProject, row: featuredRow } = pickFeaturedProjects(projects.filter(isApplied))
   const location = useLocation()
   const navigate = useNavigate()
   const [searchValue, setSearchValue] = useState('')
@@ -181,7 +184,11 @@ function ProjectsPage() {
   }
 
   return (
-    <MainLayout sections={pageSections} className="home-v2">
+    <MainLayout
+      sections={pageSections}
+      className="home-v2"
+      overlayNavbar
+    >
       <Seo
         title={`${page.seoTitle} | ${PERSON_NAME}`}
         description={page.seoDescription}
@@ -197,111 +204,110 @@ function ProjectsPage() {
         }}
       />
 
-      <section className="hv-section projects-v2__summary">
-        <div className="hv-wrap">
-          <Reveal className="projects-v2__intro">
-            <p className="hv-eyebrow">{page.eyebrow}</p>
-            <h1 className="hv-h2">{page.title}</h1>
-            <p>{page.intro}</p>
-            <p className="projects-v2__facts">
-              {page.summary
-                .replace('{count}', String(projects.length))
-                .replace('{from}', String(FIRST_YEAR))
-                .replace('{to}', String(LAST_YEAR))}
-            </p>
-          </Reveal>
-        </div>
-      </section>
+      <div className="hub">
+        <HubHeader
+          title={page.hub.title}
+          searchLabel={page.hub.searchLabel}
+        />
 
-      <section className="hv-section hv-section--tight">
-        <div className="hv-wrap">
-          <h2 className="projects-v2__section-title">{page.selectedTitle}</h2>
-          <SelectedWorkGrid />
-        </div>
-      </section>
-
-      <section id="projects" className="hv-section hv-section--tight scroll-mt-20">
-        <div className="hv-wrap projects-v2__catalog">
-          <div>
-            <h2 className="projects-v2__section-title">{page.appliedTitle}</h2>
-            <p className="projects-v2__section-intro">{page.appliedIntro}</p>
-          </div>
-
-          <ProjectFilters
-            searchValue={searchValue}
-            onSearchChange={setSearchValue}
-            domainValue={selectedDomain}
-            onDomainChange={setSelectedDomain}
-            tagValue={selectedTag}
-            onTagChange={setSelectedTag}
-            sortValue={selectedSort}
-            onSortChange={(value) => setSelectedSort(value as SortValue)}
-            yearValue={selectedYear}
-            onYearChange={setSelectedYear}
-            domainOptions={domainOptions}
-            tagOptions={tagOptions}
-            sortOptions={sortOptions}
-            yearOptions={yearOptions}
-            resultsCount={filteredProjects.length}
-            visibleCount={visibleApplied.length + otherProjects.length}
+        <div className="hub__content">
+          <FeaturedHub
+            lead={leadProject}
+            row={featuredRow}
+            series={featuredSeries}
+            labels={page.hub}
+            onOpenProject={setSelectedProject}
           />
 
-          <ProjectWindow project={selectedProject} isOpen={selectedProject !== null} onClose={handleCloseProjectWindow} />
-
-          {filteredProjects.length === 0 ? (
-            <div className="hv-card projects-v2__empty">
-              <h3>{t('projects.catalog.empty.title')}</h3>
-              <p>{t('projects.catalog.empty.description')}</p>
+          <section
+            id="projects"
+            className="hub__catalog"
+            aria-labelledby="hub-catalog-title"
+          >
+            <div>
+              <p className="eyebrow">{page.hub.allProjectsLabel}</p>
+              <h2
+                id="hub-catalog-title"
+                className="hub__section-title"
+              >
+                {page.appliedTitle}
+              </h2>
+              <p className="hub__section-intro">{page.appliedIntro}</p>
             </div>
-          ) : (
-            <>
-              {appliedProjects.length > 0 && <ProjectGrid projects={visibleApplied} onOpenProject={setSelectedProject} />}
 
-              {remainingAppliedCount > 0 && (
-                <div className="flex justify-center">
-                  <button
-                    type="button"
-                    onClick={() => setVisibleProjectsCount((currentCount) => currentCount + LOAD_MORE_STEP)}
-                    className="hv-btn hv-btn--ghost hv-btn--sm"
-                  >
-                    {t('projects.catalog.loadMore', { count: Math.min(LOAD_MORE_STEP, remainingAppliedCount) })}
-                  </button>
-                </div>
-              )}
+            {/* Filtres actuels : remplacés par le SearchPanel à l'étape 11 du plan */}
+            <ProjectFilters
+              searchValue={searchValue}
+              onSearchChange={setSearchValue}
+              domainValue={selectedDomain}
+              onDomainChange={setSelectedDomain}
+              tagValue={selectedTag}
+              onTagChange={setSelectedTag}
+              sortValue={selectedSort}
+              onSortChange={(value) => setSelectedSort(value as SortValue)}
+              yearValue={selectedYear}
+              onYearChange={setSelectedYear}
+              domainOptions={domainOptions}
+              tagOptions={tagOptions}
+              sortOptions={sortOptions}
+              yearOptions={yearOptions}
+              resultsCount={filteredProjects.length}
+              visibleCount={visibleApplied.length + otherProjects.length}
+            />
 
-              {otherProjects.length > 0 && (
-                <div className="projects-v2__other">
-                  <h2 className="projects-v2__section-title">{page.otherTitle}</h2>
-                  <p className="projects-v2__section-intro">{page.otherIntro}</p>
-                  <div className="projects-v2__rows">
-                    {otherProjects.map((project) => {
-                      const domain = project.taxonomy.domains[0] ?? ''
-                      return (
-                        <button
-                          key={project.id}
-                          id={`project-row-${project.slug}`}
-                          type="button"
-                          className="projects-v2__row"
-                          onClick={() => setSelectedProject(project)}
-                        >
-                          <span className="projects-v2__row-year">{new Date(project.date).getFullYear()}</span>
-                          <b>{getProjectContent(project, i18n.language).title}</b>
-                          <span className="project-domain" style={{ color: getDomainColor(domain) }}>
-                            {domain}
-                          </span>
-                          <span className="hv-link projects-v2__row-open">
-                            {page.open} <FiChevronRight className="hv-arrow" aria-hidden="true" />
-                          </span>
-                        </button>
-                      )
-                    })}
+            <ProjectWindow project={selectedProject} isOpen={selectedProject !== null} onClose={handleCloseProjectWindow} />
+
+            {filteredProjects.length === 0 ? (
+              <div className="hub__empty">
+                <h3>{t('projects.catalog.empty.title')}</h3>
+                <p>{t('projects.catalog.empty.description')}</p>
+              </div>
+            ) : (
+              <>
+                {appliedProjects.length > 0 && <ProjectGrid projects={visibleApplied} onOpenProject={setSelectedProject} />}
+
+                {remainingAppliedCount > 0 && (
+                  <div className="hub__more">
+                    <Button
+                      variant="line"
+                      onClick={() => setVisibleProjectsCount((currentCount) => currentCount + LOAD_MORE_STEP)}
+                    >
+                      {t('projects.catalog.loadMore', { count: Math.min(LOAD_MORE_STEP, remainingAppliedCount) })}
+                    </Button>
                   </div>
-                </div>
-              )}
-            </>
-          )}
+                )}
+
+                {otherProjects.length > 0 && (
+                  <div className="hub__other">
+                    <h2 className="hub__section-title">{page.otherTitle}</h2>
+                    <p className="hub__section-intro">{page.otherIntro}</p>
+
+                    <ul className="hub-rows">
+                      {otherProjects.map((project) => (
+                        <li key={project.id}>
+                          <button
+                            id={`project-row-${project.slug}`}
+                            type="button"
+                            className="hub-rows__item"
+                            onClick={() => setSelectedProject(project)}
+                          >
+                            <span className="hub-rows__year tabular">{new Date(project.date).getFullYear()}</span>
+                            <span className="hub-rows__title">{getProjectContent(project, i18n.language).title}</span>
+                            <span className="hub-rows__domain">{project.taxonomy.domains[0] ?? ''}</span>
+                            <span className="hub-rows__open">
+                              {page.open} <FiChevronRight aria-hidden="true" />
+                            </span>
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </>
+            )}
+          </section>
         </div>
-      </section>
+      </div>
     </MainLayout>
   )
 }

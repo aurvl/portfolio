@@ -64,6 +64,11 @@ html[data-scene='contact'] .contact__content {
   view-transition-class: vt-content;
 }
 
+/* Page /projects (Hub) : le bandeau fin est le même élément partagé ; rien n'est posé par-dessus la photo */
+html:not([data-scene]) .hub-header__banner {
+  view-transition-name: bamboo-banner;
+}
+
 /* Page /publications (hors accueil) */
 html:not([data-scene]) .papers:not(.papers--in-scene) .papers__banner {
   view-transition-name: bamboo-banner;

@@ -137,7 +137,23 @@ Modifier : `Navbar`, `MainLayout`, `HomePage`, `ProjectsPage`, `BlogPage`, `Publ
       dans `Seo.tsx`, titre / description fondés sur `PERSON_*` de `lib/site.ts` (contenu réel à l'étape 16), et
       `scripts/generate-seo.ts` (sitemap, redirections) pas relu pour l'accueil v3 ; (d) `<h1>` / `<h2>` dupliqués
       entre landing et About (étape 14).
-- [ ] 10. Hub : en-tête, `FeaturedHub`, grille `ProjectCard`.
+- [x] 10. Hub : en-tête, `FeaturedHub`, grille `ProjectCard` (24/11/2026, sans commit). RÉALISÉ : `components/hub-v3/` :
+      `HubHeader` (bandeau de bambous fin = `bamboo-banner` partagé, titre serif « Project & Blog posts », champ « Search a
+      project » rectangulaire et INACTIF jusqu'à l'étape 11), `FeaturedHub` = `FeaturedLead` (grand projet, bloc noir +
+      image) + rangée de 4 `FeaturedStory` + `FeaturedCover` (série mise en avant, « Voir la série » et « S'abonner » →
+      `/series/<slug>#subscribe`, ancre ajoutée à `BlogSubscribeSection`), choix des projets dans `featuredProjects.ts`.
+      `ProjectCard` restylée (éditorial : filet, étiquette de domaine rectangulaire, titre serif, mots-clés en
+      majuscules, « Read more » en lien) et `ProjectGrid` (3 / 2 / 1 colonnes), « Autres travaux » en lignes à filets.
+      `ProjectsPage` recomposée (`overlayNavbar`) ; filtres, tri, `?project=`, `?tag=`, `ProjectWindow` et pagination
+      inchangés. Styles : `styles/v3/hub.css` ; ancien CSS V2 de /projects (résumé, cartes, lignes) retiré de
+      `projects-v2.css` ; libellés FR / EN dans `projectsPage.hub` (`home.ts`, `home.fr.ts`). Transition : règle
+      `bamboo-banner` pour `.hub-header__banner` dans `page-transitions.css`. Vérifié : lint, content:validate, build,
+      Playwright 1440 px et 390 px (clair). À REPRENDRE : (a) AUCUN projet n'a `featured: true` dans `projects.json` (le script
+      d'ajout n'en autorise qu'un) : le « à la une » prend donc les projets d'économie appliquée les plus récents, ceux
+      marqués passant en premier ; (b) `ProjectFilters` garde l'ancien style jusqu'à l'étape 11 ; (c) le bloc « derniers
+      articles du blog » et la vue Séries du hub restent à l'étape 12 ; (d) mode sombre et tablette non vérifiés (13, 14) ;
+      (e) champs `eyebrow`, `title`, `intro`, `summary`, `selectedTitle` de `projectsPage` désormais inutilisés (à
+      retirer au nettoyage, étape 15) ; (f) `SelectedWorkGrid` n'est plus utilisé par le Hub (supprimé avec `home-v2`, 15).
 - [ ] 11. `SearchPanel` branché sur les filtres ; deep-link `?project=` intact.
 - [ ] 12. Blog : `/blog` redirige vers la partie blog du hub ; bloc derniers articles + série mise en avant ;
       restyle `SeriesPage`/`BlogPostPage` ; sitemap et redirections dans `scripts/generate-seo.ts`.
