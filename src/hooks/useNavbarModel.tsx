@@ -7,9 +7,10 @@ import { cn } from '../lib/cn'
 import { useCompactMenu } from './useCompactMenu'
 
 function scrollToSection(sectionId: string) {
-  // Mobile et tablette : « Accueil » rejoue la transition à l'envers au lieu de défiler (useBambooMobile)
-  if (sectionId === 'home' && document.documentElement.dataset.scene) {
-    window.dispatchEvent(new Event('scene:go-landing'))
+  // Mobile et tablette : chaque écran (Accueil, About, Recherche, Contact) est une scène à part, on y va par une
+  // transition au lieu de défiler (useBambooMobile)
+  if (document.documentElement.dataset.scene) {
+    window.dispatchEvent(new CustomEvent('scene:go', { detail: sectionId }))
     return
   }
   document.getElementById(sectionId)?.scrollIntoView({

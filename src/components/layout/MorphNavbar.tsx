@@ -154,6 +154,43 @@ const getFlightCenterX = (current: Geometry, travel: number, width: number, arcP
     ? lerp(current.left0, current.left1, smooth(travel)) + width / 2
     : lerp(current.center0, current.center1, smooth(travel)) + Math.sin(travel * Math.PI) * arcPx
 
+// Position verticale de l'en-tête. Hors écran Contact (downAmount = 0) : le voyage du bouton vers le haut. Écran Contact :
+// la barre part se loger sur son emplacement en bas de la page. Ordinateur : elle se pose au bas de la fenêtre. Version
+// tactile : elle suit son emplacement, qui défile avec la page. Menu compact ouvert VERS LE HAUT : on remonte du surplus.
+const getHeaderTop = (
+  current: Geometry,
+  travelAmount: number,
+  scrollTop: number,
+  downAmount: number,
+  expanded: number,
+  opensUp: boolean,
+) => {
+  const topWhenUp = getFlightTop(current, travelAmount)
+  if (!current.hasContact || downAmount <= 0) return topWhenUp
+
+  const lowestTop = current.viewportHeight - current.height1 - current.top1
+  const topWhenDown = current.inScene
+    ? Math.max(current.top1, Math.min(current.slotTop - scrollTop, lowestTop))
+    : Math.max(current.top1, current.slotTop - scrollTop)
+  const menuExtra = current.isCompact && opensUp ? (current.menuHeight - current.height1) * Math.max(0, expanded) : 0
+
+  return lerp(topWhenUp, topWhenDown, smooth(downAmount)) - menuExtra * downAmount
+}
+
+// Centre horizontal : version compacte, la pilule glisse de la gauche vers le milieu de la fenêtre sur l'écran Contact
+const getHeaderCenterX = (current: Geometry, travelAmount: number, width: number, downAmount: number, arcPx: number) => {
+  const centerWhenUp = getFlightCenterX(current, travelAmount, width, arcPx)
+
+  return current.isCompact ? lerp(centerWhenUp, current.viewportWidth / 2, smooth(downAmount)) : centerWhenUp
+}
+
+// Étirement de la hauteur pendant le voyage vers le bas
+const getHeaderHeight = (current: Geometry, travelAmount: number, widenAmount: number, downAmount: number) =>
+  getFlightHeight(current, travelAmount, widenAmount) * (1 + 0.22 * Math.sin(downAmount * Math.PI))
+
+const getHeaderWobble = (travelAmount: number, downAmount: number) =>
+  (Math.sin(travelAmount * Math.PI * 2) + Math.sin(downAmount * Math.PI * 2)) * WOBBLE_DEGREES
+
 type MorphTabProps = {
   // Rang d'apparition (0 = premier à apparaître)
   rank: number
@@ -200,9 +237,19 @@ type MorphNavbarProps = {
   // Recherche, 2 → 3 Recherche → Contact) ; isSceneActive dit si elle s'applique
   sceneProgress: MotionValue<number>
   isSceneActive: boolean
+  // Version tactile : voyage vers le bas du Contact (0 → 1), DÉCLENCHÉ à l'arrivée du bandeau Contact (useBambooMobile)
+  contactProgress?: MotionValue<number>
 }
 
-function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore, sceneProgress, isSceneActive }: MorphNavbarProps) {
+function MorphNavbar({
+  sections,
+  reducedMotion,
+  learnMoreLabel,
+  onLearnMore,
+  sceneProgress,
+  isSceneActive,
+  contactProgress,
+}: MorphNavbarProps) {
   const { renderItem, currentLabel, menu } = useNavbarModel(sections, reducedMotion)
 
   // Les mesures vivent dans des « refs » : les transformations ci-dessous les lisent à chaque image,
@@ -265,12 +312,13 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore, sce
   // transition de la scène (la photo se rouvre), la navbar descend en même temps. Mobile et tablette : de l'instant où
   // le Contact commence à entrer dans la fenêtre jusqu'à ce qu'il la remplisse. La navbar se décroche du haut et descend
   // se poser sur son emplacement en bas, au milieu. Si on remonte, elle remonte. Sans animation : elle saute à mi-course.
-  const contactTravel = useTransform([scrollY, tick, sceneProgress], ([scrollTop, , sceneValue]: number[]) => {
+  const idleContact = useMotionValue(0)
+  const contactSource = contactProgress ?? idleContact
+  const contactTravel = useTransform([tick, sceneProgress, contactSource], ([, sceneValue, triggered]: number[]) => {
     const current = geometry.current
     if (!current?.hasContact) return 0
-    const amount = current.inScene
-      ? clamp01(sceneValue - 2)
-      : clamp01((scrollTop - current.contactFrom) / Math.max(1, current.contactTo - current.contactFrom))
+    // Ordinateur : lié à la scène. Version tactile : joué dans le temps à l'arrivée du bandeau Contact
+    const amount = current.inScene ? clamp01(sceneValue - 2) : clamp01(triggered)
     return reducedRef.current ? (amount > 0.5 ? 1 : 0) : amount
   })
 
@@ -288,23 +336,10 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore, sce
     ([amount, , scrollTop, downAmount, expanded]: number[]) => {
       const current = geometry.current
       if (!current) return 0
-      // Version tactile : avant le déclenchement (moins de 40 px de scroll) le bouton suit la page ; ensuite il reste à
-      // la place où il était et fait SON voyage, piloté par le temps (la progression `amount` est jouée en 0,6 s) et non
-      // par le scroll. On voit donc le bouton voler jusqu'en haut et se transformer, pendant que la page glisse dessous.
-      const topWhenUp = getFlightTop(current, amount)
-      if (!current.hasContact || downAmount <= 0) return topWhenUp
-
-      // Écran Contact. Ordinateur : la barre descend se poser au bas de la fenêtre (elle y reste tant que son emplacement
-      // n'est pas visible). Version tactile : elle part se loger tout en bas de la page, sur son emplacement sous la
-      // photo, et défile avec la page ; elle ne flotte donc pas sur le formulaire pendant qu'on écrit.
-      const lowestTop = current.viewportHeight - current.height1 - current.top1
-      const topWhenDown = current.inScene
-        ? Math.max(current.top1, Math.min(current.slotTop - scrollTop, lowestTop))
-        : Math.max(current.top1, current.slotTop - scrollTop)
-      const menuExtra =
-        current.isCompact && opensUpRef.current ? (current.menuHeight - current.height1) * Math.max(0, expanded) : 0
-
-      return lerp(topWhenUp, topWhenDown, smooth(downAmount)) - menuExtra * downAmount
+      // Version tactile : le voyage vers le haut est joué dans le temps (progression 0 → 1 en 0,6 s) et non par le scroll.
+      // Écran Contact : elle se loge tout en bas de la page, sur son emplacement sous la photo, et défile avec la page ;
+      // elle ne flotte donc pas sur le formulaire pendant qu'on écrit.
+      return getHeaderTop(current, amount, scrollTop, downAmount, expanded, opensUpRef.current)
     },
   )
 
@@ -324,7 +359,7 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore, sce
   const height = useTransform([travel, widen, menu.expand, contactTravel, tick], ([flight, spread, expanded, downAmount]: number[]) => {
     const current = geometry.current
     if (!current) return 0
-    const base = getFlightHeight(current, flight, spread) * (1 + 0.22 * Math.sin(downAmount * Math.PI))
+    const base = getHeaderHeight(current, flight, spread, downAmount)
     const menuExtra = current.isCompact ? (current.menuHeight - current.height1) * Math.max(0, expanded) : 0
     return base + menuExtra
   })
@@ -347,16 +382,13 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore, sce
     if (!current) return 0
     // Grand écran : pendant la montée, le bouton fait un léger arc vers la droite (sin vaut 0 au départ et à l'arrivée,
     // 1 au milieu), pour contourner l'avatar de la landing qui glisse vers la gauche au même moment
-    const centerWhenUp = getFlightCenterX(current, amount, currentWidth, reducedRef.current ? 0 : FLIGHT_ARC_PX)
-    return current.isCompact ? lerp(centerWhenUp, current.viewportWidth / 2, smooth(downAmount)) : centerWhenUp
+    return getHeaderCenterX(current, amount, currentWidth, downAmount, reducedRef.current ? 0 : FLIGHT_ARC_PX)
   })
 
   // Petit balancement pendant le vol (quelques degrés au plus), pour le côté ludique ; nul au départ et à l'arrivée
-  const wobble = useTransform([travel, contactTravel, tick], ([flight, downAmount]: number[]) => {
-    const flightWobble = Math.sin(flight * Math.PI * 2)
-
-    return (flightWobble + Math.sin(downAmount * Math.PI * 2)) * WOBBLE_DEGREES
-  })
+  const wobble = useTransform([travel, contactTravel, tick], ([flight, downAmount]: number[]) =>
+    getHeaderWobble(flight, downAmount),
+  )
 
   // Opacité de l'ensemble : invisible tant que les mesures ne sont pas prises ; en mode « sans animation »,
   // fondu simple entre 30 % et 70 % de la progression
@@ -462,6 +494,8 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore, sce
       settleTimer = window.setTimeout(measure, 250)
     }
     window.addEventListener('resize', handleResize)
+    // Version tactile : l'écran affiché change (About, Recherche, Contact) et les positions de la page avec lui
+    window.addEventListener('scene:measure', measure)
     // Les polices peuvent changer la taille du bouton après le premier affichage
     void document.fonts?.ready.then(measure)
 
@@ -478,6 +512,7 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore, sce
     return () => {
       window.clearTimeout(settleTimer)
       window.removeEventListener('resize', handleResize)
+      window.removeEventListener('scene:measure', measure)
       observer.disconnect()
     }
   }, [reducedMotion, isSceneActive, currentLabel, sections, measure])
@@ -510,6 +545,33 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore, sce
         }
       }),
     ]
+
+    // Voyage vers le bas du Contact (canal « contact », temps linéaire : getHeader* appliquent déjà leur courbe). La navbar
+    // est alors déjà arrivée (voyage et élargissement finis) ; la page peut encore glisser, on vise donc la place où
+    // elle se sera arrêtée (le Contact remplit la fenêtre, au plus le bas de la page).
+    unregisters.push(
+      registerMorphElement(
+        header,
+        ({ progress: down }) => {
+          const current = geometry.current
+          if (!current) return {} as MorphFrame
+          // L'écran Contact est une scène à part (useBambooMobile) : on y arrive en haut de la page, scroll 0
+          const scrollTop = window.scrollY
+          const width = getFlightWidth(current, 1, 1)
+          const height = getHeaderHeight(current, 1, 1, down)
+
+          return {
+            top: `${getHeaderTop(current, 1, scrollTop, down, 0, false)}px`,
+            left: `${getHeaderCenterX(current, 1, width, down, FLIGHT_ARC_PX)}px`,
+            width: `${width}px`,
+            height: `${height}px`,
+            borderRadius: `${height / 2}px`,
+            transform: `translateX(-50%) rotate(${getHeaderWobble(1, down)}deg)`,
+          }
+        },
+        'contact',
+      ),
+    )
 
     const learnButton = header.querySelector<HTMLElement>('.site-nav__learn')
     if (learnButton) {

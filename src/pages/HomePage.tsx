@@ -11,7 +11,6 @@ import MainLayout from '../components/layout/MainLayout'
 import MorphNavbar from '../components/layout/MorphNavbar'
 import Seo from '../components/seo/Seo'
 import BambooPhoto from '../components/ui/BambooPhoto'
-import DebugOverlay from '../components/debug/DebugOverlay'
 import LandingHero from '../components/home-v3/LandingHero'
 import LatestThings from '../components/home-v3/LatestThings'
 import AboutSection from '../components/home-v3/AboutSection'
@@ -33,6 +32,11 @@ function scrollToNextScreen() {
 }
 
 function scrollToSection(sectionId: string) {
+  // Mobile et tablette : chaque écran est une scène, on y va par une transition (useBambooMobile)
+  if (document.documentElement.dataset.scene) {
+    window.dispatchEvent(new CustomEvent('scene:go', { detail: sectionId }))
+    return
+  }
   document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
 }
 
@@ -56,7 +60,7 @@ function HomePage() {
   // Sous 1024 px : Landing et About sont deux états d'une scène fixe ; la transition est DÉCLENCHÉE (geste, molette, clavier
   // ou « Learn more »), jouée dans le temps (0 → 1) pendant que le scroll est bloqué ; chaque autre bannière zoome / s'ouvre
   // selon sa position
-  const { progress: mobileProgress, goToAbout } = useBambooMobile(!isSceneActive, reducedMotion)
+  const { progress: mobileProgress, contactProgress, goToAbout } = useBambooMobile(!isSceneActive, reducedMotion)
 
   // Scroll-snap sur la page entière : la molette s'arrête sur chaque écran (landing, puis suite).
   // La classe est posée sur <html> (seul élément qui peut porter le snap de la page) et retirée en partant.
@@ -87,6 +91,7 @@ function HomePage() {
           onLearnMore={isSceneActive ? scrollToNextScreen : goToAbout}
           sceneProgress={isSceneActive ? sceneProgress : mobileProgress}
           isSceneActive={isSceneActive}
+          contactProgress={contactProgress}
         />
       }
     >
@@ -202,13 +207,6 @@ function HomePage() {
       )}
 
       <ContactNavSlot inScene={isSceneActive} />
-      {new URLSearchParams(location.search).has('debug') ? (
-        <DebugOverlay
-          isSceneActive={isSceneActive}
-          reducedMotion={reducedMotion}
-          progress={mobileProgress}
-        />
-      ) : null}
     </MainLayout>
   )
 }

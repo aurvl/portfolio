@@ -65,3 +65,20 @@ html[data-scene] .about__banner {
 html[data-scene='landing']:not(.is-transitioning) .about {
   visibility: hidden;
 }
+
+/* ---------- Écrans About / Recherche / Contact : un seul affiché à la fois ----------
+   scene-hidden : l'écran est retiré de la page (posé par useBambooMobile). !important : .contact est en display: flex. */
+html[data-scene] .scene-hidden {
+  display: none !important;
+}
+
+/* is-leaving : pendant la transition, l'écran qui part devient une couche fixe, collée à l'écran à l'endroit exact où
+   il était (le décalage vers le haut est posé en JavaScript), et s'efface par-dessus l'écran qui arrive. z-index : au-dessus
+   de l'écran d'arrivée, sous la navbar. */
+html[data-scene] .is-leaving {
+  position: fixed;
+  left: 0;
+  z-index: 20;
+  width: 100%;
+  pointer-events: none;
+}
