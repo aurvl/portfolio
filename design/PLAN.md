@@ -222,7 +222,7 @@ version 1200 px, sinon le fichier de 1,25 Mo se télécharge pour rien).
             la fin, mouvement réduit exclu. LIMITE : top / left / width / height de la navbar sont des propriétés de mise en
             page (pas du compositeur) ; seuls opacité, transform et clip-path le sont. Si Safari ne les affiche toujours
             pas : convertir la navbar en `transform` (scale + translate) ou passer aux View Transitions.
-      - [~] E4a v2, SCÈNE FIXE (24/11/2026, essai 1, à tester sur iPhone / iPad) : la vidéo iPhone montrait que la page
+      - [~] E4a v2, SCÈNE FIXE (24/11/2026, essai 1, VALIDÉE par le propriétaire sur iPhone et iPad ; point de retour : tag `e4a-v2-validee`) : la vidéo iPhone montrait que la page
             défilait réellement pendant l'animation (landing qui remonte, bouton sur l'avatar, pilule vide, images vides au
             retour). Nouveau principe < 1024 px / tactile : Landing et About sont DEUX ÉTATS d'une scène fixe
             (`html[data-scene="landing|about"]`, `src/styles/v3/touch-scene.css`). Sur la landing la page est verrouillée et
