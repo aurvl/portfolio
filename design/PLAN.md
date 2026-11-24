@@ -210,7 +210,7 @@ version 1200 px, sinon le fichier de 1,25 Mo se télécharge pour rien).
             l'élan et dérouler la page nous-mêmes en 0,6 s (html.is-gliding) ; NON confirmé sur appareil. Pistes si ça
             échoue : animations 100 % CSS / WAAPI (thread compositeur) au lieu de JS, ou View Transitions API. Encart de
             diagnostic : src/components/debug/DebugOverlay.tsx (temporaire, branché sur ?debug=1 dans HomePage).
-            PISTE WAAPI IMPLÉMENTÉE (24/11/2026, NON confirmée sur appareil) : pendant la transition, ce que l'écran affiche
+            PISTE WAAPI IMPLÉMENTÉE (24/11/2026, CONFIRMÉE sur appareil par le propriétaire : « me plaît assez bien ») : pendant la transition, ce que l'écran affiche
             est une animation `element.animate` jouée par le navigateur, plus nos valeurs JavaScript. `src/lib/morphPlayer.ts`
             garde un registre d'éléments ; chacun donne son style à une progression p, on échantillonne 24 images clés
             et on les joue en 0,6 s (courbe `morphEase`, la même que la progression framer-motion, donc pas de saut à la
