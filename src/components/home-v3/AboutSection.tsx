@@ -101,13 +101,17 @@ function AboutSection({ onExploreWork, onGetInTouch, onViewPapers, inScene = fal
             <h3 className="eyebrow">{labels.workingOn}</h3>
             <ul className="about__theme-list">
               {themes.map((theme) => (
-                <li key={theme}>
-                  <Link
-                    className="about__theme"
-                    to={{ pathname: '/projects', search: `?tag=${encodeURIComponent(theme)}` }}
-                  >
-                    {theme}
-                  </Link>
+                <li key={theme.label}>
+                  {theme.tag ? (
+                    <Link
+                      className="about__theme"
+                      to={{ pathname: '/projects', search: `?tag=${encodeURIComponent(theme.tag)}` }}
+                    >
+                      {theme.label}
+                    </Link>
+                  ) : (
+                    <span className="about__theme about__theme--static">{theme.label}</span>
+                  )}
                 </li>
               ))}
             </ul>

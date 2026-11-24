@@ -289,6 +289,11 @@
   background: color-mix(in srgb, var(--keyw-col-window) 18%, transparent);
 }
 
+/* Thème sans projet associé : simple étiquette, le fond ne change pas au survol */
+.about__theme--static:hover {
+  background: var(--keyw-bg-col);
+}
+
 .about__theme:focus-visible {
   outline: 2px solid var(--color-brand-ink);
   outline-offset: 2px;
@@ -734,8 +739,10 @@
     font-size: calc(var(--about-unit) * 1.9);
   }
 
+  /* Interligne et espacement resserrés : les trois paragraphes (4 à 5 lignes chacun) doivent tenir dans l'écran,
+     y compris sur un portable peu haut, sans couper les liens du bas */
   .about__block {
-    margin-top: calc(var(--about-unit) * 0.8);
+    margin-top: calc(var(--about-unit) * 0.6);
   }
 
   .about__heading {
@@ -745,7 +752,7 @@
   .about__text {
     max-width: none;
     font-size: calc(var(--about-unit) * 1.12);
-    line-height: 1.5;
+    line-height: 1.42;
   }
 
   .about__actions {

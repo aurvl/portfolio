@@ -134,6 +134,8 @@ export function useBambooScene(
     const landingIdentity = find('.landing-hero__content')
     const aboutHeader = find('.about__header')
     const latest = find('.latest-things')
+    // Bouton « En savoir plus » de la landing : vrai bouton seulement en mouvement réduit (sinon c'est un fantôme, caché)
+    const landingCta = find('.landing-hero__cta')
     const revealed = ['.about__side', '.about__main', '.about__papers']
       .map((selector) => find(selector))
       .filter((element): element is HTMLElement => element !== null)
@@ -303,6 +305,11 @@ export function useBambooScene(
 
       // « Latest things » s'efface sur les 40 premiers % et descend un peu
       const latestOpacity = 1 - clamp01(landingToAbout / 0.4)
+      // Le bouton de la landing s'efface avec lui (sans cela, en mouvement réduit, il resterait affiché sur l'About)
+      if (landingCta) {
+        landingCta.style.opacity = String(latestOpacity)
+        landingCta.inert = latestOpacity < 0.9
+      }
       if (latest) {
         latest.style.opacity = String(latestOpacity)
         latest.style.transform = `translate3d(0, ${(1 - latestOpacity) * 24}px, 0)`
@@ -400,6 +407,7 @@ export function useBambooScene(
       ;[
         ...MOVERS.map((spec) => find(spec.from)),
         landingIdentity,
+        landingCta,
         aboutHeader,
         latest,
         aboutBanner,

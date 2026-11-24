@@ -104,6 +104,21 @@ html.snap-home .papers {
   font-weight: 600;
   line-height: 1.25;
   color: var(--color-ink);
+  transition: color var(--duration-fast) ease;
+}
+
+/* Survol (ou focus clavier dans la ligne) : le titre prend le bleu d'action, le bleu de texte du site
+   (4,7:1 en clair, version claire en sombre) ; le bleu de marque #55a1f5 serait trop pâle pour du texte */
+.papers__item:hover .papers__item-title,
+.papers__item:focus-within .papers__item-title {
+  color: var(--color-action-blue);
+}
+
+/* Premier élément de la ligne au-dessus du titre (« Peer-reviewed article ») : majuscule seulement à la première lettre,
+   le reste de la ligne (statut, année) garde les petites capitales */
+.papers__kind {
+  letter-spacing: 0.04em;
+  text-transform: none;
 }
 
 .papers__cite {

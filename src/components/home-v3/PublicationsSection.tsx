@@ -83,7 +83,7 @@ function PublicationsSection({ onBackToAbout, inScene = false }: PublicationsSec
                 className="papers__item"
               >
                 <p className="eyebrow papers__meta">
-                  {paper.kind}
+                  <span className="papers__kind">{paper.kind}</span>
                   <span className="tabular"> · {paper.status}</span>
                 </p>
                 <ItemTitleTag className="papers__item-title">{paper.title}</ItemTitleTag>

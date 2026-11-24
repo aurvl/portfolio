@@ -249,6 +249,19 @@ Modifier : `Navbar`, `MainLayout`, `HomePage`, `ProjectsPage`, `BlogPage`, `Publ
       cette section. RESTE : le reste du contenu fictif (profil, parcours, publications de `/publications`, textes de la
       landing, projets fictifs), à remplacer par le vrai ; la carte « papier » ouvre `/publications` qui montre encore des
       papiers fictifs ; le Portfolio Manager doit apprendre `latest-things.json` et le champ `date` des publications.
+      (c) `/publications` et la section Recherche lisent maintenant le vrai `publications.json` (article Blue Carbon) ;
+      projets fictifs et textes « Placeholder » de la page Publications retirés. Commit `7d8cd7e` pour (a) et (b).
+      (d) trames remplies par le propriétaire et branchées dans `placeholders.ts` : profil (Aurel VEHI, « Économiste appliqué ·
+      Doctorant », « ESTIA & Université de Bordeaux »), parcours (5 étapes), 3 textes de l'À propos (versions condensées),
+      accroche et ligne de parcours mobiles, introduction de `/publications`, 4 thèmes « Je travaille sur » (`{ label, tag? }` :
+      cliquables seulement si un projet porte le mot-clé : Indicators → `index`, Time series → `time-series`) ; Hub : le projet
+      « Technological employment » est épinglé dans la rangée à la une (`PINNED_ROW_SLUGS`) ; publications : titre bleu au
+      survol, première partie de la ligne en casse normale. CORRIGÉ au passage : en mouvement réduit, le bouton « En savoir
+      plus » restait affiché sur l'À propos (`useBambooScene`, il s'efface maintenant avec « Latest things ») ; À propos
+      resserré (interligne, espacement) pour tenir sur un écran de 650 px de haut.
+      Accroche sous le nom : abandonnée par le propriétaire (champ `tagline` retiré, pour ne pas toucher à la scène).
+      RESTE : portrait
+      (`hero-image.png`, à confirmer) ; contenu fictif restant : voir `placeholders.ts` (IS_PLACEHOLDER_DATA) avant merge.
       Suite de l'étape :
       **Remplacement par le vrai contenu (obligatoire avant merge)** : supprimer `placeholders.ts` et toute
       mention fictive, rebrancher les vraies données, relire les claims (AGENTS.md).

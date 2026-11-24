@@ -3,8 +3,8 @@
 // Interdit de merger sur master tant que ce fichier existe (PLAN.md, étape 16).
 // Pour rebrancher les vraies données, changer seulement la source importée par les composants.
 import type { AppLanguage } from '../types/i18n'
-import type { LocalizedField, Project } from '../types/project'
-import type publicationsData from './publications.json'
+import type { LocalizedField } from '../types/project'
+import publicationsData from './publications.json'
 
 export const IS_PLACEHOLDER_DATA = true
 
@@ -15,7 +15,6 @@ export type PlaceholderProfile = {
   lastName: string
   role: string
   affiliation: string
-  tagline: string
   avatarSrc: string | null
   avatarAlt: string
   resumeLabel: string
@@ -23,23 +22,21 @@ export type PlaceholderProfile = {
 
 const profile: LocalizedField<PlaceholderProfile> = {
   en: {
-    firstNames: 'Firstname Middlename',
-    lastName: 'LASTNAME',
-    role: 'Placeholder role · Researcher in applied economics',
-    affiliation: 'Placeholder institution, Placeholder city',
-    tagline: 'A short sentence, written for the placeholder profile, that says what this person works on.',
+    firstNames: 'Aurel',
+    lastName: 'VEHI',
+    role: 'Applied economist · PhD researcher',
+    affiliation: 'ESTIA & University of Bordeaux',
     avatarSrc: '/assets/images/hero-image.png',
-    avatarAlt: 'Portrait',
+    avatarAlt: 'Portrait of Aurel Vehi',
     resumeLabel: 'View my Resume',
   },
   fr: {
-    firstNames: 'Prénom Deuxième-prénom',
-    lastName: 'NOM',
-    role: 'Poste fictif · Chercheur en économie appliquée',
-    affiliation: 'Institution fictive, Ville fictive',
-    tagline: 'Une courte phrase, écrite pour le profil fictif, qui dit sur quoi travaille cette personne.',
+    firstNames: 'Aurel',
+    lastName: 'VEHI',
+    role: 'Économiste appliqué · Doctorant',
+    affiliation: 'ESTIA & Université de Bordeaux',
     avatarSrc: '/assets/images/hero-image.png',
-    avatarAlt: 'Portrait',
+    avatarAlt: 'Portrait d’Aurel Vehi',
     resumeLabel: 'Voir mon CV',
   },
 }
@@ -56,20 +53,18 @@ export type PlaceholderTimelineStep = {
 
 const timeline: LocalizedField<PlaceholderTimelineStep[]> = {
   en: [
-    { when: '2018', what: 'Placeholder bachelor in economics' },
-    { when: '2020', what: 'Placeholder master in quantitative methods' },
-    { when: '2022', what: 'Placeholder research assistant position' },
-    { when: '2024', what: 'Placeholder first article submitted' },
-    { when: '2026', what: 'Placeholder doctoral research', current: true },
-    { when: 'Next', what: 'Placeholder next step', next: true },
+    { when: 'Background', what: 'Economics, econometrics & data science' },
+    { when: '2024–2025', what: 'Data research & econometrics roles, Monaco' },
+    { when: '2026', what: 'First peer-reviewed publication' },
+    { when: '2026–2029', what: 'PhD in applied economics', current: true },
+    { when: 'Next', what: '…', next: true },
   ],
   fr: [
-    { when: '2018', what: 'Licence d’économie fictive' },
-    { when: '2020', what: 'Master de méthodes quantitatives fictif' },
-    { when: '2022', what: 'Poste d’assistant de recherche fictif' },
-    { when: '2024', what: 'Premier article fictif soumis' },
-    { when: '2026', what: 'Recherche doctorale fictive', current: true },
-    { when: 'Ensuite', what: 'Prochaine étape fictive', next: true },
+    { when: 'Formation', what: 'Économie, économétrie et science des données' },
+    { when: '2024–2025', what: 'Postes en recherche de données et économétrie, Monaco' },
+    { when: '2026', what: 'Première publication évaluée par les pairs' },
+    { when: '2026–2029', what: 'Doctorat en économie appliquée', current: true },
+    { when: 'Ensuite', what: '…', next: true },
   ],
 }
 
@@ -84,29 +79,29 @@ const aboutSections: LocalizedField<PlaceholderAboutSection[]> = {
   en: [
     {
       heading: 'What I work on',
-      body: 'This paragraph is a placeholder. It has the length of three or four real lines, so the layout can be judged: line spacing, column width and the way the serif heading sits above the text.',
+      body: 'My doctoral research is about the transformation and maturity of firms, and how the two together explain adaptation, innovation, performance and sustainability. I am building an analytical framework to observe, measure and explain these dynamics in their territorial and cross-border contexts, within the European OISE project (Nouvelle-Aquitaine–Euskadi–Navarre Euroregion).',
     },
     {
       heading: 'How I work',
-      body: 'Another placeholder paragraph. It explains, in plain words, a method and a way of working. Nothing here describes a real person, a real project or a real result.',
+      body: 'I start by making the subject my own, exploring the disciplines it touches to understand its foundations, mechanisms and stakes. From there I build a conceptual framework that structures the phenomena and their relationships, then a quantitative representation, using statistics, econometrics and data science to measure, explain the dynamics and, where possible, anticipate how they evolve.',
     },
     {
       heading: 'Beyond research',
-      body: 'A last placeholder paragraph, a little more personal in tone, to check how the page reads from top to bottom before the real texts replace it.',
+      body: 'I am particularly fascinated by how the human mind can grasp the complexity of the real world with very few means: that is what draws me to mathematics and, in my field, to modeling and measuring economic phenomena from data. These data are traces of far more complex phenomena; using them means understanding the underlying mechanisms better and trying to anticipate how they evolve.',
     },
   ],
   fr: [
     {
       heading: 'Sur quoi je travaille',
-      body: 'Ce paragraphe est fictif. Il a la longueur de trois ou quatre vraies lignes, pour juger la mise en page : interligne, largeur de colonne et place du titre serif au-dessus du texte.',
+      body: 'Mes recherches doctorales portent sur la transformation et la maturité des entreprises, et sur la façon dont elles s’articulent pour expliquer l’adaptation, l’innovation, la performance et la durabilité. Je développe un cadre analytique pour observer, mesurer et expliquer ces dynamiques dans leurs contextes territoriaux et transfrontaliers, dans le cadre du projet européen OISE (Eurorégion Nouvelle-Aquitaine–Euskadi–Navarre).',
     },
     {
       heading: 'Ma façon de travailler',
-      body: 'Un autre paragraphe fictif. Il explique, avec des mots simples, une méthode et une manière de travailler. Rien ici ne décrit une vraie personne, un vrai projet ou un vrai résultat.',
+      body: 'Je commence par m’approprier le sujet en explorant les disciplines qui le touchent, pour en comprendre les fondements, les mécanismes et les enjeux. J’en tire un cadre conceptuel qui structure les phénomènes et leurs relations, puis une représentation quantitative, avec la statistique, l’économétrie et la science des données : mesurer, expliquer les dynamiques et, quand c’est possible, anticiper leur évolution.',
     },
     {
       heading: 'Au-delà de la recherche',
-      body: 'Un dernier paragraphe fictif, au ton un peu plus personnel, pour vérifier la lecture de la page de haut en bas avant que les vrais textes ne le remplacent.',
+      body: 'Je suis particulièrement fasciné par la capacité de l’esprit humain à saisir la complexité du réel avec très peu de moyens : c’est ce qui m’attire dans les mathématiques et, dans mon domaine, dans la modélisation et la mesure des phénomènes économiques à partir des données. Ces données sont les traces de phénomènes bien plus complexes ; les exploiter, c’est mieux comprendre les mécanismes sous-jacents et tenter d’en anticiper l’évolution.',
     },
   ],
 }
@@ -140,11 +135,11 @@ const aboutLabels: LocalizedField<PlaceholderAboutLabels> = {
     getInTouch: 'Get in touch',
     viewPapers: 'View my papers',
     timelineLabel: 'Career timeline',
-    hook: 'Placeholder researcher in applied economics, who measures one fictional thing and explains it simply.',
+    hook: 'Applied economist who models complex economic phenomena to explain them simply.',
     workingOn: 'I work on',
     journeyTitle: 'My journey',
     downloadResume: 'View my Resume',
-    journeyPlace: 'Placeholder University, 2026–',
+    journeyPlace: 'ESTIA & University of Bordeaux',
     readMore: 'Read more',
     readLess: 'Read less',
     nextTitle: 'Go further',
@@ -158,11 +153,11 @@ const aboutLabels: LocalizedField<PlaceholderAboutLabels> = {
     getInTouch: 'Me contacter',
     viewPapers: 'Voir mes articles',
     timelineLabel: 'Parcours',
-    hook: 'Chercheur fictif en économie appliquée, qui mesure une chose fictive et l’explique simplement.',
+    hook: 'Économiste appliqué, je modélise des phénomènes économiques complexes pour les expliquer simplement.',
     workingOn: 'Je travaille sur',
     journeyTitle: 'Mon parcours',
     downloadResume: 'Voir mon CV',
-    journeyPlace: 'Université fictive, 2026–',
+    journeyPlace: 'ESTIA & Université de Bordeaux',
     readMore: 'Lire la suite',
     readLess: 'Réduire',
     nextTitle: 'Pour aller plus loin',
@@ -174,14 +169,28 @@ const aboutLabels: LocalizedField<PlaceholderAboutLabels> = {
 
 // ---------------------------------------------------------------- Thèmes « Je travaille sur »
 
-// Une pastille ouvre /projects?tag=<thème> : le filtre existant compare ce texte, tel quel, aux mots-clés des projets.
-// Ces thèmes sont donc des mots-clés qui existent dans les projets fictifs ci-dessous ET dans les projets actuels
-// du hub (le hub lit encore projects.json jusqu'à l'étape 10), pour que le filtre renvoie des résultats.
-// Les mots-clés réels français n'ont pas d'accents (« prevision ») : on garde la même écriture.
-// À remplacer par les vrais thèmes du propriétaire au moment du vrai contenu (étape 16).
-const themes: LocalizedField<string[]> = {
-  en: ['regression', 'forecasting', 'classification', 'visualization'],
-  fr: ['regression', 'prevision', 'classification', 'visualisation'],
+// Une pastille avec `tag` ouvre /projects?tag=<tag> : le filtre du Hub compare ce mot, tel quel, aux mots-clés des projets
+// (anglais ou français selon la langue). Sans `tag`, la pastille est une simple étiquette, non cliquable : aucun projet
+// ne porte ce mot-clé (firm transformations = la thèse, ecosystem value = l'article Blue Carbon).
+// Les mots-clés français n'ont pas d'accents (« series-temporelles ») : on garde la même écriture.
+export type PlaceholderTheme = {
+  label: string
+  tag?: string
+}
+
+const themes: LocalizedField<PlaceholderTheme[]> = {
+  en: [
+    { label: 'Firm transformations' },
+    { label: 'Indicators', tag: 'index' },
+    { label: 'Ecosystem value' },
+    { label: 'Time series', tag: 'time-series' },
+  ],
+  fr: [
+    { label: 'Transformations des entreprises' },
+    { label: 'Indicateurs', tag: 'indice' },
+    { label: 'Valeur des écosystèmes' },
+    { label: 'Séries temporelles', tag: 'series-temporelles' },
+  ],
 }
 
 // ---------------------------------------------------------------- Libellés de la landing
@@ -212,121 +221,22 @@ const publicationsLabels: LocalizedField<PlaceholderPublicationsLabels> = {
   en: {
     eyebrow: 'Research',
     title: 'My research papers',
-    intro: 'Placeholder introduction: a few lines to say what the papers below have in common.',
+    intro: 'Topics I have worked on and published about: blue carbon and the value of natural capital.',
     backToAbout: 'Back to about',
     viewPaper: 'View paper',
     seoTitle: 'Research papers',
-    seoDescription: 'Placeholder description of the research papers page.',
+    seoDescription: 'Peer-reviewed publications co-authored by Aurel Vehi.',
   },
   fr: {
     eyebrow: 'Recherche',
     title: 'Mes articles de recherche',
-    intro: 'Introduction fictive : quelques lignes pour dire ce que les articles ci-dessous ont en commun.',
+    intro: 'Les sujets sur lesquels j’ai travaillé et publié : le carbone bleu et la valeur du capital naturel.',
     backToAbout: 'Retour à À propos',
     viewPaper: 'Voir l’article',
     seoTitle: 'Articles de recherche',
-    seoDescription: 'Description fictive de la page des articles de recherche.',
+    seoDescription: 'Publications évaluées par les pairs co-écrites par Aurel Vehi.',
   },
 }
-
-// ---------------------------------------------------------------- Publications
-
-// Même forme que src/data/publications.json (kind et status existent en EN et FR).
-export type PlaceholderPublication = (typeof publicationsData)[number]
-
-const publications: PlaceholderPublication[] = [
-  {
-    title: 'A placeholder article on measuring regional differences with comparable indicators',
-    authorsBefore: 'Doe, J., ',
-    me: 'Lastname, F.M.',
-    authorsAfter: ', Roe, R. et al.',
-    journal: 'Journal of Placeholder Studies',
-    reference: '12, 345 (2026)',
-    date: '2026-03',
-    url: 'https://example.org/placeholder-1',
-    kind: { en: 'Placeholder · Peer-reviewed article', fr: 'Fictif · Article évalué par les pairs' },
-    status: { en: 'Published · 2026', fr: 'Publié · 2026' },
-  },
-  {
-    title: 'A second placeholder paper about forecasting with imperfect data',
-    authorsBefore: '',
-    me: 'Lastname, F.M.',
-    authorsAfter: ' and Doe, J.',
-    journal: 'Placeholder Review of Applied Economics',
-    reference: '8, 67 (2025)',
-    date: '2025-09',
-    url: 'https://example.org/placeholder-2',
-    kind: { en: 'Placeholder · Working paper', fr: 'Fictif · Document de travail' },
-    status: { en: 'In review · 2025', fr: 'En relecture · 2025' },
-  },
-  {
-    title: 'A third placeholder paper, still in preparation, on firms and territories',
-    authorsBefore: '',
-    me: 'Lastname, F.M.',
-    authorsAfter: '',
-    journal: 'Placeholder journal',
-    reference: 'Forthcoming',
-    date: '2025-01',
-    url: 'https://example.org/placeholder-3',
-    kind: { en: 'Placeholder · Thesis chapter', fr: 'Fictif · Chapitre de thèse' },
-    status: { en: 'In preparation', fr: 'En préparation' },
-  },
-]
-
-// ---------------------------------------------------------------- Projets
-
-// Type existant `Project` : les composants de carte actuels peuvent les afficher tels quels.
-// Les images de couverture réutilisent des fichiers déjà présents dans public/.
-// themeIndexes : positions dans `themes` (0 = régression, 1 = prévision, 2 = classification, 3 = visualisation)
-function buildPlaceholderProject(
-  index: number,
-  coverSrc: string,
-  domains: string[],
-  themeIndexes: number[],
-): Project {
-  return {
-    id: `PLACEHOLDER-${index}`,
-    slug: `placeholder-project-${index}`,
-    status: 'completed',
-    date: `2026-0${index}-15`,
-    featured: index <= 2,
-    technicalLevel: 2,
-    cover: {
-      src: coverSrc,
-      alt: { en: 'Placeholder cover image', fr: 'Image de couverture fictive' },
-    },
-    links: { primary: null, readMore: null, github: null, live: null },
-    taxonomy: {
-      domains,
-      tools: ['Python', 'R'],
-      keywords: {
-        en: ['placeholder', ...themeIndexes.map((themeIndex) => themes.en[themeIndex])],
-        fr: ['fictif', ...themeIndexes.map((themeIndex) => themes.fr[themeIndex])],
-      },
-    },
-    content: {
-      en: {
-        title: `Placeholder project number ${index}`,
-        summary: 'A short summary with the length of two lines, to see how the card handles it under the title and the tags.',
-        description: 'A longer placeholder description. It is only here to fill the project window. No real result is described.',
-      },
-      fr: {
-        title: `Projet fictif numéro ${index}`,
-        summary: 'Un court résumé de la longueur de deux lignes, pour voir comment la carte le gère sous le titre et les tags.',
-        description: 'Une description fictive plus longue. Elle sert seulement à remplir la fenêtre du projet. Aucun vrai résultat n’est décrit.',
-      },
-    },
-  }
-}
-
-const projects: Project[] = [
-  buildPlaceholderProject(1, '/assets/projects/images/bayesian-linear-regression-econometrics-cover.jpg', ['Econometrics'], [0]),
-  buildPlaceholderProject(2, '/assets/blog/images/blog6.jpg', ['Economic Intelligence'], [1, 2]),
-  buildPlaceholderProject(3, '/assets/images/hero-bamboo-1200.webp', ['Data Engineering'], [2]),
-  buildPlaceholderProject(4, '/assets/projects/images/bayesian-linear-regression-econometrics-cover.jpg', ['Applied Statistics'], [0, 1]),
-  buildPlaceholderProject(5, '/assets/blog/images/blog6.jpg', ['Data Visualization'], [3]),
-  buildPlaceholderProject(6, '/assets/images/hero-bamboo-1200.webp', ['Econometrics', 'Classification'], [0, 3]),
-]
 
 // ---------------------------------------------------------------- Accès par langue
 
@@ -338,11 +248,13 @@ export const placeholders = {
   getThemes: (lang: AppLanguage) => themes[lang],
   getLandingLabels: (lang: AppLanguage) => landingLabels[lang],
   getPublicationsLabels: (lang: AppLanguage) => publicationsLabels[lang],
+  // Les vraies publications (src/data/publications.json), les plus récentes d'abord
   getPublications: (lang: AppLanguage) =>
-    publications.map(({ kind, status, ...entry }) => ({
-      ...entry,
-      kind: kind[lang],
-      status: status[lang],
-    })),
-  projects,
+    [...publicationsData]
+      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+      .map(({ kind, status, ...entry }) => ({
+        ...entry,
+        kind: kind[lang],
+        status: status[lang],
+      })),
 }
