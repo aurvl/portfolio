@@ -46,8 +46,8 @@
   /* Fond sombre de la bannière photo : identique dans les deux thèmes (la photo ne change pas avec le thème) */
   --color-banner-veil: #121418;
 
-  /* Pictogrammes des ronds bleus : foncés en clair (contraste 6,9:1 sur le bleu de marque), blancs en sombre */
-  --color-social-icon: #141413;
+  /* Pictogrammes des ronds bleus : blancs en clair, foncés en sombre (sur le bleu de marque) */
+  --color-social-icon: #ffffff;
 
   /* Rayons : pilules pour navbar, boutons et sélecteurs ; cartes arrondies (style actuel du reste du site) */
   --radius-field: 0.75rem;
@@ -87,7 +87,7 @@
   --color-line: rgba(255, 255, 255, 0.14);
   --color-brand-ink: #dbeaff;
   --color-placeholder: #3a3f47;
-  --color-social-icon: #ffffff;
+  --color-social-icon: #141413;
   --color-action-blue: #7ab6f7;
   --color-night: #050607;
 
