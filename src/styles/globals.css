@@ -9,6 +9,7 @@
 @import "./v3/footer.css";
 @import "./v3/papers.css";
 @import "./v3/contact.css";
+@import "./v3/touch-scene.css";
 
 :root {
   color-scheme: dark;

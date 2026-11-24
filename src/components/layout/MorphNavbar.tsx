@@ -56,16 +56,43 @@ type Geometry = {
 
 // Découpage de l'animation, en fraction de la progression (0 = bouton, 1 = navbar finie).
 // Les effets sont échelonnés : le texte reste, le bouton voyage, et seulement à la fin il s'élargit.
-const LEARN_FADE_START = 0.4 // le texte « Learn more » reste visible jusqu'à 40 %…
-const LEARN_FADE_END = 0.55 // …puis s'efface en fondu
-const TRAVEL_END = 0.65 // le voyage (montée + étirement) occupe les 65 premiers %
-const WIDEN_START = 0.72 // l'élargissement en navbar n'arrive qu'à la fin
+type Timeline = {
+  travelStart: number // le voyage (montée + étirement) commence…
+  travelEnd: number // …et se termine
+  widenStart: number // l'élargissement en navbar n'arrive qu'à la fin
+  learnFadeStart: number // le texte « Learn more » reste visible jusqu'ici…
+  learnFadeEnd: number // …puis s'efface en fondu
+  compactFadeStart: number // la pilule compacte (« About ▾ ») apparaît en fondu…
+  compactFadeEnd: number // …jusqu'ici
+}
+
+// Ordinateur : la photo et le bouton voyagent ensemble, liés au scroll de la scène
+const SCENE_TIMELINE: Timeline = {
+  travelStart: 0,
+  travelEnd: 0.65,
+  widenStart: 0.72,
+  learnFadeStart: 0.4,
+  learnFadeEnd: 0.55,
+  compactFadeStart: 0.82,
+  compactFadeEnd: 0.97,
+}
+
+// Tactile : l'identité de la landing a disparu à 25 %, le bouton ne part qu'ensuite (il ne survole plus l'avatar) et arrive
+// à 80 %. « Learn more » se change en « About » par un fondu croisé : un texte est toujours visible, la pilule n'est jamais vide.
+const TOUCH_TIMELINE: Timeline = {
+  travelStart: 0.2,
+  travelEnd: 0.8,
+  widenStart: 0.7,
+  learnFadeStart: 0.35,
+  learnFadeEnd: 0.6,
+  compactFadeStart: 0.45,
+  compactFadeEnd: 0.75,
+}
 const TAB_START = 0.78 // premier onglet
 const TAB_STAGGER = 0.028 // décalage entre deux onglets
 const TAB_FADE = 0.08 // durée d'apparition d'un onglet
 const WOBBLE_DEGREES = 2.5 // inclinaison maximale pendant le vol : très légère
 const FLIGHT_ARC_PX = 90 // écart latéral maximal du bouton au milieu de la montée (ordinateur)
-const TOUCH_FOLLOW_PX = 40 // version tactile : le bouton suit la page sur ce scroll seulement (= seuil de déclenchement)
 
 // Position d'un élément dans la page (px depuis le haut du document), lue dans la mise en page : elle ne dépend
 // ni du scroll ni de la barre d'adresse du navigateur
@@ -89,8 +116,12 @@ const smooth = morphEase
 // Fonctions pures, lues à la fois par les valeurs framer-motion (ordinateur, scroll) et par les animations WAAPI
 // (version tactile, voir lib/morphPlayer) : les deux affichent exactement la même chose.
 
-// Voyage du bouton (0 → 1 sur les 65 premiers % de la progression)
-const getTravel = (value: number) => clamp01(value / TRAVEL_END)
+// Voyage du bouton (0 → 1 entre le début et la fin du voyage de la chronologie)
+const getTravel = (value: number, timeline: Timeline) =>
+  clamp01((value - timeline.travelStart) / (timeline.travelEnd - timeline.travelStart))
+
+// Progression de l'élargissement (0 → 1 entre son début et la fin)
+const getWiden = (value: number, timeline: Timeline) => clamp01((value - timeline.widenStart) / (1 - timeline.widenStart))
 
 // Élargissement en navbar, avec un petit dépassement (rebond) : version tactile, sans ressort JavaScript
 const getWidenOvershoot = (target: number) => {
@@ -100,13 +131,15 @@ const getWidenOvershoot = (target: number) => {
   return 1 + (overshoot + 1) * shifted ** 3 + overshoot * shifted ** 2
 }
 
-const getLearnOpacity = (value: number) => 1 - clamp01((value - LEARN_FADE_START) / (LEARN_FADE_END - LEARN_FADE_START))
-const getCompactOpacity = (value: number) => clamp01((value - 0.82) / 0.15)
+const getLearnOpacity = (value: number, timeline: Timeline) =>
+  1 - clamp01((value - timeline.learnFadeStart) / (timeline.learnFadeEnd - timeline.learnFadeStart))
+const getCompactOpacity = (value: number, timeline: Timeline) =>
+  clamp01((value - timeline.compactFadeStart) / (timeline.compactFadeEnd - timeline.compactFadeStart))
 const getTabOpacity = (value: number, rank: number) => clamp01((value - (TAB_START + rank * TAB_STAGGER)) / TAB_FADE)
 
-// Place verticale (hors écran Contact) : le bouton suit la page, puis remonte plus vite jusqu'à sa place en haut
-const getFlightTop = (current: Geometry, travel: number, followedScroll: number) =>
-  Math.max(current.top1, lerp(current.top0 - followedScroll, current.top1, smooth(travel)))
+// Place verticale (hors écran Contact) : le bouton remonte de sa place de départ jusqu'à sa place en haut
+const getFlightTop = (current: Geometry, travel: number) =>
+  Math.max(current.top1, lerp(current.top0, current.top1, smooth(travel)))
 
 const getFlightWidth = (current: Geometry, travel: number, widen: number) =>
   lerp(current.width0, current.width1, widen) * (1 - 0.1 * Math.sin(travel * Math.PI))
@@ -179,6 +212,8 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore, sce
   const remeasure = useRef<() => void>(() => {})
   const reducedRef = useRef(reducedMotion)
   const sceneActiveRef = useRef(isSceneActive)
+  // Chronologie du voyage : celle de la scène sur ordinateur, la tactile ailleurs
+  const getTimeline = () => (sceneActiveRef.current ? SCENE_TIMELINE : TOUCH_TIMELINE)
   const rowRef = useRef<HTMLElement>(null)
   const headerRef = useRef<HTMLElement>(null)
   const tick = useMotionValue(0)
@@ -213,13 +248,13 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore, sce
   })
 
   // Phase 1 : le voyage (0 → 1 sur les 65 premiers % de la progression)
-  const travel = useTransform(progress, (value) => (reducedRef.current ? 1 : getTravel(value)))
+  const travel = useTransform(progress, (value) => (reducedRef.current ? 1 : getTravel(value, getTimeline())))
 
   // Phase 2 : l'élargissement, à la fin seulement. Ordinateur : useSpring lui donne un ressort, la valeur dépasse un
   // peu 1 puis revient (petit rebond), et elle suit toujours le scroll (retour arrière compris). Version tactile : même
   // rebond, mais par une courbe fixe (getWidenOvershoot), pour que l'animation WAAPI affiche exactement la même chose.
   const widenTarget = useTransform(progress, (value) =>
-    reducedRef.current ? 1 : clamp01((value - WIDEN_START) / (1 - WIDEN_START)),
+    reducedRef.current ? 1 : getWiden(value, getTimeline()),
   )
   const widenSpring = useSpring(widenTarget, { stiffness: 220, damping: 11, mass: 0.9 })
   const widen = useTransform([widenSpring, widenTarget, tick], ([spring, target]: number[]) =>
@@ -256,8 +291,7 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore, sce
       // Version tactile : avant le déclenchement (moins de 40 px de scroll) le bouton suit la page ; ensuite il reste à
       // la place où il était et fait SON voyage, piloté par le temps (la progression `amount` est jouée en 0,6 s) et non
       // par le scroll. On voit donc le bouton voler jusqu'en haut et se transformer, pendant que la page glisse dessous.
-      const followedScroll = current.inScene ? 0 : Math.min(scrollTop, TOUCH_FOLLOW_PX)
-      const topWhenUp = getFlightTop(current, amount, followedScroll)
+      const topWhenUp = getFlightTop(current, amount)
       if (!current.hasContact || downAmount <= 0) return topWhenUp
 
       // Écran Contact. Ordinateur : la barre descend se poser au bas de la fenêtre (elle y reste tant que son emplacement
@@ -332,10 +366,10 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore, sce
   )
 
   // Le texte « Learn more » reste visible jusqu'à 40 % du parcours, puis s'efface en fondu
-  const learnOpacity = useTransform(progress, getLearnOpacity)
-  const compactOpacity = useTransform(progress, (value) => (reducedRef.current ? 1 : getCompactOpacity(value)))
+  const learnOpacity = useTransform(progress, (value) => getLearnOpacity(value, getTimeline()))
+  const compactOpacity = useTransform(progress, (value) => (reducedRef.current ? 1 : getCompactOpacity(value, getTimeline())))
 
-  useMotionValueEvent(progress, 'change', (value) => setIsCollapsed(value < LEARN_FADE_START))
+  useMotionValueEvent(progress, 'change', (value) => setIsCollapsed(value < getTimeline().learnFadeStart))
 
   // Mesure le bouton d'origine (« fantôme » invisible de la landing) et la taille finale de la navbar.
   // Les tailles de la pilule et du menu compact sont mesurées par CompactMenu (menuGeometry).
@@ -457,19 +491,17 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore, sce
     if (!header || reducedMotion || isSceneActive) return
 
     const unregisters = [
-      registerMorphElement(header, ({ progress: value, time, to }) => {
+      registerMorphElement(header, ({ progress: value }) => {
         const current = geometry.current
         if (!current) return {} as MorphFrame
-        const travelAmount = getTravel(value)
-        const widenAmount = getWidenOvershoot(clamp01((value - WIDEN_START) / (1 - WIDEN_START)))
-        // Au retour, le bouton retrouve peu à peu la page qu'il suit à moins de 40 px de scroll
-        const followedScroll = to === 1 ? TOUCH_FOLLOW_PX : TOUCH_FOLLOW_PX * (1 - smooth(time))
+        const travelAmount = getTravel(value, TOUCH_TIMELINE)
+        const widenAmount = getWidenOvershoot(getWiden(value, TOUCH_TIMELINE))
         const width = getFlightWidth(current, travelAmount, widenAmount)
         const height = getFlightHeight(current, travelAmount, widenAmount)
         const wobbleDegrees = Math.sin(travelAmount * Math.PI * 2) * WOBBLE_DEGREES
 
         return {
-          top: `${getFlightTop(current, travelAmount, followedScroll)}px`,
+          top: `${getFlightTop(current, travelAmount)}px`,
           left: `${getFlightCenterX(current, travelAmount, width, FLIGHT_ARC_PX)}px`,
           width: `${width}px`,
           height: `${height}px`,
@@ -481,11 +513,11 @@ function MorphNavbar({ sections, reducedMotion, learnMoreLabel, onLearnMore, sce
 
     const learnButton = header.querySelector<HTMLElement>('.site-nav__learn')
     if (learnButton) {
-      unregisters.push(registerMorphElement(learnButton, ({ progress: value }) => ({ opacity: getLearnOpacity(value) })))
+      unregisters.push(registerMorphElement(learnButton, ({ progress: value }) => ({ opacity: getLearnOpacity(value, TOUCH_TIMELINE) })))
     }
     const compact = header.querySelector<HTMLElement>('.site-nav__compact')
     if (compact) {
-      unregisters.push(registerMorphElement(compact, ({ progress: value }) => ({ opacity: getCompactOpacity(value) })))
+      unregisters.push(registerMorphElement(compact, ({ progress: value }) => ({ opacity: getCompactOpacity(value, TOUCH_TIMELINE) })))
     }
 
     return () => unregisters.forEach((unregister) => unregister())

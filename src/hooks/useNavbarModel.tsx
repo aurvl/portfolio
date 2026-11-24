@@ -7,6 +7,11 @@ import { cn } from '../lib/cn'
 import { useCompactMenu } from './useCompactMenu'
 
 function scrollToSection(sectionId: string) {
+  // Mobile et tablette : « Accueil » rejoue la transition à l'envers au lieu de défiler (useBambooMobile)
+  if (sectionId === 'home' && document.documentElement.dataset.scene) {
+    window.dispatchEvent(new Event('scene:go-landing'))
+    return
+  }
   document.getElementById(sectionId)?.scrollIntoView({
     behavior: 'smooth',
     block: 'start',

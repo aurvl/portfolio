@@ -222,6 +222,22 @@ version 1200 px, sinon le fichier de 1,25 Mo se télécharge pour rien).
             la fin, mouvement réduit exclu. LIMITE : top / left / width / height de la navbar sont des propriétés de mise en
             page (pas du compositeur) ; seuls opacité, transform et clip-path le sont. Si Safari ne les affiche toujours
             pas : convertir la navbar en `transform` (scale + translate) ou passer aux View Transitions.
+      - [~] E4a v2, SCÈNE FIXE (24/11/2026, essai 1, à tester sur iPhone / iPad) : la vidéo iPhone montrait que la page
+            défilait réellement pendant l'animation (landing qui remonte, bouton sur l'avatar, pilule vide, images vides au
+            retour). Nouveau principe < 1024 px / tactile : Landing et About sont DEUX ÉTATS d'une scène fixe
+            (`html[data-scene="landing|about"]`, `src/styles/v3/touch-scene.css`). Sur la landing la page est verrouillée et
+            la landing est `position: fixed` ; un geste vers le bas / molette / flèche / « Learn more » joue la transition
+            (600 ms, scroll bloqué, WAAPI) : identité effacée à 25 %, bouton qui vole de 20 à 80 % (fondu croisé
+            « Learn more » → « About », jamais vide), bambous zoom + resserrement, About qui apparaît en place à partir de
+            60 % ; puis la landing passe en `absolute` (même place au scroll 0) et l'About défile normalement. Une seule
+            photo (celle de la landing, qui défile avec la page). Retour : geste vers le haut seulement si `scrollY = 0` au
+            début du geste, ou entrée « Accueil » de la navbar. Garde de 500 ms après chaque transition ; un doigt posé
+            pendant la transition ou la garde ne déclenche rien. Lien direct `#about` / `#contact-form` : démarre sur
+            l'About sans animation. Fichiers : `useBambooMobile.ts` (machine à états, gestes), `MorphNavbar.tsx`
+            (chronologie tactile `TOUCH_TIMELINE`, plus de « suit la page »), `lib/morphPlayer.ts` (inchangé).
+            Vérifié en Chromium tactile (390 x 844, 1180 x 820, mouvement réduit) ; desktop inchangé. Plus de calage
+            `scroll-snap` en tactile (l'About est plus haute que l'écran). FALLBACK si ça échoue : tag git
+            `retour-e4a-waapi` (commit 9aea60a), mobile = scroll classique + fondus à l'entrée, morph = desktop seulement.
       - [ ] E4b. About → Recherche → Contact : PAS encore au principe « déclencher ». Aujourd'hui ces passages sont de
             simples défilements ; seules les bannières réagissent, liées à leur POSITION dans la page (zoom ×1,16 →
             ×1,30 → ×1,45 plafonné pour la netteté, ouverture du cadre à l'arrivée) et la navbar descend se loger en
@@ -279,6 +295,9 @@ version 1200 px, sinon le fichier de 1,25 Mo se télécharge pour rien).
 8. `hero-bamboo.webp` s'il existe, sinon conversion du `.jpg` (présent aujourd'hui : `hero-bamboo.jpg` seul).
 9. `AnimatedLogo` retiré de la navbar, gardé dans le footer.
 10. Scroll natif avec CSS scroll-snap, jamais de détournement de la molette.
+    EXCEPTION MOBILE (24/11/2026, décision du propriétaire) : sous 1024 px / tactile, le scroll est bloqué pendant la
+    transition Landing ↔ About (≈ 600 ms) et déclenché par un geste, comme dans une application. Seulement ce passage ;
+    partout ailleurs et sur ordinateur, la règle reste inchangée.
 11. Routes secondaires : navbar directe, sans morph. Navbar basse du Contact : en fin de page, pas fixe.
 13. Colonne « couverture » = série mise en avant (image + titre), boutons « Voir la série » et « S'abonner »
     (via `BlogSubscribeSection`).

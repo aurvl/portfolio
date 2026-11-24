@@ -53,9 +53,10 @@ function HomePage() {
   const isSceneActive = useMediaQuery('(min-width: 1024px) and (hover: hover) and (pointer: fine)')
   const sceneRef = useRef<HTMLDivElement>(null)
   const sceneProgress = useBambooScene(sceneRef, isSceneActive, reducedMotion)
-  // Sous 1024 px : sections normales ; la transition Landing → About est DÉCLENCHÉE (jouée dans le temps, 0 → 1) au lieu
-  // d'être liée au scroll, et chaque bannière zoome / s'ouvre selon sa position
-  const mobileProgress = useBambooMobile(!isSceneActive, reducedMotion)
+  // Sous 1024 px : Landing et About sont deux états d'une scène fixe ; la transition est DÉCLENCHÉE (geste, molette, clavier
+  // ou « Learn more »), jouée dans le temps (0 → 1) pendant que le scroll est bloqué ; chaque autre bannière zoome / s'ouvre
+  // selon sa position
+  const { progress: mobileProgress, goToAbout } = useBambooMobile(!isSceneActive, reducedMotion)
 
   // Scroll-snap sur la page entière : la molette s'arrête sur chaque écran (landing, puis suite).
   // La classe est posée sur <html> (seul élément qui peut porter le snap de la page) et retirée en partant.
@@ -83,7 +84,7 @@ function HomePage() {
           sections={homeSections}
           reducedMotion={reducedMotion}
           learnMoreLabel={learnMoreLabel}
-          onLearnMore={scrollToNextScreen}
+          onLearnMore={isSceneActive ? scrollToNextScreen : goToAbout}
           sceneProgress={isSceneActive ? sceneProgress : mobileProgress}
           isSceneActive={isSceneActive}
         />
@@ -132,12 +133,13 @@ function HomePage() {
             </div>
           ) : null}
 
-          <section
-            id={isSceneActive ? undefined : 'home'}
-            className="landing"
-          >
+          {/* Mobile et tablette : l'ancre « Accueil » est un repère sans hauteur, pas la landing elle-même (couche plein écran
+              qui couvrirait toujours la bande de détection de la navbar et ferait afficher « Accueil » sur l'About) */}
+          {isSceneActive ? null : <div id="home" />}
+
+          <section className="landing">
             <LandingHero
-              onLearnMore={scrollToNextScreen}
+              onLearnMore={isSceneActive ? scrollToNextScreen : goToAbout}
               isButtonInNavbar={!reducedMotion}
               inScene={isSceneActive}
             />
@@ -146,6 +148,7 @@ function HomePage() {
 
           <AboutSection
             inScene={isSceneActive}
+            isPhotoShared={!isSceneActive}
             onExploreWork={() => navigate('/projects')}
             onGetInTouch={() => scrollToSection('contact-form')}
             onViewPapers={() => scrollToSection('research')}

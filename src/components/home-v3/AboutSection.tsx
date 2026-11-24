@@ -23,9 +23,12 @@ type AboutSectionProps = {
   // true (ordinateur) : la photo vient de la scène de l'accueil (HomePage) et l'ancre « about » est posée par elle ;
   // l'avatar, le nom, le poste et les réseaux sont ceux qui glissent depuis la landing (useBambooScene).
   inScene?: boolean
+  // true (mobile et tablette) : la bannière de l'About est celle de la landing (une seule photo, voir useBambooMobile) ;
+  // ici il ne reste qu'un espace vide à sa hauteur
+  isPhotoShared?: boolean
 }
 
-function AboutSection({ onExploreWork, onGetInTouch, onViewPapers, inScene = false }: AboutSectionProps) {
+function AboutSection({ onExploreWork, onGetInTouch, onViewPapers, inScene = false, isPhotoShared = false }: AboutSectionProps) {
   const { lang } = useHomeContent()
   const profile = placeholders.getProfile(lang)
   const labels = placeholders.getAboutLabels(lang)
@@ -44,7 +47,7 @@ function AboutSection({ onExploreWork, onGetInTouch, onViewPapers, inScene = fal
       aria-labelledby="about-title"
     >
       <div className="about__banner">
-        {inScene ? null : <BambooPhoto className="about__banner-image" />}
+        {inScene || isPhotoShared ? null : <BambooPhoto className="about__banner-image" />}
       </div>
 
       <div className="about__grid">
