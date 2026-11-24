@@ -61,12 +61,14 @@ function AboutSection({ onExploreWork, onGetInTouch, onViewPapers, inScene = fal
           />
           <div className="about__identity">
             <div className="about__identity-text">
-              <h2
+              {/* Simple paragraphe (et non un titre) : le nom est déjà le <h1> de la landing, un second titre le répéterait.
+                  Il garde l'id pour nommer la section au lecteur d'écran. */}
+              <p
                 id="about-title"
                 className="about__name"
               >
                 {profile.firstNames} {profile.lastName}
-              </h2>
+              </p>
               <p className="about__role">{profile.role}</p>
             </div>
             <SocialIcons className="about__social about__desktop-only" />

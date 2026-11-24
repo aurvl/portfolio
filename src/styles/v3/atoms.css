@@ -341,3 +341,30 @@
 .tabular {
   font-variant-numeric: tabular-nums;
 }
+
+/* Lien d'évitement : sorti de l'écran tant qu'il n'a pas le focus ; au clavier il apparaît en haut à gauche,
+   au-dessus de tout (z-index élevé : la navbar fixe ne doit pas le recouvrir) */
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 1000;
+  padding: 0.6rem 1rem;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  color: var(--color-on-brand);
+  background: var(--color-brand);
+  border-radius: var(--radius-small);
+  transform: translateY(-200%);
+}
+
+.skip-link:focus-visible {
+  outline: 2px solid var(--color-on-brand);
+  outline-offset: 2px;
+  transform: translateY(0);
+}
+
+/* La zone de contenu reçoit le focus par programme (lien d'évitement) : pas de cadre autour de toute la page */
+#main-content:focus {
+  outline: none;
+}

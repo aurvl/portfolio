@@ -34,6 +34,11 @@ function PublicationsSection({ onBackToAbout, inScene = false }: PublicationsSec
   const { lang } = useHomeContent()
   const labels = placeholders.getPublicationsLabels(lang)
   const publications = placeholders.getPublications(lang)
+  // Sur la page /publications (bouton retour présent), le titre est le <h1> de la page et les articles des <h2> ;
+  // sur l'accueil, la section est un <h2> avec des <h3>.
+  const isOwnPage = Boolean(onBackToAbout)
+  const TitleTag = isOwnPage ? 'h1' : 'h2'
+  const ItemTitleTag = isOwnPage ? 'h2' : 'h3'
 
   return (
     <section
@@ -63,12 +68,12 @@ function PublicationsSection({ onBackToAbout, inScene = false }: PublicationsSec
 
         <div className="papers__main">
           <p className="eyebrow">{labels.eyebrow}</p>
-          <h2
+          <TitleTag
             id="papers-title"
             className="papers__title"
           >
             {labels.title}
-          </h2>
+          </TitleTag>
           <p className="papers__intro">{labels.intro}</p>
 
           <ul className="papers__list">
@@ -81,7 +86,7 @@ function PublicationsSection({ onBackToAbout, inScene = false }: PublicationsSec
                   {paper.kind}
                   <span className="tabular"> · {paper.status}</span>
                 </p>
-                <h3 className="papers__item-title">{paper.title}</h3>
+                <ItemTitleTag className="papers__item-title">{paper.title}</ItemTitleTag>
                 <p className="papers__cite">
                   {paper.authorsBefore}
                   <strong>{paper.me}</strong>

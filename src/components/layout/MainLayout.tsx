@@ -1,4 +1,5 @@
-import type { ReactNode } from 'react'
+import type { MouseEvent, ReactNode } from 'react'
+import { useTranslation } from 'react-i18next'
 import Navbar, { type NavbarSection } from './Navbar'
 import Footer from './Footer'
 import BackToTopButton from './BackToTopButton'
@@ -29,15 +30,36 @@ function MainLayout({
   hideNavbar = false,
   navbar,
 }: MainLayoutProps) {
+  const { t } = useTranslation()
   const reserveNavbarSpace = navPlacement === 'top' && !overlayNavbar && !hideNavbar
+
+  // Lien d'évitement : invisible tant qu'il n'a pas le focus, il envoie directement au contenu. Un simple href="#..."
+  // serait intercepté par le routeur de l'accueil, d'où le clic géré à la main.
+  const skipToContent = (event: MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault()
+    document.getElementById('main-content')?.focus()
+  }
 
   return (
     <div className={cn('min-h-screen bg-[var(--bg-color)] text-[var(--text-color)]', className)}>
+      <a
+        href="#main-content"
+        className="skip-link"
+        onClick={skipToContent}
+      >
+        {t('navbar.skipToContent')}
+      </a>
       {navPlacement === 'top' && !hideNavbar ? (navbar ?? <Navbar sections={sections} placement="top" />) : null}
       <div className="site-utility">
         <UtilityPill />
       </div>
-      <main className={cn(reserveNavbarSpace && 'site-main--below-navbar')}>{children}</main>
+      <main
+        id="main-content"
+        tabIndex={-1}
+        className={cn(reserveNavbarSpace && 'site-main--below-navbar')}
+      >
+        {children}
+      </main>
       {navPlacement === 'bottom' && !hideNavbar ? <Navbar sections={sections} placement="bottom" /> : null}
       <Footer />
       <BackToTopButton />

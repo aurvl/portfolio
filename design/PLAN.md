@@ -203,7 +203,22 @@ Modifier : `Navbar`, `MainLayout`, `HomePage`, `ProjectsPage`, `BlogPage`, `Publ
       « étirés » (cartes, séries, blog) couvraient déjà tout le bloc : inchangés. Transitions non touchées.
       Limites : voisins verticaux du footer qui se chevauchent de quelques px (le dernier dans le DOM l'emporte) ;
       toucher réel (iPad paysage) non émulé ; mode sombre = étape 14.
-- [ ] 14. Dark mode, accessibilité, `prefers-reduced-motion`.
+- [x] 14. Dark mode, accessibilité, `prefers-reduced-motion` (24/11/2026, sans commit). Audit mesuré au Playwright
+      (contrastes clair / sombre, ordre de tabulation, titres, noms accessibles), puis corrigé : (a) navbar, bouton
+      « Learn more » et menu compact : texte `--color-on-brand` (sombre) au lieu de blanc (2,7:1 → 6,9:1), anneaux de
+      focus idem (`navbar.css`) ; (b) article : numéros de ligne du code plus contrastés (sombre et clair), commentaires
+      de code, listes « à faire / à éviter » en teintes foncées en clair (`markdown.css`) ; (c) titres : le Markdown
+      descend d'un niveau (`#` → h2…), un seul `<h1>` par article ; `/publications` a un `<h1>` ; le nom de l'About est
+      un `<p>` (plus de titre dupliqué avec le `<h1>` de la landing) ; (d) lien d'évitement « Aller au contenu » dans
+      `MainLayout` (clés `navbar.skipToContent`, FR / EN) + `<main id="main-content">` ; (e) `scroll-behavior: auto`
+      sous `prefers-reduced-motion` (`globals.css`) ; (f) accueil : un élément qui reçoit le focus clavier hors de la
+      fenêtre est ramené à l'écran (`HomePage.tsx`) ; (g) étiquette « Série à la une » en blanc plein.
+      Faux positifs vérifiés à l'œil : cartes (cadre de focus sur `::after`), champ d'abonnement (cadre sur le groupe),
+      widget météo (fond sombre dans les deux thèmes), nom du Contact (sur la photo), bouton d'envoi désactivé.
+      Limites : sur l'accueil à ordinateur, Tab depuis la landing n'atteint pas le contenu de l'About ni la liste
+      de Recherche (la scène les masque) ; la navbar n'est atteignable qu'après avoir quitté la landing, il faut passer
+      par le footer ou les liens de la landing. Régler cela demande de toucher à la scène (transitions, non touchées).
+      SearchPanel ouvert, formulaire de contact en détail, tablette et lecteur d'écran non audités.
 - [ ] 15. Nettoyage V2, réécriture complète de `docs/ARCHITECTURE.md` et `docs/DESIGN_SYSTEM.md`, `lint` +
       `content:validate` + `build`, vérif Playwright (clair/sombre, desktop/mobile), aperçu validé avant merge.
 - [ ] 16. **Remplacement par le vrai contenu (obligatoire avant merge)** : supprimer `placeholders.ts` et toute

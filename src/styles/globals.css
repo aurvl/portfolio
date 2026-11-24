@@ -126,6 +126,13 @@ html {
   overflow-x: clip;
 }
 
+/* Réglage « réduire les animations » du système : le défilement des ancres devient immédiat */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 body {
   margin: 0;
   min-width: 0;

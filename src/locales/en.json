@@ -1,6 +1,7 @@
 {
   "navbar": {
     "language": "Language",
+    "skipToContent": "Skip to content",
     "themeToggle": "Toggle theme"
   },
   "footer": {

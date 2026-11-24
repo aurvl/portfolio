@@ -58,6 +58,24 @@ function HomePage() {
     return () => document.documentElement.classList.remove('snap-home')
   }, [])
 
+  // Clavier : la scène garde ses blocs collés à l'écran ; un élément qui reçoit le focus hors de la fenêtre n'est pas
+  // rattrapé par le navigateur. On fait donc défiler la page jusqu'à lui (sans animation) pour qu'il reste visible.
+  useEffect(() => {
+    const keepFocusedElementVisible = (event: FocusEvent) => {
+      const target = event.target
+      if (!(target instanceof HTMLElement) || !target.matches(':focus-visible')) return
+
+      const { top, bottom } = target.getBoundingClientRect()
+      if (top >= 0 && bottom <= window.innerHeight) return
+
+      target.scrollIntoView({ block: 'center', behavior: 'instant' })
+    }
+
+    document.addEventListener('focusin', keepFocusedElementVisible)
+
+    return () => document.removeEventListener('focusin', keepFocusedElementVisible)
+  }, [])
+
   useEffect(() => {
     if (!location.hash) return
 
