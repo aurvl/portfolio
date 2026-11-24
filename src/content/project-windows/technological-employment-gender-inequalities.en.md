@@ -21,8 +21,8 @@ Technology-intensive employment, neighboring specialization, and human-capital c
 This makes the project more than a descriptive labor-market notebook.
 It is an applied research exercise on how regional structure and spatial dependence shape gendered employment outcomes.
 
-- [v] The project addresses a socially and economically relevant question with an appropriate regional lens.
-- [v] Spatial dependence is treated as a methodological requirement, not as a secondary refinement.
+- [v] I addressed a socially and economically relevant question with an appropriate regional lens.
+- [v] I treated spatial dependence as a methodological requirement, not as a secondary refinement.
 - [!] The interpretation remains observational and should not be read as a causal policy proof.
 
 # Method
@@ -48,31 +48,17 @@ By contrast, higher `HRST` and `STEM` concentrations are associated with an incr
 These results are analytically interesting because they show that innovation-oriented indicators do not all act in the same direction.
 The study therefore avoids a simplistic equation between technological intensity and uniformly better labor outcomes.
 
-- [v] The project uses a method aligned with the geographic structure of the data.
-- [v] Multiple spatial specifications make the interpretation more robust than a single baseline model.
-- [v] The findings preserve complexity instead of forcing a uniformly positive technology narrative.
+- [v] I used a method aligned with the geographic structure of the data.
+- [v] I used multiple spatial specifications to make the interpretation more robust than a single baseline model.
+- [v] My findings preserve complexity instead of forcing a uniformly positive technology narrative.
 - [!] Stronger causal claims would require additional identification strategy and institutional controls.
 
 # Value
 
-## What the project demonstrates
-The project demonstrates competence in spatial econometrics, panel-data reasoning, and policy-relevant labor-market interpretation.
-It shows the ability to translate a social question into an explicit regional modeling framework.
+## What I wanted to show
+I wanted to translate a concrete public question into an explicit modeling framework: spatial econometrics, panel reasoning, socio-economic interpretation on regional data. I made room for mixed effects and non-intuitive results instead of flattening them, integrating territory as the central analytical variable in the reasoning about employment inequalities.
 
-It also highlights domain maturity.
-The repository makes room for mixed effects and non-intuitive findings instead of flattening the result into a simplistic conclusion.
-
-## Professional significance
-This is one of the more methodologically advanced research projects in the repository.
-It shows familiarity with territorial data, adjacency structures, and econometric tools that go beyond standard regression workflows.
-
-The architecture retained here also brings out a capacity to connect statistical modeling with substantive socio-economic interpretation.
-That combination is especially relevant in research, policy, and advanced analytics settings.
-
-## Limits and positioning
-The repository is best understood as an applied spatial analysis of regional inequalities.
-Its strongest contribution lies in the way it integrates geography into labor-market reasoning, not in claiming a final answer on gender and technology.
-
-- [v] The project highlights spatial panel modeling skills on a substantive policy topic.
-- [v] It shows the ability to interpret regional spillovers without oversimplification.
-- [!] Its main value is analytical depth and methodological alignment, not simplified causal messaging.
+## What I take from it
+- [v] I practiced spatial panel modeling on an important socio-economic topic.
+- [v] I interpreted regional spillovers without oversimplification.
+- [!] My value is analytical and methodological, not that of a one-sided policy message.

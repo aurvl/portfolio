@@ -30,9 +30,9 @@ Le projet traite justement cette tension
 Le corpus, d'environ `58 891` articles,
 donne suffisamment d'ampleur au système pour rendre les choix de représentation et de classement réellement significatifs.
 
-- [v] Le projet répond à un problème concret de découverte documentaire.
-- [v] Le corpus est assez large pour dépasser le cadre d'une démonstration jouet.
-- [!] La qualité finale dépend encore de la richesse des métadonnées et de la manière dont les préférences sont représentées.
+- [v] J'ai répondu à un problème concret de découverte documentaire.
+- [v] Mon corpus est assez large pour dépasser la démonstration jouet.
+- [!] La qualité finale dépend encore de la richesse des métadonnées et de la manière de représenter les préférences.
 
 # Method
 
@@ -63,36 +63,17 @@ Cette frontière applicative compte, car elle transforme le système en service 
 Pris dans son ensemble, le workflow combine
 recherche sparse, sémantique dense, profilage et exposition API.
 
-- [v] Le projet articule plusieurs signaux de ranking dans une architecture lisible.
-- [v] Les représentations sparse et dense sont utilisées de manière complémentaire.
-- [v] L'API donne une forme applicative claire au système.
-- [!] L'évaluation publiée reste davantage qualitative que benchmarkée par des métriques offline complètes.
+- [v] J'ai articulé plusieurs signaux de ranking dans une architecture lisible.
+- [v] J'ai utilisé les représentations sparse et dense de manière complémentaire.
+- [v] J'ai donné une forme applicative au système avec une API.
+- [!] Mon évaluation reste plus qualitative que benchmarkée par des métriques offline complètes.
 
 # Value
 
-## Ce que le projet met en évidence
-Le projet met en évidence un ensemble de compétences large
-en recommandation et traitement du texte.
+## Ce que j'ai voulu montrer
+Je voulais construire une recommandation hybride, fondée à la fois sur la recherche d'information et sur les embeddings : représentation textuelle, similarité sémantique, profil utilisateur et exposition en service. J'ai séparé clairement retrieval, ranking, ajustement de tendance et service, pour rendre visibles les compromis entre précision lexicale, couverture sémantique, nouveauté et lisibilité du ranking.
 
-Il démontre une maîtrise de la représentation textuelle,
-de la similarité sémantique, de la construction de profil utilisateur et du packaging applicatif.
-
-Il montre aussi une bonne décomposition du problème.
-Le dépôt sépare clairement retrieval, ranking, ajustement de tendance et exposition service.
-
-## Portée professionnelle
-Ce travail s'inscrit dans une logique de système de recommandation centré contenu
-avec profondeur méthodologique réelle.
-
-L'architecture retenue fait ressortir une compréhension concrète
-des compromis entre précision lexicale, couverture sémantique, nouveauté et lisibilité du ranking.
-
-Pris dans son ensemble, le projet vaut
-par l'articulation entre composantes algorithmiques et logique produit.
-
-Sa contribution principale réside dans cette structure hybride,
-plus proche d'un service de recommandation exploitable que d'un simple exercice de similarité.
-
-- [v] Le projet souligne une conception hybride de la recommandation fondée à la fois sur l'IR et les embeddings.
-- [v] Il relie choix de représentation, logique de ranking et exposition API.
-- [!] Il doit être lu comme un système centré contenu bien construit, non comme une plateforme industrielle complète avec feedback en ligne.
+## Ce que j'en retiens
+- [v] J'ai relié choix de représentation, logique de ranking et exposition API.
+- [v] J'ai fait un système plus proche d'un service exploitable que d'un exercice de similarité.
+- [!] C'est un système centré contenu bien construit, pas une plateforme industrielle avec feedback en ligne.

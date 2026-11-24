@@ -29,10 +29,10 @@ The best results reported in `tp_min_results.csv` are around `0.789` accuracy fo
 
 That interpretation layer matters because it keeps the project from collapsing into a scoreboard. The implementation remains focused on understanding what the pipeline learns and where the limits of the labeling scheme begin to shape the outcome.
 
-- [v] The workflow covers extraction, preprocessing, vectorization, training, and interpretation.
-- [v] The chosen models are well aligned with TF-IDF features and corpus size.
-- [v] Alternative labeling strategies are treated as part of the analytical problem.
-- [!] The labels are not based on a manually curated gold-standard annotation set.
+- [v] My workflow covers extraction, preprocessing, vectorization, training, and interpretation.
+- [v] I chose models well aligned with TF-IDF features and corpus size.
+- [v] I treated alternative labeling strategies as part of the analytical problem.
+- [!] My labels are not based on a manually curated gold-standard annotation set.
 - [!] Neutral and negative content may partially collapse depending on the labeling path retained.
 
 ## Structural significance
@@ -42,21 +42,10 @@ That orientation gives the project a stronger analytical identity than a purely 
 
 # Value
 
-## What the project demonstrates
-The project demonstrates an ability to handle messy text data, define a supervised framing pragmatically, and maintain critical distance from the resulting metrics. It highlights competence in corpus preparation, feature extraction, baseline modeling, and output interpretation.
+## What I wanted to show
+I wanted to work with noisy text, build a pragmatic supervised framework and keep a critical distance from the metrics. For me, in many applied NLP pipelines, the structure of the labels weighs as much as the choice of model.
 
-It also brings out a useful methodological point: in many applied NLP settings, the structure of the labels and the quality of the corpus matter as much as the classifier itself.
-
-## Professional relevance
-From a broader analytical perspective, the work fits a line centered on applied NLP rather than on generic sentiment-model claims. The implementation shows how an interpretable classification pipeline can be built around realistic data and how its outputs can still be made analytically useful.
-
-The overall structure therefore highlights disciplined execution, methodological lucidity, and a clear understanding of where the real difficulty lies in text classification work.
-
-## Limits and positioning
-The repository is best read as a realistic supervised NLP pipeline built on imperfect labels.
-Its strongest contribution lies in corpus handling and analytical transparency rather than in claiming a universally robust sentiment model.
-
-- [v] The project highlights practical NLP workflow design rather than model hype.
-- [v] The implementation keeps interpretation visible throughout the pipeline.
-- [v] The work remains specific, concrete, and method-oriented.
-- [!] Its scope should be read as a realistic applied pipeline, not as a general solution to sentiment analysis.
+## What I take from it
+- [v] I kept preprocessing, supervision and interpretation visible at every step.
+- [v] I built a concrete and technically readable pipeline.
+- [!] This is a realistic applied pipeline, not a general solution to sentiment analysis.

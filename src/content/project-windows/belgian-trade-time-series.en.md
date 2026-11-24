@@ -55,9 +55,9 @@ In the forecast table, exports rise from about `96.87` billion euros in `2023-Q4
 Imports rise from about `94.62` billion euros to roughly `106.14` billion over the same horizon.
 The confidence bands widen over time, which is consistent with the increasing uncertainty of medium-range macroeconomic forecasting.
 
-- [v] The project follows a complete classical time-series workflow from diagnostics to forecasting.
-- [v] Model choice is justified by statistical properties of the data rather than by convenience.
-- [v] The report distinguishes clearly between non-stationarity, causality, cointegration, and forecast construction.
+- [v] I followed a complete classical time-series workflow from diagnostics to forecasting.
+- [v] I justified the model choice by the statistical properties of the data rather than by convenience.
+- [v] My report distinguishes clearly between non-stationarity, causality, cointegration, and forecast construction.
 - [!] The system is deliberately narrow and excludes other macro drivers such as prices, demand shocks, or exchange-rate conditions.
 - [!] Forecasts remain conditional on historical structure and cannot absorb abrupt regime changes by themselves.
 
@@ -71,24 +71,10 @@ That sequence gives the report analytical coherence.
 
 # Value
 
-## What the project demonstrates
-The project demonstrates competence in applied econometrics on macroeconomic time series.
-It shows the ability to diagnose non-stationarity, justify transformations, choose a lag structure, interpret Granger tests, reject an unsupported VECM route, and translate a VAR model into concrete forecast paths.
+## What I wanted to show
+I wanted to master the foundations of time-series econometrics: series transformation, stationarity tests, VAR modeling, reading causality and caution in interpreting projections. I treat a macroeconomic subject with standard tools used properly, without bypassing the diagnostics that condition interpretation.
 
-It also shows a useful balance between interpretation and technique.
-The statistical apparatus is not used as ornament.
-It directly determines which model can or cannot be defended.
-That is an important sign of rigor in empirical economic work.
-
-## Portfolio relevance
-Taken together, the repository highlights a capacity to handle formal forecasting problems with a disciplined sequence of tests and decisions.
-It moves beyond descriptive macro commentary and demonstrates a real modeling chain with explicit assumptions.
-
-The output is also professionally legible.
-The forecast table, the confidence intervals, and the diagnostic stages make the work easy to audit conceptually.
-The overall structure therefore brings out competence in empirical reasoning, not only in software execution.
-
-- [v] The project highlights rigorous econometric workflow design.
-- [v] It demonstrates interpretable forecasting rather than black-box prediction.
-- [v] The report connects statistical evidence to economic reading in a disciplined way.
-- [!] Its scope is intentionally focused on a small two-variable trade system rather than a broader macroeconomic model.
+## What I take from it
+- [v] I favored a rigorous and sober time-series approach.
+- [v] I addressed substantive questions: non-stationarity, trade interdependence, Granger causality, the status of projections.
+- [!] This is a pedagogical analysis, not an operational institutional forecasting tool.
