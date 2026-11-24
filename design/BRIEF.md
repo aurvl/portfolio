@@ -55,7 +55,8 @@ Objectif de cette phase : **valider le visuel**, pas le contenu.
 Direction : éditorial sobre inspiré de Nature, moderne mais pas générique. Où ce style contredit les lignes
 « Formes » et « Ambiance » ci-dessus (coins arrondis, pilules, ombres), c'est lui qui l'emporte.
 - **Signature conservée (personnalité)** : photo bambous, bleu `#55A1F5`, navbar pilule, `UtilityPill`.
-  Ce sont les SEULS éléments en pilule. (Avatar et ronds sociaux restent des cercles, comme sur les maquettes.)
+  Ce sont les SEULS éléments en pilule, à UNE exception assumée : le bouton « Search a project » de l'en-tête du Hub
+  (§4.4), gardé en pilule comme sur la maquette. (Avatar et ronds sociaux restent des cercles, comme sur les maquettes.)
 - **Contenu** : hiérarchie par la typographie et des filets fins (1 px), pas par des boîtes. Pas de carte pour
   du texte ou des listes de liens.
 - **Rayons** : 0 à 4 px max hors signature (`--radius-sharp` 2 px, `--radius-small` 4 px). Aucune ombre hors navbar.

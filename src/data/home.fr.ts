@@ -229,6 +229,11 @@ export const homeFr: HomeContent = {
       viewSeries: 'Voir la série',
       subscribe: 'S’abonner',
       allProjectsLabel: 'Tous les projets',
+      searchButton: 'Rechercher',
+      advancedSearch: 'Recherche avancée',
+      quickLinksTitle: 'Parcourir par thème',
+      closeSearch: 'Fermer la recherche',
+      resetFilters: 'Réinitialiser les filtres',
     },
   },
 

@@ -180,6 +180,11 @@ export type HomeContent = {
       viewSeries: string
       subscribe: string
       allProjectsLabel: string
+      searchButton: string
+      advancedSearch: string
+      quickLinksTitle: string
+      closeSearch: string
+      resetFilters: string
     }
   }
   publicationsPage: {
@@ -441,6 +446,11 @@ export const homeEn: HomeContent = {
       viewSeries: 'View the series',
       subscribe: 'Subscribe',
       allProjectsLabel: 'All projects',
+      searchButton: 'Search',
+      advancedSearch: 'Advanced search',
+      quickLinksTitle: 'Browse by theme',
+      closeSearch: 'Close search',
+      resetFilters: 'Reset filters',
     },
   },
 

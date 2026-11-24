@@ -41,6 +41,7 @@
   --color-placeholder: #d9d9d9;
   --color-night: #0d0e10;
   --color-night-ink: #ffffff;
+  --color-night-line: rgba(255, 255, 255, 0.18);
 
   /* Fond sombre de la bannière photo : identique dans les deux thèmes (la photo ne change pas avec le thème) */
   --color-banner-veil: #121418;

@@ -9,7 +9,7 @@ import FeaturedHub from '../components/hub-v3/FeaturedHub'
 import HubHeader from '../components/hub-v3/HubHeader'
 import { pickFeaturedProjects } from '../components/hub-v3/featuredProjects'
 import type { FilterOption } from '../components/ui/FilterField'
-import ProjectFilters from '../components/projects/ProjectFilters'
+import SearchPanel from '../components/hub-v3/SearchPanel'
 import ProjectGrid from '../components/projects/ProjectGrid'
 import ProjectWindow from '../components/projects/ProjectWindow'
 import rawProjects from '../data/projects.json'
@@ -68,6 +68,9 @@ function ProjectsPage() {
   const [selectedYear, setSelectedYear] = useState('')
   const [visibleProjectsCount, setVisibleProjectsCount] = useState(PAGE_SIZE)
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
+  // Le bloc de recherche est caché tant qu'on n'a pas cliqué sur « Search a project » ; ?tag= l'ouvre d'office
+  const [isSearchOpen, setIsSearchOpen] = useState(selectedTag.length > 0)
+  const [searchFocusSignal, setSearchFocusSignal] = useState(0)
   const { pageSections } = useSiteNav()
 
   const domainOptions: FilterOption[] = [
@@ -98,7 +101,17 @@ function ProjectsPage() {
       .map((year) => ({ value: year, label: year })),
   ]
 
-  const normalizedSearch = searchValue.trim().toLowerCase()
+  // Liens rapides : les 5 domaines les plus fournis du catalogue (pas de liste écrite à la main)
+  const domainCounts = new Map<string, number>()
+  projects.forEach((project) =>
+    project.taxonomy.domains.forEach((domain) => domainCounts.set(domain, (domainCounts.get(domain) ?? 0) + 1))
+  )
+  const quickDomains = Array.from(domainCounts.entries())
+    .sort(([domainA, countA], [domainB, countB]) => countB - countA || domainA.localeCompare(domainB))
+    .slice(0, 5)
+    .map(([domain]) => domain)
+
+  const normalizedSearch =searchValue.trim().toLowerCase()
   const isSearchMode = normalizedSearch.length > 0
 
   const filteredProjects = projects
@@ -170,6 +183,25 @@ function ProjectsPage() {
     return () => window.clearTimeout(timeoutId)
   }, [appliedProjects, filteredProjects, location.search, visibleProjectsCount])
 
+  function handleOpenSearch() {
+    setIsSearchOpen(true)
+    setSearchFocusSignal((signal) => signal + 1)
+  }
+
+  // Fermer le bloc remet aussi les filtres à zéro : sinon la grille resterait filtrée sans que rien ne l'indique
+  function handleCloseSearch() {
+    setIsSearchOpen(false)
+    setSearchValue('')
+    setSelectedDomain('')
+    setSelectedTag('')
+    setSelectedYear('')
+    setSelectedSort('date-desc')
+  }
+
+  function handleShowResults() {
+    document.getElementById('hub-results')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+
   function handleCloseProjectWindow() {
     setSelectedProject(null)
 
@@ -208,6 +240,7 @@ function ProjectsPage() {
         <HubHeader
           title={page.hub.title}
           searchLabel={page.hub.searchLabel}
+          onOpenSearch={handleOpenSearch}
         />
 
         <div className="hub__content">
@@ -224,7 +257,33 @@ function ProjectsPage() {
             className="hub__catalog"
             aria-labelledby="hub-catalog-title"
           >
-            <div>
+            {isSearchOpen && (
+              <SearchPanel
+                labels={page.hub}
+                searchValue={searchValue}
+                onSearchChange={setSearchValue}
+                domainValue={selectedDomain}
+                onDomainChange={setSelectedDomain}
+                tagValue={selectedTag}
+                onTagChange={setSelectedTag}
+                yearValue={selectedYear}
+                onYearChange={setSelectedYear}
+                sortValue={selectedSort}
+                onSortChange={(value) => setSelectedSort(value as SortValue)}
+                domainOptions={domainOptions}
+                tagOptions={tagOptions}
+                yearOptions={yearOptions}
+                sortOptions={sortOptions}
+                quickDomains={quickDomains}
+                resultsCount={filteredProjects.length}
+                visibleCount={visibleApplied.length + otherProjects.length}
+                focusSignal={searchFocusSignal}
+                onClose={handleCloseSearch}
+                onShowResults={handleShowResults}
+              />
+            )}
+
+            <div id="hub-results">
               <p className="eyebrow">{page.hub.allProjectsLabel}</p>
               <h2
                 id="hub-catalog-title"
@@ -234,26 +293,6 @@ function ProjectsPage() {
               </h2>
               <p className="hub__section-intro">{page.appliedIntro}</p>
             </div>
-
-            {/* Filtres actuels : remplacés par le SearchPanel à l'étape 11 du plan */}
-            <ProjectFilters
-              searchValue={searchValue}
-              onSearchChange={setSearchValue}
-              domainValue={selectedDomain}
-              onDomainChange={setSelectedDomain}
-              tagValue={selectedTag}
-              onTagChange={setSelectedTag}
-              sortValue={selectedSort}
-              onSortChange={(value) => setSelectedSort(value as SortValue)}
-              yearValue={selectedYear}
-              onYearChange={setSelectedYear}
-              domainOptions={domainOptions}
-              tagOptions={tagOptions}
-              sortOptions={sortOptions}
-              yearOptions={yearOptions}
-              resultsCount={filteredProjects.length}
-              visibleCount={visibleApplied.length + otherProjects.length}
-            />
 
             <ProjectWindow project={selectedProject} isOpen={selectedProject !== null} onClose={handleCloseProjectWindow} />
 

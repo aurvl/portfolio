@@ -55,23 +55,6 @@
   color: var(--hv-ink);
 }
 
-.home-v2 .projects-v2__count {
-  display: inline-block;
-  margin-right: 6px;
-  padding: 3px 8px;
-  border-radius: 3px;
-  background: var(--hv-accent-soft);
-  color: var(--hv-accent-ink);
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
-}
-
-.home-v2 .projects-v2__showing {
-  color: var(--hv-faint);
-}
-
 .home-v2 .projects-v2__empty {
   padding: 40px 24px;
   text-align: center;

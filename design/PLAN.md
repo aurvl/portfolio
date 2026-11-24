@@ -154,7 +154,15 @@ Modifier : `Navbar`, `MainLayout`, `HomePage`, `ProjectsPage`, `BlogPage`, `Publ
       articles du blog » et la vue Séries du hub restent à l'étape 12 ; (d) mode sombre et tablette non vérifiés (13, 14) ;
       (e) champs `eyebrow`, `title`, `intro`, `summary`, `selectedTitle` de `projectsPage` désormais inutilisés (à
       retirer au nettoyage, étape 15) ; (f) `SelectedWorkGrid` n'est plus utilisé par le Hub (supprimé avec `home-v2`, 15).
-- [ ] 11. `SearchPanel` branché sur les filtres ; deep-link `?project=` intact.
+- [x] 11. `SearchPanel` branché sur les filtres ; deep-link `?project=` intact (24/11/2026, sans commit). RÉALISÉ :
+      `hub-v3/SearchPanel` (bloc noir : champ, domaine, bouton Search, « Advanced search » = tag / année / tri, liens
+      rapides, compteur, fermeture). Caché au départ ; le bouton pilule de `HubHeader` l'affiche, défile jusqu'à lui
+      (sans animation si mouvement réduit) et met le champ en focus. Il remplace `ProjectFilters` (supprimé, ainsi que
+      son CSS). Fermer le bloc remet les filtres à zéro. `?tag=` ouvre le bloc d'office (recherche avancée dépliée) ;
+      `?project=` inchangé (vérifié). Liens rapides = les 5 domaines les plus fournis, calculés depuis les données
+      (pas de liste écrite à la main) ; un clic filtre et ramène sur la grille. Exception pilule notée au BRIEF §2.
+      Textes ajoutés dans `home.ts` / `home.fr.ts` (`hub`), token `--color-night-line`. Vérifié : lint,
+      content:validate, build, Playwright 1440 px (clair). À REPRENDRE : mobile, sombre et tablette (étape 13/14).
 - [ ] 12. Blog : `/blog` redirige vers la partie blog du hub ; bloc derniers articles + série mise en avant ;
       restyle `SeriesPage`/`BlogPostPage` ; sitemap et redirections dans `scripts/generate-seo.ts`.
 - [ ] 13. Responsive (≈390 px, tablette, laptop 14″).

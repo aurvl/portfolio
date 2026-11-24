@@ -6,9 +6,10 @@ import BambooPhoto from '../ui/BambooPhoto'
 type HubHeaderProps = {
   title: string
   searchLabel: string
+  onOpenSearch: () => void
 }
 
-function HubHeader({ title, searchLabel }: HubHeaderProps) {
+function HubHeader({ title, searchLabel, onOpenSearch }: HubHeaderProps) {
   return (
     <header className="hub-header">
       <div className="hub-header__banner">
@@ -18,11 +19,11 @@ function HubHeader({ title, searchLabel }: HubHeaderProps) {
       <div className="hub-header__bar">
         <h1 className="hub-header__title">{title}</h1>
 
-        {/* Pilule de recherche : visible mais inactive, elle ouvrira le SearchPanel à l'étape 11 du plan */}
         <button
           type="button"
           className="hub-header__search"
-          disabled
+          aria-controls="hub-search"
+          onClick={onOpenSearch}
         >
           <FiSearch aria-hidden="true" />
           {searchLabel}
