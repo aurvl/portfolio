@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "npx tsx scripts/generate-blog-index.ts && npx tsx scripts/generate-seo.ts && vite",
-    "build": "npx tsx scripts/generate-blog-index.ts && npx tsx scripts/generate-seo.ts && tsc -b && vite build",
+    "build": "npx tsx scripts/generate-blog-index.ts && npx tsx scripts/generate-seo.ts && tsc -b && vite build && npx tsx scripts/generate-seo.ts --pages",
     "lint": "eslint .",
     "preview": "vite preview",
     "content:add-project": "python scripts/add_project.py",

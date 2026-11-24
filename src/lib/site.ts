@@ -66,8 +66,11 @@ export function buildAbsoluteSiteUrl(path = '') {
   return new URL(normalizedPath, getSiteUrl()).toString()
 }
 
+// Hors accueil, les pages sont des dossiers statiques (dist/<route>/index.html) : l'URL canonique finit par « / »,
+// comme dans sitemap.xml (voir scripts/generate-seo.ts).
 export function buildCanonicalPath(path = '') {
-  return buildAbsoluteSiteUrl(path)
+  const normalizedPath = path.replace(/^\/+/, '').replace(/\/+$/, '')
+  return buildAbsoluteSiteUrl(normalizedPath ? `${normalizedPath}/` : '')
 }
 
 export function getResumeDownloadUrl(language: string) {
