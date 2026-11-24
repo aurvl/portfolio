@@ -12,14 +12,15 @@ Ce projet s’éloigne volontairement de la logique purement prédictive pour tr
 
 Cette orientation est intéressante parce qu’elle montre une autre facette de la compétence data : savoir explorer, synthétiser et interpréter un espace de variables mixtes, sans transformer immédiatement le problème en tâche de classification.
 
-## Pourquoi ce projet mérite l'attention
-Le projet vaut le détour parce qu’il traite un vrai cas de données mixtes, là où beaucoup de démonstrations restent soit sur de la PCA purement quantitative, soit sur de l’ACM purement qualitative. Il met en avant une méthode moins “spectaculaire” que le machine learning supervisé, mais souvent plus utile dans les phases d’exploration.
+## Ce qui m'a intéressé
+J'ai traité un vrai cas de données mixtes, là où beaucoup de démonstrations restent sur de la PCA purement quantitative ou de l'ACM purement qualitative. C'est une méthode moins « spectaculaire » que le machine learning supervisé, mais souvent plus utile en phase d'exploration.
 
-Il a aussi une valeur intellectuelle intéressante : il montre comment faire émerger des structures socio-économiques lisibles à partir d’un espace de variables hétérogènes.
+Ce qui m'intéresse : faire émerger des structures socio-économiques lisibles à partir d'un espace de variables hétérogènes.
 
-- [v] Le projet mobilise une méthode adaptée à un problème de données mixtes.
-- [v] Il privilégie la compréhension de la structure à la performance prédictive.
-- [v] Il donne une vraie place à l’interprétation multivariée.
+
+- [v] J'ai mobilisé une méthode adaptée à un problème de données mixtes.
+- [v] J'ai privilégié la compréhension de la structure à la performance prédictive.
+- [v] J'ai donné une vraie place à l'interprétation multivariée.
 - [!] Le projet produit moins d’effet immédiat qu’un modèle supervisé, mais il gagne en profondeur analytique.
 
 # Method
@@ -34,28 +35,19 @@ Le projet met en avant que la première dimension est surtout portée par `relat
 
 Le travail sur les cartes de contributions et sur la position des modalités enrichit encore l’analyse. On ne voit pas seulement quelles variables “comptent”, on voit aussi comment elles se regroupent et structurent le nuage des individus.
 
-- [v] Le nettoyage du dataset et le choix des variables sont explicitement documentés.
-- [v] Les sorties produites sont celles d’une vraie analyse factorielle exploitable.
-- [v] Les dimensions obtenues sont interprétées de manière substantielle.
-- [v] Le projet montre une bonne maîtrise d’outils comme `FactoMineR` et `factoextra`.
+- [v] J'ai documenté explicitement le nettoyage du dataset et le choix des variables.
+- [v] Mes sorties sont celles d'une vraie analyse factorielle exploitable.
+- [v] J'ai interprété les dimensions obtenues de manière substantielle.
+- [v] J'utilise des outils comme `FactoMineR` et `factoextra`.
 - [!] Les figures finales ne sont pas toutes figées dans le dépôt, ce qui limite la lecture immédiate hors exécution.
 - [!] La reproductibilité dépend d’un téléchargement live du dataset UCI.
 
 # Value
 
-## Ce que le projet prouve
-Ce projet montre une capacité à travailler proprement sur des données mixtes et à produire une interprétation structurée d’un espace factoriel. C’est une compétence utile en exploration de données, en sciences sociales quantitatives et dans toute phase amont de modélisation.
+## Ce que j'ai voulu montrer
+Je voulais travailler proprement sur des données mixtes et produire une interprétation structurée d'un espace factoriel : une compétence utile en exploration de données, en sciences sociales quantitatives et en phase amont de modélisation. Savoir organiser un espace complexe de variables avant de choisir un modèle supervisé est souvent déterminant.
 
-## Portée professionnelle
-Le projet apporte quelque chose de différent d’un benchmark ML classique. Il montre un intérêt pour l’analyse multivariée, la visualisation explicative et la lecture des structures latentes, ce qui renforce une posture analytique moins centrée sur la seule prédiction.
-
-Il met aussi en évidence une compétence moins fréquente mais très utile : savoir organiser un espace complexe de variables avant même de décider quel modèle supervisé appliquer. Cette étape amont est souvent déterminante dans les travaux de segmentation, d’exploration ou de cadrage de données mixtes.
-
-:::panel{tone="blue" title="Lecture du projet"}
-L’ensemble met en lumière une maîtrise de la réduction de dimension comme outil d’interprétation, et non comme simple prétraitement automatique.
-:::
-
-- [v] Le projet valorise la compréhension de la structure des données.
-- [v] Il met en évidence une compétence en analyse multivariée moins courante dans des travaux data classiques.
-- [v] Il enrichit l’image d’un profil capable de faire plus que du benchmarking ML.
-- [!] Sa force repose sur l’interprétation et la rigueur de lecture, pas sur un chiffre de performance unique.
+## Ce que j'en retiens
+- [v] J'ai utilisé la réduction de dimension comme outil d'interprétation, pas comme simple prétraitement automatique.
+- [v] Je m'intéresse à l'analyse multivariée et à la lecture des structures latentes, pas seulement à la prédiction.
+- [!] Ma force est l'interprétation et la rigueur de lecture, pas un chiffre de performance unique.

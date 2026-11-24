@@ -12,15 +12,16 @@ Ce projet part d’une question simple en apparence : peut-on prédire l’exist
 
 L’intérêt du projet ne réside pas seulement dans le choix des modèles. Il se situe aussi dans le travail sur les variables, le traitement du déséquilibre et l’interprétation des résultats lorsque les métriques ne racontent pas toutes la même histoire.
 
-## Pourquoi ce projet mérite l'attention
-Le sujet est lisible, mais la démarche est plus riche qu’une simple démo de classification. Le projet cherche à comprendre quelles variables portent le signal, à comparer plusieurs familles de modèles et à discuter un cas de résultat contradictoire, notamment sur `XGBoost`.
+## Ce qui m'a intéressé
+Le sujet est lisible, mais j'ai voulu une démarche plus riche qu'une simple démo de classification : comprendre quelles variables portent le signal, comparer plusieurs familles de modèles et discuter un cas de résultat contradictoire, notamment sur `XGBoost`.
 
-Il est donc intéressant autant pour sa partie predictive que pour sa partie lecture critique des sorties.
+Je m'intéresse autant à la partie prédictive qu'à la lecture critique des sorties.
 
-- [v] Le projet combine préparation des données, modélisation et interprétation.
-- [v] Il traite un problème de classification appliqué avec variables hétérogènes.
-- [v] Il ne s’arrête pas au score final et regarde aussi l’importance des variables.
-- [!] Le sujet impose une lecture prudente pour éviter de surinterpréter des signaux corrélationnels.
+
+- [v] J'ai combiné préparation des données, modélisation et interprétation.
+- [v] J'ai traité un problème de classification appliqué avec des variables hétérogènes.
+- [v] Je ne me suis pas arrêté au score final : j'ai regardé aussi l'importance des variables.
+- [!] Le sujet impose une lecture prudente pour ne pas surinterpréter des signaux corrélationnels.
 
 # Method
 
@@ -34,28 +35,19 @@ La régression logistique atteint environ `85.34 %` d’accuracy avec un `AUC-RO
 
 Le dépôt inclut aussi des graphiques d’importance et d’autres sorties interprétatives, ce qui évite de réduire le projet à un tableau de métriques et rend le travail plus utile pour comprendre quelles dimensions pèsent dans la classification.
 
-- [v] Le projet traite explicitement le déséquilibre de classes avec `SMOTE`.
-- [v] Il compare plusieurs familles de modèles avec des comportements différents.
-- [v] Le `Random Forest` produit un résultat solide et cohérent sur plusieurs métriques.
-- [v] Le cas `XGBoost` est lu de manière critique au lieu d’être artificiellement valorisé.
-- [!] Certaines incohérences du script suggèrent que les sorties `XGBoost` doivent être interprétées avec prudence.
-- [!] Le projet reste prédictif et exploratoire ; il ne démontre pas une causalité sur les facteurs de surpoids.
+- [v] J'ai traité explicitement le déséquilibre de classes avec `SMOTE`.
+- [v] J'ai comparé plusieurs familles de modèles aux comportements différents.
+- [v] Le `Random Forest` donne un résultat solide et cohérent sur plusieurs métriques.
+- [v] J'ai lu le cas `XGBoost` de façon critique au lieu de le valoriser artificiellement.
+- [!] Certaines incohérences du script invitent à interpréter les sorties `XGBoost` avec prudence.
+- [!] Mon projet reste prédictif et exploratoire : il ne démontre pas de causalité sur les facteurs de surpoids.
 
 # Value
 
-## Ce que le projet prouve
-Ce projet montre plusieurs réflexes importants : préparer proprement des variables hétérogènes, traiter un déséquilibre de classes, comparer plusieurs modèles et refuser de prendre un chiffre isolé pour une vérité complète. Cette lucidité méthodologique est une vraie force.
+## Ce que j'ai voulu montrer
+Je voulais montrer plusieurs réflexes : préparer proprement des variables hétérogènes, traiter un déséquilibre de classes, comparer plusieurs modèles et refuser de prendre un chiffre isolé pour une vérité complète. Un travail de classification sérieux ne consiste pas à retenir le meilleur score : il faut aussi interpréter, diagnostiquer et repérer un résultat incohérent malgré une métrique flatteuse.
 
-## Portée professionnelle
-Le projet montre qu’un travail de classification sérieux ne consiste pas seulement à lancer plusieurs modèles puis à retenir le meilleur score. Il faut aussi interpréter, diagnostiquer et savoir repérer lorsqu’un résultat paraît incohérent malgré une métrique flatteuse.
-
-Cette lecture critique donne de la consistance au projet. Elle montre une capacité à confronter les sorties du pipeline à une exigence de cohérence globale, notamment lorsqu’un modèle plus sophistiqué ne se comporte pas comme attendu.
-
-:::panel{tone="blue" title="Lecture du projet"}
-L’ensemble fait ressortir une maîtrise utile de la classification tabulaire, combinée à une vigilance explicite sur la validité des résultats reportés.
-:::
-
-- [v] Le projet valorise une lecture critique des métriques.
-- [v] Il montre une compétence claire en classification tabulaire appliquée.
-- [v] Il associe performance, interprétation et prudence méthodologique.
-- [!] La contribution majeure réside autant dans l’analyse critique des résultats que dans le meilleur score obtenu.
+## Ce que j'en retiens
+- [v] J'ai fait une lecture critique des métriques.
+- [v] J'ai associé performance, interprétation et prudence méthodologique.
+- [!] La contribution est autant l'analyse critique des résultats que le meilleur score obtenu.

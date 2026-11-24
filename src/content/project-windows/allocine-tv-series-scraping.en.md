@@ -53,9 +53,9 @@ The estimated duration coefficient is about `0.002168`, the `p-value` is `0.588`
 The descriptive section also shows that most durations cluster around `40` to `50` minutes and most ratings lie roughly between `3.5` and `4.5`.
 This makes the conclusion coherent: the sample is relatively concentrated, and episode length alone explains almost none of the rating variation.
 
-- [v] The project covers extraction, cleaning, SQL structuring, and statistical follow-up in one chain.
-- [v] The SQL schema retains enough detail to support multiple forms of downstream analysis.
-- [v] The repository does not stop at collection and checks a concrete explanatory hypothesis in R.
+- [v] I covered extraction, cleaning, SQL structuring, and statistical follow-up in one chain.
+- [v] My SQL schema retains enough detail to support multiple forms of downstream analysis.
+- [v] I did not stop at collection: I checked a concrete explanatory hypothesis in R.
 - [!] The extraction is based on regex and saved HTML pages, which makes the pipeline sensitive to source-format changes.
 - [!] The sample remains limited to `57` titles, so the statistical interpretation must stay narrow.
 
@@ -70,24 +70,10 @@ It shows that data collection, storage, and interpretation can be organized as d
 
 # Value
 
-## What the project demonstrates
-The project demonstrates command of a full upstream analytics workflow.
-It shows the ability to derive a structured dataset from web material, preserve the result in a relational format, and then evaluate a substantive question with a simple statistical model.
+## What I wanted to show
+I wanted to chain several data building blocks coherently: collection, structuring, storage, queries and analysis. For me, web collection is only worth something if it leads to clean structuring and an identifiable analytical question: the interest is in the continuity of the chain, more than in scraping on its own.
 
-It also highlights a useful analytical posture.
-The repository does not assume that an intuitive relationship must hold.
-It checks the hypothesis and accepts a weak result when the data does not support it.
-That is a relevant sign of methodological seriousness.
-
-## Portfolio relevance
-This work is valuable because it brings together several competencies that are often separated across small projects.
-It combines acquisition of semi-structured data, schema design, SQL exploration, and a first inferential extension.
-
-The overall structure also makes the project reusable.
-The extracted dataset can support further descriptive work, richer visualization, or a broader recommendation or classification pipeline later on.
-In that sense, the repository functions as both a completed study and a clean data foundation for later iterations.
-
-- [v] The project highlights data acquisition from non-API web sources.
-- [v] It demonstrates a transition from raw extraction to queryable relational storage.
-- [v] It shows a disciplined approach to testing an explanatory relationship on the collected data.
-- [!] Its main strength lies in the workflow design rather than in statistical complexity or sample breadth.
+## What I take from it
+- [v] I produced a structured dataset from heterogeneous HTML, then a sober, defensible statistical conclusion.
+- [v] Each step brings an identifiable transformation: the pipeline is easy to audit and reuse.
+- [!] The technical robustness is that of a local scraping prototype, not an industrialized web pipeline.
