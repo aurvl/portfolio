@@ -1,5 +1,6 @@
 import { useId, useState, type SubmitEvent } from 'react'
 import { useTranslation } from 'react-i18next'
+import Button from '../ui/Button'
 
 type ProjectWindowAccessGateProps = {
   projectSlug: string
@@ -101,19 +102,17 @@ function ProjectWindowAccessGate({
             className="min-w-0 flex-1 rounded-xl border border-[var(--glass-border)] bg-[var(--glass-bg)] px-4 py-3 text-[var(--text-col)] outline-none transition-colors duration-200 placeholder:text-[var(--text2-col)] focus:border-[var(--accent-blue)]"
           />
 
-          <button
+          {/* Bouton plein du site (bleu de marque, texte foncé) : ses couleurs viennent de atoms.css, car une classe Tailwind
+              de couleur de texte serait écrasée par la règle globale « button { color: inherit } » */}
+          <Button
             type="submit"
+            variant="solid"
             disabled={!isEmailValid || isSubmitting}
-            className={`rounded-xl px-5 py-3 font-semibold transition-colors duration-200 ${
-              !isEmailValid || isSubmitting
-                ? 'cursor-not-allowed bg-white/10 text-[var(--text2-col)]'
-                : 'bg-[var(--text-col)] text-[var(--bg-color)] hover:bg-white/90'
-            }`}
           >
             {isSubmitting
               ? t('projects.window.locked.submitting')
               : t('projects.window.locked.submit')}
-          </button>
+          </Button>
         </div>
       </form>
 

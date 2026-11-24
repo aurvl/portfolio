@@ -21,7 +21,9 @@ does today. Do not reintroduce the old V2 style (warm greys, glass cards, mono l
 | `src/styles/theme.css`, `responsive.css` | Legacy variables and a few shared pieces (project window tabs, back-to-top button) |
 
 Plain CSS written in these sheets is unlayered, so it beats Tailwind utilities (which live in a layer). To change
-an existing rule, edit the sheet; do not stack a utility class on top.
+an existing rule, edit the sheet; do not stack a utility class on top. A known trap: `globals.css` sets
+`button, select { color: inherit }`, so a Tailwind text colour on a `<button>` is silently ignored (this once made a
+submit button unreadable). Use the `Button` component (`ui/Button.tsx`) or a named class in `styles/v3/`.
 
 ## Tokens
 

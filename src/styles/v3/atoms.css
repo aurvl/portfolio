@@ -226,6 +226,12 @@
   transform: none;
 }
 
+/* Bouton désactivé (formulaires) : atténué, curseur « interdit » */
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
 /* Plein : bleu de marque, texte foncé (le blanc manquerait de contraste sur ce bleu) */
 .btn--solid {
   padding: 0.8rem 1.5rem;

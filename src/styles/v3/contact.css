@@ -225,11 +225,6 @@ html.snap-home .contact {
   }
 }
 
-.contact .btn[disabled] {
-  cursor: not-allowed;
-  opacity: 0.5;
-}
-
 /* Emplacement de la navbar (vide : la navbar fixe vient se poser dessus). MorphNavbar pose sa hauteur dans
    --morph-slot-height. La marge négative remonte l'emplacement de la moitié de cette hauteur : le bord bas de la photo
    passe donc exactement par le milieu vertical de la pilule. Dessous : un espace vide (fond de page), puis le footer.
