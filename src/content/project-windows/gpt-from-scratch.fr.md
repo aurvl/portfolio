@@ -17,8 +17,8 @@ nettoyage, tokenisation, construction des séquences, batching, embeddings, atte
 Le projet est volontairement compact.
 Il sert à rendre visible ce qui est souvent caché derrière les grands modèles de langage : comment un texte devient des tokens, comment le modèle apprend une distribution sur le token suivant, et pourquoi l'attention causale empêche de regarder le futur.
 
-- [v] Le projet montre une compréhension de la mécanique interne d'un GPT, pas seulement l'usage d'une API.
-- [v] La baseline bigramme permet de comparer le Transformer à un point de départ simple.
+- [v] J'ai construit un GPT de bout en bout pour comprendre sa mécanique interne, pas seulement pour appeler une API.
+- [v] J'ai ajouté une baseline bigramme pour comparer le Transformer à un point de départ simple.
 - [!] Les générations restent celles d'un petit modèle pédagogique entraîné sur un corpus compact.
 
 # Method
@@ -46,26 +46,16 @@ Les résultats reportés dans le dépôt indiquent une forte amélioration par r
 la perplexité descend d'environ `9.51` pour la baseline à `1.32` pour le GPT, puis autour de `1.25` pour la version finale.
 La next-token accuracy passe d'environ `0.2917` à `0.9040`, puis `0.9300`.
 
-- [v] Le pipeline est reproductible et suit les étapes fondamentales d'un modèle de langage.
-- [v] Les métriques donnent une lecture claire du gain entre baseline et Transformer.
+- [v] J'ai rendu le pipeline reproductible, en suivant les étapes fondamentales d'un modèle de langage.
+- [v] Les métriques montrent clairement le gain entre la baseline et le Transformer (perplexité de 9.51 à 1.32).
 - [!] Les scores mesurent surtout l'apprentissage local du corpus, pas une capacité générale de raisonnement.
 
 # Value
 
-## Ce que le projet démontre
-Ce projet démontre une capacité à ouvrir la boîte noire des modèles de langage.
-Il relie la théorie du Transformer à une implémentation lisible : décalage entre `x` et `y`, masque causal, logits, cross-entropy, perplexité et génération.
+## Ce que j'ai voulu montrer
+Je voulais ouvrir la boîte noire des modèles de langage et relier la théorie du Transformer à une implémentation lisible : décalage entre `x` et `y`, masque causal, logits, cross-entropy, perplexité et génération. Pour moi, GPT n'est pas un mot-clé : c'est un système que je peux reconstruire, tester et critiquer.
 
-Pour un portfolio, sa valeur vient de cette transparence.
-Le projet montre que le sujet GPT n'est pas traité comme un simple mot-clé, mais comme un système que l'on peut reconstruire, tester et critiquer.
-
-## Positionnement professionnel
-Le bon positionnement est pédagogique et technique.
-Le projet prouve une familiarité réelle avec les briques de base des LLM, sans prétendre produire un modèle de production.
-
-Il complète bien des projets plus applicatifs : ici, la valeur est dans la compréhension fine du mécanisme.
-La cover abstraite en couches garde cette idée : un modèle de langage est une architecture empilée, progressive, difficile à voir directement mais structurée.
-
-- [v] Projet fort pour montrer une compréhension interne des Transformers.
-- [v] Bon support pour discuter tokenisation, attention causale et évaluation.
-- [!] A présenter comme mini GPT from scratch, pas comme concurrent d'un LLM généraliste.
+## Ce que j'en retiens
+- [v] J'ai reconstruit moi-même la tokenisation, l'attention causale et l'évaluation.
+- [v] J'ai relié la théorie du Transformer à du code lisible.
+- [!] C'est un mini GPT from scratch, pas un concurrent d'un LLM généraliste.

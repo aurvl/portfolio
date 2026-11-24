@@ -27,8 +27,8 @@ qu'un simple script de calcul d'indicateur de marché.
 L'approche retenue privilégie la transparence.
 Le score final reste interprétable parce que chaque composante est visible et justifiée.
 
-- [v] Le projet transforme un indicateur opaque en pipeline analytique auditable.
-- [v] La logique d'agrégation est rendue explicite au lieu d'être seulement imitée visuellement.
+- [v] J'ai transformé un indicateur opaque en pipeline analytique auditable.
+- [v] J'ai rendu la logique d'agrégation explicite au lieu de l'imiter seulement visuellement.
 - [!] Certaines composantes du benchmark d'origine sont approchées par des proxys plutôt que par les entrées exactes.
 
 # Method
@@ -66,34 +66,17 @@ Le dépôt inclut aussi une API et une interface web, ce qui donne une frontièr
 L'architecture combine ainsi sourcing de données,
 normalisation, calibration et exposition sous forme de service.
 
-- [v] La normalisation est historiquement fondée et robuste aux extrêmes.
-- [v] La version calibrée matérialise un gain mesuré par rapport à l'agrégation naïve.
-- [v] L'API et l'interface prolongent l'analyse vers un usage opérationnel.
-- [!] Le dépôt ne constitue pas un benchmark institutionnel ni un système de validation exhaustif.
+- [v] J'ai normalisé chaque composante sur son historique, de façon robuste aux extrêmes.
+- [v] La version calibrée améliore la fidélité de reconstruction par rapport à l'agrégation naïve (RMSE ≈ 6.31, R² ≈ 0.897).
+- [v] J'ai prolongé l'analyse avec une API et une interface web.
+- [!] Mon dépôt n'est ni un benchmark institutionnel ni un système de validation exhaustif.
 
 # Value
 
-## Ce que le projet démontre
-Le projet démontre une capacité à décomposer un indicateur financier complexe
-en composantes mesurables puis à les recombiner dans un cadre cohérent.
+## Ce que j'ai voulu montrer
+Je voulais décomposer un indicateur financier complexe en composantes mesurables, puis les recombiner dans un cadre cohérent : données multi-sources, feature engineering financier, normalisation robuste, calibration statistique. Je tiens à ce que le score soit expliqué plutôt que présenté comme une sortie mystérieuse.
 
-Il met en lumière une maîtrise des données multi-sources,
-du feature engineering financier, de la normalisation robuste et de la calibration statistique.
-
-L'ensemble fait aussi ressortir une posture analytique saine :
-le score produit est expliqué au lieu d'être présenté comme une sortie mystérieuse.
-
-## Portée professionnelle
-Le travail s'inscrit dans une logique d'outillage quantitatif transparent.
-Il montre qu'un indicateur peut rester interprétable tout en étant suffisamment structuré pour être exposé via un service.
-
-Pris dans son ensemble, le projet relie correctement concept,
-implémentation, mesure de fidélité et couche applicative.
-
-Sa contribution principale réside dans cette chaîne complète,
-de la donnée brute jusqu'à un estimateur consultable et défendable méthodologiquement.
-
-- [v] Le projet souligne une maîtrise de la construction d'indicateurs transparents.
-- [v] Il combine raisonnement quantitatif et souci d'exposition pratique.
-- [v] L'architecture retenue montre un lien fort entre interprétabilité et utilité réelle.
-- [!] Il doit être lu comme un estimateur public du sentiment de marché, pas comme une référence officielle de place.
+## Ce que j'en retiens
+- [v] J'ai construit un indicateur transparent, de la donnée brute à un estimateur consultable.
+- [v] J'ai combiné raisonnement quantitatif et souci d'usage pratique.
+- [!] C'est un estimateur public du sentiment de marché, pas une référence officielle de place.

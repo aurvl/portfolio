@@ -17,8 +17,8 @@ cleaning, tokenization, sequence construction, batching, embeddings, causal atte
 The project is intentionally compact.
 It makes visible what is usually hidden behind large language models: how text becomes tokens, how the model learns a distribution over the next token, and why causal attention prevents access to future positions.
 
-- [v] The project demonstrates internal understanding of GPT mechanics, not only API usage.
-- [v] The bigram baseline gives the Transformer a simple and useful comparison point.
+- [v] I built a GPT end to end to understand its internal mechanics, not just to call an API.
+- [v] I added a bigram baseline to compare the Transformer with a simple starting point.
 - [!] The generated text remains the output of a small educational model trained on a compact corpus.
 
 # Method
@@ -46,26 +46,16 @@ Reported repository results show a strong improvement over the bigram baseline:
 perplexity moves from about `9.51` for the baseline to `1.32` for the GPT, then around `1.25` for the final version.
 Next-token accuracy moves from about `0.2917` to `0.9040`, then `0.9300`.
 
-- [v] The workflow is reproducible and follows the core steps of language modeling.
-- [v] The metrics make the gain over the baseline easy to inspect.
+- [v] I made the workflow reproducible, following the core steps of language modeling.
+- [v] The metrics show the gain over the baseline clearly (perplexity from 9.51 to 1.32).
 - [!] The scores mostly measure local corpus learning, not general reasoning ability.
 
 # Value
 
-## What the project demonstrates
-This project demonstrates the ability to open the black box of language models.
-It connects Transformer theory to a readable implementation: the shift between `x` and `y`, causal masks, logits, cross-entropy, perplexity, and generation.
+## What I wanted to show
+I wanted to open the black box of language models and connect Transformer theory to a readable implementation: the shift between `x` and `y`, the causal mask, logits, cross-entropy, perplexity and generation. For me, GPT is not a keyword: it is a system I can rebuild, test and criticize.
 
-For a portfolio, its value is transparency.
-The project shows that GPT is not treated as a buzzword, but as a system that can be rebuilt, tested, and criticized.
-
-## Professional positioning
-The right positioning is pedagogical and technical.
-The project proves practical familiarity with the building blocks of LLMs without claiming to produce a production model.
-
-It complements more application-oriented projects: here, the value is in understanding the mechanism.
-The abstract layered cover supports that idea: a language model is a stacked, progressive architecture that is hard to see directly but strongly structured.
-
-- [v] Strong project for showing internal understanding of Transformers.
-- [v] Useful discussion base for tokenization, causal attention, and evaluation.
-- [!] Present it as a mini GPT from scratch, not as a competitor to a general-purpose LLM.
+## What I take from it
+- [v] I rebuilt tokenization, causal attention and evaluation myself.
+- [v] I connected Transformer theory to readable code.
+- [!] This is a mini GPT from scratch, not a competitor to a general-purpose LLM.

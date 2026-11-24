@@ -12,12 +12,12 @@ Ce projet se lit d'abord comme une analyse commerciale sur la période 2012-2014
 
 Cette narration donne du poids au projet. L'entreprise paraît capable d'acquérir des clients à grande échelle, mais plus fragile sur plusieurs dimensions stratégiques. Les ventes de vélos dominent largement le chiffre d'affaires, le cross-sell sur les accessoires reste sous-exploité, la rétention VIP s'érosionne, et la structure d'âge pose une question de renouvellement à long terme. Le projet fonctionne donc comme une vraie lecture commerciale plutôt que comme une simple démo de dashboard.
 
-## Pourquoi le projet tient
-La partie technique reste essentielle, parce que cette lecture business n'est crédible que si la couche analytique est solide. Le dépôt montre justement le travail amont nécessaire pour soutenir ce diagnostic : fichiers bruts imparfaits, décisions de nettoyage explicites, logique de mapping, tables de faits structurées et sorties de reporting finales.
+## Ce qui rend l'analyse crédible
+La partie technique est essentielle, parce que cette lecture business n'est crédible que si la couche analytique est solide. J'ai donc documenté le travail amont : fichiers bruts imparfaits, décisions de nettoyage explicites, logique de mapping, tables de faits structurées et sorties de reporting finales.
 
-- [v] Le projet reste ancré dans une histoire business concrète plutôt que dans un affichage générique de KPI.
-- [v] Le cadrage historique 2012-2014 rend l'analyse plus lisible et plus défendable.
-- [!] Le dataset doit être lu comme une étude de portefeuille sérieuse, pas comme un reporting financier audité.
+- [v] Je suis parti d'une histoire business concrète plutôt que d'un affichage générique de KPI.
+- [v] J'ai cadré l'analyse sur 2012-2014 pour la rendre plus lisible et plus défendable.
+- [!] Je présente ce dataset comme une étude de portefeuille, pas comme un reporting financier audité.
 
 # Method
 
@@ -33,15 +33,11 @@ Plusieurs choix sont importants du point de vue analyste : remplacer les remises
 
 # Value
 
-## Ce que le projet démontre
-Ce projet montre plus qu'une aisance sur spreadsheet. Il démontre une capacité à transformer des données business imparfaites en colonne vertébrale de reporting, puis à convertir cette base en interprétation commerciale exploitable par un manager. Sa valeur tient dans la combinaison de discipline technique et de lecture business.
+## Ce que j'ai voulu montrer
+Je voulais transformer des données business imparfaites en colonne vertébrale de reporting, puis en interprétation commerciale exploitable par un manager. Je ne m'arrête pas aux graphiques : j'explique ce que les chiffres impliquent sur la stabilité du revenu, la concentration du portefeuille produit, la rétention client et le renouvellement démographique.
 
-Il met aussi en avant une posture d'analyste très utile en entreprise : ne pas s'arrêter aux graphiques, mais expliquer ce que les chiffres impliquent. Ici, la couche de reporting soutient des questions concrètes sur la stabilité du revenu, la concentration du portefeuille produit, la rétention client et le renouvellement démographique.
-
-## Portée portfolio
-Pour un portfolio, le point fort tient dans l'équilibre entre exécution et interprétation. Le dépôt prouve que le pipeline Excel est réel : nettoyage, mapping, conception de tables de faits, construction de KPI et logique de rafraîchissement Power Query. Le rapport final prouve que le travail ne s'arrête pas à la technique : il transforme ces sorties en recommandations stratégiques sur la rétention, la diversification, l'upsell et la résilience commerciale.
-
-- [v] Démontre des compétences Excel et Power Query ancrées dans des questions business.
-- [v] Traduit des données de ventes historiques en recommandations orientées management.
-- [v] Équilibre crédibilité du pipeline et narration d'aide à la décision.
-- [!] Sa valeur vient davantage du raisonnement analyste et de la structure du reporting que d'une complexité logicielle élevée.
+## Ce que j'en retiens
+- [v] J'ai mis mes compétences Excel et Power Query au service de questions business.
+- [v] J'ai traduit des données de ventes historiques en recommandations pour un manager.
+- [v] J'ai tenu ensemble la solidité du pipeline et la narration d'aide à la décision.
+- [!] La valeur vient du raisonnement d'analyste et de la structure du reporting, pas d'une complexité logicielle élevée.

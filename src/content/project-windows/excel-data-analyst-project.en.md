@@ -12,12 +12,12 @@ This project is framed first as a 2012-2014 commercial analysis, then as an Exce
 
 That storyline gives the work substance. The company appears capable of acquiring customers at scale, yet fragile on several strategic dimensions. Bicycle sales dominate revenue, accessory cross-sell remains underused, VIP retention softens over time, and the age structure raises long-term renewal questions. The project therefore behaves like a real commercial review rather than a simple dashboard showcase.
 
-## Why the project matters
-The technical side is still important, because this business reading only becomes credible if the analytical layer is reliable. The repository shows the upstream work needed to support that diagnosis: messy raw files, explicit cleaning decisions, mapping logic, structured fact tables, and final reporting outputs.
+## What makes the analysis credible
+The technical side is essential, because this business reading only becomes credible if the analytical layer is reliable. I therefore documented the upstream work: messy raw files, explicit cleaning decisions, mapping logic, structured fact tables, and final reporting outputs.
 
-- [v] The project stays grounded in a concrete business storyline instead of generic KPI display.
-- [v] The historical 2012-2014 framing makes the analysis easier to interpret and defend.
-- [!] The dataset is best understood as a serious portfolio case study, not as audited corporate reporting.
+- [v] I started from a concrete business storyline instead of a generic KPI display.
+- [v] I framed the analysis on 2012-2014 to make it easier to read and defend.
+- [!] I present the dataset as a portfolio case study, not as audited corporate reporting.
 
 # Method
 
@@ -33,15 +33,11 @@ Several choices are especially relevant from an analyst perspective: replacing m
 
 # Value
 
-## What the project demonstrates
-This project shows more than spreadsheet comfort. It demonstrates the ability to turn imperfect business data into a structured reporting backbone, then convert that backbone into a commercial interpretation that a manager could actually use. The value lies in the combination of technical discipline and business reading.
+## What I wanted to show
+I wanted to turn imperfect business data into the backbone of a reporting layer, then into a commercial interpretation a manager can use. I do not stop at charts: I explain what the numbers imply for revenue stability, product-portfolio concentration, customer retention and demographic renewal.
 
-It also highlights an analyst posture that is useful in real teams: do not stop at charts, explain what the numbers imply. Here, the reporting layer supports concrete questions about revenue stability, portfolio concentration, customer retention, and demographic renewal.
-
-## Portfolio relevance
-For a portfolio, the strongest point is the balance between execution and interpretation. The repository proves that the Excel pipeline is real: cleaning, mapping, fact-table design, KPI construction, and Power Query refresh logic. The final report proves that the work is not just technical plumbing: it turns those outputs into strategic recommendations around retention, diversification, upsell, and commercial resilience.
-
-- [v] Demonstrates Excel and Power Query reporting skills grounded in business questions.
-- [v] Translates historical sales data into management-facing recommendations.
-- [v] Balances pipeline credibility with decision-support storytelling.
-- [!] Its value comes more from analyst reasoning and reporting structure than from software engineering complexity.
+## What I take from it
+- [v] I put my Excel and Power Query skills at the service of business questions.
+- [v] I turned historical sales data into recommendations for a manager.
+- [v] I kept pipeline reliability and decision-support storytelling together.
+- [!] The value comes from analyst reasoning and reporting structure, not from high software complexity.
