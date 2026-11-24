@@ -922,14 +922,28 @@
   }
 }
 
-/* Ordinateur : le grand article à gauche, les deux autres à sa droite, séparés par un filet vertical */
+/* Mobile : trois articles seulement (le grand et deux autres), pour ne pas allonger la page */
+@media (max-width: 639px) {
+  .blog-latest__item:nth-child(n + 4) {
+    display: none;
+  }
+}
+
+/* Ordinateur : le grand article à gauche, les autres à sa droite en deux colonnes (deux lignes s'il y en a quatre),
+   séparés par un filet vertical */
 @media (min-width: 1024px) {
   .blog-latest__grid {
     grid-template-columns: minmax(0, 1.5fr) repeat(2, minmax(0, 1fr));
+    row-gap: 2rem;
   }
 
   .blog-latest__item--lead {
     grid-column: auto;
+  }
+
+  /* À partir de 4 articles, le grand article s'étend sur deux lignes ; avec 3 articles la disposition reste sur une ligne */
+  .blog-latest__grid:has(.blog-latest__item:nth-child(4)) .blog-latest__item--lead {
+    grid-row: span 2;
   }
 
   .blog-latest__item + .blog-latest__item {

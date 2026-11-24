@@ -1,0 +1,194 @@
+{
+  "en": {
+    "profile": {
+      "firstNames": "Aurel",
+      "lastName": "VEHI",
+      "role": "Applied economist · PhD researcher",
+      "affiliation": "ESTIA & University of Bordeaux",
+      "avatarSrc": "/assets/images/hero-image.png",
+      "avatarAlt": "Portrait of Aurel Vehi",
+      "resumeLabel": "View my Resume"
+    },
+    "timeline": [
+      {
+        "when": "Background",
+        "what": "Economics, econometrics & data science"
+      },
+      {
+        "when": "2024–2025",
+        "what": "Data research & econometrics roles, Monaco"
+      },
+      {
+        "when": "2026",
+        "what": "First peer-reviewed publication"
+      },
+      {
+        "when": "2026–2029",
+        "what": "PhD in applied economics",
+        "current": true
+      },
+      {
+        "when": "Next",
+        "what": "…",
+        "next": true
+      }
+    ],
+    "aboutSections": [
+      {
+        "heading": "What I work on",
+        "body": "My doctoral research is about the transformation and maturity of firms, and how the two together explain adaptation, innovation, performance and sustainability. I am building an analytical framework to observe, measure and explain these dynamics in their territorial and cross-border contexts, within the European OISE project (Nouvelle-Aquitaine–Euskadi–Navarre Euroregion)."
+      },
+      {
+        "heading": "How I work",
+        "body": "I start by making the subject my own, exploring the disciplines it touches to understand its foundations, mechanisms and stakes. From there I build a conceptual framework that structures the phenomena and their relationships, then a quantitative representation, using statistics, econometrics and data science to measure, explain the dynamics and, where possible, anticipate how they evolve."
+      },
+      {
+        "heading": "Beyond research",
+        "body": "I am particularly fascinated by how the human mind can grasp the complexity of the real world with very few means: that is what draws me to mathematics and, in my field, to modeling and measuring economic phenomena from data. These data are traces of far more complex phenomena; using them means understanding the underlying mechanisms better and trying to anticipate how they evolve."
+      }
+    ],
+    "aboutLabels": {
+      "title": "About Me",
+      "exploreWork": "Explore my Work",
+      "getInTouch": "Get in touch",
+      "viewPapers": "View my papers",
+      "timelineLabel": "Career timeline",
+      "hook": "Applied economist who models complex economic phenomena to explain them simply.",
+      "workingOn": "I work on",
+      "journeyTitle": "My journey",
+      "downloadResume": "View my Resume",
+      "journeyPlace": "ESTIA & University of Bordeaux",
+      "readMore": "Read more",
+      "readLess": "Read less",
+      "nextTitle": "Go further",
+      "papersDoor": "My research",
+      "projectsDoor": "My projects",
+      "contactLink": "A question? Get in touch"
+    },
+    "themes": [
+      {
+        "label": "Firm transformations"
+      },
+      {
+        "label": "Indicators",
+        "tag": "index"
+      },
+      {
+        "label": "Value of our ecosystems"
+      },
+      {
+        "label": "Time series",
+        "tag": "time-series"
+      }
+    ],
+    "landingLabels": {
+      "learnMore": "Learn more",
+      "latestThings": "Latest things"
+    },
+    "publicationsLabels": {
+      "eyebrow": "Research",
+      "title": "My research papers",
+      "intro": "Topics I have worked on and published about: blue carbon and the value of natural capital.",
+      "backToAbout": "Back to about",
+      "viewPaper": "View paper",
+      "seoTitle": "Research papers",
+      "seoDescription": "Peer-reviewed publications co-authored by Aurel Vehi."
+    }
+  },
+  "fr": {
+    "profile": {
+      "firstNames": "Aurel",
+      "lastName": "VEHI",
+      "role": "Économiste appliqué · Doctorant",
+      "affiliation": "ESTIA & Université de Bordeaux",
+      "avatarSrc": "/assets/images/hero-image.png",
+      "avatarAlt": "Portrait d’Aurel Vehi",
+      "resumeLabel": "Voir mon CV"
+    },
+    "timeline": [
+      {
+        "when": "Formation",
+        "what": "Économie, économétrie et science des données"
+      },
+      {
+        "when": "2024–2025",
+        "what": "Postes en recherche de données et économétrie, Monaco"
+      },
+      {
+        "when": "2026",
+        "what": "Première publication évaluée par les pairs"
+      },
+      {
+        "when": "2026–2029",
+        "what": "Doctorat en économie appliquée",
+        "current": true
+      },
+      {
+        "when": "Ensuite",
+        "what": "…",
+        "next": true
+      }
+    ],
+    "aboutSections": [
+      {
+        "heading": "Sur quoi je travaille",
+        "body": "Mes recherches doctorales portent sur la transformation et la maturité des entreprises, et sur la façon dont elles s’articulent pour expliquer l’adaptation, l’innovation, la performance et la durabilité. Je développe un cadre analytique pour observer, mesurer et expliquer ces dynamiques dans leurs contextes territoriaux et transfrontaliers, dans le cadre du projet européen OISE (Eurorégion Nouvelle-Aquitaine–Euskadi–Navarre)."
+      },
+      {
+        "heading": "Ma façon de travailler",
+        "body": "Je commence par m’approprier le sujet en explorant les disciplines qui le touchent, pour en comprendre les fondements, les mécanismes et les enjeux. J’en tire un cadre conceptuel qui structure les phénomènes et leurs relations, puis une représentation quantitative, avec la statistique, l’économétrie et la science des données : mesurer, expliquer les dynamiques et, quand c’est possible, anticiper leur évolution."
+      },
+      {
+        "heading": "Au-delà de la recherche",
+        "body": "Je suis particulièrement fasciné par la capacité de l’esprit humain à saisir la complexité du réel avec très peu de moyens : c’est ce qui m’attire dans les mathématiques et, dans mon domaine, dans la modélisation et la mesure des phénomènes économiques à partir des données. Ces données sont les traces de phénomènes bien plus complexes ; les exploiter, c’est mieux comprendre les mécanismes sous-jacents et tenter d’en anticiper l’évolution."
+      }
+    ],
+    "aboutLabels": {
+      "title": "À propos",
+      "exploreWork": "Découvrir mes travaux",
+      "getInTouch": "Me contacter",
+      "viewPapers": "Voir mes articles",
+      "timelineLabel": "Parcours",
+      "hook": "Économiste appliqué, je modélise des phénomènes économiques complexes pour les expliquer simplement.",
+      "workingOn": "Je travaille sur",
+      "journeyTitle": "Mon parcours",
+      "downloadResume": "Voir mon CV",
+      "journeyPlace": "ESTIA & Université de Bordeaux",
+      "readMore": "Lire la suite",
+      "readLess": "Réduire",
+      "nextTitle": "Pour aller plus loin",
+      "papersDoor": "Ma recherche",
+      "projectsDoor": "Mes projets",
+      "contactLink": "Une question ? Me contacter"
+    },
+    "themes": [
+      {
+        "label": "Transformations des entreprises"
+      },
+      {
+        "label": "Indicateurs",
+        "tag": "indice"
+      },
+      {
+        "label": "Valeur de nos écosystèmes"
+      },
+      {
+        "label": "Séries temporelles",
+        "tag": "series-temporelles"
+      }
+    ],
+    "landingLabels": {
+      "learnMore": "En savoir plus",
+      "latestThings": "Dernières nouveautés"
+    },
+    "publicationsLabels": {
+      "eyebrow": "Recherche",
+      "title": "Mes articles de recherche",
+      "intro": "Les sujets sur lesquels j’ai travaillé et publié : le carbone bleu et la valeur du capital naturel.",
+      "backToAbout": "Retour à À propos",
+      "viewPaper": "Voir l’article",
+      "seoTitle": "Articles de recherche",
+      "seoDescription": "Publications évaluées par les pairs co-écrites par Aurel Vehi."
+    }
+  }
+}

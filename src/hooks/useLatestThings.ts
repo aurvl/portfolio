@@ -4,6 +4,7 @@
 //   2. papier : le plus récent de data/publications.json (champ `date`)
 //   3. article ou projet terminé : le plus récent des deux, calculé automatiquement
 // Les textes restent volontairement très courts (titre générique + quelques mots) : la carte est petite, surtout sur mobile.
+import featuredData from '../data/featured.json'
 import latestThingsData from '../data/latest-things.json'
 import projectsData from '../data/projects.json'
 import publicationsData from '../data/publications.json'
@@ -14,6 +15,8 @@ import { getLocalizedField, getProjectWindowRoute } from '../lib/utils'
 import { useBlogIndex } from './useBlogIndex'
 
 export type LatestThing = {
+  // « progress » (projet en cours), « paper » (dernier papier) ou « recent » (dernier article ou projet terminé)
+  kind: 'progress' | 'paper' | 'recent'
   id: string
   title: string
   description: string
@@ -23,6 +26,8 @@ export type LatestThing = {
   thumbnailAlt: string
   href: string
 }
+
+type CardOverrides = Partial<Record<'progress' | 'paper' | 'recent', Partial<Record<AppLanguage, { title?: string; description?: string }>>>>
 
 type LatestThingsEntry = {
   state: 'progress' | 'prep' | 'done'
@@ -53,6 +58,7 @@ export function useLatestThings(lang: AppLanguage) {
 
   if (inProgress) {
     items.push({
+      kind: 'progress',
       id: `in-progress-${inProgress.projectSlug ?? inProgress.title}`,
       title: inProgress.title,
       description: inProgress.detail,
@@ -68,6 +74,7 @@ export function useLatestThings(lang: AppLanguage) {
 
   if (latestPaper) {
     items.push({
+      kind: 'paper',
       id: `paper-${latestPaper.url}`,
       title: t('latest.lastPaper'),
       description: t('latest.paperKind'),
@@ -88,6 +95,7 @@ export function useLatestThings(lang: AppLanguage) {
 
   if (projectIsNewer) {
     items.push({
+      kind: 'recent',
       id: `project-${latestProject.slug}`,
       title: t('latest.lastProject'),
       // Premier domaine du projet (ex. « Econometrics »)
@@ -99,6 +107,7 @@ export function useLatestThings(lang: AppLanguage) {
     })
   } else if (latestPost) {
     items.push({
+      kind: 'recent',
       id: `post-${latestPost.slug}`,
       title: t('latest.lastPost'),
       description: t('latest.postKind'),
@@ -109,5 +118,20 @@ export function useLatestThings(lang: AppLanguage) {
     })
   }
 
-  return items
+  // Texte d'affichage choisi dans data/featured.json (`cards`) : remplace le titre et la description automatiques de la
+  // carte (papier, dernier article ou projet), sans toucher aux données du papier, de l'article ou du projet.
+  const overrides = featuredData.cards as CardOverrides
+  for (const item of items) {
+    const override = overrides[item.kind]?.[lang]
+    if (override?.title?.trim()) item.title = override.title.trim()
+    if (override?.description?.trim()) item.description = override.description.trim()
+  }
+
+  // Ordre des cartes choisi dans data/featured.json (`latest`) ; une carte absente de la liste passe à la fin
+  const rank = (item: LatestThing) => {
+    const position = (featuredData.latest as string[]).indexOf(item.kind)
+    return position === -1 ? featuredData.latest.length : position
+  }
+
+  return items.sort((a, b) => rank(a) - rank(b))
 }

@@ -1,0 +1,18 @@
+{
+  "hub": {
+    "lead": "fmarketmonitor",
+    "row": [
+      "bayesian-linear-regression-econometrics",
+      "insurance-claim-fraud-counterfactual-simulator",
+      "fear-greed-index-estimator",
+      "technological-employment-gender-inequalities"
+    ],
+    "text": {}
+  },
+  "latest": [
+    "progress",
+    "paper",
+    "recent"
+  ],
+  "cards": {}
+}
