@@ -117,6 +117,7 @@ Modifier : `Navbar`, `MainLayout`, `HomePage`, `ProjectsPage`, `BlogPage`, `Publ
       bas au milieu, À CHEVAL sur le bord bas de la photo (2ᵉ voyage de `MorphNavbar`, emplacement vide `data-morph-slot`
       sous la section) ; le menu compact s'ouvre vers le bas, et vers le haut seulement s'il manque de place dessous. « Get in touch » y mène. À reprendre : `/contact` n'existe pas (la
       navbar des autres pages pointe vers `/#contact-form`), envoi non testé en réel, mobile à vérifier (13).
+      Bilan 24/11/2026 : cochée, car ce qui était prévu est fait ; l'ancre est `#contact-form` (pas `#contact`, voir étape 9).
 - [x] 8b. Footer v3 (toutes les pages) : `Footer` + `footer.css`. Pas de bandeau de photo (retiré : il contredisait la
       maquette du Contact) ; marque / Navigation (entrées de `useSiteNav`
       sans Accueil ni Contact, CV = lien direct) / Profils (ORCID, ResearchGate, GitHub, Threads) / Contact (Email,
@@ -124,7 +125,18 @@ Modifier : `Navbar`, `MainLayout`, `HomePage`, `ProjectsPage`, `BlogPage`, `Publ
       tablette 2 colonnes, mobile centré. `BackToTopButton` se masque quand le pied de page est à l'écran. Textes
       FR/EN dans `locales/`. À reprendre : les anciens styles V2 du footer disparaissent à l'étape 15 ; le nom du
       pied de page est le vrai (hors placeholders).
-- [ ] 9. Assemblage `HomePage` one-page en CSS scroll-snap, ancres, hash, SEO.
+- [~] 9. Assemblage `HomePage` one-page en CSS scroll-snap, ancres, hash, SEO. Faite en grande partie pendant l'expérience
+      (bilan du 24/11/2026, d'après le code, sans nouveau test). COUVERT : `HomePage` one-page (scène + `scroll-snap`
+      `html.snap-home`) ; ancres `#home`, `#about`, `#research`, `#contact-form` présentes (ordinateur : zones de la scène ;
+      mobile : `id` sur `PublicationsSection` / `ContactSection`) ; hash géré (`HomePage` → `navigateToSection`,
+      `ScrollManager`, `useBambooMobile` pour l'écran de départ, liens `/#…` interceptés) ; `Seo` de l'accueil (titre,
+      description, image, JSON-LD Person + WebSite, canonical, Open Graph). RESTE : (a) l'ancre `/#contact` n'existe pas :
+      seule `#contact-form` existe (navbar, footer et boutons l'utilisent) ; décider d'un alias ou de garder ce nom ;
+      (b) `/#about`, `/#research`, `/#contact-form` testés au Playwright seulement sur ordinateur et à 390 px pour
+      l'expérience, pas rechargés à froid avec le hash sur tablette ; (c) SEO accueil non revérifié : pas de `hreflang`
+      dans `Seo.tsx`, titre / description fondés sur `PERSON_*` de `lib/site.ts` (contenu réel à l'étape 16), et
+      `scripts/generate-seo.ts` (sitemap, redirections) pas relu pour l'accueil v3 ; (d) `<h1>` / `<h2>` dupliqués
+      entre landing et About (étape 14).
 - [ ] 10. Hub : en-tête, `FeaturedHub`, grille `ProjectCard`.
 - [ ] 11. `SearchPanel` branché sur les filtres ; deep-link `?project=` intact.
 - [ ] 12. Blog : `/blog` redirige vers la partie blog du hub ; bloc derniers articles + série mise en avant ;
