@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import { useReducedMotion } from 'framer-motion'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { placeholders } from '../data/placeholders'
+import { navigateToSection, useSectionLinks } from '../lib/navigateToSection'
 import { useBambooMobile } from '../hooks/useBambooMobile'
 import { useBambooScene } from '../hooks/useBambooScene'
 import { useHomeContent } from '../hooks/useHomeContent'
@@ -25,21 +26,6 @@ import {
   buildAbsoluteSiteUrl,
 } from '../lib/site'
 
-
-// Passe à l'écran suivant : un écran de hauteur de fenêtre plus bas que la landing.
-function scrollToNextScreen() {
-  window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })
-}
-
-function scrollToSection(sectionId: string) {
-  // Mobile et tablette : chaque écran est une scène, on y va par une transition (useBambooMobile)
-  if (document.documentElement.dataset.scene) {
-    window.dispatchEvent(new CustomEvent('scene:go', { detail: sectionId }))
-    return
-  }
-  document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-}
-
 function HomePage() {
   const location = useLocation()
   const navigate = useNavigate()
@@ -60,7 +46,9 @@ function HomePage() {
   // Sous 1024 px : Landing et About sont deux états d'une scène fixe ; la transition est DÉCLENCHÉE (geste, molette, clavier
   // ou « Learn more »), jouée dans le temps (0 → 1) pendant que le scroll est bloqué ; chaque autre bannière zoome / s'ouvre
   // selon sa position
-  const { progress: mobileProgress, contactProgress, goToAbout } = useBambooMobile(!isSceneActive, reducedMotion)
+  const { progress: mobileProgress, contactProgress } = useBambooMobile(!isSceneActive, reducedMotion)
+  // Tous les liens internes vers une section de l'accueil passent par navigateToSection (transitions de la scène)
+  useSectionLinks()
 
   // Scroll-snap sur la page entière : la molette s'arrête sur chaque écran (landing, puis suite).
   // La classe est posée sur <html> (seul élément qui peut porter le snap de la page) et retirée en partant.
@@ -73,7 +61,7 @@ function HomePage() {
   useEffect(() => {
     if (!location.hash) return
 
-    const timeoutId = window.setTimeout(() => scrollToSection(location.hash.slice(1)), 0)
+    const timeoutId = window.setTimeout(() => navigateToSection(location.hash.slice(1)), 0)
 
     return () => window.clearTimeout(timeoutId)
   }, [location.hash])
@@ -88,7 +76,7 @@ function HomePage() {
           sections={homeSections}
           reducedMotion={reducedMotion}
           learnMoreLabel={learnMoreLabel}
-          onLearnMore={isSceneActive ? scrollToNextScreen : goToAbout}
+          onLearnMore={() => navigateToSection('about')}
           sceneProgress={isSceneActive ? sceneProgress : mobileProgress}
           isSceneActive={isSceneActive}
           contactProgress={contactProgress}
@@ -144,7 +132,7 @@ function HomePage() {
 
           <section className="landing">
             <LandingHero
-              onLearnMore={isSceneActive ? scrollToNextScreen : goToAbout}
+              onLearnMore={() => navigateToSection('about')}
               isButtonInNavbar={!reducedMotion}
               inScene={isSceneActive}
             />
@@ -155,8 +143,8 @@ function HomePage() {
             inScene={isSceneActive}
             isPhotoShared={!isSceneActive}
             onExploreWork={() => navigate('/projects')}
-            onGetInTouch={() => scrollToSection('contact-form')}
-            onViewPapers={() => scrollToSection('research')}
+            onGetInTouch={() => navigateToSection('contact-form')}
+            onViewPapers={() => navigateToSection('research')}
           />
 
           {isSceneActive ? <PapersChrome /> : null}

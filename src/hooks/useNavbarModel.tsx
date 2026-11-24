@@ -4,19 +4,8 @@ import { useEffect, useState, type ReactElement } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import type { NavbarSection } from '../components/layout/Navbar'
 import { cn } from '../lib/cn'
-import { jumpToSection } from '../lib/jumpToSection'
+import { navigateToSection } from '../lib/navigateToSection'
 import { useCompactMenu } from './useCompactMenu'
-
-function scrollToSection(sectionId: string) {
-  // Mobile et tablette : chaque écran (Accueil, About, Recherche, Contact) est une scène à part, on y va par une
-  // transition au lieu de défiler (useBambooMobile)
-  if (document.documentElement.dataset.scene) {
-    window.dispatchEvent(new CustomEvent('scene:go', { detail: sectionId }))
-    return
-  }
-  // Ordinateur : fondu vers l'état final de la section plutôt qu'un défilement qui montre les étapes de la scène
-  jumpToSection(sectionId)
-}
 
 export function useNavbarModel(sections: NavbarSection[], reducedMotion: boolean) {
   const location = useLocation()
@@ -101,7 +90,7 @@ export function useNavbarModel(sections: NavbarSection[], reducedMotion: boolean
         aria-current={active ? 'true' : undefined}
         onClick={() => {
           close()
-          scrollToSection(section.id)
+          navigateToSection(section.id)
         }}
       >
         {section.label}
