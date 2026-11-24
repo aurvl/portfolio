@@ -310,6 +310,19 @@ export function useBambooMobile(
       announceLayout()
     }
 
+    // Destination lointaine passant par la landing : la transition suivante démarre à la fin de la précédente
+    let pendingTarget: Scene | null = null
+    const runPending = () => {
+      const target = pendingTarget
+      pendingTarget = null
+      if (!target || target === scene) return
+      window.setTimeout(() => {
+        if (isPlaying) return
+        if (scene === 'about' && target === 'landing') window.scrollTo({ top: 0, behavior: 'instant' })
+        request(target, true)
+      }, 0)
+    }
+
     // Fin de la transition Landing ↔ About
     const finish = () => {
       stopMorph()
@@ -319,6 +332,7 @@ export function useBambooMobile(
       setBelowInert(scene === 'landing')
       isPlaying = false
       lastEndedAt = performance.now()
+      runPending()
     }
 
     const startTransition = (next: Scene) => {
@@ -375,6 +389,7 @@ export function useBambooMobile(
       isPlaying = false
       lastEndedAt = performance.now()
       announceLayout()
+      runPending()
     }
 
     // About ↔ Recherche ↔ Contact. L'écran d'arrivée est déjà à sa place dans la page ; l'écran qui part est une couche
@@ -436,17 +451,14 @@ export function useBambooMobile(
     }
     requestAbout.current = () => request('about', true)
 
-    // Aller à un écran : par une transition s'il est voisin, sinon par une bascule sans animation
+    // Aller à un écran, toujours par une transition : directe entre About, Recherche et Contact (même à distance) ; en
+    // deux temps quand la landing est de la partie (Landing → About, puis About → destination)
     const goTo = (target: Scene) => {
       if (isPlaying || target === scene) return
       if (scene === 'about' && target === 'landing') window.scrollTo({ top: 0, behavior: 'instant' })
-      if (Math.abs(indexOfScene(target) - indexOfScene(scene)) === 1) {
-        request(target, true)
-        return
-      }
-      window.scrollTo({ top: 0, behavior: 'instant' })
-      commit(target)
-      window.scrollTo({ top: 0, behavior: 'instant' })
+      const isViaAbout = (scene === 'landing' && target !== 'about') || (target === 'landing' && scene !== 'about')
+      if (isViaAbout) pendingTarget = target
+      request(isViaAbout ? 'about' : target, true)
     }
 
     // ---------- LES GESTES ----------
