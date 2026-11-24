@@ -238,11 +238,19 @@ version 1200 px, sinon le fichier de 1,25 Mo se télécharge pour rien).
             Vérifié en Chromium tactile (390 x 844, 1180 x 820, mouvement réduit) ; desktop inchangé. Plus de calage
             `scroll-snap` en tactile (l'About est plus haute que l'écran). FALLBACK si ça échoue : tag git
             `retour-e4a-waapi` (commit 9aea60a), mobile = scroll classique + fondus à l'entrée, morph = desktop seulement.
-      - [ ] E4b. About → Recherche → Contact : PAS encore au principe « déclencher ». Aujourd'hui ces passages sont de
-            simples défilements ; seules les bannières réagissent, liées à leur POSITION dans la page (zoom ×1,16 →
-            ×1,30 → ×1,45 plafonné pour la netteté, ouverture du cadre à l'arrivée) et la navbar descend se loger en
-            bas de la page (emplacement sous le Contact, elle défile avec la page). À faire : un état par écran
-            (About, Recherche, Contact) joué en temps fixe comme E4a, avec le même zoom / resserrement de bannière.
+      - [~] E4b v2, PORTES (24/11/2026, essai 1, EN ATTENTE du test iPhone / iPad). Un premier essai (bandeaux
+            déclenchés par leur position, scroll libre : commits 78b75da puis revert a6bc2dc) a été refusé : « c'est
+            toujours du scroll ». Nouveau principe, celui de E4a étendu : quatre écrans (Landing, About, Recherche,
+            Contact), UN seul affiché à la fois (classe `scene-hidden`), qui défile normalement s'il est plus haut que la
+            fenêtre. Écran suivant : geste vers le bas / molette / flèche COMMENCÉ tout en bas de l'écran ; écran
+            précédent : geste vers le haut commencé tout en haut. Transition de 600 ms, scroll bloqué : l'écran qui part
+            devient une couche fixe (`is-leaving`, posée où il était) qui s'efface ; l'écran d'arrivée est déjà en place
+            (scroll 0 en avant, tout en bas en arrière) et apparaît, avec zoom + ouverture du cadre pour Recherche et
+            Contact. Le Contact joue aussi le voyage de la navbar (`contactProgress`, canal « contact » de morphPlayer).
+            Onglets de la navbar, « Get in touch », « View papers » et liens `#…` passent par l'événement `scene:go`.
+            Garde de 500 ms comme E4a. Pied de page et emplacement de la navbar : seulement avec le Contact (ils
+            disparaissent d'un coup en le quittant). Encart ?debug=1 retiré. Desktop inchangé. Vérification : lint +
+            content:validate + build seulement. FALLBACK si échec : tag `e4a-v2-validee` (Landing ↔ About seulement).
       - Landing en un écran sous 900 px (`100svh`) : « Latest things » devient un carrousel horizontal en scroll-snap
         (carte suivante qui dépasse, points indicateurs). Vérifié à 375 × 667, 390 × 844 et 768 × 1024.
       - Critère tactile : « ordinateur » = `(min-width: 1024px) and (hover: hover) and (pointer: fine)` (HomePage,
