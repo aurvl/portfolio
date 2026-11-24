@@ -14,16 +14,12 @@
 // GARDE : après chaque transition, plus rien n'est pris en compte pendant GUARD_MS, et un geste n'est valable que s'il a
 // commencé APRÈS la fin de la transition (le doigt encore posé pendant l'élan ne rejoue rien).
 //
-// AUTRES BANNIÈRES (Recherche, Contact) : DÉCLENCHÉES aussi. Quand le haut d'un bandeau passe sous un seuil de la fenêtre,
-// son « arrivée » se joue en 600 ms (zoom qui se resserre + cadre qui s'ouvre) ; en remontant, elle se rejoue à l'envers.
-// Le scroll n'est pas bloqué : l'animation est jouée par le navigateur (WAAPI), donc visible même pendant l'élan. Rien ne
-// se déclenche pendant la transition Landing → About ni pendant la garde qui la suit. L'arrivée du Contact déclenche
-// aussi le voyage de la navbar vers le bas de la page (`contactProgress`, lu par MorphNavbar). La bannière de l'About est
-// celle de la landing (une seule photo), elle n'a plus de logique propre.
+// AUTRES BANNIÈRES (Recherche, Contact) : liées à leur position dans la page (E4b, pas encore déclenchées). La bannière de
+// l'About est celle de la landing (une seule photo), elle n'a plus de logique propre.
 // On n'anime que transform, opacity et clip-path. prefers-reduced-motion : fondu simple, ni zoom ni resserrement.
 import { useCallback, useLayoutEffect, useRef } from 'react'
 import { animate, useMotionValue, useScroll, type MotionValue } from 'framer-motion'
-import { MORPH_DURATION_MS, morphEase, playMorph, playTimed, registerMorphElement, stopMorph } from '../lib/morphPlayer'
+import { MORPH_DURATION_MS, morphEase, playMorph, registerMorphElement, stopMorph } from '../lib/morphPlayer'
 
 type BannerSpec = {
   // Le cadre (clip-path, opacité) et la photo qu'il contient (zoom)
@@ -38,21 +34,6 @@ type BannerSpec = {
   clipMaxPx: number
   // Vrai si la photo est collée à l'écran (hauteur de la fenêtre) au lieu de remplir tout le cadre (Contact)
   isPhotoViewportHigh?: boolean
-  // Vrai si l'arrivée de ce bandeau déclenche aussi le voyage de la navbar vers le bas de la page (Contact)
-  drivesNavbar?: boolean
-}
-
-// État d'un bandeau : cible (0 = hors champ, 1 = arrivé), mesures de netteté et animations en cours
-type BannerRuntime = {
-  spec: BannerSpec
-  frame: HTMLElement
-  image: HTMLElement
-  target: 0 | 1
-  from: number
-  startedAt: number
-  animations: Animation[]
-  clipPx: number
-  sharpness: number
 }
 
 type Scene = 'landing' | 'about'
@@ -62,7 +43,7 @@ const LANDING_ZOOM_EXTRA = 0.16
 
 const BANNERS: BannerSpec[] = [
   { frame: '.papers__banner', image: '.papers__banner-image', zoom: 1.3, clipSide: 'bottom', clipRatio: 0.6, clipMaxPx: 120 },
-  { frame: '.contact__photo-frame', image: '.contact__photo', zoom: 1.45, clipSide: 'top', clipRatio: 0.1, clipMaxPx: 70, isPhotoViewportHigh: true, drivesNavbar: true },
+  { frame: '.contact__photo-frame', image: '.contact__photo', zoom: 1.45, clipSide: 'top', clipRatio: 0.1, clipMaxPx: 70, isPhotoViewportHigh: true },
 ]
 
 // Découpage de la transition, en fraction de la progression (0 = landing, 1 = About)
@@ -87,25 +68,21 @@ const PHOTO_MAX_UPSCALE = 1.45
 
 // À l'arrivée, la photo part de ce zoom en moins et rejoint son zoom final
 const ZOOM_ARRIVAL_EXTRA = 0.14
-// Un bandeau « arrive » quand son haut passe au-dessus de 75 % de la hauteur de la fenêtre ; il « repart » quand il
-// redescend sous 92 % (l'écart évite qu'il rejoue sans cesse au moindre tremblement du scroll)
-const ARRIVE_AT = 0.75
-const LEAVE_AT = 0.92
+const ZOOM_LEAVING_EXTRA = 0.1
 
 // Ce qui est caché (inerte) tant qu'on est sur la landing : l'About et tout ce qui est dessous
 const BELOW_LANDING_SELECTOR = '.about, .papers, .contact, [data-morph-slot], footer'
 
 const clamp01 = (value: number) => Math.min(1, Math.max(0, value))
+const smooth = morphEase
 
 export function useBambooMobile(
   isActive: boolean,
   reducedMotion: boolean,
-): { progress: MotionValue<number>; contactProgress: MotionValue<number>; goToAbout: () => void } {
+): { progress: MotionValue<number>; goToAbout: () => void } {
   const { scrollY } = useScroll()
   // 0 = landing, 1 = About ; jouée dans le temps, jamais liée directement au scroll
   const progress = useMotionValue(0)
-  // 0 = navbar en haut, 1 = navbar posée en bas du Contact ; jouée dans le temps à l'arrivée du bandeau Contact
-  const contactProgress = useMotionValue(0)
   // Demande de transition vers l'About, appelée par « Learn more » (HomePage) ; posée par l'effet ci-dessous
   const requestAbout = useRef<() => void>(() => {})
   const goToAbout = useCallback(() => requestAbout.current(), [])
@@ -115,14 +92,13 @@ export function useBambooMobile(
 
     const root = document.documentElement
 
-    const banners: BannerRuntime[] = []
-    BANNERS.forEach((spec) => {
-      const frame = document.querySelector<HTMLElement>(spec.frame)
-      const image = document.querySelector<HTMLElement>(spec.image)
-      if (frame && image) {
-        banners.push({ spec, frame, image, target: 0, from: 0, startedAt: -Infinity, animations: [], clipPx: 0, sharpness: 1 })
-      }
-    })
+    const banners = BANNERS.map((spec) => ({
+      spec,
+      frame: document.querySelector<HTMLElement>(spec.frame),
+      image: document.querySelector<HTMLElement>(spec.image),
+    })).filter((banner): banner is typeof banner & { frame: HTMLElement; image: HTMLElement } =>
+      Boolean(banner.frame && banner.image),
+    )
 
     const landingFrame = document.querySelector<HTMLElement>('.landing-hero__photo')
     const landingImage = document.querySelector<HTMLElement>('.landing-hero__background')
@@ -185,96 +161,33 @@ export function useBambooMobile(
       register(landingFrame, ({ progress: value }) => ({ clipPath: frameClipPath(value) }))
     }
 
-    // ---------- LES BANNIÈRES (Recherche, Contact) ----------
-    // Mesures qui ne changent qu'avec la taille de la fenêtre : rognage maximal du cadre et netteté de la photo
-    const measureBanner = (banner: BannerRuntime) => {
-      const rect = banner.frame.getBoundingClientRect()
-      // Largeur réellement affichée de la photo (object-fit: cover : elle remplit la largeur ou la hauteur du cadre)
-      const photoHeight = banner.spec.isPhotoViewportHigh ? window.innerHeight : rect.height
-      const shownWidth = Math.max(rect.width, photoHeight * PHOTO_RATIO) * (window.devicePixelRatio || 1)
-      const allowedZoom = (PHOTO_MAX_UPSCALE * PHOTO_NATURAL_WIDTH) / shownWidth
-      banner.sharpness = clamp01((allowedZoom - 1) / (banner.spec.zoom - 1))
-      banner.clipPx = Math.min(banner.spec.clipMaxPx, rect.height * banner.spec.clipRatio)
-    }
+    // AUTRES BANNIÈRES : liées à leur position dans la page
+    const applyBanners = () => {
+      const viewHeight = window.innerHeight
 
-    // Styles d'un bandeau à une progression donnée (0 = hors champ, 1 = arrivé) : fonctions pures, lues par les styles en
-    // ligne et par les animations WAAPI
-    const bannerTransform = (banner: BannerRuntime, value: number) => {
-      const zoom = banner.spec.zoom - (1 - value) * ZOOM_ARRIVAL_EXTRA
+      banners.forEach(({ spec, frame, image }) => {
+        const rect = frame.getBoundingClientRect()
+        // Arrivée : 0 quand le haut de la bannière entre par le bas de l'écran, 1 quand il atteint 15 % du haut
+        const arrival = smooth(clamp01((viewHeight - rect.top) / (viewHeight * 0.85)))
+        // Départ : 0 tant que la bannière est en place, 1 quand elle est entièrement sortie par le haut
+        const leaving = clamp01(-rect.top / Math.max(rect.height, 1))
 
-      return `scale(${1 + (zoom - 1) * banner.sharpness})`
-    }
-    const bannerClipPath = (banner: BannerRuntime, value: number) => {
-      const clip = banner.clipPx * (1 - value)
-
-      return banner.spec.clipSide === 'top' ? `inset(${clip}px 0 0 0)` : `inset(0 0 ${clip}px 0)`
-    }
-
-    const setBanner = (banner: BannerRuntime, value: number) => {
-      if (reducedMotion) {
-        banner.frame.style.opacity = String(value)
-        return
-      }
-      banner.image.style.transform = bannerTransform(banner, value)
-      banner.frame.style.clipPath = bannerClipPath(banner, value)
-    }
-
-    // Où en est le bandeau en ce moment (en plein mouvement, on repart de là au lieu de sauter)
-    const getBannerValue = (banner: BannerRuntime) => {
-      const duration = reducedMotion ? FADE_MS : MORPH_DURATION_MS
-      const time = clamp01((performance.now() - banner.startedAt) / duration)
-
-      return banner.from + (banner.target - banner.from) * (reducedMotion ? time : morphEase(time))
-    }
-
-    // Voyage de la navbar vers le bas du Contact (ou retour en haut), joué dans le temps comme les bandeaux
-    let contactPlayback: ReturnType<typeof animate> | undefined
-    const playContact = (to: 0 | 1) => {
-      const from = contactProgress.get()
-      contactPlayback?.stop()
-      contactPlayback = animate(contactProgress, to, {
-        duration: (reducedMotion ? FADE_MS : MORPH_DURATION_MS) / 1000,
-        ease: 'linear',
-      })
-      if (!reducedMotion) playMorph(from, to, 'contact')
-    }
-
-    const playBanner = (banner: BannerRuntime, to: 0 | 1) => {
-      const from = getBannerValue(banner)
-      banner.animations.forEach((animation) => animation.cancel())
-      banner.animations = []
-      banner.from = from
-      banner.target = to
-      banner.startedAt = performance.now()
-      // Le style final est posé tout de suite ; l'animation WAAPI ne fait que le montrer en mouvement
-      setBanner(banner, to)
-
-      if (reducedMotion) {
-        const fade = playTimed(banner.frame, ({ progress: value }) => ({ opacity: value }), from, to, FADE_MS)
-        if (fade) banner.animations.push(fade)
-      } else {
-        const clip = playTimed(banner.frame, ({ progress: value }) => ({ clipPath: bannerClipPath(banner, value) }), from, to)
-        const zoom = playTimed(banner.image, ({ progress: value }) => ({ transform: bannerTransform(banner, value) }), from, to)
-        banner.animations.push(...[clip, zoom].filter((animation): animation is Animation => Boolean(animation)))
-      }
-      if (banner.spec.drivesNavbar) playContact(to)
-    }
-
-    // Départ sans animation : chaque bandeau est tout de suite dans l'état que sa position impose
-    const initBanners = () => {
-      banners.forEach((banner) => {
-        banner.animations.forEach((animation) => animation.cancel())
-        banner.animations = []
-        measureBanner(banner)
-        banner.target = banner.frame.getBoundingClientRect().top < window.innerHeight * ARRIVE_AT ? 1 : 0
-        banner.from = banner.target
-        banner.startedAt = -Infinity
-        setBanner(banner, banner.target)
-        if (banner.spec.drivesNavbar) {
-          contactPlayback?.stop()
-          stopMorph('contact')
-          contactProgress.set(banner.target)
+        if (reducedMotion) {
+          frame.style.opacity = String(arrival)
+          return
         }
+
+        // Largeur réellement affichée de la photo (object-fit: cover : elle remplit la largeur ou la hauteur du cadre)
+        const photoHeight = spec.isPhotoViewportHigh ? viewHeight : rect.height
+        const shownWidth = Math.max(rect.width, photoHeight * PHOTO_RATIO) * (window.devicePixelRatio || 1)
+        const allowedZoom = (PHOTO_MAX_UPSCALE * PHOTO_NATURAL_WIDTH) / shownWidth
+        const sharpness = clamp01((allowedZoom - 1) / (spec.zoom - 1))
+
+        const nominalZoom = spec.zoom - (1 - arrival) * ZOOM_ARRIVAL_EXTRA + leaving * ZOOM_LEAVING_EXTRA
+        image.style.transform = `scale(${1 + (nominalZoom - 1) * sharpness})`
+
+        const clipPxOfBanner = Math.min(spec.clipMaxPx, rect.height * spec.clipRatio) * (1 - arrival)
+        frame.style.clipPath = spec.clipSide === 'top' ? `inset(${clipPxOfBanner}px 0 0 0)` : `inset(0 0 ${clipPxOfBanner}px 0)`
       })
     }
 
@@ -305,7 +218,6 @@ export function useBambooMobile(
       progress.set(next === 'about' ? 1 : 0)
       applyLanding(next === 'about' ? 1 : 0)
       setBelowInert(next === 'landing')
-      initBanners()
     }
 
     const finish = () => {
@@ -342,18 +254,6 @@ export function useBambooMobile(
     }
 
     const isGuarded = () => performance.now() - lastEndedAt < GUARD_MS
-
-    // Chaque bandeau passe à « arrivé » ou « hors champ » selon sa position ; rien pendant la transition Landing → About ni
-    // pendant la garde qui la suit (le scroll suivant réévalue)
-    const updateBanners = () => {
-      if (isPlaying || isGuarded()) return
-      const viewHeight = window.innerHeight
-      banners.forEach((banner) => {
-        const threshold = banner.target === 1 ? LEAVE_AT : ARRIVE_AT
-        const next = banner.frame.getBoundingClientRect().top < viewHeight * threshold ? 1 : 0
-        if (next !== banner.target) playBanner(banner, next)
-      })
-    }
 
     // Demande de transition vers `next` ; refusée pendant une transition, pendant la garde ou si on y est déjà
     const request = (next: Scene, shouldIgnoreGuard = false) => {
@@ -455,20 +355,18 @@ export function useBambooMobile(
       lastScrollAt = performance.now()
       // Scroll restauré par le navigateur après coup (retour de navigation) : on est donc sur l'About
       if (scene === 'landing' && !isPlaying && window.scrollY > 4) commit('about')
-      updateBanners()
+      applyBanners()
     }
 
     const handleResize = () => {
       measure()
       applyLanding(progress.get())
-      banners.forEach((banner) => {
-        measureBanner(banner)
-        setBanner(banner, banner.target)
-      })
+      applyBanners()
     }
 
     measure()
     commit(scene)
+    applyBanners()
 
     const stopListening = scrollY.on('change', handleScroll)
     const stopProgress = progress.on('change', applyLanding)
@@ -484,10 +382,7 @@ export function useBambooMobile(
     return () => {
       window.clearTimeout(finishTimer)
       playback?.stop()
-      contactPlayback?.stop()
       stopMorph()
-      stopMorph('contact')
-      banners.forEach((banner) => banner.animations.forEach((animation) => animation.cancel()))
       unregisterPlayers.forEach((unregister) => unregister())
       requestAbout.current = () => {}
       stopListening()
@@ -504,7 +399,6 @@ export function useBambooMobile(
       delete root.dataset.scene
       setBelowInert(false)
       progress.set(0)
-      contactProgress.set(0)
       ;[landingFrame, ...banners.map(({ frame }) => frame)].forEach((frame) => {
         if (!frame) return
         frame.style.clipPath = ''
@@ -523,7 +417,7 @@ export function useBambooMobile(
         latestThings.inert = false
       }
     }
-  }, [isActive, reducedMotion, scrollY, progress, contactProgress])
+  }, [isActive, reducedMotion, scrollY, progress])
 
-  return { progress, contactProgress, goToAbout }
+  return { progress, goToAbout }
 }

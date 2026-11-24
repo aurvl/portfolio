@@ -238,18 +238,11 @@ version 1200 px, sinon le fichier de 1,25 Mo se télécharge pour rien).
             Vérifié en Chromium tactile (390 x 844, 1180 x 820, mouvement réduit) ; desktop inchangé. Plus de calage
             `scroll-snap` en tactile (l'About est plus haute que l'écran). FALLBACK si ça échoue : tag git
             `retour-e4a-waapi` (commit 9aea60a), mobile = scroll classique + fondus à l'entrée, morph = desktop seulement.
-      - [~] E4b. About → Recherche → Contact, DÉCLENCHÉ (24/11/2026, essai 1, EN ATTENTE du test iPhone / iPad) :
-            chaque bandeau (Recherche, Contact) a deux états, « hors champ » et « arrivé ». Quand son haut passe au-dessus
-            de 75 % de la fenêtre, son arrivée se joue en 600 ms par WAAPI (zoom ×1,30 / ×1,45 plafonné pour la netteté,
-            parti de −0,14 ; cadre qui s'ouvre) ; il redescend sous 92 % : arrivée rejouée à l'envers (hystérésis).
-            Le scroll n'est PAS bloqué (le navigateur joue l'animation, même pendant l'élan). Même garde que E4a : rien
-            pendant la transition Landing → About ni les 500 ms qui suivent. L'arrivée du Contact déclenche aussi le voyage
-            de la navbar vers le bas (`contactProgress`, canal « contact » de `morphPlayer`, temps linéaire ; formules
-            partagées `getHeader*` dans `MorphNavbar`). Position visée : celle où la page se sera arrêtée (Contact plein
-            écran, au plus le bas de la page) ; une fois l'animation finie, la navbar suit de nouveau son emplacement.
-            Encart `?debug=1` (DebugOverlay) retiré. Desktop inchangé. Vérification : lint + content:validate + build
-            seulement (pas de test navigateur). FALLBACK si ça échoue (réponse « fallback ») : sur Recherche et
-            Contact, scroll classique avec fondu + légère montée et léger zoom des bambous, rien de plus.
+      - [ ] E4b. About → Recherche → Contact : PAS encore au principe « déclencher ». Aujourd'hui ces passages sont de
+            simples défilements ; seules les bannières réagissent, liées à leur POSITION dans la page (zoom ×1,16 →
+            ×1,30 → ×1,45 plafonné pour la netteté, ouverture du cadre à l'arrivée) et la navbar descend se loger en
+            bas de la page (emplacement sous le Contact, elle défile avec la page). À faire : un état par écran
+            (About, Recherche, Contact) joué en temps fixe comme E4a, avec le même zoom / resserrement de bannière.
       - Landing en un écran sous 900 px (`100svh`) : « Latest things » devient un carrousel horizontal en scroll-snap
         (carte suivante qui dépasse, points indicateurs). Vérifié à 375 × 667, 390 × 844 et 768 × 1024.
       - Critère tactile : « ordinateur » = `(min-width: 1024px) and (hover: hover) and (pointer: fine)` (HomePage,
