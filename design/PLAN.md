@@ -238,7 +238,19 @@ Modifier : `Navbar`, `MainLayout`, `HomePage`, `ProjectsPage`, `BlogPage`, `Publ
       brancher sur `LatestThings`) ; (b) fiches des projets en cours (FMarketMonitor, Cat Monitor, IA en Europe) : sans
       lien, méthode résumée, contenu à fournir par le propriétaire ; (c) polices Google (Roboto, Open Sans, Google Sans)
       importées par `globals.css` : à vérifier avant retrait ; (d) aperçu local validé avant merge.
-- [ ] 16. **Remplacement par le vrai contenu (obligatoire avant merge)** : supprimer `placeholders.ts` et toute
+- [ ] 16. (EN COURS, sans commit, 24/11/2026) FAIT : (a) fiche **FMarketMonitor** (PJ026, statut `in-progress`, aucun lien,
+      `featured: true`, fenêtre FR / EN d'après la trame du propriétaire, image Unsplash des oiseaux) ; mention « En cours »
+      sur la carte du Hub ; `validate_content.py` assoupli (un projet à la une a une image et des liens OU une fenêtre) ;
+      (b) **Latest things** branché : `now-building.json` renommé `latest-things.json` (projet en cours saisi à la main),
+      `publications.json` reçoit un `date` (`2026-07` pour l'article Blue Carbon), hook `useLatestThings` = projet en cours +
+      dernier papier + le plus récent entre dernier article et dernier projet terminé ; textes volontairement courts
+      (carte = « Ma dernière recherche », « Mon dernier projet »…) car trop de texte était coupé sur mobile ;
+      vignette de bambou allégée `bamboo-thumb.webp` pour le papier ; données fictives de `placeholders.ts` retirées pour
+      cette section. RESTE : le reste du contenu fictif (profil, parcours, publications de `/publications`, textes de la
+      landing, projets fictifs), à remplacer par le vrai ; la carte « papier » ouvre `/publications` qui montre encore des
+      papiers fictifs ; le Portfolio Manager doit apprendre `latest-things.json` et le champ `date` des publications.
+      Suite de l'étape :
+      **Remplacement par le vrai contenu (obligatoire avant merge)** : supprimer `placeholders.ts` et toute
       mention fictive, rebrancher les vraies données, relire les claims (AGENTS.md).
 
 Chaque étape : `npm run lint` + `npm run build` verts, résumé court, mise à jour de ce fichier.

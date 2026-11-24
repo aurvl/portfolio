@@ -1,5 +1,71 @@
 [
   {
+    "id": "PJ026",
+    "slug": "fmarketmonitor",
+    "status": "in-progress",
+    "date": "2026-11-24",
+    "featured": true,
+    "window": {
+      "enabled": true,
+      "contentSlug": "fmarketmonitor",
+      "access": "public"
+    },
+    "technicalLevel": 3,
+    "cover": {
+      "src": "/assets/projects/images/fmarketmonitor-cover.jpg",
+      "alt": {
+        "en": "A flock of birds flying through a purple sky",
+        "fr": "Une volée d'oiseaux dans un ciel violet"
+      }
+    },
+    "links": {
+      "primary": null,
+      "readMore": null,
+      "github": null,
+      "live": null
+    },
+    "taxonomy": {
+      "domains": [
+        "Macroeconomics",
+        "Data Engineering",
+        "Quantitative Finance"
+      ],
+      "tools": [
+        "Python",
+        "statsmodels",
+        "PostgreSQL",
+        "SQL",
+        "Jupyter Notebook"
+      ],
+      "keywords": {
+        "en": [
+          "macro indicators",
+          "real-time data",
+          "dynamic factor model",
+          "recessions"
+        ],
+        "fr": [
+          "indicateurs macro",
+          "données temps réel",
+          "modèle à facteurs dynamique",
+          "récessions"
+        ]
+      }
+    },
+    "content": {
+      "en": {
+        "title": "FMarketMonitor",
+        "summary": "A research prototype: an observatory that turns hundreds of U.S. economic series into 15 readable, dated and traceable indicators. The first one is built and tested.",
+        "description": "FMarketMonitor is the measurement layer of a macroeconomic and financial observatory. It summarizes hundreds of U.S. economic statistics into 15 indicators, one per major concept, each computed only with the data available at each date. The first indicator (growth, activity, employment) flags the 2008 recession at least as well as the Chicago Fed's CFNAI-MA3 with no false alarm since 1990, but it is not yet validated under the author's own protocol."
+      },
+      "fr": {
+        "title": "FMarketMonitor",
+        "summary": "Un prototype de recherche : un observatoire qui résume des centaines de séries économiques américaines en 15 indicateurs lisibles, datés et traçables. Le premier est construit et testé.",
+        "description": "FMarketMonitor est la couche de mesure d'un observatoire macroéconomique et financier. Il résume des centaines de statistiques économiques américaines en 15 indicateurs, un par grand concept, chacun calculé uniquement avec les données disponibles à chaque date. Le premier indicateur (croissance, activité, emploi) repère la récession de 2008 au moins aussi bien que le CFNAI-MA3 de la Fed de Chicago, sans fausse alerte depuis 1990, mais il n'est pas encore validé selon le protocole de l'auteur."
+      }
+    }
+  },
+  {
     "id": "PJ025",
     "slug": "bayesian-linear-regression-econometrics",
     "status": "completed",

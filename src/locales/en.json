@@ -15,10 +15,18 @@
     "copyright": "© 2026 Aurel Vehi",
     "backToTop": "Back to top"
   },
+  "latest": {
+    "lastPaper": "Latest paper",
+    "paperKind": "Research article",
+    "lastProject": "Latest project",
+    "lastPost": "Latest blog post",
+    "postKind": "Blog"
+  },
   "projects": {
     "fallbackDomain": "Project",
     "technicalLevel": "Technical level",
     "readMore": "Read more",
+    "statusInProgress": "In progress",
     "window": {
       "close": "Close project window",
       "emptySection": "No detailed content is available for this section yet.",

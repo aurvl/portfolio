@@ -69,7 +69,7 @@ Between pages, `navigateToPage()` (`lib/pageTransition.ts`) runs a native View T
 | Blog | `src/content/posts/*.md`, `series.json`, `blog-resources.json` | |
 | Domain colours | `src/data/domain.json` | Used by the content scripts |
 | Tools | `src/data/skills.json` | Used by the content scripts |
-| Updates feed | `src/data/now-building.json` | Not read by the site since v3; kept for the Portfolio Manager, to be reworked into the "latest things" feed |
+| Homepage "Latest things" cards | `src/data/latest-things.json` (project in progress), `publications.json` (latest paper), `projects.json` and the blog index (latest project or post) | See `src/hooks/useLatestThings.ts` |
 
 Field-level details: `docs/CONTENT_SCHEMA.md`. The JSON files exist so the Portfolio Manager can edit them without
 touching TypeScript.

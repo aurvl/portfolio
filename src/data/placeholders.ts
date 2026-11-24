@@ -196,79 +196,6 @@ const landingLabels: LocalizedField<PlaceholderLandingLabels> = {
   fr: { learnMore: 'En savoir plus', latestThings: 'Dernières nouveautés' },
 }
 
-// ---------------------------------------------------------------- Latest things
-
-export type LatestThing = {
-  id: string
-  title: string
-  description: string
-  date: string
-  thumbnailSrc: string
-  thumbnailAlt: string
-  href: string
-}
-
-const latestThings: LocalizedField<LatestThing[]> = {
-  en: [
-    {
-      id: 'latest-1',
-      title: 'Project update',
-      description: 'A two-line description of a fictional update, long enough to test how the card wraps next to its thumbnail.',
-      date: '2026-09-12',
-      thumbnailSrc: '/assets/projects/images/bayesian-linear-regression-econometrics-cover.jpg',
-      thumbnailAlt: 'Placeholder thumbnail',
-      href: '/projects',
-    },
-    {
-      id: 'latest-2',
-      title: 'New blog post',
-      description: 'A fictional blog post summary, written to show how a longer description is cut on the card.',
-      date: '2026-08-03',
-      thumbnailSrc: '/assets/blog/images/blog6.jpg',
-      thumbnailAlt: 'Placeholder thumbnail',
-      href: '/projects#blog',
-    },
-    {
-      id: 'latest-3',
-      title: 'Research note',
-      description: 'A fictional note about work in progress, with a short description and a date.',
-      date: '2026-06-21',
-      thumbnailSrc: '/assets/images/hero-bamboo-1200.webp',
-      thumbnailAlt: 'Placeholder thumbnail',
-      href: '/publications',
-    },
-  ],
-  fr: [
-    {
-      id: 'latest-1',
-      title: 'Mise à jour projet',
-      description: 'Une description de deux lignes pour une mise à jour fictive, assez longue pour tester le retour à la ligne à côté de la vignette.',
-      date: '2026-09-12',
-      thumbnailSrc: '/assets/projects/images/bayesian-linear-regression-econometrics-cover.jpg',
-      thumbnailAlt: 'Vignette fictive',
-      href: '/projects',
-    },
-    {
-      id: 'latest-2',
-      title: 'Nouvel article',
-      description: 'Un résumé d’article fictif, écrit pour voir comment une description plus longue est coupée sur la carte.',
-      date: '2026-08-03',
-      thumbnailSrc: '/assets/blog/images/blog6.jpg',
-      thumbnailAlt: 'Vignette fictive',
-      href: '/projects#blog',
-    },
-    {
-      id: 'latest-3',
-      title: 'Note de recherche',
-      description: 'Une note fictive sur un travail en cours, avec une courte description et une date.',
-      date: '2026-06-21',
-      thumbnailSrc: '/assets/images/hero-bamboo-1200.webp',
-      thumbnailAlt: 'Vignette fictive',
-      href: '/publications',
-    },
-  ],
-}
-
 // ---------------------------------------------------------------- Libellés de la section Publications
 
 export type PlaceholderPublicationsLabels = {
@@ -315,6 +242,7 @@ const publications: PlaceholderPublication[] = [
     authorsAfter: ', Roe, R. et al.',
     journal: 'Journal of Placeholder Studies',
     reference: '12, 345 (2026)',
+    date: '2026-03',
     url: 'https://example.org/placeholder-1',
     kind: { en: 'Placeholder · Peer-reviewed article', fr: 'Fictif · Article évalué par les pairs' },
     status: { en: 'Published · 2026', fr: 'Publié · 2026' },
@@ -326,6 +254,7 @@ const publications: PlaceholderPublication[] = [
     authorsAfter: ' and Doe, J.',
     journal: 'Placeholder Review of Applied Economics',
     reference: '8, 67 (2025)',
+    date: '2025-09',
     url: 'https://example.org/placeholder-2',
     kind: { en: 'Placeholder · Working paper', fr: 'Fictif · Document de travail' },
     status: { en: 'In review · 2025', fr: 'En relecture · 2025' },
@@ -337,6 +266,7 @@ const publications: PlaceholderPublication[] = [
     authorsAfter: '',
     journal: 'Placeholder journal',
     reference: 'Forthcoming',
+    date: '2025-01',
     url: 'https://example.org/placeholder-3',
     kind: { en: 'Placeholder · Thesis chapter', fr: 'Fictif · Chapitre de thèse' },
     status: { en: 'In preparation', fr: 'En préparation' },
@@ -407,7 +337,6 @@ export const placeholders = {
   getAboutLabels: (lang: AppLanguage) => aboutLabels[lang],
   getThemes: (lang: AppLanguage) => themes[lang],
   getLandingLabels: (lang: AppLanguage) => landingLabels[lang],
-  getLatestThings: (lang: AppLanguage) => latestThings[lang],
   getPublicationsLabels: (lang: AppLanguage) => publicationsLabels[lang],
   getPublications: (lang: AppLanguage) =>
     publications.map(({ kind, status, ...entry }) => ({

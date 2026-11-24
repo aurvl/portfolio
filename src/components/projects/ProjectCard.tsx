@@ -123,6 +123,9 @@ function ProjectCard({ project, onOpenProject, cardId }: ProjectCardProps) {
 
       <div className="hub-card__footer">
         <span className="hub-card__date tabular">
+          {project.status === 'in-progress' ? (
+            <span className="hub-card__status">{t('projects.statusInProgress')}</span>
+          ) : null}
           {new Date(project.date).toLocaleDateString(i18n.language, {
             month: 'short',
             year: '2-digit',

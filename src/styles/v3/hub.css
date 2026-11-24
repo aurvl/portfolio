@@ -691,6 +691,16 @@
   text-transform: capitalize;
 }
 
+/* Projet en cours : étiquette en petites majuscules, bleu d'action (contraste AA en clair et en sombre) */
+.hub-card__status {
+  margin-right: 0.6rem;
+  font-size: var(--label-size);
+  font-weight: 600;
+  letter-spacing: var(--label-spacing);
+  color: var(--color-action-blue);
+  text-transform: uppercase;
+}
+
 /* ---------- Autres travaux : lignes compactes ---------- */
 
 .hub__other {

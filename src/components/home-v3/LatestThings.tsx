@@ -6,13 +6,25 @@ import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { placeholders } from '../../data/placeholders'
 import { useHomeContent } from '../../hooks/useHomeContent'
+import { useLatestThings } from '../../hooks/useLatestThings'
 import { cn } from '../../lib/cn'
 import { withBasePath } from '../../lib/site'
+
+// Une date « 2026-07 » (jour inconnu) s'affiche « juil. 2026 » ; une date complète garde le jour
+function formatCardDate(date: string, locale: string) {
+  const hasDay = date.length > 7
+
+  return new Date(date).toLocaleDateString(locale, {
+    day: hasDay ? 'numeric' : undefined,
+    month: 'short',
+    year: 'numeric',
+  })
+}
 
 function LatestThings() {
   const { lang, content } = useHomeContent()
   const labels = placeholders.getLandingLabels(lang)
-  const items = placeholders.getLatestThings(lang)
+  const items = useLatestThings(lang)
   const listRef = useRef<HTMLUListElement>(null)
   const [activeIndex, setActiveIndex] = useState(0)
 
@@ -64,11 +76,7 @@ function LatestThings() {
                   className="latest-card__date tabular"
                   dateTime={item.date}
                 >
-                  {new Date(item.date).toLocaleDateString(content.blog.dateLocale, {
-                    day: 'numeric',
-                    month: 'short',
-                    year: 'numeric',
-                  })}
+                  {formatCardDate(item.date, content.blog.dateLocale)}
                 </time>
               </div>
               <img

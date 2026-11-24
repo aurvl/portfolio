@@ -15,10 +15,18 @@
     "copyright": "© 2026 Aurel Vehi",
     "backToTop": "Haut de page"
   },
+  "latest": {
+    "lastPaper": "Dernière publication",
+    "paperKind": "Article de recherche",
+    "lastProject": "Dernier projet",
+    "lastPost": "Dernier article de blog",
+    "postKind": "Blog"
+  },
   "projects": {
     "fallbackDomain": "Projet",
     "technicalLevel": "Niveau technique",
     "readMore": "Voir plus",
+    "statusInProgress": "En cours",
     "window": {
       "close": "Fermer la fenetre du projet",
       "emptySection": "Aucun contenu detaille n'est disponible pour cette section pour le moment.",
