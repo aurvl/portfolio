@@ -143,8 +143,8 @@ const aboutLabels: LocalizedField<PlaceholderAboutLabels> = {
     readMore: 'Read more',
     readLess: 'Read less',
     nextTitle: 'Go further',
-    papersDoor: 'Research',
-    projectsDoor: 'Projects',
+    papersDoor: 'My research',
+    projectsDoor: 'My projects',
     contactLink: 'A question? Get in touch',
   },
   fr: {
@@ -161,8 +161,8 @@ const aboutLabels: LocalizedField<PlaceholderAboutLabels> = {
     readMore: 'Lire la suite',
     readLess: 'Réduire',
     nextTitle: 'Pour aller plus loin',
-    papersDoor: 'Recherche',
-    projectsDoor: 'Projets',
+    papersDoor: 'Ma recherche',
+    projectsDoor: 'Mes projets',
     contactLink: 'Une question ? Me contacter',
   },
 }
@@ -182,13 +182,13 @@ const themes: LocalizedField<PlaceholderTheme[]> = {
   en: [
     { label: 'Firm transformations' },
     { label: 'Indicators', tag: 'index' },
-    { label: 'Ecosystem value' },
+    { label: 'Value of our ecosystems' },
     { label: 'Time series', tag: 'time-series' },
   ],
   fr: [
     { label: 'Transformations des entreprises' },
     { label: 'Indicateurs', tag: 'indice' },
-    { label: 'Valeur des écosystèmes' },
+    { label: 'Valeur de nos écosystèmes' },
     { label: 'Séries temporelles', tag: 'series-temporelles' },
   ],
 }

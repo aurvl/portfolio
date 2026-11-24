@@ -2,10 +2,14 @@
 // Référence : design/screens/02-about.png (ordinateur) et design/BRIEF.md § « Stratégie mobile » (< 1024 px).
 // Les éléments `about__mobile-only` et `about__desktop-only` ne s'affichent que d'un côté du seuil de 1024 px.
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { FiArrowDown, FiArrowRight } from 'react-icons/fi'
 import { placeholders } from '../../data/placeholders'
+import projectsData from '../../data/projects.json'
+import publicationsData from '../../data/publications.json'
 import { useHomeContent } from '../../hooks/useHomeContent'
 import { getResumeDownloadUrl, withBasePath } from '../../lib/site'
+import type { Project } from '../../types/project'
 import Avatar from '../ui/Avatar'
 import BambooPhoto from '../ui/BambooPhoto'
 import Button from '../ui/Button'
@@ -29,6 +33,7 @@ type AboutSectionProps = {
 }
 
 function AboutSection({ onExploreWork, onGetInTouch, onViewPapers, inScene = false, isPhotoShared = false }: AboutSectionProps) {
+  const { t } = useTranslation()
   const { lang } = useHomeContent()
   const profile = placeholders.getProfile(lang)
   const labels = placeholders.getAboutLabels(lang)
@@ -36,6 +41,11 @@ function AboutSection({ onExploreWork, onGetInTouch, onViewPapers, inScene = fal
   const timeline = placeholders.getTimeline(lang)
   const themes = placeholders.getThemes(lang)
   const resumeUrl = getResumeDownloadUrl(lang)
+
+  // Cartes « Recherche » et « Projets » (mobile) : les vrais nombres, et la photo du projet à la une
+  const projects = projectsData as Project[]
+  const featuredProject = projects.find((project) => project.featured)
+  const publicationCount = publicationsData.length
 
   // Sur mobile, le premier bloc de texte est remplacé par les pastilles « Je travaille sur »
   const [, ...collapsibleSections] = sections
@@ -170,8 +180,20 @@ function AboutSection({ onExploreWork, onGetInTouch, onViewPapers, inScene = fal
             className="about__mobile-only"
             title={labels.nextTitle}
             doors={[
-              { to: '/publications', title: labels.papersDoor, style: 'curtain' },
-              { to: '/projects', title: labels.projectsDoor },
+              {
+                to: '/publications',
+                title: labels.papersDoor,
+                meta: t(publicationCount === 1 ? 'doors.paper' : 'doors.papers', { count: publicationCount }),
+                image: '/assets/images/bamboo-thumb.webp',
+                tone: 'brand',
+              },
+              {
+                to: '/projects',
+                title: labels.projectsDoor,
+                meta: t(projects.length === 1 ? 'doors.project' : 'doors.projects', { count: projects.length }),
+                image: featuredProject?.cover.src ?? '/assets/projects/images/defaultprojectcover.png',
+                tone: 'night',
+              },
             ]}
             contactLabel={labels.contactLink}
             onContact={onGetInTouch}

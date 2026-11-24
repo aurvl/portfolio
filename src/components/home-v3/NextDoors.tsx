@@ -1,16 +1,23 @@
-// « Pour aller plus loin » (mobile et tablette) : deux boutons « Research → » et « Projects → », puis un lien
+// « Pour aller plus loin » (mobile et tablette) : deux grandes cartes d'invitation, « Recherche » et « Projets », puis un lien
 // souligné vers le contact. Termine la section About sur les écrans de moins de 1024 px.
-// « Research » a un effet de rideau bleu au survol (exception assumée du style éditorial, voir BRIEF §2).
+// Chaque carte : une photo sous un voile coloré (bleu pour la recherche, noir pour les projets), un titre serif, le nombre
+// d'éléments derrière la porte et une flèche en pastille. Elles « sautent » (animation about-hop dans about.css) pour
+// attirer le doigt.
 import { LuArrowRight } from 'react-icons/lu'
 import { Link } from 'react-router-dom'
 import { cn } from '../../lib/cn'
+import { withBasePath } from '../../lib/site'
 import Button from '../ui/Button'
 
 export type NextDoor = {
   to: string
   title: string
-  // 'curtain' = contour bleu avec rideau bleu qui se déploie ; sinon contour de la couleur du texte
-  style?: 'curtain'
+  // Petite ligne sous le titre, ex. « 26 projets »
+  meta: string
+  // Photo de fond (décorative : le titre dit déjà où mène la carte)
+  image: string
+  // Couleur du voile posé sur la photo
+  tone: 'brand' | 'night'
 }
 
 type NextDoorsProps = {
@@ -30,14 +37,25 @@ function NextDoors({ title, doors, contactLabel, onContact, className }: NextDoo
         {doors.map((door) => (
           <li key={door.to}>
             <Link
-              className={cn('next-doors__door', door.style === 'curtain' && 'next-doors__door--curtain')}
+              className={cn('next-doors__door', `next-doors__door--${door.tone}`)}
               to={door.to}
             >
-              <span>{door.title}</span>
-              <LuArrowRight
-                className="next-doors__door-arrow"
-                aria-hidden="true"
+              <img
+                className="next-doors__door-image"
+                src={withBasePath(door.image)}
+                alt=""
+                loading="lazy"
+                decoding="async"
               />
+
+              <span className="next-doors__door-arrow">
+                <LuArrowRight aria-hidden="true" />
+              </span>
+
+              <span className="next-doors__door-text">
+                <span className="next-doors__door-title">{door.title}</span>
+                <span className="next-doors__door-meta">{door.meta}</span>
+              </span>
             </Link>
           </li>
         ))}

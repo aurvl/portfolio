@@ -15,6 +15,12 @@
     "copyright": "© 2026 Aurel Vehi",
     "backToTop": "Haut de page"
   },
+  "doors": {
+    "paper": "{{count}} article",
+    "papers": "{{count}} articles",
+    "project": "{{count}} projet",
+    "projects": "{{count}} projets"
+  },
   "latest": {
     "lastPaper": "Dernière publication",
     "paperKind": "Article de recherche",
