@@ -1,8 +1,9 @@
 import { useEffect, useRef } from 'react'
 import { useReducedMotion } from 'framer-motion'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import { placeholders } from '../data/placeholders'
 import { navigateToSection, useSectionLinks } from '../lib/navigateToSection'
+import { navigateToPage } from '../lib/pageTransition'
 import { useBambooMobile } from '../hooks/useBambooMobile'
 import { useBambooScene } from '../hooks/useBambooScene'
 import { useHomeContent } from '../hooks/useHomeContent'
@@ -28,7 +29,6 @@ import {
 
 function HomePage() {
   const location = useLocation()
-  const navigate = useNavigate()
   const { lang } = useHomeContent()
   const { homeSections } = useSiteNav()
   // prefers-reduced-motion : pas de voyage du bouton, la navbar apparaît seulement en fondu (voir MorphNavbar)
@@ -142,7 +142,7 @@ function HomePage() {
           <AboutSection
             inScene={isSceneActive}
             isPhotoShared={!isSceneActive}
-            onExploreWork={() => navigate('/projects')}
+            onExploreWork={() => navigateToPage('/projects')}
             onGetInTouch={() => navigateToSection('contact-form')}
             onViewPapers={() => navigateToSection('research')}
           />

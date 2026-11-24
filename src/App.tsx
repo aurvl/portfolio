@@ -1,12 +1,13 @@
-import { Suspense, lazy } from 'react'
+import { Suspense } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
+import { blogPage, blogPostPage, homePage, projectsPage, publicationsPage, seriesPage } from './app/pages'
 
-const HomePage = lazy(() => import('./pages/HomePage'))
-const ProjectsPage = lazy(() => import('./pages/ProjectsPage'))
-const BlogPage = lazy(() => import('./pages/BlogPage'))
-const BlogPostPage = lazy(() => import('./pages/BlogPostPage'))
-const SeriesPage = lazy(() => import('./pages/SeriesPage'))
-const PublicationsPage = lazy(() => import('./pages/PublicationsPage'))
+const HomePage = homePage.Page
+const ProjectsPage = projectsPage.Page
+const BlogPage = blogPage.Page
+const BlogPostPage = blogPostPage.Page
+const SeriesPage = seriesPage.Page
+const PublicationsPage = publicationsPage.Page
 
 function App() {
   return (

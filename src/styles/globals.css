@@ -10,6 +10,7 @@
 @import "./v3/papers.css";
 @import "./v3/contact.css";
 @import "./v3/touch-scene.css";
+@import "./v3/page-transitions.css";
 
 :root {
   color-scheme: dark;

@@ -193,7 +193,7 @@ version 1200 px, sinon le fichier de 1,25 Mo se télécharge pour rien).
       tablette inchangés. Vérifié au Playwright (1651 x 900 et 390 px). À régler à l'œil : bande de Recherche
       (`--papers-band-height`, 8 rem), amplitudes (`ZOOM_STEPS`, `*_SHIFT_PX`), moments des fondus (`useBambooScene.ts`).
       Limite connue : la liste de Recherche (placeholders) n'a que ~30 px de défilement libre ; le vrai contenu sera plus long.
-- [~] E4. Mobile et tablette, y compris iPad en paysage (voir le critère tactile ci-dessous) : EN COURS, moitié faite.
+- [x] E4. Mobile et tablette, y compris iPad en paysage (voir le critère tactile ci-dessous) : VALIDÉE par le propriétaire (24/11/2026) sur mobile, tablette et desktop (E4a et E4b).
       Principe retenu après essais sur iPhone : DÉCLENCHER, pas SUIVRE (une animation liée à chaque pixel de scroll
       rampe, zigzague et reste coincée au doigt). Pas de scène collante : sections normales, `useBambooMobile`.
       - [x] E4a. Landing → About, déclenchée : au-delà de 40 px de scroll, une valeur 0 → 1 se joue en 0,6 s (ressort),
@@ -238,7 +238,7 @@ version 1200 px, sinon le fichier de 1,25 Mo se télécharge pour rien).
             Vérifié en Chromium tactile (390 x 844, 1180 x 820, mouvement réduit) ; desktop inchangé. Plus de calage
             `scroll-snap` en tactile (l'About est plus haute que l'écran). FALLBACK si ça échoue : tag git
             `retour-e4a-waapi` (commit 9aea60a), mobile = scroll classique + fondus à l'entrée, morph = desktop seulement.
-      - [~] E4b v2, PORTES (24/11/2026, essai 1, EN ATTENTE du test iPhone / iPad). Un premier essai (bandeaux
+      - [x] E4b v2, PORTES (24/11/2026, essai 1, VALIDÉE). Un premier essai (bandeaux
             déclenchés par leur position, scroll libre : commits 78b75da puis revert a6bc2dc) a été refusé : « c'est
             toujours du scroll ». Nouveau principe, celui de E4a étendu : quatre écrans (Landing, About, Recherche,
             Contact), UN seul affiché à la fois (classe `scene-hidden`), qui défile normalement s'il est plus haut que la
@@ -266,7 +266,20 @@ version 1200 px, sinon le fichier de 1,25 Mo se télécharge pour rien).
       - `prefers-reduced-motion` : ni zoom ni resserrement, fondu simple (à vérifier sur appareil).
       - À valider sur de vrais appareils (iPhone, iPad) : fluidité au doigt, calage `scroll-snap`, barre d'adresse Safari.
       - Desktop (≥ 1024 px à la souris) : inchangé, toujours lié au scroll (pas testé au trackpad).
-- [ ] E5. View Transitions entre pages (About → Projets, Recherche, articles, séries…) : `viewTransition` de
+- [~] E5. View Transitions entre pages (24/11/2026, essai 1, EN ATTENTE du test). RÉALISÉ : `document.startViewTransition` appelé
+      directement (react-router 7 `viewTransition` ne sert qu'avec un routeur à données ; ici `BrowserRouter`). Fonction centrale
+      `navigateToPage(to)` (`lib/pageTransition.ts`) : charge la page d'arrivée d'abord (`app/pages.tsx`, plus d'écran « Loading »),
+      pose le sens sur <html> (`data-vt` = forward / back, d'après la profondeur : accueil 0 < Projets, Blog, Publications 1 <
+      articles et séries 2 ; même profondeur = avant), attend que la page soit affichée. `components/routing/PageTransitions.tsx`
+      intercepte TOUS les clics sur les liens internes (navbar, boutons, pied de page, cartes) : rien de spécial par lien.
+      CSS : `styles/v3/page-transitions.css`. Bandeau de bambous = élément partagé `bamboo-banner` (le visible : photo de la scène
+      sur desktop, bannière de l'écran affiché sur mobile, bannière de /publications), contenus posés dessus capturés à part
+      (`vt-content`, sinon la photo les masquerait) ; navbar et pilule langue / thème capturées à part, immobiles, sans fondu ;
+      le reste zoome (avant : l'ancienne grandit et s'efface, la nouvelle arrive petite ; retour : l'inverse), 550 ms, transform
+      et opacity seulement. Sans View Transitions : navigation normale ; mouvement réduit : fondu de 200 ms. Limites : le bouton
+      Précédent du navigateur n'est pas animé ; Projets, Blog, Séries et articles n'ont pas encore de bandeau de bambous (seul
+      le zoom du reste de la page joue pour eux, le bandeau se « pose » en arrivant sur /publications ou l'accueil).
+      Ancien texte du plan : E5. View Transitions entre pages (About → Projets, Recherche, articles, séries…) : `viewTransition` de
       react-router (v7.13 installée, `BrowserRouter` : à confirmer par un test) sur les `Link` et `navigate` ; le
       bandeau bambous est un élément partagé (`view-transition-name`, un seul par page) ; sens zoom avant / arrière
       d'après la profondeur de la route (accueil < hub et publications < article et série), posé sur `<html>` avant

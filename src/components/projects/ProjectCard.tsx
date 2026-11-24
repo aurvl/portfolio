@@ -1,7 +1,7 @@
 import type { MouseEvent } from 'react'
 import { GoLinkExternal } from "react-icons/go";
 import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router-dom'
+import { navigateToPage } from '../../lib/pageTransition'
 import { getLocalizedField, getProjectContent, getProjectWindowRoute } from '../../lib/utils'
 import { getDomainColor } from '../../lib/domainColors'
 import { getImageDimensions } from '../../lib/imageMetadata'
@@ -18,7 +18,6 @@ type ProjectCardProps = {
 
 function ProjectCard({ project, onOpenProject, cardId }: ProjectCardProps) {
   const { t, i18n } = useTranslation()
-  const navigate = useNavigate()
   const content = getProjectContent(project, i18n.language)
   const coverAlt = getLocalizedField(project.cover.alt, i18n.language)
   const keywords = getLocalizedField(project.taxonomy.keywords, i18n.language)
@@ -37,7 +36,7 @@ function ProjectCard({ project, onOpenProject, cardId }: ProjectCardProps) {
     }
 
     if (projectWindowRoute) {
-      navigate(projectWindowRoute)
+      navigateToPage(projectWindowRoute)
       return
     }
 
@@ -60,7 +59,7 @@ function ProjectCard({ project, onOpenProject, cardId }: ProjectCardProps) {
     }
 
     if (projectWindowRoute) {
-      navigate(projectWindowRoute)
+      navigateToPage(projectWindowRoute)
       return
     }
 
