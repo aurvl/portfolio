@@ -1,14 +1,19 @@
-// Clic de navbar vers une section, sur ordinateur.
+// Clic vers une section, sur ordinateur (appelé par navigateToSection).
 //
-// Sur l'accueil la scène est liée au scroll : défiler jusqu'à la cible (même vite) fait passer à l'écran toutes les
-// étapes intermédiaires de la scène, parfois en désordre (bouton « Learn more » à moitié transformé, contenu fantôme).
-// À la place : un voile de la couleur de la page s'allume en fondu (~120 ms), on saute SANS défiler jusqu'à la cible
-// pendant qu'il couvre tout, puis il s'éteint (~130 ms) sur l'état final de la section. Aucun état intermédiaire visible.
-// Hors accueil (pas de scène) ou en mouvement réduit : comportement habituel.
-const FADE_IN_MS = 120
-const FADE_OUT_MS = 130
+// Sur l'accueil la scène est liée au scroll : pour que l'animation « morph » se joue, on fait défiler la page nous-mêmes,
+// d'un mouvement continu (départ et arrivée en douceur) dont la durée grandit avec la distance : une transition voisine
+// prend ~0,9 s, trois transitions ~2 s. La scène passe ainsi par ses vraies étapes, dans le bon ordre, dans les deux sens.
+// Le calage automatique de la page (scroll-snap) est coupé le temps du mouvement (classe is-auto-scrolling, voir scene.css),
+// et un geste de l'utilisateur (molette, doigt, clavier) l'interrompt aussitôt.
+// En mouvement réduit : saut direct. Hors accueil (pas de scène) : défilement doux habituel.
+const MIN_DURATION_MS = 800
+const MAX_DURATION_MS = 2200
+// Durée ajoutée par écran parcouru (une hauteur de fenêtre)
+const MS_PER_SCREEN = 550
 
-let activeVeil: HTMLElement | null = null
+const easeInOut = (amount: number) => amount * amount * (3 - 2 * amount)
+
+let stopCurrent: (() => void) | null = null
 
 export function jumpToSection(sectionId: string) {
   const target = document.getElementById(sectionId)
@@ -20,37 +25,42 @@ export function jumpToSection(sectionId: string) {
     target.scrollIntoView({ behavior: isReduced ? 'auto' : 'smooth', block: 'start' })
     return
   }
-  // Déjà sur place, en mouvement réduit, ou un fondu est déjà en cours : saut direct
-  if (isReduced || activeVeil || Math.abs(target.getBoundingClientRect().top) < 4 || typeof target.animate !== 'function') {
+  if (isReduced) {
     target.scrollIntoView({ behavior: 'instant', block: 'start' })
     return
   }
 
-  const veil = document.createElement('div')
-  veil.setAttribute('aria-hidden', 'true')
-  Object.assign(veil.style, {
-    position: 'fixed',
-    inset: '0',
-    zIndex: '9999',
-    background: 'var(--color-page)',
-    opacity: '0',
-    pointerEvents: 'none',
-  })
-  document.body.appendChild(veil)
-  activeVeil = veil
+  stopCurrent?.()
+  const root = document.documentElement
+  const from = window.scrollY
+  const to = Math.max(0, Math.min(target.getBoundingClientRect().top + from, root.scrollHeight - window.innerHeight))
+  const distance = Math.abs(to - from)
+  if (distance < 2) return
 
-  const fadeIn = veil.animate([{ opacity: 0 }, { opacity: 1 }], { duration: FADE_IN_MS, easing: 'ease-in', fill: 'forwards' })
-  fadeIn.onfinish = () => {
-    target.scrollIntoView({ behavior: 'instant', block: 'start' })
-    // Deux images d'attente : la scène (liée au scroll) a le temps de se poser sur son état final avant de se révéler
-    window.requestAnimationFrame(() =>
-      window.requestAnimationFrame(() => {
-        const fadeOut = veil.animate([{ opacity: 1 }, { opacity: 0 }], { duration: FADE_OUT_MS, easing: 'ease-out', fill: 'forwards' })
-        fadeOut.onfinish = () => {
-          veil.remove()
-          activeVeil = null
-        }
-      }),
-    )
+  const screens = distance / Math.max(1, window.innerHeight)
+  const duration = Math.min(MAX_DURATION_MS, MIN_DURATION_MS + (screens - 1) * MS_PER_SCREEN)
+  const startTime = performance.now()
+  let frame = 0
+
+  const stop = () => {
+    window.cancelAnimationFrame(frame)
+    root.classList.remove('is-auto-scrolling')
+    window.removeEventListener('wheel', stop)
+    window.removeEventListener('touchstart', stop)
+    window.removeEventListener('keydown', stop)
+    if (stopCurrent === stop) stopCurrent = null
   }
+  const step = (now: number) => {
+    const amount = Math.min(1, (now - startTime) / Math.max(1, duration))
+    window.scrollTo({ top: from + (to - from) * easeInOut(amount), behavior: 'instant' })
+    if (amount < 1) frame = window.requestAnimationFrame(step)
+    else stop()
+  }
+
+  root.classList.add('is-auto-scrolling')
+  window.addEventListener('wheel', stop, { passive: true })
+  window.addEventListener('touchstart', stop, { passive: true })
+  window.addEventListener('keydown', stop)
+  stopCurrent = stop
+  frame = window.requestAnimationFrame(step)
 }

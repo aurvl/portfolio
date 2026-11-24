@@ -741,7 +741,7 @@
 
   .about__text {
     max-width: none;
-    font-size: calc(var(--about-unit) * 1.05);
+    font-size: calc(var(--about-unit) * 1.12);
     line-height: 1.5;
   }
 
@@ -753,17 +753,17 @@
 
   .about__timeline {
     gap: 1.1em;
-    font-size: calc(var(--about-unit) * 1.05);
+    font-size: calc(var(--about-unit) * 1.12);
   }
 
   .about__resume,
   .about__actions .btn {
-    font-size: calc(var(--about-unit) * 1.05);
+    font-size: calc(var(--about-unit) * 1.12);
   }
 
   .about__papers {
     padding: calc(var(--about-unit) * 0.7) calc(var(--about-unit) * 1.8);
-    font-size: calc(var(--about-unit) * 1.05);
+    font-size: calc(var(--about-unit) * 1.12);
   }
 
   .about__papers {

@@ -54,7 +54,7 @@ html.snap-home .papers {
 .papers__title {
   margin: 0.5rem 0 0;
   font-family: var(--font-serif);
-  font-size: 2rem;
+  font-size: 1.75rem;
   font-weight: 600;
   line-height: 1.15;
   color: var(--color-ink);
@@ -63,6 +63,7 @@ html.snap-home .papers {
 .papers__intro {
   max-width: 46rem;
   margin: 0.75rem 0 0;
+  font-size: 0.95rem;
   line-height: 1.55;
   color: var(--color-muted);
 }
@@ -92,7 +93,7 @@ html.snap-home .papers {
 .papers__item-title {
   margin: 0;
   font-family: var(--font-serif);
-  font-size: 1.35rem;
+  font-size: 1.2rem;
   font-weight: 600;
   line-height: 1.25;
   color: var(--color-ink);
@@ -100,6 +101,7 @@ html.snap-home .papers {
 
 .papers__cite {
   margin: 0;
+  font-size: 0.95rem;
   line-height: 1.5;
   color: var(--color-muted);
 }
@@ -147,7 +149,7 @@ html.snap-home .papers {
   }
 
   .papers__title {
-    font-size: 2.75rem;
+    font-size: 2.4rem;
   }
 
   /* Sans bouton à gauche (accueil), la colonne de 14 rem serait vide et le texte collé à droite : une seule colonne,

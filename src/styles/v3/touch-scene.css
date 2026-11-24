@@ -82,3 +82,9 @@ html[data-scene] .is-leaving {
   width: 100%;
   pointer-events: none;
 }
+
+/* Défilement automatique vers une section (jumpToSection, ordinateur) : le calage de la page est coupé le temps du
+   mouvement, sinon il le saccaderait en rattrapant chaque point d'arrêt. */
+html.is-auto-scrolling {
+  scroll-snap-type: none !important;
+}
