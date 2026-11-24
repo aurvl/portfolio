@@ -1,0 +1,267 @@
+/* ------------------------------------------------------------------ *
+ * Design v3 : section Publications (bannière, ronds sociaux, liste d'articles).
+ * Référence : design/screens/03-publications.png.
+ * ------------------------------------------------------------------ */
+
+html.snap-home .papers {
+  scroll-snap-align: start;
+}
+
+.papers {
+  min-height: 100svh;
+  padding-bottom: 4rem;
+  background: var(--color-page);
+}
+
+.papers__banner {
+  position: relative;
+  height: 9rem;
+  overflow: hidden;
+  background: var(--color-banner-veil);
+}
+
+.papers__banner-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.7;
+}
+
+.papers__grid {
+  /* position + z-index : l'image voilée crée sa propre couche ; on remonte la grille
+     pour que les ronds sociaux chevauchent bien le bas de la bannière */
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.5rem;
+  width: min(100% - 2rem, 70rem);
+  margin-inline: auto;
+}
+
+/* Ronds sociaux à cheval sur le bord de la bannière : remontés de la moitié de leur hauteur */
+.papers__social {
+  justify-content: flex-end;
+  margin-top: -1.5rem;
+}
+
+/* Téléphone : espace réduit entre les ronds (leur taille reste) pour que les 6 tiennent sur une seule ligne à 375 px */
+@media (max-width: 639px) {
+  .papers__social {
+    gap: 0.75rem;
+  }
+}
+
+/* Bouton à filet moins épais : marge verticale de 0,375 rem au lieu de 0,7 rem (hauteur −20 %) */
+.papers__back {
+  padding-block: 0.375rem;
+}
+
+.papers__title {
+  margin: 0.5rem 0 0;
+  font-family: var(--font-serif);
+  font-size: 1.75rem;
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--color-ink);
+}
+
+.papers__intro {
+  max-width: 46rem;
+  margin: 0.75rem 0 0;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--color-muted);
+}
+
+/* Liste : un filet fin au-dessus de chaque article, pas de boîtes */
+.papers__list {
+  margin: 2rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.papers__item {
+  display: grid;
+  gap: 0.5rem;
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--color-line);
+}
+
+.papers__item:last-child {
+  border-bottom: 1px solid var(--color-line);
+}
+
+.papers__meta {
+  margin: 0;
+}
+
+.papers__item-title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--color-ink);
+  transition: color var(--duration-fast) ease;
+}
+
+/* Survol (ou focus clavier dans la ligne) : le titre prend le bleu d'action, le bleu de texte du site
+   (4,7:1 en clair, version claire en sombre) ; le bleu de marque #55a1f5 serait trop pâle pour du texte */
+.papers__item:hover .papers__item-title,
+.papers__item:focus-within .papers__item-title {
+  color: var(--color-action-blue);
+}
+
+/* Premier élément de la ligne au-dessus du titre (« Peer-reviewed article ») : majuscule seulement à la première lettre,
+   le reste de la ligne (statut, année) garde les petites capitales */
+.papers__kind {
+  letter-spacing: 0.04em;
+  text-transform: none;
+}
+
+.papers__cite {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--color-muted);
+}
+
+.papers__cite strong {
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.papers__link {
+  justify-self: start;
+}
+
+/* ---------- Ordinateur (≥ 1024 px) : bouton à gauche, articles à droite ---------- */
+
+@media (min-width: 1024px) {
+  .papers {
+    padding-bottom: 6rem;
+  }
+
+  .papers__banner {
+    height: 12rem;
+  }
+
+  .papers__grid {
+    grid-template-columns: 14rem minmax(0, 1fr);
+    column-gap: 3rem;
+    row-gap: 0;
+  }
+
+  /* Les ronds occupent la colonne de droite, sur la ligne du bord de la bannière */
+  .papers__social {
+    grid-column: 2;
+  }
+
+  .papers__side {
+    grid-column: 1;
+    grid-row: 2;
+    padding-top: 0.75rem;
+  }
+
+  .papers__main {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .papers__title {
+    font-size: 2.4rem;
+  }
+
+  /* Sans bouton à gauche (accueil), la colonne de 14 rem serait vide et le texte collé à droite : une seule colonne,
+     avec le texte centré dans la page (largeur de lecture de 52 rem). Les ronds sociaux restent à droite. */
+  .papers--no-side .papers__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .papers--no-side .papers__social {
+    grid-column: 1;
+  }
+
+  .papers--no-side .papers__main {
+    grid-column: 1;
+    justify-self: center;
+    width: min(100%, 52rem);
+  }
+}
+
+/* ---------- Dans la scène de l'accueil (ordinateur, ≥ 1024 px) ----------
+   La photo est celle de la scène : ici la bannière n'est que la place qu'elle occupe (la bande de la Recherche).
+   La liste défile normalement ; pendant les transitions elle est fixée à l'écran (useBambooScene : is-pinned-*).
+   Elle passe SOUS le cadre de la scène (z-index plus bas) : en défilant, elle disparaît derrière la bande de photo. */
+
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+  .papers--in-scene {
+    position: relative;
+    z-index: 1;
+  }
+
+  .papers--in-scene.is-pinned-start,
+  .papers--in-scene.is-pinned-end {
+    position: fixed;
+    right: 0;
+    left: 0;
+  }
+
+  .papers--in-scene.is-pinned-start {
+    top: 0;
+  }
+
+  /* --papers-pin-end : où se trouve le haut de la liste quand son bas touche le bas de la fenêtre (posé en JS) */
+  .papers--in-scene.is-pinned-end {
+    top: var(--papers-pin-end);
+  }
+
+  .papers--in-scene .papers__banner {
+    height: var(--papers-band-height);
+    background: transparent;
+  }
+
+  /* Plus de ligne de ronds sociaux dans la liste (ils sont dans papers-chrome) : le contenu monte en première ligne,
+     avec de quoi passer sous la bande de photo et la bande de la couleur de la page qui porte les ronds */
+  .papers--in-scene .papers__grid {
+    padding-top: 3.5rem;
+  }
+
+  .papers--in-scene .papers__side,
+  .papers--in-scene .papers__main {
+    grid-row: 1;
+  }
+
+  /* Ronds sociaux collés au cadre de la scène : à cheval sur le bord bas de la bande, comme sur l'About, avec dessous
+     une bande de la couleur de la page qui cache la liste quand elle défile derrière */
+  .papers-chrome {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    width: 100%;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .papers-chrome__strip {
+    position: absolute;
+    top: var(--papers-band-height);
+    left: 0;
+    width: 100%;
+    height: 1.5rem;
+    background: var(--color-page);
+  }
+
+  .papers-chrome__social {
+    position: absolute;
+    top: calc(var(--papers-band-height) - 1.5rem);
+    left: 50%;
+    justify-content: flex-end;
+    width: min(100% - 2rem, 70rem);
+    transform: translateX(-50%);
+  }
+}

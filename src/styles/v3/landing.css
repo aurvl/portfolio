@@ -1,0 +1,506 @@
+/* ------------------------------------------------------------------ *
+ * Design v3 : landing (bannière bambous + « Latest things »).
+ * Référence : design/screens/01-accueil-landing.png (cadre 1512 × 982).
+ *
+ * Sur ordinateur, tout est dimensionné avec une seule unité, --landing-unit.
+ * 1 unité = 1 % de la largeur de la maquette (15,12 px à 1512 px).
+ * Ainsi, quelle que soit la taille de la fenêtre, les proportions de la maquette
+ * sont conservées et la landing tient exactement dans la fenêtre.
+ * ------------------------------------------------------------------ */
+
+/* Snap de page : posé sur <html> par HomePage. Chaque écran s'arrête en haut de la fenêtre. */
+html.snap-home {
+  scroll-snap-type: y mandatory;
+  /* Barre de défilement masquée : une barre classique retire ~15 px à la largeur de la page,
+     ce qui décale tout le contenu centré par rapport à la fenêtre et rogne la bannière à droite.
+     Le défilement reste possible à la molette, au clavier et au tactile. */
+  scrollbar-width: none;
+}
+
+html.snap-home::-webkit-scrollbar {
+  display: none;
+}
+
+html.snap-home .landing,
+html.snap-home .about {
+  scroll-snap-align: start;
+}
+
+html.snap-home footer {
+  scroll-snap-align: end;
+}
+
+/* ---------- Mobile et petits écrans : la landing peut défiler ---------- */
+
+.landing {
+  background: var(--color-page);
+}
+
+.landing-hero {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 32rem;
+  padding: 5.5rem 1rem 4rem;
+}
+
+/* Cadre de la photo (mobile et tablette) : porte le fond sombre et se resserre par le bas au scroll
+   (clip-path posé par useBambooMobile) ; le texte, lui, n'est jamais rogné */
+.landing-hero__photo {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: var(--color-banner-veil);
+}
+
+/* Photo voilée : opacité 70 % sur un fond sombre fixe (--color-banner-veil), identique en thème clair
+   et sombre. La bannière est une photo : sa lisibilité ne doit pas dépendre du thème, donc ni le voile
+   ni le texte blanc par-dessus ne changent quand on bascule clair / sombre. Seul le reste de la page suit le thème. */
+.landing-hero__background {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.7;
+  /* will-change : le zoom au scroll (transform) reste fluide sur téléphone */
+  will-change: transform;
+}
+
+.landing-hero__content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  text-align: center;
+}
+
+.landing-hero__avatar {
+  width: 8rem;
+  margin-bottom: 0.75rem;
+}
+
+.landing-hero__name {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.1;
+  color: #ffffff;
+  /* text-shadow : halo sombre discret pour garder le texte net sur les zones claires de la photo */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+}
+
+.landing-hero__role {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #ffffff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+}
+
+.landing-hero__social {
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+/* Le bouton est posé sur le bord bas de la bannière, à moitié dedans, à moitié dehors */
+.landing-hero__cta {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  z-index: 1;
+  padding: 0.8rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  white-space: nowrap;
+  /* translate : recentre le bouton (-50 %) et le descend de la moitié de sa hauteur (50 %) */
+  transform: translate(-50%, 50%);
+}
+
+.landing-hero__cta--ghost {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.landing-hero__cta:hover {
+  transform: translate(-50%, calc(50% - 1px));
+}
+
+/* « Learn more » : au survol, un fond blanc se déploie de GAUCHE à DROITE comme un rideau et le texte passe au bleu
+   nuit (~300 ms, ease-out). Le fond est une image (dégradé uni) dont on anime la largeur : background-size 0 % → 100 %.
+   S'applique au vrai bouton (.site-nav__learn, dans la navbar qui voyage) et à son équivalent sans animation. */
+.site-nav__learn,
+.landing-hero__cta {
+  background-image: linear-gradient(#ffffff, #ffffff);
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: 0% 100%;
+  transition: background-size 300ms ease-out, color 300ms ease-out, transform 150ms ease, box-shadow 150ms ease;
+}
+
+.site-nav__learn:hover,
+.site-nav__learn:focus-visible,
+.landing-hero__cta:hover,
+.landing-hero__cta:focus-visible {
+  color: var(--color-on-brand-hover);
+  background-size: 100% 100%;
+}
+
+/* prefers-reduced-motion : le changement est instantané, sans déploiement */
+@media (prefers-reduced-motion: reduce) {
+  .site-nav__learn,
+  .landing-hero__cta {
+    transition: none;
+  }
+}
+
+.latest-things {
+  width: min(100% - 2rem, 74rem);
+  margin-inline: auto;
+  padding: 4.5rem 0 3rem;
+}
+
+.latest-things__title {
+  margin: 0 0 0.75rem;
+}
+
+.latest-things__list {
+  display: grid;
+  /* minmax(0, 1fr) : la colonne peut rétrécir sous la largeur de son contenu, sinon les cartes débordent */
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.latest-card {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  height: 100%;
+  padding: 0.85rem 0 0;
+  color: var(--color-ink);
+  text-decoration: none;
+  /* Style éditorial : un filet fin en haut remplace la carte (ni fond, ni bordure, ni ombre) */
+  border-top: 1px solid var(--color-ink);
+}
+
+/* Survol discret : le titre se souligne, rien ne bouge */
+.latest-card:hover .latest-card__title {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.latest-card:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
+}
+
+.latest-card__text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 0.4rem 0 0.4rem 0.5rem;
+}
+
+.latest-card__title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.latest-card__description {
+  margin: 0.4rem 0 0;
+  font-size: 0.95rem;
+  color: var(--color-muted);
+  /* line-clamp : coupe la description à 3 lignes pour garder des cartes de même hauteur */
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.latest-card__date {
+  margin-top: auto;
+  padding-top: 0.75rem;
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
+
+.latest-card__thumbnail {
+  flex: none;
+  width: 6rem;
+  height: 6rem;
+  object-fit: cover;
+  border-radius: var(--radius-sharp);
+}
+
+.latest-things__dots {
+  display: none;
+}
+
+/* ---------- Mobile et tablette (< 900 px) : la landing tient en UN écran, « Latest things » est un carrousel ----------
+   Ainsi le premier scroll vertical lance la transition sans rien cacher. 100svh : la hauteur de la fenêtre avec la barre
+   d'adresse de Safari DÉPLOYÉE (elle ne change pas pendant le scroll, contrairement à dvh). */
+
+@media (max-width: 899.98px) {
+  /* grid-template-rows : la bannière prend tout ce que les cartes (hauteur de leur contenu) laissent libre.
+     minmax(0, 1fr) en colonne : sans cela, la colonne s'élargit au texte le plus long et le carrousel déborde */
+  .landing {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) auto;
+    height: 100svh;
+    overflow: hidden;
+  }
+
+  /* L'identité se compacte avec la hauteur de l'écran : un petit iPhone (667 px) a une photo plus basse */
+  .landing-hero {
+    min-height: 0;
+    padding: 4rem 1rem 2.25rem;
+  }
+
+  .landing-hero__content {
+    gap: 0.35rem;
+  }
+
+  /* clamp : l'avatar grandit avec la hauteur de l'écran, entre 4,5 rem et 8 rem */
+  .landing-hero__avatar {
+    width: clamp(4.5rem, 14svh, 8rem);
+    margin-bottom: 0.25rem;
+  }
+
+  .landing-hero__name {
+    font-size: clamp(1.35rem, 3.6svh, 1.75rem);
+  }
+
+  .landing-hero__role {
+    font-size: 1rem;
+    line-height: 1.25;
+  }
+
+  .landing-hero__social {
+    gap: 0.5rem;
+    margin-top: 0.4rem;
+  }
+
+  .landing-hero__social .social-icons__link {
+    width: 2.25rem;
+    height: 2.25rem;
+    font-size: 1.05rem;
+  }
+
+  /* La hauteur du haut laisse la place de la moitié du bouton « Learn more », posé à cheval sur le bas de la bannière */
+  .latest-things {
+    width: 100%;
+    padding: 2.5rem 0 0.9rem;
+  }
+
+  .latest-things__title {
+    margin-bottom: 0.5rem;
+    padding-inline: 1rem;
+  }
+
+  /* Carrousel : une rangée qui défile horizontalement, calée sur chaque carte (scroll-snap natif).
+     padding-inline + scroll-padding-inline : la première carte s'aligne sur la marge de la page ;
+     overscroll-behavior-x : le bout du carrousel ne fait jamais défiler la page ; position: relative : repère
+     de mesure pour les points. Le défilement horizontal ne touche pas au scroll de la page, donc ne déclenche rien. */
+  .latest-things__list {
+    position: relative;
+    display: flex;
+    gap: 0.75rem;
+    overflow-x: auto;
+    padding-inline: 1rem;
+    overscroll-behavior-x: contain;
+    scroll-padding-inline: 1rem;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .latest-things__list::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Largeur de 80 % : la carte suivante dépasse sur la droite et invite à glisser */
+  .latest-things__list > li {
+    flex: none;
+    width: min(80%, 20rem);
+    scroll-snap-align: start;
+  }
+
+  .latest-card {
+    align-items: flex-start;
+    height: 6.5rem;
+    padding: 0.6rem 0 0;
+  }
+
+  .latest-card__text {
+    align-self: stretch;
+    overflow: hidden;
+    padding: 0;
+  }
+
+  .latest-card__title {
+    font-size: 1.05rem;
+  }
+
+  .latest-card__description {
+    margin-top: 0.25rem;
+    font-size: 0.9rem;
+    -webkit-line-clamp: 2;
+  }
+
+  .latest-card__date {
+    padding-top: 0;
+    font-size: 0.85rem;
+  }
+
+  .latest-card__thumbnail {
+    width: 4.5rem;
+    height: 4.5rem;
+  }
+
+  /* Points indicateurs : discrets, le point actif est plein */
+  .latest-things__dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.4rem;
+    margin-top: 0.6rem;
+  }
+
+  .latest-things__dot {
+    width: 0.4rem;
+    height: 0.4rem;
+    background: var(--color-muted);
+    border-radius: 50%;
+    opacity: 0.35;
+    transition: opacity 150ms ease;
+  }
+
+  .latest-things__dot.is-active {
+    background: var(--color-ink);
+    opacity: 1;
+  }
+}
+
+/* ---------- Ordinateur : un seul écran, proportions de la maquette ---------- */
+
+@media (min-width: 900px) {
+  .landing {
+    /* Calcul de l'unité (1 unité = 1 % de la largeur de la maquette, soit 15,12 px sur 1512 px) :
+       - 1vw          : l'unité si la fenêtre avait exactement les proportions de la maquette, côté largeur ;
+       - 1.54svh      : la même unité côté hauteur (la maquette fait 1,54 fois plus large que haute : 1512 / 982) ;
+       - min(...)     : on prend la plus petite des deux, donc un écran large et peu haut (ex. 1855 × 960)
+                        réduit tout, et un écran haut et étroit aussi : la landing ne déborde jamais ;
+       - clamp(8px, ..., 19.2px) : plancher de lisibilité et plafond (1 % d'un écran de 1920 px). */
+    --landing-unit: clamp(8px, min(1vw, 1.54svh), 19.2px);
+
+    /* grid-template-rows : bannière = 62,5 % de la hauteur (612 px / 982 px dans la maquette), cartes = le reste */
+    display: grid;
+    grid-template-rows: 62.5% 1fr;
+    height: 100svh;
+    overflow: hidden;
+  }
+
+  .landing-hero {
+    min-height: 0;
+    padding: 0;
+    place-items: start center;
+  }
+
+  .landing-hero__content {
+    gap: 0;
+    /* La pile avatar / nom / poste / icônes commence à 37 % de la hauteur de la bannière */
+    padding-top: calc(var(--landing-unit) * 15.1);
+  }
+
+  .landing-hero__avatar {
+    width: calc(var(--landing-unit) * 11.85);
+    margin-bottom: calc(var(--landing-unit) * 0.9);
+  }
+
+  .landing-hero__name {
+    font-size: calc(var(--landing-unit) * 2.1);
+  }
+
+  .landing-hero__role {
+    margin-top: 0;
+    font-size: calc(var(--landing-unit) * 1.3);
+  }
+
+  .landing-hero__social {
+    gap: calc(var(--landing-unit) * 1.5);
+    margin-top: calc(var(--landing-unit) * 0.8);
+  }
+
+  .landing-hero__social .social-icons__link {
+    width: calc(var(--landing-unit) * 3.05);
+    height: calc(var(--landing-unit) * 3.05);
+    font-size: calc(var(--landing-unit) * 1.4);
+  }
+
+  .landing-hero__cta {
+    height: calc(var(--landing-unit) * 4.1);
+    padding: 0 calc(var(--landing-unit) * 3.1);
+    font-size: calc(var(--landing-unit) * 1.3);
+  }
+
+  .latest-things {
+    width: calc(var(--landing-unit) * 58.25);
+    padding: calc(var(--landing-unit) * 4.5) 0 0;
+  }
+
+  .latest-things__title {
+    margin-bottom: calc(var(--landing-unit) * 0.9);
+    font-size: calc(var(--landing-unit) * 1.5);
+  }
+
+  .latest-things__list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: calc(var(--landing-unit) * 1.1);
+  }
+
+  .latest-card {
+    align-items: center;
+    gap: calc(var(--landing-unit) * 0.6);
+    height: calc(var(--landing-unit) * 8.05);
+    padding: calc(var(--landing-unit) * 0.7) 0 0;
+  }
+
+  .latest-card__text {
+    align-self: stretch;
+    overflow: hidden;
+    padding: 0;
+  }
+
+  .latest-card__title {
+    font-size: calc(var(--landing-unit) * 1.3);
+    line-height: 1.15;
+  }
+
+  .latest-card__description {
+    margin-top: calc(var(--landing-unit) * 0.3);
+    font-size: calc(var(--landing-unit) * 0.95);
+    line-height: 1.35;
+    -webkit-line-clamp: 2;
+  }
+
+  .latest-card__date {
+    padding-top: 0;
+    font-size: calc(var(--landing-unit) * 0.95);
+    line-height: 1.2;
+  }
+
+  .latest-card__thumbnail {
+    width: calc(var(--landing-unit) * 6.8);
+    height: calc(var(--landing-unit) * 6.8);
+    border-radius: var(--radius-sharp);
+  }
+}
+
+

@@ -63,5 +63,5 @@ Sur un premier lot de `100` dossiers récents, `4 %` dépassent le seuil d'alert
 - [v] Une raison lisible pour chaque alerte, présentable à un gestionnaire ou à un client.
 - [v] Une méthode qui s'ajoute aux outils existants de l'assureur, sans refonte de ses données.
 
-## Ce que le projet montre
-Le projet montre une démarche de conseil : partir de la situation réelle d'un client, identifier ce qui manque, et proposer une méthode qui répond à sa contrainte principale, le temps d'enquête. La modélisation est au service de la décision, pas l'inverse.
+## Ce que j'ai voulu montrer
+J'ai voulu adopter une démarche de conseil : partir de la situation réelle d'un assureur, identifier ce qui lui manque, et proposer une méthode qui répond à sa contrainte principale, le temps d'enquête. Pour moi, la modélisation est au service de la décision, pas l'inverse.

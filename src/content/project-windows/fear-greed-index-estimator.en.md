@@ -29,11 +29,11 @@ The final index can be aggregated by a simple mean or through a calibrated linea
 
 The notebooks also include a regime-based reading of the estimated index, with an accuracy around `76%` and a weighted `F1` close to `0.76`. This does not turn the system into an institutional benchmark, but it does show that the indicator captures meaningful structure rather than a purely cosmetic resemblance.
 
-- [v] The scoring pipeline is explicit, robust, and historically grounded.
-- [v] The project measures reconstruction quality instead of relying on visual similarity alone.
-- [v] The calibrated version materially improves the estimator over the naive aggregation.
+- [v] I normalized each component on its own history, robustly to extremes.
+- [v] The calibrated version improves reconstruction fidelity over the naive aggregation (RMSE ≈ 6.31, R² ≈ 0.897).
+- [v] I extended the analysis with an API and a web interface.
 - [!] Some components of the reference index are approximated through proxies rather than directly observed inputs.
-- [!] The repository does not represent a formal production benchmark with an exhaustive testing suite.
+- [!] My repository is neither an institutional benchmark nor an exhaustive validation system.
 
 ## Delivery layer
 The project is not confined to notebooks. It also includes an API and a web-facing interface, which turns the analytical pipeline into a usable service. That extension matters because it shows how an index estimator can be exposed as a consultable tool rather than remaining an isolated experiment.
@@ -42,21 +42,10 @@ The architecture retained here therefore combines data sourcing, normalization, 
 
 # Value
 
-## What the project demonstrates
-The project demonstrates an ability to decompose an opaque financial indicator into measurable parts, to rebuild it through public data, and to evaluate its fidelity in a disciplined way. It highlights competence in multi-source data handling, financial feature engineering, robust normalization, and statistical calibration.
+## What I wanted to show
+I wanted to break a complex financial indicator into measurable components, then recombine them into a coherent framework: multi-source data, financial feature engineering, robust normalization, statistical calibration. I want the score to be explained rather than presented as a mysterious output.
 
-It also shows a useful analytical posture: rather than presenting a market score as a mysterious output, the project makes the construction logic explicit and therefore intellectually defensible.
-
-## Professional relevance
-From a technical perspective, the project fits within a broader logic of transparent quantitative tooling. The overall implementation highlights an ability to construct analytical indicators that remain interpretable while still being operational enough to expose through a service interface.
-
-Taken together, the work brings out a capacity to move from concept to implementation with methodological control. The value of the project lies in that disciplined chain from data to indicator to deployable output.
-
-## Limits and positioning
-The repository is best understood as a transparent public-data estimator of market sentiment.
-Its strongest contribution lies in reconstructing and calibrating the signal under explicit assumptions rather than in replacing the original benchmark as an institutional reference.
-
-- [v] The project highlights mastery of transparent indicator construction.
-- [v] The implementation combines quantitative reasoning and practical delivery.
-- [v] The overall structure shows a strong link between interpretability and usefulness.
-- [!] Its scope should be read as a transparent estimator of sentiment, not as an authoritative market benchmark.
+## What I take from it
+- [v] I built a transparent indicator, from raw data to a consultable estimator.
+- [v] I combined quantitative reasoning with a concern for practical use.
+- [!] This is a public estimator of market sentiment, not an official market reference.

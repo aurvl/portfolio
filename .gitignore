@@ -18,6 +18,10 @@ dist-ssr
 # Local AI project memory
 .ai-memory/
 
+# Fichiers propres à Claude Code : AGENTS.md est le seul fichier d'agent suivi
+.claude/
+CLAUDE.md
+
 # Editor directories and files
 .vscode/
 .idea
@@ -27,3 +31,14 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+scripts/__pycache__/
+
+# Notes de travail de la refonte v3 (maquettes, plan, prompts) : locales, jamais suivies (le repo est public)
+design/
+
+# Fichier local
+structure.md
+
+# Captures et journaux du navigateur piloté par Playwright
+.playwright-mcp/

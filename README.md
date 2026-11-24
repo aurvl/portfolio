@@ -21,6 +21,6 @@ npm run content:add-post -- --title-en "..."
 
 - `AGENTS.md`: start here (rules and doc map for AI agents and contributors)
 - `docs/ARCHITECTURE.md`: code layout, data flow, build and runtime
-- `docs/DESIGN_SYSTEM.md`: V2 visual language
+- `docs/DESIGN_SYSTEM.md`: v3 visual language, tokens, dark mode and accessibility rules
 - `docs/CONTENT_SCHEMA.md`, `docs/CONTENT_RULES.md`, `docs/CONTENT_WORKFLOW.md`: content model and workflow
 - `docs/BLOG_POST.md`, `docs/MARKDOWN_CONTENT_RULES.md`: writing posts and project windows

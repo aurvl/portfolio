@@ -21,8 +21,8 @@ Instead of treating growth and unemployment as abstract textbook variables, the 
 This approach matters because macroeconomic relationships are rarely uniform.
 The same broad law may hold differently depending on labor market structure, productivity dynamics, and country-specific shocks.
 
-- [v] The project turns a standard macroeconomic concept into a measurable empirical exercise.
-- [v] It compares pooled and country-level behavior instead of assuming perfect homogeneity.
+- [v] I turned a standard macroeconomic concept into a measurable empirical exercise.
+- [v] I compared pooled and country-level behavior instead of assuming perfect homogeneity.
 - [!] The analysis remains parsimonious and should not be read as a structural macroeconomic model.
 
 # Method
@@ -48,31 +48,17 @@ It uses a simple and readable specification, which keeps the empirical claim pro
 That restraint is a strength rather than a weakness.
 It keeps the study interpretable and makes the country differences easier to discuss.
 
-- [v] The project compares pooled and disaggregated regressions instead of relying on one average result.
-- [v] Outlier behavior is treated as analytical information rather than as noise to discard automatically.
-- [v] The specification remains readable and consistent with the project scale.
+- [v] I compared pooled and disaggregated regressions instead of relying on one average result.
+- [v] I treated outlier behavior as analytical information rather than as noise to discard automatically.
+- [v] I kept the specification readable and consistent with the project scale.
 - [!] Additional controls would be needed for stronger causal interpretation.
 
 # Value
 
-## What the project demonstrates
-The project demonstrates competence in basic econometric reasoning applied to macroeconomic data.
-It highlights the ability to connect an economic concept, a testable specification, and a comparative interpretation across countries.
+## What I wanted to show
+I wanted to start from a simple theoretical framework, confront it properly with the data and accept that an interesting result can be a departure from theory. For me, data are there to reason with, not to illustrate an idea that is already closed: the diagnosis matters as much as the shape of the estimated coefficient.
 
-It also shows analytical maturity.
-The repository does not assume that a canonical relationship will appear with identical intensity everywhere, and it makes heterogeneity part of the result.
-
-## Professional significance
-The project adds a substantive macroeconomic analysis case.
-It shows that economic indicators can be handled with empirical discipline, not only with descriptive commentary.
-
-The overall result brings out a capacity to use regression as a tool for structured interpretation.
-That is particularly relevant in analytical contexts where theory must be confronted with noisy, country-dependent evidence.
-
-## Limits and positioning
-The repository is best understood as an applied econometric study with educational and analytical value.
-Its main contribution is the way it frames heterogeneity and outlier behavior, not the production of a definitive macroeconomic law.
-
-- [v] The project highlights sound macroeconomic interpretation grounded in observed data.
-- [v] It makes cross-country variation central to the reading of the results.
-- [!] Its strongest contribution is empirical clarity rather than exhaustive policy modeling.
+## What I take from it
+- [v] I treated a well-known macroeconomic relationship as a hypothesis to test, not as an established result.
+- [v] I linked conceptual framework, public data and the reading of anomalies.
+- [!] My strength is the quality of the interpretation, not the complexity of the model.

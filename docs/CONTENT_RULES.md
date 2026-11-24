@@ -72,7 +72,7 @@ Do not introduce names like `p12.png`, `illust.png`, or `final-final-cover.jpg`.
 ## Homepage rules
 
 1. Homepage copy lives in `src/data/home.ts` (EN) and `src/data/home.fr.ts` (FR); edit both, never hardcode text in components.
-2. Selected work, publications and now building live in `selected-work.json`, `publications.json`, `now-building.json`.
+2. Selected work, publications and the latest-things feed live in `selected-work.json`, `publications.json`, `latest-things.json`.
 3. The first selected-work item is the flagship: it needs `details` (Problem, Consequence, Solution, Output).
 4. A selected-work or related `slug` must exist in `projects.json`.
 5. Claims must be defensible: no invented results, partners, clients or affiliations; name only ESTIA and the

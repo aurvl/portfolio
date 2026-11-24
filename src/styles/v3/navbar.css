@@ -1,0 +1,313 @@
+/* ------------------------------------------------------------------ *
+ * Design v3 : navbar pilule et pilule utilitaire fixée en haut à droite.
+ * Référence : design/screens/02-about.png (en haut) et 05 (navbar en bas).
+ * ------------------------------------------------------------------ */
+
+:root {
+  --navbar-offset: 5.5rem;
+  /* Hauteur de la capsule : espace vertical au-dessus et au-dessous du texte des onglets */
+  --navbar-tab-padding-y: 0.25rem;
+}
+
+/* Réserve la place de la navbar fixe pour les pages qui n'ont pas de hero dessous */
+.site-main--below-navbar {
+  padding-top: var(--navbar-offset);
+}
+
+/* ---------- Navbar ---------- */
+
+.site-nav {
+  /* position: fixed + z-index 50 : la navbar reste au-dessus du contenu et des bannières */
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 50;
+}
+
+/* Version basse (Contact) : pas fixe, elle termine simplement la page */
+.site-nav--bottom {
+  position: static;
+  display: flex;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+.site-nav__pill {
+  display: none;
+}
+
+.site-nav__list {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.site-nav__link {
+  display: inline-block;
+  padding: var(--navbar-tab-padding-y) 1.1rem;
+  font-family: var(--font-sans);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--color-on-brand);
+  text-decoration: none;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius-pill);
+  transition: background-color 150ms ease;
+}
+
+.site-nav__link:hover {
+  background: color-mix(in srgb, #ffffff 22%, transparent);
+}
+
+/* Onglet actif : bleu clair, texte bleu nuit fixe (lisible en clair comme en sombre) */
+.site-nav__link.is-active {
+  color: #0b3d75;
+  background: color-mix(in srgb, #ffffff 62%, var(--color-brand));
+}
+
+.site-nav__link:focus-visible,
+.site-nav__menu-button:focus-visible,
+.site-nav__panel-link:focus-visible {
+  outline: 2px solid var(--color-on-brand);
+  outline-offset: 2px;
+}
+
+/* ---------- Version compacte (mobile et tablette) : la pilule s'agrandit en menu ----------
+   Un seul élément (voir CompactMenu.tsx). Sa largeur, sa hauteur et son rayon de coins sont animés en JS ;
+   ici : l'habillage. La ligne « About ▾ » reste en haut, la liste des entrées apparaît dessous. */
+
+.site-nav__compact {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  /* overflow hidden : tant que le menu s'agrandit, la liste est coupée par les coins de la pilule */
+  overflow: hidden;
+}
+
+/* Dans la navbar classique, la pilule porte son propre fond et son ombre (dans MorphNavbar, ce sont ceux de la navbar) */
+.site-nav__compact.is-self-sized {
+  background: var(--color-brand);
+  box-shadow: var(--shadow-pill);
+}
+
+.site-nav__menu-button {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.6rem 1rem;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-on-brand);
+  white-space: nowrap;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+}
+
+.site-nav__chevron {
+  transition: transform 150ms ease;
+}
+
+.site-nav__chevron.is-open {
+  transform: rotate(180deg);
+}
+
+/* Liste des entrées : sous la ligne « About ▾ », dans le même élément */
+.site-nav__panel {
+  flex: none;
+  margin: 0;
+  padding: 0 0.5rem 0.5rem;
+  list-style: none;
+}
+
+.site-nav__panel-link {
+  display: block;
+  width: 100%;
+  padding: 0.65rem 1rem;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-on-brand);
+  text-align: left;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius-field);
+}
+
+.site-nav__panel-link.is-active {
+  color: #0b3d75;
+  background: color-mix(in srgb, #ffffff 62%, var(--color-brand));
+}
+
+/* Copies invisibles (pilule fermée et liste ouverte), uniquement pour mesurer leur taille naturelle */
+.site-nav__compact .site-nav__probe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: max-content;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+/* ---------- Pilule utilitaire fixe (haut droite) ---------- */
+
+.site-utility {
+  /* fixed : la pilule reste en haut à droite, avec une marge, quelle que soit la taille de l'écran */
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 50;
+  max-width: calc(100% - 2rem);
+}
+
+/* ---------- Ordinateur (≥ 1024 px) : navbar centrée, pilule complète ----------
+   Sous 1024 px (mobile et tablette) : menu compact en haut. À 768 px, la capsule complète
+   passait sous la pilule langue / thème ; elle n'apparaît donc qu'à partir de 1024 px. */
+
+@media (min-width: 1024px) {
+  .site-nav {
+    /* left/right à 0 + margin auto : centre la capsule sans transform */
+    right: 0;
+    left: 0;
+    width: fit-content;
+    margin-inline: auto;
+  }
+
+  .site-nav--bottom {
+    width: auto;
+    margin-inline: 0;
+  }
+
+  .site-nav__pill {
+    display: block;
+    padding: 0.35rem 0.5rem;
+    background: var(--color-brand);
+    border-radius: var(--radius-pill);
+    box-shadow: var(--shadow-pill);
+  }
+
+  .site-nav__compact {
+    display: none;
+  }
+
+  .site-utility {
+    top: 1rem; /* même hauteur que la barre de navigation (top: 1rem) : les deux sont alignées */
+    right: 2rem;
+  }
+}
+
+/* ---------- MorphNavbar (accueil) : le bouton « Learn more » qui se transforme en navbar ----------
+   Un seul élément fixe. Sa position (top, left), sa taille (width, height) et son contenu sont pilotés
+   par le scroll depuis MorphNavbar.tsx (styles en ligne : valeurs réellement dynamiques). Ici : l'habillage. */
+
+.site-nav--morph {
+  /* Même fond, même forme et même ombre que le bouton « Learn more » d'origine (et que la navbar) */
+  background: var(--color-brand);
+  box-shadow: var(--shadow-pill);
+}
+
+@media (min-width: 1024px) {
+  /* Annule le centrage « left/right 0 + margin auto » de .site-nav : ici left et width viennent du scroll */
+  .site-nav.site-nav--morph {
+    right: auto;
+    margin: 0;
+  }
+}
+
+/* Cadre qui coupe ce qui dépasse pendant l'animation (onglets plus larges que le bouton, par exemple) */
+.site-nav__clip {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+/* Texte « Learn more », centré sur le bouton ; s'efface pendant le voyage */
+.site-nav__learn {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--color-on-brand);
+  white-space: nowrap;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  border-radius: inherit;
+}
+
+.site-nav__learn:focus-visible {
+  outline: 2px solid var(--color-on-brand);
+  outline-offset: -4px;
+}
+
+/* Rangée d'onglets : largeur naturelle (max-content), centrée dans le cadre ; c'est elle qu'on mesure pour
+   savoir jusqu'où la navbar doit s'élargir. Visible seulement à partir de 1024 px. */
+.site-nav__morph-row {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  display: none;
+  width: max-content;
+  padding: 0.35rem 0.5rem;
+  transform: translateX(-50%);
+}
+
+@media (min-width: 1024px) {
+  .site-nav__morph-row {
+    display: block;
+  }
+}
+
+/* Version compacte dans MorphNavbar : remplit toute la navbar qui voyage (sa taille vient du scroll et du menu) */
+.site-nav--morph .site-nav__compact {
+  position: absolute;
+  inset: 0;
+}
+
+/* Menu compact qui s'ouvre VERS LE HAUT (pas assez de place sous la pilule, voir useCompactMenu) :
+   column-reverse met la ligne « About ▾ » en bas et la liste au-dessus ; la chevron se retourne. */
+.site-nav__compact.opens-up {
+  flex-direction: column-reverse;
+}
+
+.site-nav__compact.opens-up .site-nav__panel {
+  padding: 0.5rem 0.5rem 0;
+}
+
+.site-nav__compact.opens-up .site-nav__chevron {
+  transform: rotate(180deg);
+}
+
+.site-nav__compact.opens-up .site-nav__chevron.is-open {
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-nav__link,
+  .site-nav__chevron {
+    transition: none;
+  }
+}
+
+/* is-docked : une fois la pilule posée sur son emplacement en bas du Contact (version tactile), elle n'est plus fixée à
+   l'écran mais POSÉE dans la page (position: absolute, top = place de l'emplacement dans la page) : c'est le navigateur
+   qui la fait défiler avec la page, sans aucun calcul en JavaScript au scroll (Safari iOS le suspend pendant l'élan). */
+.site-nav.site-nav--morph.is-docked {
+  position: absolute;
+}

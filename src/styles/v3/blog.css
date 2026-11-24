@@ -1,0 +1,586 @@
+/* ------------------------------------------------------------------ *
+ * Design v3 : pages Série (/series/:slug) et Article (/blog/:slug).
+ * Style éditorial de design/BRIEF.md §2 : bandeau de bambous fin, titres serif, filets de 1 px,
+ * rayons ≤ 4 px, aucune ombre. Le corps des articles (markdown, formules, widgets) garde son style
+ * d'origine (styles/markdown.css, blog-v2.css) : seul l'habillage autour change.
+ * ------------------------------------------------------------------ */
+
+.blog-page {
+  background: var(--color-page);
+}
+
+/* ---------- Bandeau de bambous (élément partagé des transitions entre pages) ---------- */
+
+.blog-banner {
+  position: relative;
+  height: 9rem;
+  overflow: hidden;
+  background: var(--color-banner-veil);
+}
+
+.blog-banner__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.7;
+}
+
+/* ---------- Colonne de contenu ---------- */
+
+.blog-page__wrap {
+  width: min(100% - 2rem, 76rem);
+  margin-inline: auto;
+  padding-block: 1.5rem 5rem;
+}
+
+.blog-page__nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+/* Lien de navigation (retour au blog, retour à la série) : texte souligné avec flèche, pas de bouton */
+.blog-page__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  transition: text-decoration-thickness var(--duration-fast) ease, color var(--duration-fast) ease;
+}
+
+.blog-page__link:hover {
+  color: var(--color-brand-ink);
+  text-decoration-thickness: 2px;
+}
+
+.blog-page__link:focus-visible {
+  outline: 2px solid var(--color-action-blue);
+  outline-offset: 3px;
+}
+
+/* ---------- En-tête de page : étiquette, grand titre serif, chapô ---------- */
+
+.blog-page__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  padding-block: 2rem;
+  border-bottom: 1px solid var(--color-line);
+}
+
+.blog-page__title {
+  margin: 0.5rem 0 0;
+  font-family: var(--font-serif);
+  /* clamp : le titre grandit avec la largeur de l'écran, entre 2rem (mobile) et 3.5rem (grand écran) */
+  font-size: clamp(2rem, 4.5vw, 3.5rem);
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--color-ink);
+}
+
+.blog-page__lead {
+  max-width: 46rem;
+  margin: 1rem 0 0;
+  font-size: 1.1rem;
+  line-height: 1.65;
+  color: var(--color-muted);
+}
+
+.blog-page__meta {
+  margin: 1rem 0 0;
+  font-size: var(--label-size);
+  font-weight: 600;
+  letter-spacing: var(--label-spacing);
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.blog-page__cover {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: var(--radius-sharp);
+}
+
+/* Série : sur mobile l'image se place sous le texte ; ordinateur : texte à gauche, image à droite */
+.blog-page__head--with-cover {
+  gap: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .blog-page__head--with-cover {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    align-items: end;
+    gap: 3rem;
+  }
+}
+
+/* ---------- Série : liste numérotée des articles, dans l'ordre de lecture ---------- */
+
+.series-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.series-list__item {
+  position: relative;
+  display: grid;
+  gap: 0.5rem 1.5rem;
+  grid-template-columns: 2.5rem minmax(0, 1fr);
+  padding-block: 1.5rem;
+  border-bottom: 1px solid var(--color-line);
+}
+
+.series-list__number {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  line-height: 1.2;
+  color: var(--color-muted);
+}
+
+.series-list__title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--color-ink);
+}
+
+.series-list__link {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  transition: text-decoration-thickness var(--duration-fast) ease;
+}
+
+.series-list__item:hover .series-list__link {
+  text-decoration-thickness: 2px;
+}
+
+/* Lien étiré : le ::after couvre toute la ligne (position: relative), donc toute la ligne est cliquable */
+.series-list__link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+.series-list__link:focus-visible {
+  outline: none;
+}
+
+.series-list__link:focus-visible::after {
+  outline: 2px solid var(--color-action-blue);
+  outline-offset: -2px;
+}
+
+.series-list__summary {
+  max-width: 46rem;
+  margin: 0.5rem 0 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--color-muted);
+}
+
+.series-list__meta {
+  margin: 0.75rem 0 0;
+  font-size: var(--label-size);
+  font-weight: 600;
+  letter-spacing: var(--label-spacing);
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.blog-page__empty {
+  padding: 3rem 0;
+  text-align: center;
+  color: var(--color-muted);
+}
+
+.blog-page__empty h2 {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  color: var(--color-ink);
+}
+
+/* ---------- Article ---------- */
+
+/* Couleurs du corps de l'article : on réutilise les variables propres au blog (--blogpost-*), comme avant.
+   Le markdown, les formules et les widgets lisent --text-col / --text2-col : on les redéfinit ici, pas ailleurs. */
+.blog-article {
+  --text-col: var(--blogpost-text-col);
+  --text2-col: var(--blogpost-text2-col);
+}
+
+.article-head__tags {
+  margin: 0;
+  font-size: var(--label-size);
+  font-weight: 600;
+  letter-spacing: var(--label-spacing);
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.article-head__cover {
+  display: block;
+  width: 100%;
+  max-height: 26rem;
+  margin-top: 2rem;
+  object-fit: cover;
+  border-radius: var(--radius-sharp);
+}
+
+/* Mobile : une colonne. Ordinateur large : l'article puis le sommaire collé à droite */
+.article-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.article-body {
+  min-width: 0;
+}
+
+.article-state {
+  padding: 2.5rem 0;
+  text-align: center;
+  color: var(--color-muted);
+}
+
+/* ---------- Sommaire ---------- */
+
+.article-toc__title {
+  margin: 0 0 0.75rem;
+  font-size: var(--label-size);
+  font-weight: 600;
+  letter-spacing: var(--label-spacing);
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.article-toc__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.article-toc__link {
+  padding: 0.25rem 0.75rem;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--color-muted);
+  border-left: 1px solid var(--color-line);
+  transition: color var(--duration-fast) ease, border-color var(--duration-fast) ease;
+}
+
+.article-toc__link--sub {
+  margin-left: 0.45rem;
+}
+
+.article-toc__link:hover {
+  color: var(--color-ink);
+}
+
+.article-toc__link.is-active {
+  font-weight: 600;
+  color: var(--color-ink);
+  border-left: 2px solid var(--color-brand);
+}
+
+/* position: sticky : le sommaire reste visible à droite pendant la lecture (grands écrans seulement) */
+@media (min-width: 1280px) {
+  .article-layout {
+    grid-template-columns: minmax(0, 1fr) 15rem;
+    gap: 3rem;
+  }
+
+  .article-toc {
+    position: sticky;
+    top: 6rem;
+    align-self: start;
+  }
+}
+
+/* Mobile et tablette : le sommaire est masqué (il prenait de la place avant l'article) */
+@media (max-width: 1279px) {
+  .article-toc {
+    display: none;
+  }
+}
+
+/* ---------- Article précédent / suivant ---------- */
+
+.article-pager {
+  display: grid;
+  gap: 0;
+  grid-template-columns: minmax(0, 1fr);
+  margin-top: 3rem;
+  border-top: 1px solid var(--color-line);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.article-pager__item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.25rem 0;
+}
+
+.article-pager__item--next {
+  text-align: right;
+  align-items: flex-end;
+}
+
+.article-pager__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: var(--label-size);
+  font-weight: 600;
+  letter-spacing: var(--label-spacing);
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.article-pager__title {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--color-ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  transition: text-decoration-thickness var(--duration-fast) ease;
+}
+
+.article-pager__item:hover .article-pager__title {
+  text-decoration-thickness: 2px;
+}
+
+.article-pager__item:focus-visible {
+  outline: 2px solid var(--color-action-blue);
+  outline-offset: 2px;
+}
+
+/* Tablette et plus : « précédent » à gauche, « suivant » à droite, séparés par un filet vertical */
+@media (min-width: 768px) {
+  .article-pager {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .article-pager__item--next {
+    padding-left: 1.5rem;
+    border-left: 1px solid var(--color-line);
+  }
+
+  .article-pager__item--previous {
+    padding-right: 1.5rem;
+  }
+}
+
+/* ---------- Abonnement (BlogSubscribeSection) : titre en serif comme les autres titres éditoriaux ---------- */
+
+/* Sélecteur à trois classes : il passe devant les règles de blog-v2.css (qui est chargé après ce fichier) */
+.blog-page .subscribe-v2 .subscribe-v2__title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1.15;
+}
+
+/* ---------- Page « Toutes les séries » : une ligne par série, image à gauche ---------- */
+
+.series-index {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.series-index__item {
+  position: relative;
+  display: grid;
+  gap: 1rem 2rem;
+  grid-template-columns: minmax(0, 1fr);
+  padding-block: 1.5rem;
+  border-bottom: 1px solid var(--color-line);
+}
+
+.series-index__image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: var(--radius-sharp);
+}
+
+/* Tablette et plus : l'image à gauche (largeur fixe), le texte à droite */
+@media (min-width: 640px) {
+  .series-index__item {
+    grid-template-columns: 14rem minmax(0, 1fr);
+    align-items: start;
+  }
+}
+
+/* ---------- Recherche dans tous les articles (pages Séries) ---------- */
+
+/* Au repos : la pilule de recherche, alignée à droite comme dans l'en-tête du Hub */
+.blog-search-bar {
+  display: flex;
+  justify-content: flex-end;
+  padding-bottom: 1.5rem;
+}
+
+/* overflow: hidden : pendant le dépliage la hauteur grandit de 0 à sa taille, le contenu ne doit pas déborder */
+.blog-search-reveal {
+  overflow: hidden;
+}
+
+.blog-search {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-block: 0.5rem 2rem;
+  border-bottom: 1px solid var(--color-line);
+}
+
+.blog-search__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.blog-search__close {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.25rem 0;
+  font: inherit;
+  font-size: 0.9rem;
+  color: var(--color-ink);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.blog-search__close:hover {
+  color: var(--color-brand-ink);
+}
+
+.blog-search__close:focus-visible {
+  outline: 2px solid var(--color-action-blue);
+  outline-offset: 2px;
+}
+
+.blog-search__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 1rem 1.5rem;
+}
+
+.blog-search__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.blog-search__field--grow {
+  flex: 1 1 18rem;
+}
+
+.blog-search__label {
+  font-size: var(--label-size);
+  font-weight: 600;
+  letter-spacing: var(--label-spacing);
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+/* Champ à simple filet (rayon 2 px, pas d'ombre) ; la loupe est posée à l'intérieur, à gauche */
+.blog-search__input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 2.75rem;
+  padding-inline: 0.75rem;
+  color: var(--color-muted);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-sharp);
+}
+
+.blog-search__input-wrap:focus-within {
+  border-color: var(--color-action-blue);
+}
+
+.blog-search__input,
+.blog-search__select {
+  min-height: 2.75rem;
+  font: inherit;
+  font-size: 0.95rem;
+  color: var(--color-ink);
+}
+
+.blog-search__input {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: 0;
+  outline: none;
+}
+
+.blog-search__select {
+  padding-inline: 0.75rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-sharp);
+}
+
+.blog-search__select:focus-visible {
+  outline: 2px solid var(--color-action-blue);
+  outline-offset: 2px;
+}
+
+.blog-page__results-title {
+  padding-top: 1.5rem;
+}
+
+/* Résultats de recherche : lignes sans numéro, donc une seule colonne */
+.series-list__item--plain {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* Mots-clés d'une ligne d'article : même style que ceux des cartes du Hub (bleu d'action, 3 au plus) */
+.series-list__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.9rem;
+  margin: 0.75rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: var(--label-spacing);
+  text-transform: uppercase;
+  color: var(--color-action-blue);
+}

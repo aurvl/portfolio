@@ -29,7 +29,7 @@ Agents may edit:
 - `src/data/series.json`
 - `src/data/domain.json`
 - `src/data/home.ts`, `src/data/home.fr.ts`
-- `src/data/selected-work.json`, `src/data/publications.json`, `src/data/now-building.json`
+- `src/data/selected-work.json`, `src/data/publications.json`, `src/data/latest-things.json`
 
 Agents must not manually edit generated outputs:
 

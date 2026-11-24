@@ -27,9 +27,9 @@ occupent une place centrale dans le workflow.
 Cette orientation est méthodologiquement juste.
 Dans de nombreux cas applicatifs, le cadrage de la supervision compte autant que le classifieur choisi.
 
-- [v] Le projet traite le corpus et le schéma de labels comme des objets analytiques à part entière.
-- [v] Le périmètre couvre extraction, préparation, modélisation et interprétation.
-- [!] Les données reposent sur des labels imparfaits et non sur une annotation experte exhaustive.
+- [v] J'ai traité le corpus et le schéma de labels comme des objets d'analyse à part entière.
+- [v] J'ai couvert extraction, préparation, modélisation et interprétation.
+- [!] Mes labels sont imparfaits : il n'y a pas d'annotation experte exhaustive.
 
 # Method
 
@@ -59,34 +59,17 @@ Le projet produit aussi des nuages de mots, une analyse de termes discriminants,
 Cette couche d'interprétation compte beaucoup.
 Elle empêche le projet de se réduire à une simple comparaison de classifieurs.
 
-- [v] Le pipeline couvre extraction, nettoyage, vectorisation, entraînement et lecture des sorties.
-- [v] Les modèles retenus sont cohérents avec la taille du corpus et le choix TF-IDF.
-- [v] Les stratégies de labellisation sont intégrées comme partie du problème méthodologique.
-- [!] L'absence de gold standard annoté à la main limite la portée des scores obtenus.
+- [v] Mon pipeline va de l'extraction et du nettoyage à la vectorisation, l'entraînement et la lecture des sorties.
+- [v] J'ai choisi des modèles cohérents avec la taille du corpus et la représentation TF-IDF.
+- [v] J'ai intégré les deux stratégies de labellisation comme partie du problème méthodologique.
+- [!] Faute de gold standard annoté à la main, la portée de mes scores est limitée.
 
 # Value
 
-## Ce que le projet démontre
-Le projet démontre une capacité à traiter des textes bruités,
-à construire un cadre supervisé pragmatique et à garder une distance critique vis-à-vis des métriques.
+## Ce que j'ai voulu montrer
+Je voulais traiter des textes bruités, construire un cadre supervisé pragmatique et garder une distance critique vis-à-vis des métriques. Pour moi, dans beaucoup de pipelines NLP appliqués, la structure des labels pèse autant que le choix du modèle.
 
-Il met en avant des compétences en préparation de corpus,
-en extraction de features textuelles, en modèles de base interprétables et en analyse des sorties.
-
-L'ensemble souligne aussi un point de méthode important :
-dans beaucoup de pipelines NLP appliqués, la structure des labels pèse autant que le choix du modèle.
-
-## Portée professionnelle
-Le travail s'inscrit dans une logique de NLP appliqué,
-centrée sur l'exécutabilité du pipeline et sur la lisibilité de ses limites.
-
-L'architecture retenue fait ressortir une exécution disciplinée,
-où le prétraitement, la supervision et l'interprétation restent visibles à chaque étape.
-
-Pris dans son ensemble, le projet vaut par sa cohérence méthodologique.
-Sa contribution principale réside dans la façon dont il transforme un corpus imparfait en objet analytique exploitable.
-
-- [v] Le projet souligne une conception de pipeline NLP centrée sur la méthode.
-- [v] Il maintient l'interprétation visible tout au long du workflow.
-- [v] L'ensemble reste concret, spécifique et techniquement lisible.
-- [!] Sa portée doit être lue comme celle d'un pipeline appliqué réaliste, non comme une solution générale au sentiment analysis.
+## Ce que j'en retiens
+- [v] J'ai gardé le prétraitement, la supervision et l'interprétation visibles à chaque étape.
+- [v] J'ai fait un pipeline concret et lisible techniquement.
+- [!] C'est un pipeline appliqué réaliste, pas une solution générale au sentiment analysis.

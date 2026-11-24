@@ -51,11 +51,6 @@
         "slug": "belgian-trade-time-series",
         "title": "Belgian trade, 1995–2023",
         "detail": "Time series · 10-quarter forecast"
-      },
-      {
-        "slug": "phillips-curve-europe-policy",
-        "title": "Phillips curve in Europe",
-        "detail": "Econometrics · policy analysis"
       }
     ]
   },
@@ -111,11 +106,6 @@
         "slug": "belgian-trade-time-series",
         "title": "Commerce belge, 1995–2023",
         "detail": "Séries temporelles · prévision à 10 trimestres"
-      },
-      {
-        "slug": "phillips-curve-europe-policy",
-        "title": "Courbe de Phillips en Europe",
-        "detail": "Économétrie · analyse de politique"
       }
     ]
   }

@@ -1,15 +1,38 @@
 {
   "navbar": {
     "language": "Language",
+    "skipToContent": "Skip to content",
     "themeToggle": "Toggle theme"
   },
   "footer": {
-    "copyright": "© 2026 Aurel Vehi. All rights reserved."
+    "tagline": "PhD researcher in applied economics",
+    "navigation": "Navigation",
+    "profiles": "Profiles",
+    "contact": "Contact",
+    "email": "Email",
+    "contactMe": "Get in touch",
+    "resume": "Resume (PDF)",
+    "copyright": "© 2026 Aurel Vehi",
+    "backToTop": "Back to top"
+  },
+  "doors": {
+    "paper": "{{count}} paper",
+    "papers": "{{count}} papers",
+    "project": "{{count}} project",
+    "projects": "{{count}} projects"
+  },
+  "latest": {
+    "lastPaper": "Latest paper",
+    "paperKind": "Research article",
+    "lastProject": "Latest project",
+    "lastPost": "Latest blog post",
+    "postKind": "Blog"
   },
   "projects": {
     "fallbackDomain": "Project",
     "technicalLevel": "Technical level",
     "readMore": "Read more",
+    "statusInProgress": "In progress",
     "window": {
       "close": "Close project window",
       "emptySection": "No detailed content is available for this section yet.",
@@ -136,7 +159,14 @@
     "series": {
       "readMore": "Discover",
       "postCount": "{{count}} posts",
-      "fallbackTitle": "Series"
+      "fallbackTitle": "Series",
+      "eyebrow": "Series",
+      "count": "{{count}} articles",
+      "searchTitle": "Search all articles",
+      "results": "Search results",
+      "searchButton": "Search an article",
+      "closeSearch": "Close search",
+      "all": "All series"
     }
   },
   "consent": {

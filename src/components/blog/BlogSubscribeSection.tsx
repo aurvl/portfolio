@@ -76,7 +76,7 @@ function BlogSubscribeSection({
   }
 
   return (
-    <section className="subscribe-v2 mt-10 rounded-lg border border-[var(--glass-border)] bg-[var(--bg2-color)] px-5 py-6 md:px-8 md:py-8">
+    <section id="subscribe" className="subscribe-v2 mt-10 rounded-lg border border-[var(--glass-border)] bg-[var(--bg2-color)] px-5 py-6 md:px-8 md:py-8">
       <div className="subscribe-v2__layout flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
         <div className="max-w-2xl">
           <p className="subscribe-v2__eyebrow text-xs uppercase tracking-[0.28em] text-[var(--text2-col)]">
@@ -117,18 +117,8 @@ function BlogSubscribeSection({
               disabled={!isEmailValid || isSubmitting}
               className="subscribe-v2__submit"
             >
-              <span className="bg-gradient-to-r from-[#e05aff] to-[#ff8c42] bg-clip-text font-semibold text-transparent">
-                {isSubmitting ? t('blog.subscribe.submitting') : t('blog.subscribe.submit')}
-              </span>
-              <MdKeyboardArrowRight size={22} style={{ fill: 'url(#btn-gradient)', flexShrink: 0 }} aria-hidden="true" />
-              <svg width="0" height="0" style={{ position: 'absolute' }} aria-hidden="true">
-                <defs>
-                  <linearGradient id="btn-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#e05aff" />
-                    <stop offset="100%" stopColor="#ff8c42" />
-                  </linearGradient>
-                </defs>
-              </svg>
+              {isSubmitting ? t('blog.subscribe.submitting') : t('blog.subscribe.submit')}
+              <MdKeyboardArrowRight size={22} className="shrink-0" aria-hidden="true" />
             </button>
           </div>
 

@@ -1,15 +1,38 @@
 {
   "navbar": {
     "language": "Langue",
+    "skipToContent": "Aller au contenu",
     "themeToggle": "Changer de theme"
   },
   "footer": {
-    "copyright": "© 2026 Aurel Vehi. Tous droits réservés."
+    "tagline": "Doctorant en économie appliquée",
+    "navigation": "Navigation",
+    "profiles": "Profils",
+    "contact": "Contact",
+    "email": "Email",
+    "contactMe": "Me contacter",
+    "resume": "CV (PDF)",
+    "copyright": "© 2026 Aurel Vehi",
+    "backToTop": "Haut de page"
+  },
+  "doors": {
+    "paper": "{{count}} article",
+    "papers": "{{count}} articles",
+    "project": "{{count}} projet",
+    "projects": "{{count}} projets"
+  },
+  "latest": {
+    "lastPaper": "Dernière publication",
+    "paperKind": "Article de recherche",
+    "lastProject": "Dernier projet",
+    "lastPost": "Dernier article de blog",
+    "postKind": "Blog"
   },
   "projects": {
     "fallbackDomain": "Projet",
     "technicalLevel": "Niveau technique",
     "readMore": "Voir plus",
+    "statusInProgress": "En cours",
     "window": {
       "close": "Fermer la fenetre du projet",
       "emptySection": "Aucun contenu detaille n'est disponible pour cette section pour le moment.",
@@ -136,7 +159,14 @@
     "series": {
       "readMore": "Decouvrir",
       "postCount": "{{count}} posts",
-      "fallbackTitle": "Serie"
+      "fallbackTitle": "Serie",
+      "eyebrow": "Série",
+      "count": "{{count}} articles",
+      "searchTitle": "Rechercher dans tous les articles",
+      "results": "Résultats de la recherche",
+      "searchButton": "Rechercher un article",
+      "closeSearch": "Fermer la recherche",
+      "all": "Toutes les séries"
     }
   },
   "consent": {

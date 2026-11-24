@@ -27,8 +27,8 @@ Il évite de traiter la loi d'Okun comme une relation uniforme valable partout a
 Le travail s'inscrit ainsi dans une logique d'économie empirique.
 Il fait de l'écart à la théorie un objet d'analyse plutôt qu'un bruit à écarter.
 
-- [v] Le projet confronte un cadre théorique net à des données comparables.
-- [v] Il donne une place méthodique aux cas qui s'ajustent mal au schéma attendu.
+- [v] J'ai confronté un cadre théorique net à des données comparables.
+- [v] J'ai donné une place méthodique aux cas qui s'ajustent mal au schéma attendu.
 - [!] La loi d'Okun reste un cadre simplifié qui ne résume pas toute la dynamique de l'emploi.
 
 # Method
@@ -53,33 +53,17 @@ Elle incite à regarder la productivité, la structure du marché du travail et 
 Le dépôt ne publie pas un tableau final de coefficients figés pour toutes les variantes.
 En revanche, la logique de construction des indicateurs et le diagnostic restent lisibles.
 
-- [v] Le projet mobilise des données publiques crédibles et comparables.
-- [v] Il relie comparaison européenne et approfondissement d'un cas particulier.
-- [v] Il évite une lecture automatique de la relation macroéconomique.
-- [!] Les résultats dépendent de sources live et ne sont pas tous figés dans des artefacts finaux du dépôt.
+- [v] J'ai mobilisé des données publiques comparables.
+- [v] J'ai relié comparaison européenne et approfondissement d'un cas particulier.
+- [v] J'ai évité une lecture automatique de la relation macroéconomique.
+- [!] Mes résultats dépendent de sources en ligne et ne sont pas tous figés dans des artefacts finaux du dépôt.
 
 # Value
 
-## Ce que le projet démontre
-Le projet démontre une capacité à partir d'un cadre théorique simple,
-à le confronter proprement aux données et à accepter qu'un résultat intéressant puisse être un écart à la théorie.
+## Ce que j'ai voulu montrer
+Je voulais partir d'un cadre théorique simple, le confronter proprement aux données et accepter qu'un résultat intéressant puisse être un écart à la théorie. Pour moi, les données servent à raisonner, pas à illustrer une idée déjà fermée : le diagnostic compte autant que la forme du coefficient estimé.
 
-Il met en lumière une pratique saine de l'économie empirique.
-Les données servent ici à raisonner, et non à illustrer une idée déjà fermée.
-
-L'ensemble fait ressortir une posture analytique nuancée.
-Le diagnostic compte autant que la forme du coefficient estimé.
-
-## Portée professionnelle
-Le travail vaut par sa rigueur interprétative.
-Il montre qu'une relation macroéconomique connue peut être traitée comme une hypothèse à éprouver plutôt que comme un résultat acquis.
-
-L'architecture retenue fait ressortir une capacité à relier
-cadre conceptuel, données publiques et lecture des anomalies.
-
-Pris dans son ensemble, le projet contribue une pièce d'économie appliquée lisible,
-centrée sur la qualité du raisonnement plus que sur une sophistication algorithmique.
-
-- [v] Le projet souligne une approche empirique nuancée de la macroéconomie appliquée.
-- [v] Il montre qu'un écart à la théorie peut constituer un résultat analytique utile.
-- [!] Sa force principale réside dans la qualité de l'interprétation plutôt que dans la complexité du modèle.
+## Ce que j'en retiens
+- [v] J'ai traité une relation macroéconomique connue comme une hypothèse à éprouver, pas comme un résultat acquis.
+- [v] J'ai relié cadre conceptuel, données publiques et lecture des anomalies.
+- [!] Ma force est la qualité de l'interprétation, pas la complexité du modèle.

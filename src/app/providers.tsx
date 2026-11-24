@@ -9,7 +9,7 @@ const THEME_STORAGE_KEY = 'portfolio-theme'
 
 function getPreferredTheme(): ThemeMode {
   if (typeof window === 'undefined') {
-    return 'dark'
+    return 'light'
   }
 
   const storedTheme = window.localStorage.getItem(THEME_STORAGE_KEY)
@@ -18,9 +18,10 @@ function getPreferredTheme(): ThemeMode {
     return storedTheme
   }
 
-  return window.matchMedia('(prefers-color-scheme: light)').matches
-    ? 'light'
-    : 'dark'
+  // Le design v3 est pensé en clair : sombre seulement si le système le demande explicitement
+  return window.matchMedia('(prefers-color-scheme: dark)').matches
+    ? 'dark'
+    : 'light'
 }
 
 function AppProviders({ children }: { children: ReactNode }) {

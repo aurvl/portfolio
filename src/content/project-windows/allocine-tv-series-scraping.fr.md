@@ -12,15 +12,14 @@ Ce projet montre une chaîne data complète à petite échelle : extraction de p
 
 L’intérêt du projet ne se limite pas au scraping. Il réside aussi dans la manière dont les données collectées sont ensuite organisées et utilisées pour répondre à une question simple d’analyse.
 
-## Pourquoi ce projet mérite l'attention
-Le dépôt combine trois compétences qui apparaissent rarement ensemble dans un petit projet : parsing web, structuration tabulaire et exploitation analytique. Il réunit ainsi une chaîne complète, depuis la donnée brute jusqu’à une conclusion statistique explicite.
+## Ce qui m'a intéressé
+Ce projet réunit trois compétences : parsing web, structuration tabulaire et exploitation analytique. Il forme une chaîne complète, de la donnée brute à une conclusion statistique explicite, et montre que l'extraction web est reliée à un vrai usage analytique des données collectées.
 
-Cette continuité est méthodologiquement utile, car elle montre que l'extraction web est reliée à un véritable usage analytique des données collectées.
 
-- [v] Le projet couvre extraction, structuration, stockage et analyse.
-- [v] Il fait le lien entre web scraping et exploitation analytique réelle.
+- [v] J'ai couvert extraction, structuration, stockage et analyse.
+- [v] J'ai fait le lien entre web scraping et exploitation analytique réelle.
 - [v] Le sujet est concret et visuellement facile à comprendre.
-- [!] Le scraping repose sur des fichiers HTML locaux et non sur une pipeline web robuste en ligne.
+- [!] Le scraping repose sur des fichiers HTML locaux et non sur un pipeline web robuste en ligne.
 
 # Method
 
@@ -34,28 +33,19 @@ Le rapport `R` teste explicitement la relation `audience_rating ~ duration`. Les
 
 Cette conclusion est intéressante parce qu’elle montre qu’un projet d’analyse n’a pas besoin de déboucher sur un “effet fort” pour avoir de la valeur. Montrer qu’une intuition n’est pas confirmée fait aussi partie d’un travail sérieux.
 
-- [v] Le projet montre un pipeline complet depuis le HTML jusqu’à l’analyse statistique.
-- [v] Le dataset final est structuré autour de variables riches et réutilisables.
-- [v] L’analyse aboutit à une conclusion claire et honnête.
-- [v] La table SQL ajoute une étape de structuration utile entre collecte et analyse.
+- [v] J'ai construit un pipeline complet, du HTML à l'analyse statistique.
+- [v] Mon dataset final est structuré autour de variables riches et réutilisables.
+- [v] Mon analyse aboutit à une conclusion claire et honnête.
+- [v] J'ai ajouté une table SQL, étape de structuration utile entre collecte et analyse.
 - [!] L’extraction par regex reste fragile face à un changement de structure HTML.
-- [!] Le dépôt dépend de pages locales compressées dans `Pages.rar`, donc la reproductibilité n’est pas immédiate.
+- [!] Le dépôt dépend de pages locales compressées dans `Pages.rar` : la reproductibilité n'est pas immédiate.
 
 # Value
 
-## Ce que le projet prouve
-Le projet met en lumière une capacité à enchaîner plusieurs briques data de manière cohérente : collecte, structuration, stockage, requêtes et analyse. Il montre aussi qu’un petit sujet peut devenir un projet crédible lorsqu’il est mené de bout en bout.
+## Ce que j'ai voulu montrer
+Je voulais enchaîner plusieurs briques data de manière cohérente : collecte, structuration, stockage, requêtes et analyse. Pour moi, une collecte web n'a de valeur que si elle débouche sur une structuration propre et sur une question d'analyse identifiable : l'intérêt est dans la continuité de la chaîne, plus que dans le scraping isolé.
 
-## Portée professionnelle
-Le projet montre qu’une collecte web n’a de valeur que si elle débouche sur une structuration propre et sur une question d’analyse identifiable. L’intérêt du travail réside donc dans la continuité de la chaîne, plus que dans le scraping pris isolément.
-
-Il a également une portée pédagogique solide : chaque étape apporte une transformation identifiable au matériau initial, ce qui rend la logique du pipeline facile à auditer et à réutiliser sur d’autres cas de collecte structurée.
-
-:::panel{tone="blue" title="Lecture du projet"}
-L’ensemble met en lumière une capacité à passer d’un matériau HTML hétérogène à un dataset exploitable, puis à une conclusion statistique sobre et défendable.
-:::
-
-- [v] Le projet souligne une capacité nette en collecte et structuration de données web.
-- [v] Il montre une vraie continuité entre acquisition et analyse.
-- [v] Il valorise la capacité à produire un dataset structuré à partir d’un matériau brut.
-- [!] Sa robustesse technique reste celle d’un prototype de scraping local, pas d’une pipeline web industrialisée.
+## Ce que j'en retiens
+- [v] J'ai produit un dataset structuré à partir d'un matériau HTML hétérogène, puis une conclusion statistique sobre et défendable.
+- [v] Chaque étape apporte une transformation identifiable : le pipeline est facile à auditer et à réutiliser.
+- [!] La robustesse technique est celle d'un prototype de scraping local, pas d'un pipeline web industrialisé.

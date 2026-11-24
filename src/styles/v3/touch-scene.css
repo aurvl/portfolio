@@ -1,0 +1,90 @@
+/* ------------------------------------------------------------------ *
+ * Design v3 : scène tactile de l'accueil (mobile et tablette, < 1024 px ou écran tactile).
+ * Landing et About sont deux ÉTATS d'une même scène fixe. useBambooMobile pose sur <html> :
+ *   data-scene="landing" : la landing est collée à l'écran, la page ne défile pas ;
+ *   data-scene="about"   : la landing est une couche tout en haut de la page, qui défile avec elle ;
+ *   .is-transitioning    : la transition joue (600 ms), le scroll est bloqué.
+ * Sans data-scene (ordinateur, autres pages), rien de ceci ne s'applique.
+ * ------------------------------------------------------------------ */
+
+/* Pas de calage de page en tactile : l'About est plus haut que l'écran et défile librement. Placé après html.snap-home :
+   à spécificité égale, la dernière règle l'emporte. */
+html[data-scene] {
+  scroll-snap-type: none;
+}
+
+/* Page verrouillée sur la landing et pendant toute transition : ni défilement ni effet de rebond (Safari iOS).
+   Le blocage du geste lui-même est fait en JavaScript (touchmove), ceci est la ceinture et les bretelles. */
+html[data-scene='landing'],
+html[data-scene='landing'] body,
+html.is-transitioning,
+html.is-transitioning body {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+/* position: fixed : la landing est collée à l'écran. À l'état « about » elle passe en absolute tout en haut de la page :
+   au scroll 0 les deux positions sont identiques (aucun saut), puis elle défile avec la page, bannière resserrée. */
+html[data-scene] .landing {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  touch-action: none;
+}
+
+html[data-scene='about'] .landing {
+  position: absolute;
+  pointer-events: none;
+  touch-action: auto;
+}
+
+/* Le carrousel « Latest things » reste glissable à l'horizontale ; le vertical est pour la transition */
+html[data-scene='landing'] .latest-things__list {
+  touch-action: pan-x;
+}
+
+/* L'About est posée au-dessus de la landing (elle vient après dans la page) : fond transparent sur la bannière, pour laisser
+   voir la photo de la landing (une seule photo), et couleur de page dessous. Cachée sur la landing, elle apparaît en
+   fondu pendant la transition (opacité posée par useBambooMobile). */
+html[data-scene] .about {
+  background: transparent;
+}
+
+html[data-scene] .about::before {
+  content: '';
+  position: absolute;
+  inset: 12rem 0 0;
+  background: var(--color-page);
+}
+
+html[data-scene] .about__banner {
+  background: transparent;
+}
+
+html[data-scene='landing']:not(.is-transitioning) .about {
+  visibility: hidden;
+}
+
+/* ---------- Écrans About / Recherche / Contact : un seul affiché à la fois ----------
+   scene-hidden : l'écran est retiré de la page (posé par useBambooMobile). !important : .contact est en display: flex. */
+html[data-scene] .scene-hidden {
+  display: none !important;
+}
+
+/* is-leaving : pendant la transition, l'écran qui part devient une couche fixe, collée à l'écran à l'endroit exact où
+   il était (le décalage vers le haut est posé en JavaScript), et s'efface par-dessus l'écran qui arrive. z-index : au-dessus
+   de l'écran d'arrivée, sous la navbar. */
+html[data-scene] .is-leaving {
+  position: fixed;
+  left: 0;
+  z-index: 20;
+  width: 100%;
+  pointer-events: none;
+}
+
+/* Défilement automatique vers une section (jumpToSection, ordinateur) : le calage de la page est coupé le temps du
+   mouvement, sinon il le saccaderait en rattrapant chaque point d'arrêt. */
+html.is-auto-scrolling {
+  scroll-snap-type: none !important;
+}

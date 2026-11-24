@@ -1,14 +1,15 @@
-import ProjectCard from "./ProjectCard";
-import type { Project } from "../../types/project";
+// Grille des cartes projet du Hub : 3 colonnes sur ordinateur, 2 sur tablette, 1 sur mobile (styles/v3/hub.css).
+import ProjectCard from './ProjectCard'
+import type { Project } from '../../types/project'
 
 type ProjectGridProps = {
-    projects: Project[]
-    onOpenProject?: (project: Project) => void
+  projects: Project[]
+  onOpenProject?: (project: Project) => void
 }
 
 function ProjectGrid({ projects, onOpenProject }: ProjectGridProps) {
   return (
-    <div className="grid min-w-0 auto-rows-fr grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+    <div className="hub-grid">
       {projects.map((project) => (
         <ProjectCard
           key={project.id}

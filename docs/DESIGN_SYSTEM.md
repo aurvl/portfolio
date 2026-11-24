@@ -1,63 +1,87 @@
-# Design system (V2)
+# Design system (v3)
 
-The V2 look: Codex-like and calm. Warm neutrals, one blue accent, small radii, sparse text, visuals that
-explain. Keep it; do not reintroduce the V1 style (glass cards, large radii, mono everywhere).
-One deliberate exception: interactive blog widgets keep their own dark card style
-(`docs/MARKDOWN_CONTENT_RULES.md`, section 10).
+The look is editorial and calm: sparse text, a photo of bamboo as the common thread, thin lines instead of cards,
+a serif for big titles, one blue accent. This file describes what the code
+does today. Do not reintroduce the old V2 style (warm greys, glass cards, mono labels everywhere).
 
-## Scope
+## Style sheets
 
-All V2 styles are scoped under `.home-v2`. Every page passes it to the layout:
-`<MainLayout className="home-v2" …>`. New pages must do the same, or they fall back to the old global styles.
+| Sheet | Role |
+| --- | --- |
+| `src/styles/globals.css` | Entry point: imports Tailwind, the v3 sheets, then the legacy variables |
+| `src/styles/v3/tokens.css` | **The tokens** (`@theme`) and their dark values |
+| `src/styles/v3/atoms.css` | Buttons, `.eyebrow`, `.tabular`, form fields, skip link, shared pieces |
+| `src/styles/v3/navbar.css`, `landing.css`, `about.css`, `papers.css`, `contact.css`, `footer.css` | One sheet per homepage screen and the navbar |
+| `src/styles/v3/hub.css`, `blog.css` | The Projects hub, series and article pages |
+| `src/styles/v3/scene.css`, `touch-scene.css` | Homepage scene: desktop (sticky frame) and touch |
+| `src/styles/v3/page-transitions.css` | Page-to-page View Transitions |
+| `src/styles/markdown.css` | Article body (`.md-content__*`), code blocks, math, panels |
+| `src/styles/blog-v2.css`, `projects-v2.css` | What remains of V2: subscribe form, article image rules, project window, filter fields |
+| `src/styles/home-v2.css` | The `--hv-*` variables (still read by the two sheets above and by the cookie banner) and the cookie banner |
+| `src/styles/theme.css`, `responsive.css` | Legacy variables and a few shared pieces (project window tabs, back-to-top button) |
 
-Style sheets: `src/styles/home-v2.css` (tokens, homepage, shared components), `projects-v2.css` (catalogue),
-`blog-v2.css` (blog, posts, series).
+Plain CSS written in these sheets is unlayered, so it beats Tailwind utilities (which live in a layer). To change
+an existing rule, edit the sheet; do not stack a utility class on top. A known trap: `globals.css` sets
+`button, select { color: inherit }`, so a Tailwind text colour on a `<button>` is silently ignored (this once made a
+submit button unreadable). Use the `Button` component (`ui/Button.tsx`) or a named class in `styles/v3/`.
 
 ## Tokens
 
-Defined on `.home-v2` in `home-v2.css`, with dark values under `:root[data-theme='dark'] .home-v2`.
-Use the tokens, never raw colours, so both themes keep working.
+All in `v3/tokens.css`, declared in `@theme static`. Tailwind v4 turns them into classes (`bg-page`, `text-ink`,
+`font-serif`, `rounded-pill`…). Never write a raw colour when a token exists, and never create a
+`tailwind.config.js`.
 
-- Surfaces: `--hv-bg`, `--hv-surface`, `--hv-surface-2`, `--hv-surface-3`
-- Text: `--hv-ink`, `--hv-muted`, `--hv-faint`
-- Lines: `--hv-line`, `--hv-line-2`, `--hv-line-3`
-- Accent: `--hv-accent`, `--hv-accent-ink`, `--hv-accent-soft`, `--hv-accent-2`; status `--hv-ok`, `--hv-warn`
-- Fonts: `--hv-display`, `--hv-mono`
+- Colour: `--color-page`, `--color-page-alt`, `--color-surface`, `--color-ink`, `--color-muted`, `--color-line`,
+  `--color-brand` (`#55a1f5`), `--color-brand-ink`, `--color-on-brand` (text on the blue, `#141413`),
+  `--color-action-blue`, `--color-night` (the black blocks).
+- Fonts: `--font-sans` (Geist, local), `--font-serif` (Source Serif 4; change the serif in that one line).
+- Radius: `--radius-sharp` (2 px) and `--radius-small` (4 px) for the editorial look; `--radius-pill` for the navbar
+  and utility pill. `--radius-field/card/card-lg` and `--shadow-*` belong to the older look still used by the
+  landing and the navbar.
+- Labels: `--label-size`, `--label-spacing` (small spaced capitals: class `.eyebrow`). Aligned figures: `.tabular`.
+- Motion: `--duration-fast` (160 ms).
+
+### Dark mode
+
+`:root[data-theme='dark']` in `tokens.css` redefines the same variables, so classes do not change. Rules:
+
+- Text must reach WCAG AA: 4.5:1 for normal text, 3:1 for large text (24 px, or 18.7 px bold).
+- Text on the blue brand colour uses `--color-on-brand` (dark). White on `#55a1f5` is only 2.7:1.
+- Text placed on a photo needs a gradient or veil under it (see `featured-cover__caption`).
+- Colours written for dark only (light green, light red) need a dark counterpart under `[data-theme='light']`
+  (see the "done / avoid" lists in `markdown.css`).
+- The black "night" blocks and the interactive blog widgets keep their dark look in both themes on purpose.
 
 ## Typography
 
-- Inter for text (17px base on the homepage).
-- Bricolage Grotesque (`src/assets/fonts`) for section titles and display text.
-- JetBrains Mono only for small metadata: publication kind and citation, project detail labels, graph labels,
-  the profile journey, contact route audiences. Not for body text or headings.
+- Geist for text, Source Serif 4 for page titles and article headings. No mono except code.
 - Titles never end with a period.
+- Heading levels: one `<h1>` per page. In an article the title is the `<h1>` and Markdown headings render from `<h2>`.
+  On the homepage the name is the `<h1>`; the About name is a paragraph, not a second heading.
 
-## Shape
+## Components
 
-- Radius 3px by default for cards, buttons, inputs and tags.
-- Exceptions: fully rounded pills (`999px`, e.g. the hero byline) and circles; at most 8px for the large hero visual.
-- Borders are thin lines (`--hv-line*`); avoid heavy shadows.
-
-## Components and patterns
-
-- Section heading: `.hv-eyebrow` (small label) above an `.hv-h2` title; sections use `.hv-section`.
-- Cards: `.hv-card`. Project cards keep the catalogue's domain badge (colour from `domain.json`) and keyword tags.
-- Status chips: `.hv-status--done`, `.hv-status--progress`, `.hv-status--prep`.
-- Buttons: `.hv-btn`, `.hv-btn--primary`, `.hv-btn--ghost`, with the `FiChevronRight` icon for "go" actions.
-- Text links: `.hv-link`, never underlined; on hover the text takes the blue → violet gradient.
-- Background pattern (dots and plus signs): `.hv-section--pattern`, `.hv-section--pattern-left`.
-- Reveal-on-scroll: wrap blocks in `Reveal`; animations respect `prefers-reduced-motion`.
-- Icons: `react-icons/fi` (Feather) for UI icons.
+- **Buttons** (`ui/Button.tsx`): `solid` (one per screen), `line` and `link` are the editorial variants. The
+  default `primary`, and `secondary`, `outline`, `pill`, are the older look, still used by the landing "Learn more"
+  button. It renders an `<a>` when given `href`, otherwise a `<button>`.
+- **Navbar**: blue pill with dark text; the active tab is a lighter blue. On the homepage it grows out of the
+  "Learn more" button (`MorphNavbar`); on mobile and tablet it is a compact menu (`CompactMenu`).
+- **Cards**: thin line, sharp corners, serif title, rectangular domain label. A "stretched link" (`::after`) makes
+  the whole card clickable, so its focus ring is drawn on `::after` too.
+- **Icons**: `react-icons/fi` for UI icons.
+- **Skip link**: `.skip-link`, first element of every page, visible only on keyboard focus.
 
 ## Responsive
 
-- Mobile breakpoint: 760px. Tablet adjustments: 768–1100px and up to 1024px.
-- On mobile, wide rows become swipeable carousels with dots (method steps); the navbar stays compact.
-- Always check about 390px wide and a 14" laptop height: homepage cards must fit the screen.
+- Desktop scene: `min-width: 1024px` **and** `hover: hover` **and** `pointer: fine`. An iPad in landscape is wide but
+  touch, so it gets the touch version. The same condition is used in the CSS and in `HomePage.tsx`.
+- Other breakpoints in use: 640, 768 and 900 px (carousels, grids).
+- Touch targets are at least 44 px (`atoms.css`).
+- Check about 390 px wide, tablet, and a laptop height.
 
-## CSS pitfalls
+## Accessibility
 
-- Plain CSS in these sheets is unlayered, so it beats Tailwind utilities (which live in a layer). To override
-  a V2 rule, edit the sheet rather than adding a utility class.
-- The global `select { font: inherit }` wins over utilities; style selects with a class selector
-  (see `select.language-switcher` in `theme.css`).
+- Every interactive element shows a focus ring (`:focus-visible`), at least 2 px.
+- Every image has an `alt` (empty for decoration); every icon-only button has an `aria-label`.
+- `prefers-reduced-motion`: smooth scrolling off, the homepage scene and transitions reduced to fades.
+- Check a page in light and dark mode before finishing, with Tab only.

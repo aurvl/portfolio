@@ -14,15 +14,15 @@ The repository combines market feature engineering, regime-aware labeling, seque
 The analytical value lies in the breadth of the chain.
 The work does not stop at a classifier score; it tries to connect model outputs to a trading decision process and to capital evolution.
 
-## Why the project matters
+## What interested me
 Financial classification projects are often weakened by weak target design or by a disconnect between classification quality and trading usefulness.
-This repository addresses that issue by integrating labeling logic and backtesting into the overall structure.
+I address that issue by integrating labeling logic and backtesting into the overall structure.
 
 The project therefore sits between machine learning and quantitative research.
-It evaluates not only whether temporal signals can be separated, but whether that separation can survive a strategy-level interpretation.
+I evaluate not only whether temporal signals can be separated, but whether that separation can survive a strategy-level interpretation.
 
-- [v] The repository links classification output to market-use logic instead of isolating model metrics.
-- [v] It treats temporal structure as the central modeling object.
+- [v] I link classification output to market-use logic instead of isolating model metrics.
+- [v] I treat temporal structure as the central modeling object.
 - [!] The practical reliability of the approach remains bounded by the realism of the labels and the reproducibility of the classifier implementation.
 
 # Method
@@ -48,31 +48,17 @@ The backtest uses holding rules around `126` periods and includes a maximum draw
 This design gives the repository an applied evaluation layer.
 It forces the model to be judged not only on classification behavior, but also on the shape of the resulting capital path.
 
-- [v] The workflow combines features, regime logic, temporal classification, and trading simulation.
-- [v] Sequence design is explicit and tied to market structure rather than to arbitrary tabular snapshots.
+- [v] I combine features, regime logic, temporal classification, and trading simulation in one workflow.
+- [v] I made the sequence design explicit and tied to market structure rather than to arbitrary tabular snapshots.
 - [!] The source code for the core classifier is not fully available in a readable form, which limits auditability.
-- [!] Backtest conclusions remain sensitive to label design, execution assumptions, and market regime stability.
+- [!] My backtest conclusions remain sensitive to label design, execution assumptions, and market regime stability.
 
 # Value
 
-## What the project demonstrates
-The project demonstrates a capacity to connect machine learning research with quantitative finance constraints.
-It shows competence in time-series feature engineering, sequence-based modeling, and the translation of predictive outputs into strategy evaluation.
+## What I wanted to show
+I wanted to connect financial features, temporal classification and decision use. A classification score is not enough in applied finance: you have to look at how it translates into portfolio or strategy behavior. I exposed a difficult field, heterogeneous results and frank limits, rather than pretending to beat the market.
 
-It also brings out a useful research reflex.
-The repository does not treat model scores as sufficient in themselves and instead asks whether the signals remain meaningful in a trading frame.
-
-## Professional significance
-The project contributes a technically ambitious case at the intersection of ML and market analysis.
-It highlights the ability to structure an experimental pipeline where labels, temporal windows, regimes, and capital simulation all matter.
-
-The overall architecture also shows awareness of a core issue in financial ML.
-Predictive structure is only interesting if it survives contact with execution-oriented evaluation.
-
-## Limits and positioning
-The repository is best read as a research prototype rather than as a deployable trading system.
-Its strongest contribution lies in the integration of classification and backtesting logic, even if some implementation details remain partially opaque.
-
-- [v] The project highlights sequence-based financial ML with explicit downstream evaluation.
-- [v] It connects temporal modeling to strategy-level interpretation.
-- [!] Its main value is research design and pipeline composition, not a claim of stable trading alpha.
+## What I take from it
+- [v] I favored analytical rigor over announcement effect.
+- [v] I applied temporal ML to a demanding field.
+- [!] The interest lies in the approach and the lucidity about the results, not in a promise of miracle trading.

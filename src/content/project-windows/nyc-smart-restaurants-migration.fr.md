@@ -27,9 +27,9 @@ qu'un simple exercice comparant deux technologies de base de données.
 Le sujet s'inscrit dans une logique de conception.
 PostgreSQL et MongoDB n'y sont pas interchangeables ; chacun répond à un rôle précis.
 
-- [v] La migration est justifiée par des usages de consultation identifiés.
-- [v] Le projet articule modélisation, requêtes et performance dans le même ensemble.
-- [!] Le périmètre reste celui d'un prototype d'architecture et non d'une plateforme de recherche déployée à grande échelle.
+- [v] J'ai justifié la migration par des usages de consultation identifiés.
+- [v] J'ai articulé modélisation, requêtes et performance dans un même ensemble.
+- [!] Je le présente comme un prototype d'architecture, pas comme une plateforme de recherche déployée à grande échelle.
 
 # Method
 
@@ -59,34 +59,17 @@ et une tolérance de `±0.001` sur les coordonnées permet de réutiliser des r�
 Le rapport documente un gain de temps clair,
 avec un passage d'environ `0.125 s` à `0.0034 s` sur cache hit.
 
-- [v] Le format documentaire est pensé en fonction des scénarios d'usage.
-- [v] La couche géographique donne au projet une vraie dimension applicative.
-- [v] Le cache n'est pas seulement évoqué ; son impact est mesuré.
-- [!] La recherche du plus proche voisin reste de type brute-force et non fondée sur un index spatial dédié.
+- [v] J'ai pensé le format documentaire à partir des scénarios d'usage.
+- [v] J'ai ajouté une couche géographique (formule de Haversine) pour une vraie dimension applicative.
+- [v] J'ai mesuré l'impact du cache (d'environ 0.125 s à 0.0034 s sur cache hit).
+- [!] La recherche du plus proche voisin reste de type brute-force, sans index spatial dédié.
 
 # Value
 
-## Ce que le projet met en lumière
-Le projet met en lumière une capacité à raisonner simultanément
-sur la forme des données, le coût des requêtes et les compromis de stockage.
+## Ce que j'ai voulu montrer
+Je voulais raisonner en même temps sur la forme des données, le coût des requêtes et les compromis de stockage : migration relationnel → document, transformation en Python, requêtes géographiques, optimisation légère des temps de réponse. Pour moi, la valeur d'une base vient de son adéquation aux usages plus que du choix technologique isolé.
 
-Il démontre une maîtrise de la migration relationnel-vers-document,
-de la transformation Python, des requêtes géographiques et de l'optimisation légère des temps de réponse.
-
-Il fait aussi apparaître un point important en ingénierie :
-la valeur d'une base vient souvent de son adéquation avec les usages plus que du choix technologique isolé.
-
-## Portée professionnelle
-L'architecture retenue montre une capacité à aligner
-structure des données, ergonomie de recherche et performance observée.
-
-Le travail s'inscrit dans une logique de backend et d'architecture appliquée,
-où les décisions de modélisation sont reliées à des comportements de requête concrets.
-
-Pris dans son ensemble, le projet vaut par la clarté de son raisonnement structurel.
-Sa contribution principale réside dans la justification explicite des choix de modèle et de cache.
-
-- [v] Le projet souligne un raisonnement d'architecture plutôt qu'un simple usage d'outils.
-- [v] Il montre un lien clair entre schéma, requêtes et performance.
-- [v] Le gain de cache apporte une mesure concrète à la démonstration.
-- [!] Le dépôt reste un prototype compact qui n'a pas vocation à couvrir toutes les préoccupations de production.
+## Ce que j'en retiens
+- [v] J'ai fait un raisonnement d'architecture plutôt qu'un simple usage d'outils.
+- [v] J'ai relié clairement schéma, requêtes et performance.
+- [!] C'est un prototype compact : il ne couvre pas toutes les préoccupations de production.

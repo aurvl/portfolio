@@ -30,8 +30,8 @@ les éléments disponibles indiquent déjà une approche plus mature qu'un simpl
 L'intérêt du projet tient précisément à cette architecture d'évaluation.
 La logique de test y compte autant que le modèle évalué.
 
-- [v] Le projet traite l'évaluation prédictive comme un problème statistique et expérimental.
-- [v] Le cœur de la valeur réside dans le protocole plutôt que dans l'algorithme seul.
+- [v] J'ai traité l'évaluation prédictive comme un problème statistique et expérimental.
+- [v] Pour moi, la valeur est dans le protocole plutôt que dans l'algorithme seul.
 - [!] L'implémentation publique disponible ne permet pas de vérifier l'ensemble des sorties quantitatives.
 
 # Method
@@ -64,35 +64,15 @@ Cela limite la reproductibilité externe du pipeline exact et des métriques ass
 
 - [v] La randomisation stratifiée renforce la comparabilité des groupes.
 - [v] L'analyse appariée améliore la lecture des écarts au niveau des observations.
-- [v] Le test de McNemar montre une vraie attention à la validité méthodologique.
-- [!] Le code et les sorties détaillées ne sont pas publiquement exposés à ce stade.
+- [v] J'ai retenu le test de McNemar par souci de validité méthodologique.
+- [!] Mon code et mes sorties détaillées ne sont pas publiquement exposés à ce stade.
 
 # Value
 
-## Ce que le projet met en évidence
-Le projet met en évidence une compréhension importante :
-évaluer un modèle ne revient pas seulement à choisir un algorithme.
+## Ce que j'ai voulu montrer
+Je voulais montrer qu'évaluer un modèle ne revient pas seulement à choisir un algorithme : la qualité de la comparaison dépend de la constitution des groupes, de l'analyse des différences appariées et du test de significativité retenu. Je défends une logique d'évaluation rigoureuse plutôt qu'une course au score.
 
-La qualité de la comparaison dépend aussi
-de la constitution des groupes, de l'analyse des différences appariées et du test de significativité retenu.
-
-L'ensemble fait ressortir une sensibilité statistique solide.
-Il valorise une logique d'évaluation défendable plutôt qu'une course au score.
-
-## Portée professionnelle
-Le travail s'inscrit dans une logique de machine learning appliqué
-où la rigueur du protocole conditionne la qualité de la décision finale.
-
-Même avec une implémentation publique incomplète,
-la structure documentée montre une attention claire à la validité, aux sous-groupes et au cadre de comparaison.
-
-Pris dans son ensemble, le projet vaut d'abord
-comme architecture d'évaluation.
-
-Sa contribution principale réside dans cette maturité méthodologique,
-davantage que dans la démonstration publique d'un pipeline intégralement reproductible.
-
-- [v] Le projet souligne une maturité réelle dans la comparaison expérimentale.
-- [v] La logique d'évaluation est plus structurée qu'un leaderboard classique.
-- [v] L'ensemble fait ressortir une culture statistique appliquée.
+## Ce que j'en retiens
+- [v] J'ai structuré mon évaluation davantage qu'un leaderboard classique.
+- [v] Je mobilise une culture statistique appliquée : validité, sous-groupes, cadre de comparaison.
 - [!] La documentation publique soutient mieux la méthode que l'implémentation détaillée.

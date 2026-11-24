@@ -1,20 +1,23 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef } from 'react'
+import { useReducedMotion } from 'framer-motion'
 import { useLocation } from 'react-router-dom'
+import { homepage } from '../data/homepage'
+import { navigateToSection, useSectionLinks } from '../lib/navigateToSection'
+import { navigateToPage } from '../lib/pageTransition'
+import { useBambooMobile } from '../hooks/useBambooMobile'
+import { useBambooScene } from '../hooks/useBambooScene'
 import { useHomeContent } from '../hooks/useHomeContent'
+import { useMediaQuery } from '../hooks/useMediaQuery'
 import { useSiteNav } from '../hooks/useSiteNav'
 import MainLayout from '../components/layout/MainLayout'
+import MorphNavbar from '../components/layout/MorphNavbar'
 import Seo from '../components/seo/Seo'
-import HomeHero from '../components/home-v2/HomeHero'
-import StackMarquee from '../components/home-v2/StackMarquee'
-import MethodSection from '../components/home-v2/MethodSection'
-import DoctoralResearchSection from '../components/home-v2/DoctoralResearchSection'
-import PublicationsSection from '../components/home-v2/PublicationsSection'
-import WorkSection from '../components/home-v2/WorkSection'
-import NowBuildingSection from '../components/home-v2/NowBuildingSection'
-import HelpSection from '../components/home-v2/HelpSection'
-import ProfileSection from '../components/home-v2/ProfileSection'
-import BlogPostsSection from '../components/home-v2/BlogPostsSection'
-import ContactSection from '../components/home-v2/ContactSection'
+import BambooPhoto from '../components/ui/BambooPhoto'
+import LandingHero from '../components/home-v3/LandingHero'
+import LatestThings from '../components/home-v3/LatestThings'
+import AboutSection from '../components/home-v3/AboutSection'
+import PublicationsSection, { PapersChrome } from '../components/home-v3/PublicationsSection'
+import ContactSection, { ContactNavSlot } from '../components/home-v3/ContactSection'
 import {
   PERSON_DESCRIPTION,
   PERSON_NAME,
@@ -24,21 +27,59 @@ import {
   buildAbsoluteSiteUrl,
 } from '../lib/site'
 
-
-function scrollToSection(sectionId: string) {
-  document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-}
-
 function HomePage() {
   const location = useLocation()
-  const [activeStep, setActiveStep] = useState(0)
   const { lang } = useHomeContent()
-  const { homeSections, homeCta } = useSiteNav()
+  const { homeSections } = useSiteNav()
+  // prefers-reduced-motion : pas de voyage du bouton, la navbar apparaît seulement en fondu (voir MorphNavbar)
+  const reducedMotion = useReducedMotion() ?? false
+  const learnMoreLabel = homepage.getLandingLabels(lang).learnMore
+
+  // La scène « entrer dans la forêt » n'existe que sur ordinateur (≥ 1024 px). sceneProgress (0 = landing, 1 = About,
+  // 2 = Recherche, 3 = Contact) sert aussi à la navbar, pour que « Learn more » voyage au même rythme que la photo.
+  // « Ordinateur » = écran large ET souris / trackpad (hover + pointeur précis). Un iPad en paysage (1180 px, mais au doigt)
+  // n'en fait pas partie : il garde la version tactile (sections normales, transition déclenchée), car une animation liée
+  // à chaque pixel de scroll rampe et saute au doigt. La même condition est dans les @media des CSS (scene.css, etc.).
+  const isSceneActive = useMediaQuery('(min-width: 1024px) and (hover: hover) and (pointer: fine)')
+  const sceneRef = useRef<HTMLDivElement>(null)
+  const sceneProgress = useBambooScene(sceneRef, isSceneActive, reducedMotion)
+  // Sous 1024 px : Landing et About sont deux états d'une scène fixe ; la transition est DÉCLENCHÉE (geste, molette, clavier
+  // ou « Learn more »), jouée dans le temps (0 → 1) pendant que le scroll est bloqué ; chaque autre bannière zoome / s'ouvre
+  // selon sa position
+  const { progress: mobileProgress, contactProgress } = useBambooMobile(!isSceneActive, reducedMotion)
+  // Tous les liens internes vers une section de l'accueil passent par navigateToSection (transitions de la scène)
+  useSectionLinks()
+
+  // Scroll-snap sur la page entière : la molette s'arrête sur chaque écran (landing, puis suite).
+  // La classe est posée sur <html> (seul élément qui peut porter le snap de la page) et retirée en partant.
+  useEffect(() => {
+    document.documentElement.classList.add('snap-home')
+
+    return () => document.documentElement.classList.remove('snap-home')
+  }, [])
+
+  // Clavier : la scène garde ses blocs collés à l'écran ; un élément qui reçoit le focus hors de la fenêtre n'est pas
+  // rattrapé par le navigateur. On fait donc défiler la page jusqu'à lui (sans animation) pour qu'il reste visible.
+  useEffect(() => {
+    const keepFocusedElementVisible = (event: FocusEvent) => {
+      const target = event.target
+      if (!(target instanceof HTMLElement) || !target.matches(':focus-visible')) return
+
+      const { top, bottom } = target.getBoundingClientRect()
+      if (top >= 0 && bottom <= window.innerHeight) return
+
+      target.scrollIntoView({ block: 'center', behavior: 'instant' })
+    }
+
+    document.addEventListener('focusin', keepFocusedElementVisible)
+
+    return () => document.removeEventListener('focusin', keepFocusedElementVisible)
+  }, [])
 
   useEffect(() => {
     if (!location.hash) return
 
-    const timeoutId = window.setTimeout(() => scrollToSection(location.hash.slice(1)), 0)
+    const timeoutId = window.setTimeout(() => navigateToSection(location.hash.slice(1)), 0)
 
     return () => window.clearTimeout(timeoutId)
   }, [location.hash])
@@ -47,7 +88,18 @@ function HomePage() {
     <MainLayout
       sections={homeSections}
       className="home-v2"
-      cta={homeCta}
+      overlayNavbar
+      navbar={
+        <MorphNavbar
+          sections={homeSections}
+          reducedMotion={reducedMotion}
+          learnMoreLabel={learnMoreLabel}
+          onLearnMore={() => navigateToSection('about')}
+          sceneProgress={isSceneActive ? sceneProgress : mobileProgress}
+          isSceneActive={isSceneActive}
+          contactProgress={contactProgress}
+        />
+      }
     >
       <Seo
         title={`${PERSON_NAME} | ${PERSON_ROLE}`}
@@ -73,47 +125,94 @@ function HomePage() {
         ]}
       />
 
-      <section id="home">
-        <HomeHero onNavigate={scrollToSection} />
-      </section>
+      {/* Scène (ordinateur) : landing, About, Recherche et Contact sont les quatre écrans d'une même scène, sur une
+          photo commune. Le cadre collé à l'écran porte la photo, la landing et l'About ; la liste de Recherche défile
+          sous lui ; le Contact est une seconde couche collée. Sous 1024 px : des sections normales (scene.css). */}
+      <div
+        ref={sceneRef}
+        className="scene"
+      >
+        <div className="scene__stage">
+          {isSceneActive ? (
+            <div className="scene__photo">
+              <BambooPhoto
+                className="scene__photo-image"
+                loading="eager"
+                fetchPriority="high"
+                sizes="145vw"
+              />
+            </div>
+          ) : null}
 
-      <StackMarquee />
+          {/* Mobile et tablette : l'ancre « Accueil » est un repère sans hauteur, pas la landing elle-même (couche plein écran
+              qui couvrirait toujours la bande de détection de la navbar et ferait afficher « Accueil » sur l'About) */}
+          {isSceneActive ? null : <div id="home" />}
 
-      <section id="approach" className="hv-section hv-section--pattern">
-        <MethodSection activeStep={activeStep} onSelectStep={setActiveStep} />
-      </section>
+          <section className="landing">
+            <LandingHero
+              onLearnMore={() => navigateToSection('about')}
+              isButtonInNavbar={!reducedMotion}
+              inScene={isSceneActive}
+            />
+            <LatestThings />
+          </section>
 
-      <section id="research" className="hv-section">
-        <DoctoralResearchSection />
-      </section>
+          <AboutSection
+            inScene={isSceneActive}
+            isPhotoShared={!isSceneActive}
+            onExploreWork={() => navigateToPage('/projects')}
+            onGetInTouch={() => navigateToSection('contact-form')}
+            onViewPapers={() => navigateToSection('research')}
+          />
 
-      <section id="publications" className="hv-section hv-section--tight">
-        <PublicationsSection />
-      </section>
+          {isSceneActive ? <PapersChrome /> : null}
+        </div>
 
-      <section id="work" className="hv-section">
-        <WorkSection />
-      </section>
+        {isSceneActive ? (
+          <>
+            {/* Distance de scroll des deux premières transitions (Landing → About, About → Recherche) */}
+            <div className="scene__spacer" />
 
-      <section id="now" className="hv-section hv-section--tight hv-section--pattern hv-section--pattern-left">
-        <NowBuildingSection />
-      </section>
+            {/* La liste de Recherche : ordinaire dans la page, fixée à l'écran pendant les transitions (useBambooScene).
+                Ce bloc garde sa place dans la page (hauteur posée en JS) et porte l'ancre #research. */}
+            <div
+              id="research"
+              className="papers-track"
+            >
+              <PublicationsSection inScene />
+            </div>
 
-      <section id="help" className="hv-section">
-        <HelpSection onNavigate={scrollToSection} />
-      </section>
+            <ContactSection inScene />
 
-      <section id="about" className="hv-section">
-        <ProfileSection />
-      </section>
+            {/* Distance de scroll de la dernière transition (Recherche → Contact) */}
+            <div className="scene__spacer" />
 
-      <section id="blog-posts" className="hv-section hv-section--tight">
-        <BlogPostsSection />
-      </section>
+            {/* Ancres et points d'arrêt du scroll : #home = début de la scène, #about = fin de la 1re transition,
+                #research = le bloc ci-dessus, #contact-form = fin de la dernière transition */}
+            <div
+              id="home"
+              className="scene__zone scene__zone--home"
+            />
+            <div
+              id="about"
+              className="scene__zone scene__zone--about"
+            />
+            <div
+              id="contact-form"
+              className="scene__zone scene__zone--contact"
+            />
+          </>
+        ) : null}
+      </div>
 
-      <section id="contact-form" className="hv-section hv-section--contact">
-        <ContactSection />
-      </section>
+      {isSceneActive ? null : (
+        <>
+          <PublicationsSection />
+          <ContactSection />
+        </>
+      )}
+
+      <ContactNavSlot inScene={isSceneActive} />
     </MainLayout>
   )
 }
