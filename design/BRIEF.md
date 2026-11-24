@@ -188,54 +188,64 @@ la capsule complète en haut n'existe qu'à partir de 1024 px (à 768 px elle pa
 
 Le desktop (≥ 1024 px) ne change pas.
 
-## 6c. Transitions immersives (« entrer dans la forêt ») — EXPÉRIENCE, branche `experiment/bamboo-transitions`
+## 6c. Transitions immersives (« entrer dans la forêt ») : CONCEPT FINAL, tel que codé
 
-> Statut : concept validé (option A). Cette section complète §2 (exceptions d'animation) ; si le rendu est retenu,
-> elle remplace le morph « Learn more » seul.
-> Décisions du propriétaire : option A (scène collante + scroll-snap natif, la décision 10 reste en vigueur) ; le
-> bouton Précédent du navigateur n'est pas animé (accepté pour l'instant) ; zone morte supprimée ; sur mobile on garde
-> le zoom des bambous ET le resserrement de la bannière (le glissement de l'avatar et du nom peut être supprimé) ;
-> photo en trois tailles (1200 / 1920 / 2400 px, `srcset`) + préchargement.
-> Avancement : étapes 1 (scène collante, calage, photo responsive), 2 (animation Landing → About), 3 (navbar) et
-> 3b (About → Recherche → Contact) faites sur ordinateur ; restent le mobile et le mouvement réduit complet (étape 4)
-> et les View Transitions entre pages (étape 5).
+> Statut : validé par le propriétaire et fusionné (24/11/2026). Cette section complète §2 (exceptions d'animation) et
+> remplace le morph « Learn more » seul. Le détail de la réalisation est dans `design/PLAN.md` (étapes E1 à E6).
 
-**Idée.** La photo de bambous est l'élément commun à toutes les pages. Elle est le fil conducteur : comme une
-« morph » PowerPoint, on reste dans le même univers et la scène se transforme autour d'elle. Aller plus loin dans le
-site = on avance dans la forêt (zoom avant) ; revenir = zoom arrière.
+**Idée.** La photo de bambous est l'élément commun à toutes les pages et le fil conducteur : comme une « morph »
+PowerPoint, on reste dans le même univers et la scène se transforme autour d'elle. Aller plus loin dans le site = on
+avance dans la forêt (zoom avant) ; revenir = zoom arrière. Photo en trois tailles (1200 / 1920 / 2400 px, `srcset`),
+préchargée ; le zoom est plafonné si la photo risque d'être floue (écrans très larges ou très denses).
 
-**A. Landing → About (sur la page d'accueil).**
-- Les bambous restent FIXES à l'écran : aucun effet de défilement de la photo.
-- La bannière se resserre de sa hauteur landing à celle du bandeau About, pendant que la photo zoome légèrement.
-- L'avatar et le nom glissent vers leur place dans l'About ; « Learn more » devient la navbar ; « Latest things »
-  s'efface ; le contenu About apparaît. Retour en arrière = l'inverse exact.
-- Réalisation : une « scène » haute (landing + About) avec un cadre `position: sticky` d'une hauteur de fenêtre.
-  La molette fait défiler la page NORMALEMENT (décision 10 respectée : jamais de détournement) ; la distance
-  parcourue est simplement lue (`useScroll`) pour piloter la scène. Calage natif en `scroll-snap` sur le début et la
-  fin de la scène : une impulsion de scroll mène à l'une ou l'autre, jamais entre les deux.
+**Deux versions, une seule règle de fond : la molette n'est jamais détournée sur ordinateur.**
 
-**A bis. About → Recherche → Contact (même scène, ordinateur).** Aucun passage n'est un simple défilement : chacun
-transforme la scène autour de la photo, qui avance dans la forêt (zoom croissant : ×1,00 / 1,16 / 1,30 / 1,45).
-- About → Recherche : la photo reste fixe, la bande se resserre encore (8 rem) et zoome ; l'About s'efface en
-  glissant vers le haut, la liste de Recherche apparaît (les deux fondus se chevauchent).
-- Recherche : la liste défile LIBREMENT sous la bande de photo (qui reste en place, ronds sociaux à cheval sur son bord).
-- Recherche → Contact : la photo se rouvre presque jusqu'en bas en zoomant (on « entre » dans la forêt) pendant que la
-  navbar descend se poser à cheval sur le bord bas de la photo ; la Recherche s'efface, l'identité et le formulaire
-  apparaissent.
-- Un seul `<img>` pour toute la scène ; le zoom est plafonné si la photo risque d'être floue (écrans très larges ou
-  très denses). Mobile et tablette : sections normales (étape 4).
+**A. Ordinateur (≥ 1024 px, souris ou trackpad) : scène liée au scroll.**
+- Une scène haute dont le cadre est `position: sticky` (une hauteur de fenêtre) : la photo reste FIXE à l'écran, la page
+  défile normalement (décision 10) ; la distance parcourue est lue (`useScroll`, `useBambooScene`) et pilote tout.
+  Calage natif en `scroll-snap` sur chaque écran.
+- Landing → About : la bannière se resserre de sa hauteur landing à celle de l'About pendant que la photo zoome ;
+  l'avatar et le nom glissent à leur place ; « Learn more » voyage et devient la navbar (rebond de ressort à l'arrivée,
+  sans ressort en marche arrière) ; « Latest things » s'efface ; le contenu de l'About apparaît.
+- About → Recherche : la bande se resserre encore et zoome ; l'About s'efface, la liste de Recherche apparaît puis défile
+  librement sous la bande de photo (ronds sociaux à cheval sur son bord).
+- Recherche → Contact : la photo se rouvre presque jusqu'en bas en zoomant ; la navbar descend se poser à cheval sur le bord
+  bas de la photo (emplacement vide `data-morph-slot`, qui réserve sa place dans la page) ; identité et formulaire apparaissent.
+- Zoom croissant de la photo : ×1,00 / 1,16 / 1,30 / 1,45 (plafonné pour la netteté). Retour en arrière = l'inverse exact.
+- Clics (navbar, boutons, liens du pied de page, cartes) : défilement automatique continu qui joue la scène dans le bon ordre
+  (`lib/jumpToSection.ts`, calage coupé le temps du mouvement, interrompu par un geste).
 
-**B. Entre pages (About → Projets, Recherche, articles…).**
-- View Transitions API native, via `viewTransition` de react-router (aucune dépendance).
-- Le bandeau bambous est un élément partagé (`view-transition-name`) qui se transforme d'une page à l'autre.
-- Plus profond dans le site = zoom avant ; moins profond = zoom arrière (la profondeur vient de la route :
-  accueil < hub / publications < article / série).
-- Navbar et pilule langue / thème ont leur propre nom de transition : elles ne scintillent pas pendant le changement.
+**B. Mobile, tablette et tout écran tactile (< 1024 px ou sans souris, iPad en paysage compris) : scène fixe à portes.**
+- EXCEPTION ASSUMÉE À LA DÉCISION 10 : la transition est DÉCLENCHÉE, pas suivie (au doigt, une animation liée au scroll
+  rampe et zigzague ; Safari iOS n'affiche pas les animations JavaScript pendant l'élan du doigt). Le scroll est bloqué
+  pendant ≈ 600 ms, comme dans une application. Seulement ces passages ; le défilement à l'intérieur d'un écran reste natif.
+- Quatre écrans, quatre « portes » : Landing → About → Recherche → Contact. Un seul est affiché à la fois
+  (`html[data-scene]`, classe `scene-hidden`) ; il défile normalement s'il est plus haut que la fenêtre.
+- Écran suivant : geste vers le bas, molette ou flèche COMMENCÉ tout en bas de l'écran ; écran précédent : geste vers le
+  haut commencé tout en haut ; « Learn more », onglets de la navbar et tous les liens vers une section passent aussi par ici
+  (`navigateToSection`, événement `scene:go`). Un geste commencé pendant une transition ou dans les 500 ms qui suivent
+  (garde) ne déclenche rien ; une destination lointaine passe par la transition directe (About / Recherche / Contact) ou
+  en deux temps via l'About (landing).
+- Landing ↔ About : animation WAAPI jouée par le navigateur (`lib/morphPlayer.ts`). About ↔ Recherche ↔ Contact : fondu enchaîné
+  (l'écran qui part est posé en couche fixe, à sa place exacte, et s'efface ; l'écran d'arrivée est déjà en place) avec
+  zoom et ouverture du cadre de la bannière. Le Contact joue aussi le voyage de la navbar, qui se pose ensuite dans la page
+  (`is-docked`, `position: absolute`, sans calcul au scroll).
+- Le sens d'ouverture du menu compact (chevron) n'est calculé qu'à l'ouverture, jamais pendant le scroll.
 
-**Contraintes.** Aucune nouvelle dépendance. On n'anime que `transform`, `opacity` et `clip-path` (jamais la hauteur
-ni la largeur). Photo préchargée. Fluide sur mobile (en dessous de 1024 px ou de 900 px de haut, la scène est
-simplifiée, voir le plan). `prefers-reduced-motion` : simple fondu, aucun zoom ni déplacement. Navigateur sans View
-Transitions : navigation normale, sans animation.
+**C. Entre pages (accueil, Projets, Blog, Publications, articles, séries).**
+- View Transitions natives, appelées directement (`document.startViewTransition`) : le `viewTransition` de react-router
+  ne sert qu'avec un routeur à données, pas avec `BrowserRouter`. Une seule fonction, `navigateToPage` (`lib/pageTransition.ts`),
+  que tous les liens internes empruntent automatiquement (`components/routing/PageTransitions.tsx`). La page d'arrivée est
+  chargée avant (`app/pages.tsx`).
+- Le bandeau de bambous (`bamboo-banner`) est un élément partagé qui se déplace et change de taille d'une page à l'autre ;
+  les contenus posés dessus sont capturés à part (`vt-content`). Navbar et pilule langue / thème sont capturées à part,
+  immobiles, sans fondu (pas de scintillement).
+- Plus profond dans le site = zoom avant ; moins profond = zoom arrière (profondeur : accueil 0 < Projets, Blog, Publications
+  1 < articles et séries 2). Le bouton Précédent du navigateur n'est pas animé (limite acceptée).
+
+**Contraintes tenues.** Aucune nouvelle dépendance. On n'anime que `transform`, `opacity` et `clip-path` (jamais la hauteur ni
+la largeur, sauf la navbar qui voyage, dont la taille est portée par son propre élément). `prefers-reduced-motion` : simple
+fondu, aucun zoom ni déplacement. Navigateur sans View Transitions : navigation normale.
 
 ## 7. Hors périmètre de cette phase
 Contenu réel, SEO, analytics, scripts de contenu : ne pas toucher sauf si une route change.

@@ -22,7 +22,7 @@
 // commencé APRÈS la fin de la transition (le doigt encore posé pendant l'élan ne rejoue rien).
 //
 // On n'anime que transform, opacity et clip-path. prefers-reduced-motion : fondu simple, ni zoom ni resserrement.
-import { useCallback, useLayoutEffect, useRef } from 'react'
+import { useLayoutEffect } from 'react'
 import { animate, useMotionValue, useScroll, type MotionValue } from 'framer-motion'
 import { MORPH_DURATION_MS, morphEase, playMorph, registerMorphElement, stopMorph } from '../lib/morphPlayer'
 
@@ -110,15 +110,12 @@ const clamp01 = (value: number) => Math.min(1, Math.max(0, value))
 export function useBambooMobile(
   isActive: boolean,
   reducedMotion: boolean,
-): { progress: MotionValue<number>; contactProgress: MotionValue<number>; goToAbout: () => void } {
+): { progress: MotionValue<number>; contactProgress: MotionValue<number> } {
   const { scrollY } = useScroll()
   // 0 = landing, 1 = About (et au-delà) ; jouée dans le temps, jamais liée directement au scroll
   const progress = useMotionValue(0)
   // 0 = navbar en haut, 1 = navbar posée en bas du Contact ; jouée dans le temps avec la transition vers le Contact
   const contactProgress = useMotionValue(0)
-  // Demande de transition vers l'About, appelée par « Learn more » (HomePage) ; posée par l'effet ci-dessous
-  const requestAbout = useRef<() => void>(() => {})
-  const goToAbout = useCallback(() => requestAbout.current(), [])
 
   useLayoutEffect(() => {
     if (!isActive) return
@@ -449,7 +446,6 @@ export function useBambooMobile(
       if (next === 'landing' || scene === 'landing') startTransition(next)
       else startSectionTransition(next)
     }
-    requestAbout.current = () => request('about', true)
 
     // Aller à un écran, toujours par une transition : directe entre About, Recherche et Contact (même à distance) ; en
     // deux temps quand la landing est de la partie (Landing → About, puis About → destination)
@@ -612,7 +608,6 @@ export function useBambooMobile(
       stopMorph('contact')
       sectionAnimations.forEach((animation) => animation.cancel())
       unregisterPlayers.forEach((unregister) => unregister())
-      requestAbout.current = () => {}
       stopListening()
       stopProgress()
       window.removeEventListener('resize', handleResize)
@@ -650,5 +645,5 @@ export function useBambooMobile(
     }
   }, [isActive, reducedMotion, scrollY, progress, contactProgress])
 
-  return { progress, contactProgress, goToAbout }
+  return { progress, contactProgress }
 }

@@ -40,15 +40,11 @@ type Geometry = {
   // Taille du menu compact ouvert (mobile et tablette)
   menuWidth: number
   menuHeight: number
-  // Hauteur de scroll sur laquelle se joue toute l'animation (hors scène) : toute la hauteur de la landing
-  range: number
   // Vrai sur ordinateur : la landing est dans la scène collée à l'écran (useBambooScene), le bouton ne suit plus la page
   inScene: boolean
   // Écran Contact : le scroll où il commence à entrer (son haut touche le bas de la fenêtre), celui où il
   // remplit la fenêtre, la place de la navbar dans la page (emplacement vide en bas de l'écran) et la fenêtre
   hasContact: boolean
-  contactFrom: number
-  contactTo: number
   slotTop: number
   viewportWidth: number
   viewportHeight: number
@@ -441,7 +437,6 @@ function MorphNavbar({
     const anchorWidth = anchor?.offsetWidth ?? 0
     const anchorHeight = anchor?.offsetHeight ?? 0
     const layoutTop = anchor ? getDocumentTop(anchor) + anchorHeight / 2 : 0
-    const landing = document.getElementById('home')
     // Dans la scène, la place de départ se mesure par rapport au cadre collé (il ne bouge pas à l'écran pendant la scène)
     const inScene = sceneActiveRef.current
     const stageTop = document.querySelector('.scene__stage')?.getBoundingClientRect().top ?? 0
@@ -453,7 +448,6 @@ function MorphNavbar({
     const contact = document.getElementById('contact-form')
     if (slot) slot.style.setProperty('--morph-slot-height', `${finalHeight}px`)
     const viewportHeight = document.documentElement.clientHeight
-    const contactTop = contact ? contact.getBoundingClientRect().top + window.scrollY : 0
 
     const top1 = rem
     const center1 = isCompact ? rem + finalWidth / 2 : viewportWidth / 2
@@ -472,11 +466,8 @@ function MorphNavbar({
       height1: finalHeight,
       menuWidth: pill?.menuWidth ?? finalWidth,
       menuHeight: pill?.menuHeight ?? finalHeight,
-      range: Math.max(1, landing?.offsetHeight ?? window.innerHeight),
       inScene,
       hasContact: Boolean(slot && contact),
-      contactFrom: contactTop - viewportHeight,
-      contactTo: contactTop,
       slotTop: slot ? slot.getBoundingClientRect().top + window.scrollY : 0,
       viewportWidth,
       viewportHeight,

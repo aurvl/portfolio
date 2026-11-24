@@ -141,7 +141,7 @@ Règles de lisibilité (CSS vertical, commentaires français sur les techniques 
 des propriétés) : voir `CLAUDE.md`, section « Style de code ». Elles s'appliquent dès l'étape 1, et chaque
 étape les vérifie avant de se terminer.
 
-## 3b. Transitions immersives « entrer dans la forêt » — EXPÉRIENCE VALIDÉE
+## 3b. Transitions immersives « entrer dans la forêt » — TERMINÉE ET FUSIONNÉE (E1 à E6)
 Concept validé par le propriétaire (le 2026-11-23, rendu des étapes E1 et E2 jugé bon). Il remplace le morph « Learn more »
 seul : la photo de bambous est le fil conducteur de toutes les pages. Spécification complète : `design/BRIEF.md` §6c
 (elle n'existe QUE sur la branche `experiment/bamboo-transitions`, commit `75c5c36`, section « 6c. Transitions
@@ -154,15 +154,11 @@ trois tailles 1200 / 1920 / 2400 px (`srcset`) + préchargement ; on n'anime que
 aucune nouvelle dépendance ; `prefers-reduced-motion` = fondu simple ; navigateur sans View Transitions = navigation
 normale sans animation.
 
-**Où est le code (à ne pas perdre)** : E1 et E2 sont faites mais NON COMMITÉES, rangées dans
-`git stash` (`stash@{0}`, message « wip scene experiment (steps 1-2 + landing fix), not committed »). Pour les
-récupérer : `git switch experiment/bamboo-transitions` puis `git stash pop`, puis commiter sur cette branche. Ensuite
-on fusionnera la branche dans `redesign/researcher-friendly`. Fichiers concernés : `src/components/ui/BambooPhoto.tsx`,
-`src/hooks/useBambooScene.ts`, `src/hooks/useMediaQuery.ts`, `src/styles/v3/scene.css` (+ import dans `globals.css`),
-`public/assets/images/hero-bamboo-1200.webp` et `-1920.webp` (générées depuis l'original 2400 px : 379 Ko et 800 Ko),
-`index.html` (préchargement `imagesrcset`), et des modifications de `HomePage`, `LandingHero`, `AboutSection`,
-`PublicationsSection`, `ContactSection`, `MorphNavbar`, `placeholders.ts` (les vignettes fictives pointent vers la
-version 1200 px, sinon le fichier de 1,25 Mo se télécharge pour rien).
+**Où est le code.** Fusionné dans `redesign/researcher-friendly` (la branche `experiment/bamboo-transitions` est supprimée). Concept
+final, tel que codé : `design/BRIEF.md` §6c. Fichiers principaux : `hooks/useBambooScene.ts` (ordinateur), `hooks/useBambooMobile.ts`
++ `styles/v3/touch-scene.css` + `lib/morphPlayer.ts` (mobile et tactile), `lib/navigateToSection.ts` + `lib/jumpToSection.ts` (liens vers
+les sections), `lib/pageTransition.ts` + `app/pages.tsx` + `components/routing/PageTransitions.tsx` + `styles/v3/page-transitions.css`
+(entre pages), `components/layout/MorphNavbar.tsx`. Point de retour gardé : tag `e4a-v2-validee`.
 
 - [x] E1. Scène collante (≥ 1024 px) : `.scene` de 200 dvh, cadre `position: sticky` de 100 dvh, photo commune au-dessus
       de la landing et de l'About, zones `#home` / `#about` (ancres, onglet actif de la navbar, points d'arrêt du
@@ -266,7 +262,7 @@ version 1200 px, sinon le fichier de 1,25 Mo se télécharge pour rien).
       - `prefers-reduced-motion` : ni zoom ni resserrement, fondu simple (à vérifier sur appareil).
       - À valider sur de vrais appareils (iPhone, iPad) : fluidité au doigt, calage `scroll-snap`, barre d'adresse Safari.
       - Desktop (≥ 1024 px à la souris) : inchangé, toujours lié au scroll (pas testé au trackpad).
-- [~] E5. View Transitions entre pages (24/11/2026, essai 1, EN ATTENTE du test). RÉALISÉ : `document.startViewTransition` appelé
+- [x] E5. View Transitions entre pages (24/11/2026, essai 1, VALIDÉE par le propriétaire). RÉALISÉ : `document.startViewTransition` appelé
       directement (react-router 7 `viewTransition` ne sert qu'avec un routeur à données ; ici `BrowserRouter`). Fonction centrale
       `navigateToPage(to)` (`lib/pageTransition.ts`) : charge la page d'arrivée d'abord (`app/pages.tsx`, plus d'écran « Loading »),
       pose le sens sur <html> (`data-vt` = forward / back, d'après la profondeur : accueil 0 < Projets, Blog, Publications 1 <
@@ -288,11 +284,16 @@ version 1200 px, sinon le fichier de 1,25 Mo se télécharge pour rien).
       normale) ; `prefers-reduced-motion` = fondu simple. Le bouton Précédent du navigateur n'est pas animé
       (limite acceptée). Le bandeau doit aussi exister (même photo) sur les pages hub / blog quand elles seront refaites
       (étapes 10 à 12).
-- [ ] E6. Vérifications et intégration : Playwright (clair / sombre, desktop, tablette, 390 px), `npm run lint` +
-      `npm run build`, performance (DevTools, 60 images / s sur la scène), calage `scroll-snap` sur Safari, accessibilité
-      (titre `h1` / `h2` dupliqué entre landing et About, `inert`, focus), nom long qui passe sur deux lignes au relais
-      (vrai nom attendu à l'étape 16), puis commiter sur `experiment/bamboo-transitions`, fusionner dans
-      `redesign/researcher-friendly`, mettre à jour `docs/` et ce fichier.
+- [x] E6. Intégration (24/11/2026) : `npm run lint`, `npm run content:validate` et `npm run build` passent ; code de debug et code mort
+      retirés (encart `?debug=1`, anciens champs de mesure de la navbar, ancienne demande « Learn more » du hook mobile) ; BRIEF §6c
+      réécrit d'après le code ; branche fusionnée dans `redesign/researcher-friendly`.
+      RESTE À FAIRE de l'expérience (non bloquant, repris dans les étapes ci-dessous) :
+      - tests au Playwright clair / sombre et tablette, performance (60 images / s sur la scène), calage `scroll-snap` sur Safari ;
+      - accessibilité : titre `h1` / `h2` dupliqué entre landing et About, `inert`, focus (étape 14) ;
+      - nom long qui passe sur deux lignes au relais (vrai nom attendu à l'étape 16) ;
+      - bandeau de bambous sur les pages Projets, Blog, séries et articles quand elles seront refaites (étapes 10 à 12) :
+        le morph de page est déjà branché (nom `bamboo-banner`) ;
+      - bouton Précédent du navigateur non animé (limite acceptée).
 
 ## 4. Décisions (réponses du propriétaire)
 0. `design/` : seuls les `.md` (BRIEF, PLAN, PROMPTS) sont suivis par git. `design/screens/` et tous les exports
