@@ -29,7 +29,7 @@ Agents may edit:
 - `src/data/series.json`
 - `src/data/domain.json`
 - `src/data/home.ts`, `src/data/home.fr.ts`
-- `src/data/selected-work.json`, `src/data/publications.json`, `src/data/latest-things.json`
+- `src/data/homepage.json`, `src/data/featured.json`, `src/data/publications.json`, `src/data/latest-things.json`
 
 Agents must not manually edit generated outputs:
 
@@ -60,7 +60,7 @@ For a new blog post:
 
 For a homepage change:
 
-1. Edit `home.ts` and `home.fr.ts`, or the homepage JSON files, in both languages
+1. Edit `home.ts` and `home.fr.ts`, or `homepage.json`, `featured.json`, `publications.json`, `latest-things.json`, in both languages
 2. Follow the Homepage sections of `docs/CONTENT_SCHEMA.md` and `docs/CONTENT_RULES.md`
 3. Run `npm run build` and check the homepage in both languages
 

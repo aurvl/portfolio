@@ -6,8 +6,8 @@ These rules exist so future agents can add or update content without breaking th
 
 1. `id` must stay stable once created.
 2. `slug` must stay stable once published.
-3. Only one project can have `"featured": true` (validator rule; the V2 homepage picks its flagship from
-   `selected-work.json`, not from this flag).
+3. Only one project can have `"featured": true` (validator rule; the Hub order comes from `featured.json`, not from
+   this flag).
 4. Every featured project must have:
    - `links.primary`
    - `links.readMore`
@@ -72,9 +72,11 @@ Do not introduce names like `p12.png`, `illust.png`, or `final-final-cover.jpg`.
 ## Homepage rules
 
 1. Homepage copy lives in `src/data/home.ts` (EN) and `src/data/home.fr.ts` (FR); edit both, never hardcode text in components.
-2. Selected work, publications and the latest-things feed live in `selected-work.json`, `publications.json`, `latest-things.json`.
-3. The first selected-work item is the flagship: it needs `details` (Problem, Consequence, Solution, Output).
-4. A selected-work or related `slug` must exist in `projects.json`.
+2. Profile, timeline, About and labels live in `homepage.json`; the Hub order and display texts in `featured.json`; papers in
+   `publications.json`; the project in progress in `latest-things.json`.
+3. Every slug in `featured.json` (`hub.lead`, `hub.row`, `hub.series`) and every `projectSlug` in `latest-things.json` must
+   exist (in `projects.json`, resp. `series.json`).
+4. English and French stay in step: same number of items, same keys, in `homepage.json` and `latest-things.json`.
 5. Claims must be defensible: no invented results, partners, clients or affiliations; name only ESTIA and the
    University of Bordeaux unless the owner approves another name.
 6. Keep the text sparse: one idea per sentence, short card copy, no marketing tone.
@@ -92,7 +94,7 @@ Do not introduce names like `p12.png`, `illust.png`, or `final-final-cover.jpg`.
 
 Agents may safely edit:
 
-- homepage copy (`home.ts`, `home.fr.ts`) and the homepage JSON files
+- homepage copy (`home.ts`, `home.fr.ts`) and the homepage JSON files (`homepage.json`, `featured.json`, `publications.json`, `latest-things.json`)
 - project `content`
 - project `links`
 - project `taxonomy`

@@ -13,7 +13,7 @@ Use these files and folders as the editable content sources:
 - `src/data/series.json`
 - `src/data/domain.json`
 - `src/data/home.ts`, `src/data/home.fr.ts` (homepage copy)
-- `src/data/selected-work.json`, `src/data/publications.json`, `src/data/latest-things.json` (homepage lists)
+- `src/data/homepage.json`, `src/data/featured.json`, `src/data/publications.json`, `src/data/latest-things.json` (homepage and Hub choices)
 
 Do not edit generated files such as:
 
@@ -25,7 +25,7 @@ Do not edit generated files such as:
 ## Portfolio Manager
 
 The owner also edits content with a separate local tool, the Portfolio Manager (private repository
-`aurvl/port-manager`). It edits posts, projects and the three homepage JSON files, runs the validator, then
+`aurvl/port-manager`). It edits posts, projects, papers, the homepage JSON files (`featured.json`, `latest-things.json`, `publications.json`), the CV PDFs, runs the validator, then
 commits and pushes to `master`, limited to `src/content`, `src/data`, `public/assets/blog` and
 `public/assets/projects`. Keep these file formats stable: the manager reads and writes them as documented
 in `docs/CONTENT_SCHEMA.md` (posts keep the frontmatter of `docs/BLOG_POST.md`).

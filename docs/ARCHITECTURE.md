@@ -59,11 +59,12 @@ Between pages, `navigateToPage()` (`lib/pageTransition.ts`) runs a native View T
 
 | Content | Source | Notes |
 | --- | --- | --- |
-| Homepage text (profile, timeline, About texts, labels, themes) | `src/data/homepage.ts` | EN and FR, read through `homepage.getX(lang)` |
+| Homepage text (profile, timeline, About texts, labels, themes) | `src/data/homepage.json` + `src/data/homepage.ts` | JSON `{ en, fr }` edited by hand or by the Manager; `homepage.ts` holds the types and `homepage.getX(lang)` |
 | Navigation, contact form, Projects hub labels (EN / FR) | `src/data/home.ts`, `src/data/home.fr.ts` | `HomeContent` type, same shape in both languages |
+| Featured choices (Hub order, landing cards, display texts) | `src/data/featured.json` | Edited by the Portfolio Manager (Featured page) |
 | UI strings | `src/locales/en.json`, `fr.json` | react-i18next |
 | Publications | `src/data/publications.json` | Edited by the Portfolio Manager |
-| Selected work | `src/data/selected-work.json` | Edited by the Portfolio Manager |
+| Latest things (project in progress) | `src/data/latest-things.json` | Edited by the Portfolio Manager |
 | Projects | `src/data/projects.json` + `src/content/project-windows/*.md` | Hub and project windows |
 | Blog | `src/content/posts/*.md`, `series.json`, `blog-resources.json` | |
 | Domain colours | `src/data/domain.json` | Used by the content scripts |

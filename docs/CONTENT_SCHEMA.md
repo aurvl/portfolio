@@ -66,8 +66,8 @@ Keep these language-agnostic:
 - `taxonomy.domains`
 - `taxonomy.tools`
 
-`featured` is still required by the schema and the validator (at most one project may be `true`), but the V2
-homepage no longer reads it: the homepage flagship is the first item of `src/data/selected-work.json`.
+`featured` is still required by the schema and the validator (at most one project may be `true`), but the
+Hub no longer reads it: the lead project and the row are chosen in `src/data/featured.json`.
 
 On `/projects`, a project is listed under "applied studies" when one of its `taxonomy.domains` is in
 `APPLIED_DOMAINS` (`src/pages/ProjectsPage.tsx`); everything else goes under "other technical work".
@@ -269,42 +269,39 @@ Skills are grouped by category so UI tabs and future filters can be driven by da
 ### Section text
 
 Location: `src/data/home.ts` (English, `homeEn`, and the `HomeContent` type) and `src/data/home.fr.ts`
-(French, `homeFr`, same shape). Each key is one section: `nav`, `hero`, `methodGraph`, `stackLabel`, `method`,
-`doctoralResearch`, `publications`, `work`, `nowBuilding`, `help`, `about`, `blog`, `contact`, plus the page
-headers `projectsPage` and `publicationsPage`. TypeScript enforces that both languages have the same keys.
+(French, `homeFr`, same shape). Each key is one section: `nav`, `blog`, `projectsPage` and `contact`. 
+TypeScript enforces that both languages have the same keys.
 
-### Selected work
+### Profile, timeline and About texts
 
-Location: `src/data/selected-work.json`, `{ "en": { "items": [...], "related": [...] }, "fr": { ... } }`.
+Location: `src/data/homepage.json`, `{ "en": {...}, "fr": {...} }`, same shape in both languages. Keys: `profile`,
+`timeline`, `aboutSections`, `aboutLabels`, `themes`, `landingLabels`, `publicationsLabels`. The types and the
+`homepage.getX(lang)` accessors are in `src/data/homepage.ts`; components read everything through `homepage`.
+The Portfolio Manager does not edit this file (site text changes go through a normal site update).
 
-`items` are the work cards; `related` is the short "related studies" row under them:
-`{ "slug": "...", "title": "...", "detail": "Method · topic" }`, where `slug` must exist in `projects.json`.
+### Featured choices
 
-Work card item:
+Location: `src/data/featured.json`. What the owner chooses to promote; everything else is automatic.
 
 ```json
 {
-  "slug": "insurance-claim-fraud-counterfactual-simulator",
-  "state": "done",
-  "title": "Insurance Fraud & Counterfactual Decision Support",
-  "summary": "One or two sentences.",
-  "tools": "PostgreSQL · XGBoost · FastAPI",
-  "details": [
-    { "label": "Problem", "value": "..." },
-    { "label": "Consequence", "value": "..." },
-    { "label": "Solution", "value": "..." },
-    { "label": "Output", "value": "..." }
-  ]
+  "hub": {
+    "lead": "fmarketmonitor",
+    "row": ["slug-1", "slug-2", "slug-3", "slug-4"],
+    "series": "ia-pas-a-pas",
+    "text": { "slug-1": { "en": { "title": "...", "summary": "..." }, "fr": { "title": "...", "summary": "..." } } }
+  },
+  "latest": ["progress", "paper", "recent"],
+  "cards": { "paper": { "en": { "title": "...", "description": "..." }, "fr": { } } }
 }
 ```
 
-- The first item is the flagship (large card with figure); give it `details` in the order
-  Problem, Consequence, Solution, Output (in French: Problème, Conséquence, Solution, Résultat).
-- `state`: `done` or `progress`.
-- `slug` links to `/projects?project=<slug>`; the domain badge and keywords come from that project in
-  `projects.json`. For work that is not in the catalogue, omit `slug` and set `domain` and `keywords` instead.
-- `tools`: short list separated by ` · `.
-- Keep the same items, in the same order, in `en` and `fr`.
+- `hub.lead` is the large project of the Hub; `hub.row` the row of four next to it, in order. Unknown slugs are ignored; if
+  `lead` no longer exists the Hub falls back to the automatic choice (`featuredProjects.ts`).
+- `hub.series` is the slug of the series shown on the Hub (falls back to the series flagged `featured` in `series.json`).
+- `hub.text` and `cards` are optional display texts: they replace the title and summary on the Featured card only, never
+  the project, post or paper itself. An empty or missing value keeps the original text.
+- `latest` is the order of the three landing cards (`progress`, `paper`, `recent`); a card missing from the list goes last.
 
 ### Publications
 
@@ -356,8 +353,9 @@ Cards stay short on purpose (a short title and a few words), because they are sm
 
 ## Validation
 
-- `home.ts` / `home.fr.ts` are checked by TypeScript at build time. The three homepage JSON files are not
-  checked by the Python validator: follow the shapes above, run `npm run build` and look at the page
+- `home.ts` / `home.fr.ts` are checked by TypeScript at build time. `homepage.json`, `featured.json`,
+  `publications.json` and `latest-things.json` are not checked by the Python validator (the Portfolio Manager checks them
+  on save: EN/FR parity, slugs, states, dates): follow the shapes above, run `npm run build` and look at the page
 - Script-level validation lives in `scripts/validate_content.py`
 
 Run:
