@@ -13,6 +13,7 @@ import type { FilterOption } from '../components/ui/FilterField'
 import SearchPanel from '../components/hub-v3/SearchPanel'
 import ProjectGrid from '../components/projects/ProjectGrid'
 import ProjectWindow from '../components/projects/ProjectWindow'
+import featuredData from '../data/featured.json'
 import rawProjects from '../data/projects.json'
 import rawSeries from '../data/series.json'
 import { useBlogIndex } from '../hooks/useBlogIndex'
@@ -26,7 +27,11 @@ import type { Series } from '../types/series'
 const PAGE_SIZE = 9
 const LOAD_MORE_STEP = 3
 const projects = rawProjects as Project[]
-const featuredSeries = (rawSeries as Series[]).find((item) => item.featured) ?? null
+// Series shown on the Hub: the one chosen in data/featured.json (hub.series), else the one flagged `featured` in series.json.
+const allSeries = rawSeries as Series[]
+const chosenSeriesSlug = (featuredData.hub as { series?: string }).series
+const featuredSeries =
+  allSeries.find((item) => item.slug === chosenSeriesSlug) ?? allSeries.find((item) => item.featured) ?? null
 
 // Projects carrying one of these domains are the applied-economics core of the catalogue;
 // the rest (ML, NLP, scraping, BI...) is listed compactly as "other technical work".
